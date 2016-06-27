@@ -1,24 +1,8 @@
-From 0dda27cf318a4967b22d070981c156766120fd6c Mon Sep 17 00:00:00 2001
+From 9ef0128c4123288a69ed0cbe60015334bc1e3f64 Mon Sep 17 00:00:00 2001
 From: Momo <momo@momoperes.ca>
 Date: Mon, 27 Jun 2016 14:18:03 -0400
 Subject: [PATCH] Fix Javadocs errors
 
----
- src/main/java/co/aikar/timings/Timing.java                 |  3 +++
- src/main/java/co/aikar/timings/Timings.java                |  2 +-
- src/main/java/org/bukkit/command/SimpleCommandMap.java     | 10 +++++++++-
- src/main/java/org/bukkit/entity/Player.java                |  8 +++++++-
- .../org/bukkit/event/player/PlayerItemConsumeEvent.java    |  4 ++++
- src/main/java/org/bukkit/material/Dirt.java                |  8 ++++++++
- src/main/java/org/bukkit/material/DoublePlant.java         |  8 ++++++++
- src/main/java/org/bukkit/material/Prismarine.java          |  8 ++++++++
- src/main/java/org/bukkit/material/Sand.java                |  8 ++++++++
- src/main/java/org/bukkit/material/Sponge.java              |  8 ++++++++
- src/main/java/org/bukkit/material/Stone.java               |  8 ++++++++
- src/main/java/org/bukkit/potion/Potion.java                | 14 ++++++++++++++
- src/main/java/org/bukkit/potion/PotionBrewer.java          |  2 ++
- src/main/java/org/bukkit/potion/PotionType.java            |  8 ++++++++
- 14 files changed, 96 insertions(+), 3 deletions(-)
 
 diff --git a/src/main/java/co/aikar/timings/Timing.java b/src/main/java/co/aikar/timings/Timing.java
 index d2b35f6..d5a6afa 100644
@@ -449,5 +433,5 @@ index 60470b8..79ee347 100644
      @Deprecated
      public static PotionType getByEffect(PotionEffectType effectType) {
 -- 
-1.9.5.msysgit.1
+2.9.0.windows.1
 

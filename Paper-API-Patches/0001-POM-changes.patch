@@ -1,11 +1,11 @@
-From 5b95fa171eec98447060d2bb37304ec922795241 Mon Sep 17 00:00:00 2001
+From 5c83ac80ca621a0786d2fd298ac2b9416bbf2f89 Mon Sep 17 00:00:00 2001
 From: kamcio96 <kamcio96@users.noreply.github.com>
 Date: Mon, 27 Jun 2016 17:15:15 +0200
 Subject: [PATCH] POM changes
 
 
 diff --git a/pom.xml b/pom.xml
-index 67807c1..4f5780f 100644
+index 67807c1..111015b 100644
 --- a/pom.xml
 +++ b/pom.xml
 @@ -4,23 +4,23 @@
@@ -41,24 +41,26 @@ index 67807c1..4f5780f 100644
          <maven.compiler.source>1.8</maven.compiler.source>
          <maven.compiler.target>1.8</maven.compiler.target>
          <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-@@ -29,12 +29,12 @@
+@@ -29,12 +29,14 @@
      <!-- just until we get deployment to central approved -->
      <distributionManagement>
          <repository>
 -            <id>destroystokyo-releases</id>
 -            <url>https://repo.destroystokyo.com/content/repositories/releases/</url>
-+            <id>glowstone-releases</id>
-+            <url>https://repo.glowstone.net/content/repositories/releases/</url>
++            <id>glowstone-upstream</id>
++            <name>glowstone-releases</name>
++            <url>https://repo.glowstone.net/content/repositories/releases</url>
          </repository>
          <snapshotRepository>
 -            <id>destroystokyo-snapshots</id>
 -            <url>https://repo.destroystokyo.com/content/repositories/snapshots/</url>
-+            <id>glowstone-snapshots</id>
-+            <url>https://repo.glowstone.net/content/repositories/snapshots/</url>
++            <id>glowstone-upstream</id>
++            <name>glowstone-snapshots</name>
++            <url>https://repo.glowstone.net/content/repositories/snapshots</url>
          </snapshotRepository>
      </distributionManagement>
  
-@@ -51,6 +51,11 @@
+@@ -51,6 +53,11 @@
              <id>sonatype</id>
              <url>https://oss.sonatype.org/content/groups/public/</url>
          </repository>
@@ -70,7 +72,7 @@ index 67807c1..4f5780f 100644
      </repositories>
  
      <dependencies>
-@@ -58,7 +63,7 @@
+@@ -58,7 +65,7 @@
              <groupId>net.sf.trove4j</groupId>
              <artifactId>trove4j</artifactId>
              <version>3.0.3</version>
@@ -79,7 +81,7 @@ index 67807c1..4f5780f 100644
              <scope>provided</scope>
          </dependency>
          <dependency>
-@@ -80,14 +85,12 @@
+@@ -80,14 +87,12 @@
              <type>jar</type>
              <scope>compile</scope>
          </dependency>
