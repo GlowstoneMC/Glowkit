@@ -1,0 +1,74 @@
+From ef977739c97c85aef6bdb88537202203e78a82e2 Mon Sep 17 00:00:00 2001
+From: mastercoms <circuitsoft@tuta.io>
+Date: Sun, 19 Jun 2016 09:21:40 -0400
+Subject: [PATCH 12/19] Enhance timings
+
+---
+ src/main/java/co/aikar/timings/TimedEventExecutor.java | 8 ++++----
+ src/main/java/co/aikar/timings/Timing.java             | 2 +-
+ src/main/java/co/aikar/timings/Timings.java            | 3 +--
+ src/main/java/co/aikar/timings/TimingsManager.java     | 2 +-
+ 4 files changed, 7 insertions(+), 8 deletions(-)
+
+diff --git a/src/main/java/co/aikar/timings/TimedEventExecutor.java b/src/main/java/co/aikar/timings/TimedEventExecutor.java
+index 96057fc..829fc0f 100644
+--- a/src/main/java/co/aikar/timings/TimedEventExecutor.java
++++ b/src/main/java/co/aikar/timings/TimedEventExecutor.java
+@@ -40,10 +40,10 @@ public class TimedEventExecutor implements EventExecutor {
+     /**
+      * Wraps an event executor and associates a timing handler to it.
+      *
+-     * @param executor
+-     * @param plugin
+-     * @param method
+-     * @param eventClass
++     * @param executor The event executor.
++     * @param plugin The plugin associated with the method.
++     * @param method The method to profile.
++     * @param eventClass The class of the event.
+      */
+     public TimedEventExecutor(EventExecutor executor, Plugin plugin, Method method, Class<? extends Event> eventClass) {
+         this.executor = executor;
+diff --git a/src/main/java/co/aikar/timings/Timing.java b/src/main/java/co/aikar/timings/Timing.java
+index 8b2d1b8..d2b35f6 100644
+--- a/src/main/java/co/aikar/timings/Timing.java
++++ b/src/main/java/co/aikar/timings/Timing.java
+@@ -63,7 +63,7 @@ public interface Timing extends AutoCloseable {
+     /**
+      * Used internally to get the actual backing Handler in the case of delegated Handlers
+      *
+-     * @return TimingHandler
++     * @return TimingHandler The internal timing handler.
+      */
+     TimingHandler getTimingHandler();
+ 
+diff --git a/src/main/java/co/aikar/timings/Timings.java b/src/main/java/co/aikar/timings/Timings.java
+index 0f7be03..35544da 100644
+--- a/src/main/java/co/aikar/timings/Timings.java
++++ b/src/main/java/co/aikar/timings/Timings.java
+@@ -142,8 +142,7 @@ public final class Timings {
+     }
+ 
+     /**
+-     * Sets whether or not the Timings should monitor at Verbose level.
+-     * <p/>
++     * <p>Sets whether or not the Timings should monitor at Verbose level.<p/>
+      * When Verbose is disabled, high-frequency timings will not be available.
+      * Calling this will reset timing data.
+      *
+diff --git a/src/main/java/co/aikar/timings/TimingsManager.java b/src/main/java/co/aikar/timings/TimingsManager.java
+index 58ed35e..3ce515c 100644
+--- a/src/main/java/co/aikar/timings/TimingsManager.java
++++ b/src/main/java/co/aikar/timings/TimingsManager.java
+@@ -160,7 +160,7 @@ public final class TimingsManager {
+         final Server server = Bukkit.getServer();
+         if (!(  server == null || pluginName == null ||
+                 "minecraft".equals(pluginName) || "bukkit".equals(pluginName) ||
+-                "spigot".equalsIgnoreCase(pluginName) || "paper".equals(pluginName)
++                "spigot".equalsIgnoreCase(pluginName) || "paper".equals(pluginName) || "glowstone".equals(pluginName)
+         )) {
+             plugin = server.getPluginManager().getPlugin(pluginName);
+         }
+-- 
+2.8.3
+

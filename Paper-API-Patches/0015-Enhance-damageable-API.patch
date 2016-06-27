@@ -1,0 +1,77 @@
+From d0b944016004739508cfffb3a72663902e9bd90c Mon Sep 17 00:00:00 2001
+From: mastercoms <circuitsoft@tuta.io>
+Date: Sun, 19 Jun 2016 14:13:45 -0400
+Subject: [PATCH 15/19] Enhance damageable API
+
+---
+ src/main/java/org/bukkit/entity/Damageable.java | 27 ++++++++++++++++++++++---
+ 1 file changed, 24 insertions(+), 3 deletions(-)
+
+diff --git a/src/main/java/org/bukkit/entity/Damageable.java b/src/main/java/org/bukkit/entity/Damageable.java
+index d0599cf..5fab5ff 100644
+--- a/src/main/java/org/bukkit/entity/Damageable.java
++++ b/src/main/java/org/bukkit/entity/Damageable.java
+@@ -1,5 +1,7 @@
+ package org.bukkit.entity;
+ 
++import org.bukkit.event.entity.EntityDamageEvent;
++
+ /**
+  * Represents an {@link Entity} that has health and can take damage.
+  */
+@@ -15,7 +17,7 @@ public interface Damageable extends Entity {
+      * This method exists for legacy reasons to provide backwards
+      * compatibility. It will not exist at runtime and should not be used
+      * under any circumstances.
+-     * 
++     *
+      * @param amount Amount of damage to deal
+      */
+     @Deprecated
+@@ -31,6 +33,25 @@ public interface Damageable extends Entity {
+     void damage(double amount, Entity source);
+ 
+     /**
++     * Deals the given amount of damage to this entity, from a specified
++     * cause.
++     *
++     * @param amount Amount of damage to deal
++     * @param cause  Cause of the damage
++     */
++    void damage(double amount, EntityDamageEvent.DamageCause cause);
++
++    /**
++     * Deals the given amount of damage to this entity, from a specified
++     * cause.
++     *
++     * @param amount Amount of damage to deal
++     * @param source Entity which to attribute this damage from
++     * @param cause  Cause of the damage
++     */
++    void damage(double amount, Entity source, EntityDamageEvent.DamageCause cause);
++
++    /**
+      * This method exists for legacy reasons to provide backwards
+      * compatibility. It will not exist at runtime and should not be used
+      * under any circumstances.
+@@ -52,7 +73,7 @@ public interface Damageable extends Entity {
+      * This method exists for legacy reasons to provide backwards
+      * compatibility. It will not exist at runtime and should not be used
+      * under any circumstances.
+-     * 
++     *
+      * @return Health represented from 0 to max
+      */
+     @Deprecated
+@@ -91,7 +112,7 @@ public interface Damageable extends Entity {
+      * This method exists for legacy reasons to provide backwards
+      * compatibility. It will not exist at runtime and should not be used
+      * under any circumstances.
+-     * 
++     *
+      * @return Maximum health
+      */
+     @Deprecated
+-- 
+2.8.3
+

@@ -1,0 +1,9 @@
+[submodule "work/Bukkit"]
+	path = work/Bukkit
+	url = https://hub.spigotmc.org/stash/scm/spigot/bukkit.git
+[submodule "work/Spigot"]
+	path = work/Spigot
+	url = https://hub.spigotmc.org/stash/scm/spigot/spigot.git
+[submodule "work/Paper"]
+	path = work/Paper
+	url = https://github.com/PaperMC/Paper.git

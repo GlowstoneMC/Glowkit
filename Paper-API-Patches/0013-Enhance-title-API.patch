@@ -1,0 +1,846 @@
+From 80bb328760279956613cc7b9e7a7916996c89eab Mon Sep 17 00:00:00 2001
+From: mastercoms <circuitsoft@tuta.io>
+Date: Sun, 19 Jun 2016 14:05:20 -0400
+Subject: [PATCH 13/19] Enhance title API
+
+---
+ src/main/java/co/aikar/util/JSONUtil.java          |  39 ++++----
+ src/main/java/co/aikar/util/LoadingIntMap.java     |   2 +-
+ src/main/java/co/aikar/util/LoadingMap.java        | 109 ++++++++++-----------
+ src/main/java/co/aikar/util/MRUMapCache.java       |  12 +--
+ src/main/java/com/destroystokyo/paper/Title.java   |  28 +++---
+ src/main/java/org/bukkit/World.java                |  36 +++----
+ src/main/java/org/bukkit/entity/Player.java        |  38 ++++---
+ src/main/java/org/bukkit/entity/Villager.java      |   7 +-
+ .../org/bukkit/event/player/PlayerLoginEvent.java  |   6 +-
+ .../player/PlayerResourcePackStatusEvent.java      |   7 ++
+ 10 files changed, 141 insertions(+), 143 deletions(-)
+
+diff --git a/src/main/java/co/aikar/util/JSONUtil.java b/src/main/java/co/aikar/util/JSONUtil.java
+index 5fdf7c4..38fc9f3 100644
+--- a/src/main/java/co/aikar/util/JSONUtil.java
++++ b/src/main/java/co/aikar/util/JSONUtil.java
+@@ -3,10 +3,7 @@ package co.aikar.util;
+ import com.google.common.base.Function;
+ import com.google.common.collect.Lists;
+ import com.google.common.collect.Maps;
+-import org.json.simple.JSONArray;
+-import org.json.simple.JSONObject;
+ 
+-import java.util.ArrayList;
+ import java.util.LinkedHashMap;
+ import java.util.List;
+ import java.util.Map;
+@@ -20,9 +17,9 @@ public final class JSONUtil {
+ 
+     /**
+      * Creates a key/value "JSONPair" object
+-     * @param key
+-     * @param obj
+-     * @return
++     * @param key The key.
++     * @param obj The value.
++     * @return The resultant JSON key/value map.
+      */
+     public static JSONPair pair(String key, Object obj) {
+         return new JSONPair(key, obj);
+@@ -34,8 +31,8 @@ public final class JSONUtil {
+ 
+     /**
+      * Creates a new JSON object from multiple JsonPair key/value pairs
+-     * @param data
+-     * @return
++     * @param data The key-value map in JSON.
++     * @return The Java equivalent for this map.
+      */
+     public static Map createObject(JSONPair... data) {
+         return appendObjectData(new LinkedHashMap(), data);
+@@ -43,9 +40,9 @@ public final class JSONUtil {
+ 
+     /**
+      * This appends multiple key/value Obj pairs into a JSON Object
+-     * @param parent
+-     * @param data
+-     * @return
++     * @param parent The original map in Java.
++     * @param data The key/value map in JSON to add to the original map.
++     * @return The resultant map.
+      */
+     public static Map appendObjectData(Map parent, JSONPair... data) {
+         for (JSONPair JSONPair : data) {
+@@ -56,8 +53,8 @@ public final class JSONUtil {
+ 
+     /**
+      * This builds a JSON array from a set of data
+-     * @param data
+-     * @return
++     * @param data The Java objects to collect into the list.
++     * @return The resultant list.
+      */
+     public static List toArray(Object... data) {
+         return Lists.newArrayList(data);
+@@ -65,10 +62,10 @@ public final class JSONUtil {
+ 
+     /**
+      * These help build a single JSON array using a mapper function
+-     * @param collection
+-     * @param mapper
+-     * @param <E>
+-     * @return
++     * @param collection An array of objects of type E.
++     * @param mapper The function to use to map the array of objects.
++     * @param <E> The type of the objects.
++     * @return The resultant list.
+      */
+     public static <E> List toArrayMapper(E[] collection, Function<E, Object> mapper) {
+         return toArrayMapper(Lists.newArrayList(collection), mapper);
+@@ -87,10 +84,10 @@ public final class JSONUtil {
+ 
+     /**
+      * These help build a single JSON Object from a collection, using a mapper function
+-     * @param collection
+-     * @param mapper
+-     * @param <E>
+-     * @return
++     * @param collection An array of objects of type E.
++     * @param mapper The function to use to map the array of objects.
++     * @param <E> The type of the objects.
++     * @return The resultant list.
+      */
+     public static <E> Map toObjectMapper(E[] collection, Function<E, JSONPair> mapper) {
+         return toObjectMapper(Lists.newArrayList(collection), mapper);
+diff --git a/src/main/java/co/aikar/util/LoadingIntMap.java b/src/main/java/co/aikar/util/LoadingIntMap.java
+index 79fa9d5..c2a32bc 100644
+--- a/src/main/java/co/aikar/util/LoadingIntMap.java
++++ b/src/main/java/co/aikar/util/LoadingIntMap.java
+@@ -57,7 +57,7 @@ public class LoadingIntMap<V> extends Int2ObjectOpenHashMap<V> {
+ 
+     /**
+      * Due to java stuff, you will need to cast it to (Function) for some cases
+-     * @param <T>
++     * @param <T> The type.
+      */
+     public abstract static class Feeder <T> implements Function<T, T> {
+         @Override
+diff --git a/src/main/java/co/aikar/util/LoadingMap.java b/src/main/java/co/aikar/util/LoadingMap.java
+index a9f2919..e0834a4 100644
+--- a/src/main/java/co/aikar/util/LoadingMap.java
++++ b/src/main/java/co/aikar/util/LoadingMap.java
+@@ -25,18 +25,9 @@ package co.aikar.util;
+ 
+ 
+ import com.google.common.base.Function;
+-import org.bukkit.Material;
+-import co.aikar.timings.TimingHistory;
+-import org.w3c.dom.css.Counter;
+ 
+ import java.lang.reflect.Constructor;
+-import java.util.AbstractMap;
+-import java.util.Collection;
+-import java.util.EnumMap;
+-import java.util.HashMap;
+-import java.util.IdentityHashMap;
+-import java.util.Map;
+-import java.util.Set;
++import java.util.*;
+ 
+ /**
+  * Allows you to pass a Loader function that when a key is accessed that doesn't exists,
+@@ -59,8 +50,8 @@ public class LoadingMap <K,V> extends AbstractMap<K, V> {
+ 
+     /**
+      * Initializes an auto loading map using specified loader and backing map
+-     * @param backingMap
+-     * @param loader
++     * @param backingMap Actual map being used.
++     * @param loader The loader for this LoadingMap.
+      */
+     public LoadingMap(Map<K, V> backingMap, Function<K, V> loader) {
+         this.backingMap = backingMap;
+@@ -69,11 +60,11 @@ public class LoadingMap <K,V> extends AbstractMap<K, V> {
+ 
+     /**
+      * Creates a new LoadingMap with the specified map and loader
+-     * @param backingMap
+-     * @param loader
+-     * @param <K>
+-     * @param <V>
+-     * @return
++     * @param backingMap Actual map being used.
++     * @param loader The loader for this LoadingMap.
++     * @param <K> Key Type of the Map
++     * @param <V> Value Type of the Map
++     * @return The resultant map.
+      */
+     public static <K, V> Map<K, V> of(Map<K, V> backingMap, Function<K, V> loader) {
+         return new LoadingMap<K, V>(backingMap, loader);
+@@ -121,11 +112,11 @@ public class LoadingMap <K,V> extends AbstractMap<K, V> {
+      * @see #newAutoMap
+      *
+      * new Auto initializing map using a HashMap.
+-     * @param keyClass
+-     * @param valueClass
+-     * @param <K>
+-     * @param <V>
+-     * @return
++     * @param keyClass Class used for the K generic
++     * @param valueClass Class used for the V generic
++     * @param <K> Key Type of the Map
++     * @param <V> Value Type of the Map
++     * @return HashMap that auto instantiates on .get()
+      */
+     public static <K, V> Map<K, V> newHashAutoMap(final Class<? extends K> keyClass, final Class<? extends V> valueClass) {
+         return newAutoMap(new HashMap<K, V>(), keyClass, valueClass);
+@@ -135,10 +126,10 @@ public class LoadingMap <K,V> extends AbstractMap<K, V> {
+      * @see #newAutoMap
+      *
+      * new Auto initializing map using a HashMap.
+-     * @param valueClass
+-     * @param <K>
+-     * @param <V>
+-     * @return
++     * @param valueClass Class used for the V generic
++     * @param <K> Key Type of the Map
++     * @param <V> Value Type of the Map
++     * @return HashMap that auto instantiates on .get()
+      */
+     public static <K, V> Map<K, V> newHashAutoMap(final Class<? extends V> valueClass) {
+         return newHashAutoMap(null, valueClass);
+@@ -149,13 +140,13 @@ public class LoadingMap <K,V> extends AbstractMap<K, V> {
+      *
+      * new Auto initializing map using a HashMap.
+      *
+-     * @param keyClass
+-     * @param valueClass
+-     * @param initialCapacity
+-     * @param loadFactor
+-     * @param <K>
+-     * @param <V>
+-     * @return
++     * @param keyClass Class used for the K generic
++     * @param valueClass Class used for the V generic
++     * @param initialCapacity The HashMap's initial capacity.
++     * @param loadFactor The HashMap's load factor.
++     * @param <K> Key Type of the Map
++     * @param <V> Value Type of the Map
++     * @return HashMap that auto instantiates on .get()
+      */
+     public static <K, V> Map<K, V> newHashAutoMap(final Class<? extends K> keyClass, final Class<? extends V> valueClass, int initialCapacity, float loadFactor) {
+         return newAutoMap(new HashMap<K, V>(initialCapacity, loadFactor), keyClass, valueClass);
+@@ -166,12 +157,12 @@ public class LoadingMap <K,V> extends AbstractMap<K, V> {
+      *
+      * new Auto initializing map using a HashMap.
+      *
+-     * @param valueClass
+-     * @param initialCapacity
+-     * @param loadFactor
+-     * @param <K>
+-     * @param <V>
+-     * @return
++     * @param valueClass Class used for the V generic
++     * @param initialCapacity The HashMap's initial capacity.
++     * @param loadFactor The HashMap's load factor.
++     * @param <K> Key Type of the Map
++     * @param <V> Value Type of the Map
++     * @return HashMap that auto instantiates on .get()
+      */
+     public static <K, V> Map<K, V> newHashAutoMap(final Class<? extends V> valueClass, int initialCapacity, float loadFactor) {
+         return newHashAutoMap(null, valueClass, initialCapacity, loadFactor);
+@@ -179,10 +170,10 @@ public class LoadingMap <K,V> extends AbstractMap<K, V> {
+ 
+     /**
+      * Initializes an auto loading map using a HashMap
+-     * @param loader
+-     * @param <K>
+-     * @param <V>
+-     * @return
++     * @param loader The loader for this LoadingMap.
++     * @param <K> Key Type of the Map
++     * @param <V> Value Type of the Map
++     * @return HashMap that auto instantiates on .get()
+      */
+     public static <K, V> Map<K, V> newHashMap(Function<K, V> loader) {
+         return new LoadingMap<K, V>(new HashMap<K, V>(), loader);
+@@ -190,12 +181,12 @@ public class LoadingMap <K,V> extends AbstractMap<K, V> {
+ 
+     /**
+      * Initializes an auto loading map using a HashMap
+-     * @param loader
+-     * @param initialCapacity
+-     * @param loadFactor
+-     * @param <K>
+-     * @param <V>
+-     * @return
++     * @param loader The loader for this LoadingMap.
++     * @param initialCapacity The HashMap's initial capacity.
++     * @param loadFactor The HashMap's load factor.
++     * @param <K> Key Type of the Map
++     * @param <V> Value Type of the Map
++     * @return HashMap that auto instantiates on .get()
+      */
+     public static <K, V> Map<K, V> newHashMap(Function<K, V> loader, int initialCapacity, float loadFactor) {
+         return new LoadingMap<K, V>(new HashMap<K, V>(initialCapacity, loadFactor), loader);
+@@ -203,10 +194,10 @@ public class LoadingMap <K,V> extends AbstractMap<K, V> {
+ 
+     /**
+      * Initializes an auto loading map using an Identity HashMap
+-     * @param loader
+-     * @param <K>
+-     * @param <V>
+-     * @return
++     * @param loader The loader for this LoadingMap.
++     * @param <K> Key Type of the Map
++     * @param <V> Value Type of the Map
++     * @return HashMap that auto instantiates on .get()
+      */
+     public static <K, V> Map<K, V> newIdentityHashMap(Function<K, V> loader) {
+         return new LoadingMap<K, V>(new IdentityHashMap<K, V>(), loader);
+@@ -214,11 +205,11 @@ public class LoadingMap <K,V> extends AbstractMap<K, V> {
+ 
+     /**
+      * Initializes an auto loading map using an Identity HashMap
+-     * @param loader
+-     * @param initialCapacity
+-     * @param <K>
+-     * @param <V>
+-     * @return
++     * @param loader The loader for this LoadingMap.
++     * @param initialCapacity The HashMap's initial capacity.
++     * @param <K> Key Type of the Map
++     * @param <V> Value Type of the Map
++     * @return HashMap that auto instantiates on .get()
+      */
+     public static <K, V> Map<K, V> newIdentityHashMap(Function<K, V> loader, int initialCapacity) {
+         return new LoadingMap<K, V>(new IdentityHashMap<K, V>(initialCapacity), loader);
+@@ -319,7 +310,7 @@ public class LoadingMap <K,V> extends AbstractMap<K, V> {
+ 
+     /**
+      * Due to java stuff, you will need to cast it to (Function) for some cases
+-     * @param <T>
++     * @param <T> The type.
+      */
+     public abstract static class Feeder <T> implements Function<T, T> {
+         @Override
+diff --git a/src/main/java/co/aikar/util/MRUMapCache.java b/src/main/java/co/aikar/util/MRUMapCache.java
+index 3a288d2..e038671 100644
+--- a/src/main/java/co/aikar/util/MRUMapCache.java
++++ b/src/main/java/co/aikar/util/MRUMapCache.java
+@@ -30,8 +30,8 @@ import java.util.Set;
+ 
+ /**
+  * Implements a Most Recently Used cache in front of a backing map, to quickly access the last accessed result.
+- * @param <K>
+- * @param <V>
++ * @param <K> Key Type of the Map
++ * @param <V> Value Type of the Map
+  */
+ public class MRUMapCache<K, V> extends AbstractMap<K, V> {
+     final Map<K, V> backingMap;
+@@ -89,10 +89,10 @@ public class MRUMapCache<K, V> extends AbstractMap<K, V> {
+ 
+     /**
+      * Wraps the specified map with a most recently used cache
+-     * @param map
+-     * @param <K>
+-     * @param <V>
+-     * @return
++     * @param map The map used to create the MRU map.
++     * @param <K> Key Type of the Map
++     * @param <V> Value Type of the Map
++     * @return The most recently used cache map.
+      */
+     public static <K, V> Map<K, V> of(Map<K, V> map) {
+         return new MRUMapCache<K, V>(map);
+diff --git a/src/main/java/com/destroystokyo/paper/Title.java b/src/main/java/com/destroystokyo/paper/Title.java
+index e1ecd44..953bb7b 100644
+--- a/src/main/java/com/destroystokyo/paper/Title.java
++++ b/src/main/java/com/destroystokyo/paper/Title.java
+@@ -11,7 +11,7 @@ import static com.google.common.base.Preconditions.checkState;
+ 
+ /**
+  * Represents a title to may be sent to a {@link Player}.
+- * <p>
++ * <br>
+  * <p>A title can be sent without subtitle text.</p>
+  */
+ public final class Title {
+@@ -37,7 +37,7 @@ public final class Title {
+ 
+     /**
+      * Create a title with the default time values and no subtitle.
+-     * <p>
++     * <br>
+      * <p>Times use default values.</p>
+      *
+      * @param title the main text of the title
+@@ -49,7 +49,7 @@ public final class Title {
+ 
+     /**
+      * Create a title with the default time values and no subtitle.
+-     * <p>
++     * <br>
+      * <p>Times use default values.</p>
+      *
+      * @param title the main text of the title
+@@ -61,7 +61,7 @@ public final class Title {
+ 
+     /**
+      * Create a title with the default time values and no subtitle.
+-     * <p>
++     * <br>
+      * <p>Times use default values.</p>
+      *
+      * @param title the main text of the title
+@@ -73,7 +73,7 @@ public final class Title {
+ 
+     /**
+      * Create a title with the default time values.
+-     * <p>
++     * <br>
+      * <p>Times use default values.</p>
+      *
+      * @param title    the main text of the title
+@@ -85,7 +85,7 @@ public final class Title {
+ 
+     /**
+      * Create a title with the default time values.
+-     * <p>
++     * <br>
+      * <p>Times use default values.</p>
+      *
+      * @param title    the main text of the title
+@@ -97,7 +97,7 @@ public final class Title {
+ 
+     /**
+      * Create a title with the default time values.
+-     * <p>
++     * <br>
+      * <p>Times use default values.</p>
+      *
+      * @param title    the main text of the title
+@@ -150,8 +150,8 @@ public final class Title {
+ 
+     /**
+      * Creates a new title.
+-     * <p>
+-     * <p>It is recommended to the {@link BaseComponent} constrctors.</p>
++     * <br>
++     * <p>It is recommended to the {@link BaseComponent} constructors.</p>
+      *
+      * @param title    the main text of the title
+      * @param subtitle the secondary text of the title
+@@ -189,7 +189,7 @@ public final class Title {
+ 
+     /**
+      * Gets the number of ticks to fade in.
+-     * <p>
++     * <br>
+      * <p>The returned value is never negative.</p>
+      *
+      * @return the number of ticks to fade in
+@@ -200,7 +200,7 @@ public final class Title {
+ 
+     /**
+      * Gets the number of ticks to stay.
+-     * <p>
++     * <br>
+      * <p>The returned value is never negative.</p>
+      *
+      * @return the number of ticks to stay
+@@ -211,7 +211,7 @@ public final class Title {
+ 
+     /**
+      * Gets the number of ticks to fade out.
+-     * <p>
++     * <br>
+      * <p>The returned value is never negative.</p>
+      *
+      * @return the number of ticks to fade out
+@@ -260,7 +260,7 @@ public final class Title {
+ 
+         /**
+          * Sets the title to the given text.
+-         * <p>
++         * <br>
+          * <p>It is recommended to the {@link BaseComponent} methods.</p>
+          *
+          * @param title the title text
+@@ -294,7 +294,7 @@ public final class Title {
+ 
+         /**
+          * Sets the subtitle to the given text.
+-         * <p>
++         * <br>
+          * <p>It is recommended to the {@link BaseComponent} methods.</p>
+          *
+          * @param subtitle the title text
+diff --git a/src/main/java/org/bukkit/World.java b/src/main/java/org/bukkit/World.java
+index d16facb..56b904d 100644
+--- a/src/main/java/org/bukkit/World.java
++++ b/src/main/java/org/bukkit/World.java
+@@ -1,22 +1,18 @@
+ package org.bukkit;
+ 
+-import java.io.File;
+-import org.bukkit.generator.ChunkGenerator;
+-import java.util.Collection;
+-import java.util.HashMap;
+-import java.util.List;
+-import java.util.Map;
+-import java.util.UUID;
+-
+ import org.bukkit.block.Biome;
+ import org.bukkit.block.Block;
+ import org.bukkit.entity.*;
+ import org.bukkit.generator.BlockPopulator;
++import org.bukkit.generator.ChunkGenerator;
+ import org.bukkit.inventory.ItemStack;
+ import org.bukkit.metadata.Metadatable;
+ import org.bukkit.plugin.messaging.PluginMessageRecipient;
+ import org.bukkit.util.Vector;
+ 
++import java.io.File;
++import java.util.*;
++
+ /**
+  * Represents a world, which may contain entities, chunks and blocks
+  */
+@@ -357,7 +353,7 @@ public interface World extends PluginMessageRecipient, Metadatable {
+      * @param x X-coordinate of the chunk
+      * @param z Z-coordinate of the chunk
+      * @return Whether the chunk was actually refreshed
+-     * 
++     *
+      * @deprecated This method is not guaranteed to work suitably across all client implementations.
+      */
+     @Deprecated
+@@ -480,7 +476,7 @@ public interface World extends PluginMessageRecipient, Metadatable {
+     /**
+      * Get a collection of all entities in this World matching the given
+      * class/interface
+-     * 
++     *
+      * @param <T> an entity subclass
+      * @param cls The class representing the type of entity to match
+      * @return A List of all Entities currently residing in this world that
+@@ -1134,7 +1130,7 @@ public interface World extends PluginMessageRecipient, Metadatable {
+      * <p>
+      * <b>Note:</b> If set to a negative number the world will use the
+      * server-wide spawn limit instead.
+-     * 
++     *
+      * @param limit the new mob limit
+      */
+     void setMonsterSpawnLimit(int limit);
+@@ -1153,7 +1149,7 @@ public interface World extends PluginMessageRecipient, Metadatable {
+      * <p>
+      * <b>Note:</b> If set to a negative number the world will use the
+      * server-wide spawn limit instead.
+-     * 
++     *
+      * @param limit the new mob limit
+      */
+     void setAnimalSpawnLimit(int limit);
+@@ -1172,7 +1168,7 @@ public interface World extends PluginMessageRecipient, Metadatable {
+      * <p>
+      * <b>Note:</b> If set to a negative number the world will use the
+      * server-wide spawn limit instead.
+-     * 
++     *
+      * @param limit the new mob limit
+      */
+     void setWaterAnimalSpawnLimit(int limit);
+@@ -1191,7 +1187,7 @@ public interface World extends PluginMessageRecipient, Metadatable {
+      * <p>
+      * <b>Note:</b> If set to a negative number the world will use the
+      * server-wide spawn limit instead.
+-     * 
++     *
+      * @param limit the new mob limit
+      */
+     void setAmbientSpawnLimit(int limit);
+@@ -1306,19 +1302,19 @@ public interface World extends PluginMessageRecipient, Metadatable {
+         {
+             throw new UnsupportedOperationException( "Not supported yet." );
+         }
+-        
++
+         /**
+          * Strikes lightning at the given {@link Location} and possibly without sound
+          *
+          * @param loc The location to strike lightning
+          * @param isSilent Whether this strike makes no sound
+          * @return The lightning entity.
+-         */        
++         */
+         public LightningStrike strikeLightning(Location loc, boolean isSilent)
+         {
+             throw new UnsupportedOperationException( "Not supported yet." );
+         }
+-        
++
+         /**
+          * Strikes lightning at the given {@link Location} without doing damage and possibly without sound
+          *
+@@ -1373,6 +1369,7 @@ public interface World extends PluginMessageRecipient, Metadatable {
+      * @param count the number of particles
+      * @param data the data to use for the particle or null,
+      *             the type of this depends on {@link Particle#getDataType()}
++     * @param <T> the data type for this particle
+      */
+     public <T> void spawnParticle(Particle particle, Location location, int count, T data);
+ 
+@@ -1388,6 +1385,7 @@ public interface World extends PluginMessageRecipient, Metadatable {
+      * @param count the number of particles
+      * @param data the data to use for the particle or null,
+      *             the type of this depends on {@link Particle#getDataType()}
++     * @param <T> the data type for this particle
+      */
+     public <T> void spawnParticle(Particle particle, double x, double y, double z, int count, T data);
+ 
+@@ -1437,6 +1435,7 @@ public interface World extends PluginMessageRecipient, Metadatable {
+      * @param offsetZ the maximum random offset on the Z axis
+      * @param data the data to use for the particle or null,
+      *             the type of this depends on {@link Particle#getDataType()}
++     * @param <T> the data type for this particle
+      */
+     public <T> void spawnParticle(Particle particle, Location location, int count, double offsetX, double offsetY, double offsetZ, T data);
+ 
+@@ -1456,6 +1455,7 @@ public interface World extends PluginMessageRecipient, Metadatable {
+      * @param offsetZ the maximum random offset on the Z axis
+      * @param data the data to use for the particle or null,
+      *             the type of this depends on {@link Particle#getDataType()}
++     * @param <T> the data type for this particle
+      */
+     public <T> void spawnParticle(Particle particle, double x, double y, double z, int count, double offsetX, double offsetY, double offsetZ, T data);
+ 
+@@ -1511,6 +1511,7 @@ public interface World extends PluginMessageRecipient, Metadatable {
+      *              particle used (normally speed)
+      * @param data the data to use for the particle or null,
+      *             the type of this depends on {@link Particle#getDataType()}
++     * @param <T> the data type for this particle
+      */
+     public <T> void spawnParticle(Particle particle, Location location, int count, double offsetX, double offsetY, double offsetZ, double extra, T data);
+ 
+@@ -1532,6 +1533,7 @@ public interface World extends PluginMessageRecipient, Metadatable {
+      *              particle used (normally speed)
+      * @param data the data to use for the particle or null,
+      *             the type of this depends on {@link Particle#getDataType()}
++     * @param <T> the data type for this particle
+      */
+     public <T> void spawnParticle(Particle particle, double x, double y, double z, int count, double offsetX, double offsetY, double offsetZ, double extra, T data);
+ 
+diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
+index 1498349..79e4a6d 100644
+--- a/src/main/java/org/bukkit/entity/Player.java
++++ b/src/main/java/org/bukkit/entity/Player.java
+@@ -1,27 +1,15 @@
+ package org.bukkit.entity;
+ 
+-import java.net.InetSocketAddress;
+-
+ import com.destroystokyo.paper.Title;
+-import org.bukkit.Achievement;
+-import org.bukkit.ChatColor;
+-import org.bukkit.Effect;
+-import org.bukkit.GameMode;
+-import org.bukkit.Instrument;
+-import org.bukkit.Location;
+-import org.bukkit.Material;
+-import org.bukkit.Note;
+-import org.bukkit.OfflinePlayer;
+-import org.bukkit.Particle;
+-import org.bukkit.Sound;
+-import org.bukkit.Statistic;
+-import org.bukkit.WeatherType;
++import org.bukkit.*;
+ import org.bukkit.command.CommandSender;
+ import org.bukkit.conversations.Conversable;
+ import org.bukkit.map.MapView;
+ import org.bukkit.plugin.messaging.PluginMessageRecipient;
+ import org.bukkit.scoreboard.Scoreboard;
+ 
++import java.net.InetSocketAddress;
++
+ /**
+  * Represents a player, connected or not
+  */
+@@ -401,6 +389,7 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
+     /**
+      * Update the subtitle of titles displayed to the player
+      *
++     * @param subtitle little text under title
+      * @deprecated Use {@link #updateTitle(Title)}
+      */
+     @Deprecated
+@@ -409,6 +398,7 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
+     /**
+      * Update the subtitle of titles displayed to the player
+      *
++     * @param subtitle little text under title
+      * @deprecated Use {@link #updateTitle(Title)}
+      */
+     @Deprecated
+@@ -417,6 +407,7 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
+     /**
+      * Show the given title to the player, along with the last subtitle set, using the last set times
+      *
++     * @param title big text
+      * @deprecated Use {@link #sendTitle(Title)} or {@link #updateTitle(Title)}
+      */
+     @Deprecated
+@@ -425,6 +416,7 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
+     /**
+      * Show the given title to the player, along with the last subtitle set, using the last set times
+      *
++     * @param title big text
+      * @deprecated Use {@link #sendTitle(Title)} or {@link #updateTitle(Title)}
+      */
+     @Deprecated
+@@ -458,7 +450,7 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
+ 
+     /**
+      * Show the title to the player, overriding any previously displayed title.
+-     * <p>
++     * <br>
+      * <p>This method overrides any previous title, use {@link #updateTitle(Title)} to change the existing one.</p>
+      *
+      * @param title the title to send
+@@ -468,7 +460,7 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
+ 
+     /**
+      * Show the title to the player, overriding any previously displayed title.
+-     * <p>
++     * <br>
+      * <p>This method doesn't override previous titles, but changes their values.</p>
+      *
+      * @param title the title to send
+@@ -483,6 +475,13 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
+     // Paper end
+ 
+     /**
++     * Gets the title currently set on the player
++     *
++     * @return the current title
++     */
++    public Title getTitle();
++
++    /**
+      * Forces an update of the player's entire inventory.
+      *
+      */
+@@ -1217,7 +1216,7 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
+      *
+      * @param title Title text
+      * @param subtitle Subtitle text
+-     * @deprecated API subject to change
++     * @deprecated Use {@link #sendTitle(Title)} or {@link #updateTitle(Title)}
+      */
+     @Deprecated
+     public void sendTitle(String title, String subtitle);
+@@ -1229,7 +1228,6 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
+     // Paper - undeprecate
+     public void resetTitle();
+ 
+-
+     /**
+      * Spawns the particle (the number of times specified by count)
+      * at the target location.
+@@ -1607,7 +1605,7 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
+          * Sends an array of components as a single message to the specified screen position of this player
+          *
+          * @param position the screen position
+-         * @param component the components to send
++         * @param components the components to send
+          */
+         public void sendMessage(net.md_5.bungee.api.ChatMessageType position, net.md_5.bungee.api.chat.BaseComponent... components) {
+             throw new UnsupportedOperationException("Not supported yet.");
+diff --git a/src/main/java/org/bukkit/entity/Villager.java b/src/main/java/org/bukkit/entity/Villager.java
+index 1120330..212f0ef 100644
+--- a/src/main/java/org/bukkit/entity/Villager.java
++++ b/src/main/java/org/bukkit/entity/Villager.java
+@@ -1,10 +1,11 @@
+ package org.bukkit.entity;
+ 
+-import java.util.List;
+ import org.bukkit.inventory.Inventory;
+ import org.bukkit.inventory.InventoryHolder;
+ import org.bukkit.inventory.MerchantRecipe;
+ 
++import java.util.List;
++
+ /**
+  * Represents a villager NPC
+  */
+@@ -46,7 +47,7 @@ public interface Villager extends Ageable, NPC, InventoryHolder {
+      *
+      * @param i the index
+      * @return the recipe
+-     * @throws IndexOutOfBoundsException
++     * @throws IndexOutOfBoundsException thrown when the index is not within the bounds of the villager's trade list
+      */
+     MerchantRecipe getRecipe(int i) throws IndexOutOfBoundsException;
+ 
+@@ -55,7 +56,7 @@ public interface Villager extends Ageable, NPC, InventoryHolder {
+      *
+      * @param i the index
+      * @param recipe the recipe
+-     * @throws IndexOutOfBoundsException
++     * @throws IndexOutOfBoundsException thrown when the index is not within the bounds of the villager's trade list
+      */
+     void setRecipe(int i, MerchantRecipe recipe) throws IndexOutOfBoundsException;
+ 
+diff --git a/src/main/java/org/bukkit/event/player/PlayerLoginEvent.java b/src/main/java/org/bukkit/event/player/PlayerLoginEvent.java
+index 4bc024f..8c939b1 100644
+--- a/src/main/java/org/bukkit/event/player/PlayerLoginEvent.java
++++ b/src/main/java/org/bukkit/event/player/PlayerLoginEvent.java
+@@ -1,10 +1,10 @@
+ package org.bukkit.event.player;
+ 
+-import java.net.InetAddress;
+-
+ import org.bukkit.entity.Player;
+ import org.bukkit.event.HandlerList;
+ 
++import java.net.InetAddress;
++
+ /**
+  * Stores details for players attempting to log in
+  */
+@@ -43,6 +43,7 @@ public class PlayerLoginEvent extends PlayerEvent {
+      * @param hostname The hostname that was used to connect to the server
+      * @param address The address the player used to connect, provided for
+      *     timing issues
++     * @param realAddress The real address the player used to connect
+      */
+     public PlayerLoginEvent(final Player player, final String hostname, final InetAddress address, final InetAddress realAddress) { // Spigot
+         super(player);
+@@ -78,6 +79,7 @@ public class PlayerLoginEvent extends PlayerEvent {
+      *     timing issues
+      * @param result The result status for this event
+      * @param message The message to be displayed if result denies login
++     * @param realAddress The real address the player used to connect
+      */
+     public PlayerLoginEvent(final Player player, String hostname, final InetAddress address, final Result result, final String message, final InetAddress realAddress) { // Spigot
+         this(player, hostname, address, realAddress); // Spigot
+diff --git a/src/main/java/org/bukkit/event/player/PlayerResourcePackStatusEvent.java b/src/main/java/org/bukkit/event/player/PlayerResourcePackStatusEvent.java
+index 4c83851..a26e27a 100644
+--- a/src/main/java/org/bukkit/event/player/PlayerResourcePackStatusEvent.java
++++ b/src/main/java/org/bukkit/event/player/PlayerResourcePackStatusEvent.java
+@@ -27,6 +27,13 @@ public class PlayerResourcePackStatusEvent extends PlayerEvent {
+         this.status = resourcePackStatus;
+     }
+ 
++    /**
++     * Gets the specified hash of the resource pack sent to the client.
++     *
++     * This can be used to identify different resource packs sent to the client.
++     *
++     * @return hash The hash of the resource pack
++     */
+     public String getHash() {
+         return this.hash;
+     }
+-- 
+2.8.3
+
