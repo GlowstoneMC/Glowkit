@@ -1,0 +1,38 @@
+From 91095bf59fd4b706f7c133aca3bcde45fd492c74 Mon Sep 17 00:00:00 2001
+From: Momo <momo@momoperes.ca>
+Date: Mon, 27 Jun 2016 15:16:37 -0400
+Subject: [PATCH] Add PolarBear API
+
+---
+ src/main/java/org/bukkit/entity/PolarBear.java | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
+
+diff --git a/src/main/java/org/bukkit/entity/PolarBear.java b/src/main/java/org/bukkit/entity/PolarBear.java
+index 479f7a7..2a6dc6a 100644
+--- a/src/main/java/org/bukkit/entity/PolarBear.java
++++ b/src/main/java/org/bukkit/entity/PolarBear.java
+@@ -3,4 +3,20 @@ package org.bukkit.entity;
+ /**
+  * Represents a polar bear.
+  */
+-public interface PolarBear extends Animals {}
++public interface PolarBear extends Animals {
++
++    /**
++     * Whether the Polar Bear is standing.
++     *
++     * @return true if the Polar Bear is standing, false otherwise
++     */
++    boolean isStanding();
++
++    /**
++     * Changes the standing state of the Polar Bear.
++     *
++     * @param standing true if the Polar Bear is standing, false otherwise
++     */
++    void setStanding(boolean standing);
++
++}
+-- 
+1.9.5.msysgit.1
+
