@@ -1,10 +1,11 @@
-From f923ae301d6eba646bc4c8502feac87f424316fd Mon Sep 17 00:00:00 2001
+From 0dda27cf318a4967b22d070981c156766120fd6c Mon Sep 17 00:00:00 2001
 From: Momo <momo@momoperes.ca>
 Date: Mon, 27 Jun 2016 14:18:03 -0400
 Subject: [PATCH] Fix Javadocs errors
 
 ---
  src/main/java/co/aikar/timings/Timing.java                 |  3 +++
+ src/main/java/co/aikar/timings/Timings.java                |  2 +-
  src/main/java/org/bukkit/command/SimpleCommandMap.java     | 10 +++++++++-
  src/main/java/org/bukkit/entity/Player.java                |  8 +++++++-
  .../org/bukkit/event/player/PlayerItemConsumeEvent.java    |  4 ++++
@@ -17,7 +18,7 @@ Subject: [PATCH] Fix Javadocs errors
  src/main/java/org/bukkit/potion/Potion.java                | 14 ++++++++++++++
  src/main/java/org/bukkit/potion/PotionBrewer.java          |  2 ++
  src/main/java/org/bukkit/potion/PotionType.java            |  8 ++++++++
- 13 files changed, 95 insertions(+), 2 deletions(-)
+ 14 files changed, 96 insertions(+), 3 deletions(-)
 
 diff --git a/src/main/java/co/aikar/timings/Timing.java b/src/main/java/co/aikar/timings/Timing.java
 index d2b35f6..d5a6afa 100644
@@ -40,6 +41,19 @@ index d2b35f6..d5a6afa 100644
       */
      Timing startTimingIfSync();
  
+diff --git a/src/main/java/co/aikar/timings/Timings.java b/src/main/java/co/aikar/timings/Timings.java
+index 35544da..17d7da6 100644
+--- a/src/main/java/co/aikar/timings/Timings.java
++++ b/src/main/java/co/aikar/timings/Timings.java
+@@ -142,7 +142,7 @@ public final class Timings {
+     }
+ 
+     /**
+-     * <p>Sets whether or not the Timings should monitor at Verbose level.<p/>
++     * <p>Sets whether or not the Timings should monitor at Verbose level.</p>
+      * When Verbose is disabled, high-frequency timings will not be available.
+      * Calling this will reset timing data.
+      *
 diff --git a/src/main/java/org/bukkit/command/SimpleCommandMap.java b/src/main/java/org/bukkit/command/SimpleCommandMap.java
 index 4d57832..8becb80 100644
 --- a/src/main/java/org/bukkit/command/SimpleCommandMap.java
