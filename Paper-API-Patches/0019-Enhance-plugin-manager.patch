@@ -1,12 +1,8 @@
-From dbd461c54238f4ed5d793f6f01212827ea3318ac Mon Sep 17 00:00:00 2001
+From 758cae36dc9115efa219917d944f9fb2e22e42ab Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Sun, 19 Jun 2016 14:39:25 -0400
-Subject: [PATCH 19/19] Enhance plugin manager
+Subject: [PATCH] Enhance plugin manager
 
----
- src/main/java/org/bukkit/plugin/PluginManager.java |   9 ++
- .../org/bukkit/plugin/SimplePluginManager.java     | 100 ++++++++++++---------
- 2 files changed, 69 insertions(+), 40 deletions(-)
 
 diff --git a/src/main/java/org/bukkit/plugin/PluginManager.java b/src/main/java/org/bukkit/plugin/PluginManager.java
 index b2b6918..84bba43 100644
@@ -29,7 +25,7 @@ index b2b6918..84bba43 100644
       */
      public void disablePlugins();
 diff --git a/src/main/java/org/bukkit/plugin/SimplePluginManager.java b/src/main/java/org/bukkit/plugin/SimplePluginManager.java
-index e988a7c..cb4bda6 100644
+index 9ce0a5d..04a4ace 100644
 --- a/src/main/java/org/bukkit/plugin/SimplePluginManager.java
 +++ b/src/main/java/org/bukkit/plugin/SimplePluginManager.java
 @@ -1,26 +1,9 @@
@@ -236,5 +232,5 @@ index e988a7c..cb4bda6 100644
              } catch (Throwable ex) {
                  // Paper start - error reporting
 -- 
-2.8.3
+2.9.0.windows.1
 

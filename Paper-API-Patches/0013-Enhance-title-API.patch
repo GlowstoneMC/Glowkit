@@ -1,20 +1,8 @@
-From 80bb328760279956613cc7b9e7a7916996c89eab Mon Sep 17 00:00:00 2001
+From cb54deb3622ddb55fd350e917a023987185b254d Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Sun, 19 Jun 2016 14:05:20 -0400
-Subject: [PATCH 13/19] Enhance title API
+Subject: [PATCH] Enhance title API
 
----
- src/main/java/co/aikar/util/JSONUtil.java          |  39 ++++----
- src/main/java/co/aikar/util/LoadingIntMap.java     |   2 +-
- src/main/java/co/aikar/util/LoadingMap.java        | 109 ++++++++++-----------
- src/main/java/co/aikar/util/MRUMapCache.java       |  12 +--
- src/main/java/com/destroystokyo/paper/Title.java   |  28 +++---
- src/main/java/org/bukkit/World.java                |  36 +++----
- src/main/java/org/bukkit/entity/Player.java        |  38 ++++---
- src/main/java/org/bukkit/entity/Villager.java      |   7 +-
- .../org/bukkit/event/player/PlayerLoginEvent.java  |   6 +-
- .../player/PlayerResourcePackStatusEvent.java      |   7 ++
- 10 files changed, 141 insertions(+), 143 deletions(-)
 
 diff --git a/src/main/java/co/aikar/util/JSONUtil.java b/src/main/java/co/aikar/util/JSONUtil.java
 index 5fdf7c4..38fc9f3 100644
@@ -842,5 +830,5 @@ index 4c83851..a26e27a 100644
          return this.hash;
      }
 -- 
-2.8.3
+2.9.0.windows.1
 

@@ -1,14 +1,8 @@
-From ef977739c97c85aef6bdb88537202203e78a82e2 Mon Sep 17 00:00:00 2001
+From bd25209112e0327abfd4991cee75d65a3e151248 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Sun, 19 Jun 2016 09:21:40 -0400
-Subject: [PATCH 12/19] Enhance timings
+Subject: [PATCH] Enhance timings
 
----
- src/main/java/co/aikar/timings/TimedEventExecutor.java | 8 ++++----
- src/main/java/co/aikar/timings/Timing.java             | 2 +-
- src/main/java/co/aikar/timings/Timings.java            | 3 +--
- src/main/java/co/aikar/timings/TimingsManager.java     | 2 +-
- 4 files changed, 7 insertions(+), 8 deletions(-)
 
 diff --git a/src/main/java/co/aikar/timings/TimedEventExecutor.java b/src/main/java/co/aikar/timings/TimedEventExecutor.java
 index 96057fc..829fc0f 100644
@@ -70,5 +64,5 @@ index 58ed35e..3ce515c 100644
              plugin = server.getPluginManager().getPlugin(pluginName);
          }
 -- 
-2.8.3
+2.9.0.windows.1
 

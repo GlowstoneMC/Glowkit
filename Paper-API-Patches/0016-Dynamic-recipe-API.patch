@@ -1,14 +1,8 @@
-From b19b685957e6a153b912924a04e4dbbc27c09d86 Mon Sep 17 00:00:00 2001
+From caf7e4b513f2ce761c48d4d2f4495b9fe0c2a3cf Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Sun, 19 Jun 2016 14:21:22 -0400
-Subject: [PATCH 16/19] Dynamic recipe API
+Subject: [PATCH] Dynamic recipe API
 
----
- .../java/org/bukkit/inventory/DynamicRecipe.java   | 52 ++++++++++++++++++++++
- .../java/org/bukkit/inventory/ItemMatcher.java     | 13 ++++++
- 2 files changed, 65 insertions(+)
- create mode 100644 src/main/java/org/bukkit/inventory/DynamicRecipe.java
- create mode 100644 src/main/java/org/bukkit/inventory/ItemMatcher.java
 
 diff --git a/src/main/java/org/bukkit/inventory/DynamicRecipe.java b/src/main/java/org/bukkit/inventory/DynamicRecipe.java
 new file mode 100644
@@ -88,5 +82,5 @@ index 0000000..ca4e1b3
 +    }
 +}
 -- 
-2.8.3
+2.9.0.windows.1
 

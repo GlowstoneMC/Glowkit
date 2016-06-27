@@ -1,14 +1,8 @@
-From 22b2c0208bf07964c8930704210319d6c50f41e2 Mon Sep 17 00:00:00 2001
+From 5aeae8ade389c0d3af1cc2580cbe23b375f9427f Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Sun, 19 Jun 2016 14:25:50 -0400
-Subject: [PATCH 18/19] Add SpawnMeta
+Subject: [PATCH] Add SpawnMeta
 
----
- .../java/org/bukkit/inventory/meta/SpawnMeta.java  | 29 ++++++++++++++++++++++
- src/main/java/org/bukkit/material/SpawnEgg.java    |  6 ++---
- src/main/java/org/bukkit/plugin/PluginManager.java |  6 ++---
- 3 files changed, 35 insertions(+), 6 deletions(-)
- create mode 100644 src/main/java/org/bukkit/inventory/meta/SpawnMeta.java
 
 diff --git a/src/main/java/org/bukkit/inventory/meta/SpawnMeta.java b/src/main/java/org/bukkit/inventory/meta/SpawnMeta.java
 new file mode 100644
@@ -99,5 +93,5 @@ index e5638d5..b2b6918 100644
   * Handles all plugin management from the Server
   */
 -- 
-2.8.3
+2.9.0.windows.1
 

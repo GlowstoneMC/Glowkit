@@ -1,11 +1,8 @@
-From 59a22b12dae3edc302a96c0b320c573c4184b0dd Mon Sep 17 00:00:00 2001
+From cef4c6560800f32e75744a83bde043123c28b537 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Sun, 12 Jun 2016 23:36:52 -0400
-Subject: [PATCH 06/19] Enhance clear command
+Subject: [PATCH] Enhance clear command
 
----
- src/main/java/org/bukkit/command/defaults/ClearCommand.java | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/src/main/java/org/bukkit/command/defaults/ClearCommand.java b/src/main/java/org/bukkit/command/defaults/ClearCommand.java
 index 05317e1..8382955 100644
@@ -23,5 +20,5 @@ index 05317e1..8382955 100644
              sender.sendMessage(ChatColor.RED + "Please provide a player!");
          } else {
 -- 
-2.8.3
+2.9.0.windows.1
 

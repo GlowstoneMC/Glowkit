@@ -1,14 +1,11 @@
-From c00b575c3a1d8341cfb167ca6a2d4b95670dab8f Mon Sep 17 00:00:00 2001
+From 43a593a094d599bd30e7ed1ed0dfa934cba6b613 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Sun, 19 Jun 2016 09:14:49 -0400
-Subject: [PATCH 11/19] Register default commands
+Subject: [PATCH] Register default commands
 
----
- .../java/org/bukkit/command/SimpleCommandMap.java  | 59 ++++++++++++++++++----
- 1 file changed, 48 insertions(+), 11 deletions(-)
 
 diff --git a/src/main/java/org/bukkit/command/SimpleCommandMap.java b/src/main/java/org/bukkit/command/SimpleCommandMap.java
-index 3a7b4b6..9dcd2cd 100644
+index e163dd8..4d57832 100644
 --- a/src/main/java/org/bukkit/command/SimpleCommandMap.java
 +++ b/src/main/java/org/bukkit/command/SimpleCommandMap.java
 @@ -1,16 +1,5 @@
@@ -99,5 +96,5 @@ index 3a7b4b6..9dcd2cd 100644
  
      /**
 -- 
-2.8.3
+2.9.0.windows.1
 

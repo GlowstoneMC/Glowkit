@@ -1,10 +1,11 @@
-From 3a7552224ba5d0a1520f17accb3ece4bf202d3a6 Mon Sep 17 00:00:00 2001
+From 55e4a9e593367a086295490f702061adc387c239 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Sun, 12 Jun 2016 10:50:15 -0400
-Subject: [PATCH 03/19] Check Glowstone versions
+Subject: [PATCH] Check Glowstone versions
+
 
 diff --git a/src/main/java/org/bukkit/command/defaults/VersionCommand.java b/src/main/java/org/bukkit/command/defaults/VersionCommand.java
-index 6d32e1d..31692d7 100644
+index 0790f3c..dd7c440 100644
 --- a/src/main/java/org/bukkit/command/defaults/VersionCommand.java
 +++ b/src/main/java/org/bukkit/command/defaults/VersionCommand.java
 @@ -1,10 +1,7 @@
@@ -151,5 +152,5 @@ index 6d32e1d..31692d7 100644
 -    // Paper end
  }
 -- 
-2.8.3
+2.9.0.windows.1
 

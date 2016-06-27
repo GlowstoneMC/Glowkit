@@ -1,7 +1,8 @@
-From 821dbe169596704172019807778bc5274eb3b732 Mon Sep 17 00:00:00 2001
+From 34ea52a5995f052d99875f9a87d9641cc2d7e423 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Sun, 12 Jun 2016 10:39:30 -0400
-Subject: [PATCH 02/19] README changes
+Subject: [PATCH] README changes
+
 
 diff --git a/README.md b/README.md
 index e69d02e..73d0ca1 100644
@@ -45,5 +46,5 @@ index e69d02e..73d0ca1 100644
 -Once you have performed these steps you can create a fork, push your code changes, and then submit it for review.
 +You can create a fork, push your code changes, and then submit it as a [pull request](https://github.com/GlowstonePlusPlus/Glowkit/pulls).
 -- 
-2.8.3
+2.9.0.windows.1
 

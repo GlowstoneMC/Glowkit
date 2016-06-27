@@ -1,11 +1,8 @@
-From 20e51a635e3db1c185b9e8c9c8f7cac4d61a2c8c Mon Sep 17 00:00:00 2001
+From fa49475ea250721d9fbc19a31d2dc972d972473c Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Sun, 19 Jun 2016 14:24:49 -0400
-Subject: [PATCH 17/19] Fix InventoryView
+Subject: [PATCH] Fix InventoryView
 
----
- .../java/org/bukkit/inventory/InventoryView.java   | 50 ++++++++++++++++++----
- 1 file changed, 42 insertions(+), 8 deletions(-)
 
 diff --git a/src/main/java/org/bukkit/inventory/InventoryView.java b/src/main/java/org/bukkit/inventory/InventoryView.java
 index 27f9808..d99b71a 100644
@@ -88,5 +85,5 @@ index 27f9808..d99b71a 100644
               * Converted Slots:
               *
 -- 
-2.8.3
+2.9.0.windows.1
 

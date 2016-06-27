@@ -1,38 +1,11 @@
-From 4ad0b7b25043957ec8fbe81e8035cd923341b190 Mon Sep 17 00:00:00 2001
+From 34ec3c1556851862b845598effd2d425bd8ea9db Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Sun, 12 Jun 2016 23:30:44 -0400
-Subject: [PATCH 04/19] Add missing MaterialData
+Subject: [PATCH] Add missing MaterialData
 
----
- src/main/java/org/bukkit/Material.java             | 76 +++------------------
- src/main/java/org/bukkit/material/Dirt.java        | 75 +++++++++++++++++++++
- src/main/java/org/bukkit/material/DoublePlant.java | 75 +++++++++++++++++++++
- src/main/java/org/bukkit/material/Prismarine.java  | 78 ++++++++++++++++++++++
- src/main/java/org/bukkit/material/Sand.java        | 77 +++++++++++++++++++++
- src/main/java/org/bukkit/material/Sponge.java      | 77 +++++++++++++++++++++
- src/main/java/org/bukkit/material/Stone.java       | 75 +++++++++++++++++++++
- .../java/org/bukkit/material/types/DirtType.java   | 61 +++++++++++++++++
- .../bukkit/material/types/DoublePlantSpecies.java  | 76 +++++++++++++++++++++
- .../org/bukkit/material/types/PrismarineType.java  | 52 +++++++++++++++
- .../java/org/bukkit/material/types/SandType.java   | 52 +++++++++++++++
- .../java/org/bukkit/material/types/SpongeType.java | 50 ++++++++++++++
- .../java/org/bukkit/material/types/StoneType.java  | 77 +++++++++++++++++++++
- 13 files changed, 835 insertions(+), 66 deletions(-)
- create mode 100644 src/main/java/org/bukkit/material/Dirt.java
- create mode 100644 src/main/java/org/bukkit/material/DoublePlant.java
- create mode 100644 src/main/java/org/bukkit/material/Prismarine.java
- create mode 100644 src/main/java/org/bukkit/material/Sand.java
- create mode 100644 src/main/java/org/bukkit/material/Sponge.java
- create mode 100644 src/main/java/org/bukkit/material/Stone.java
- create mode 100644 src/main/java/org/bukkit/material/types/DirtType.java
- create mode 100644 src/main/java/org/bukkit/material/types/DoublePlantSpecies.java
- create mode 100644 src/main/java/org/bukkit/material/types/PrismarineType.java
- create mode 100644 src/main/java/org/bukkit/material/types/SandType.java
- create mode 100644 src/main/java/org/bukkit/material/types/SpongeType.java
- create mode 100644 src/main/java/org/bukkit/material/types/StoneType.java
 
 diff --git a/src/main/java/org/bukkit/Material.java b/src/main/java/org/bukkit/Material.java
-index f962697..e044f58 100644
+index 4f08fa5..a1e43d3 100644
 --- a/src/main/java/org/bukkit/Material.java
 +++ b/src/main/java/org/bukkit/Material.java
 @@ -1,78 +1,22 @@
@@ -1052,5 +1025,5 @@ index 0000000..cc023ed
 +}
 +
 -- 
-2.8.3
+2.9.0.windows.1
 

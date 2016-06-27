@@ -1,11 +1,8 @@
-From 331cb703375f32dba7151e32093aa4109751b626 Mon Sep 17 00:00:00 2001
+From 45186ff982d1d4bac6fd3275641d4026bd51a95c Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Sun, 19 Jun 2016 14:11:59 -0400
-Subject: [PATCH 14/19] Enhance ageable API
+Subject: [PATCH] Enhance ageable API
 
----
- src/main/java/org/bukkit/entity/Ageable.java | 23 +++++++++++++++++++++--
- 1 file changed, 21 insertions(+), 2 deletions(-)
 
 diff --git a/src/main/java/org/bukkit/entity/Ageable.java b/src/main/java/org/bukkit/entity/Ageable.java
 index e9fccb2..7b23f4c 100644
@@ -54,5 +51,5 @@ index e9fccb2..7b23f4c 100644
 +    public void setParent(Ageable parent);
  }
 -- 
-2.8.3
+2.9.0.windows.1
 

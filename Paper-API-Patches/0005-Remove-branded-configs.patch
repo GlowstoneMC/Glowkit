@@ -1,12 +1,8 @@
-From ad4af4567a1fe90e05d9c22207e13a61e1dc5037 Mon Sep 17 00:00:00 2001
+From 26e0625d9908073bd6f483d455900a853eac24d0 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Sun, 12 Jun 2016 23:33:40 -0400
-Subject: [PATCH 05/19] Remove branded configs
+Subject: [PATCH] Remove branded configs
 
----
- src/main/java/co/aikar/timings/TimingsExport.java |  5 +--
- src/main/java/org/bukkit/Server.java              | 47 +++++------------------
- 2 files changed, 11 insertions(+), 41 deletions(-)
 
 diff --git a/src/main/java/co/aikar/timings/TimingsExport.java b/src/main/java/co/aikar/timings/TimingsExport.java
 index 17f8c6f..de16138 100644
@@ -111,5 +107,5 @@ index edf0d04..ef45898 100644
           * Sends the component to the player
           *
 -- 
-2.8.3
+2.9.0.windows.1
 

@@ -1,24 +1,11 @@
-From cdc4011cc35e07d29a1e1a00166e0ae60d94b751 Mon Sep 17 00:00:00 2001
+From 22c4fc3108110761a52c726963e9457dc240cc40 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Sun, 12 Jun 2016 23:46:42 -0400
-Subject: [PATCH 09/19] Enhance scoreboard API and commands
+Subject: [PATCH] Enhance scoreboard API and commands
 
----
- .../bukkit/command/defaults/ScoreboardCommand.java |  50 ++++++----
- .../bukkit/command/defaults/TriggerCommand.java    | 102 +++++++++++++++++++++
- src/main/java/org/bukkit/scoreboard/Criterias.java |   2 +
- .../java/org/bukkit/scoreboard/DisplaySlot.java    |  11 ++-
- .../org/bukkit/scoreboard/NameTagVisibility.java   |   2 +-
- src/main/java/org/bukkit/scoreboard/Objective.java |  36 ++++++++
- .../java/org/bukkit/scoreboard/RenderType.java     |  16 ++++
- src/main/java/org/bukkit/scoreboard/Score.java     |  23 ++++-
- src/main/java/org/bukkit/scoreboard/Team.java      |  39 +++++++-
- 9 files changed, 257 insertions(+), 24 deletions(-)
- create mode 100644 src/main/java/org/bukkit/command/defaults/TriggerCommand.java
- create mode 100644 src/main/java/org/bukkit/scoreboard/RenderType.java
 
 diff --git a/src/main/java/org/bukkit/command/defaults/ScoreboardCommand.java b/src/main/java/org/bukkit/command/defaults/ScoreboardCommand.java
-index 00197f7..0849fff 100644
+index ff7f562..3ced734 100644
 --- a/src/main/java/org/bukkit/command/defaults/ScoreboardCommand.java
 +++ b/src/main/java/org/bukkit/command/defaults/ScoreboardCommand.java
 @@ -1,13 +1,7 @@
@@ -453,5 +440,5 @@ index 9052b4a..0c02071 100644
       *
       * @return players on the team
 -- 
-2.8.3
+2.9.0.windows.1
 

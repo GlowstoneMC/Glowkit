@@ -1,11 +1,8 @@
-From b2c1047755040eb4dd006490182cabbd4842abb1 Mon Sep 17 00:00:00 2001
+From 3e6ec21ec8e36109acf6fd9555a102c74571f59a Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Sun, 19 Jun 2016 09:11:35 -0400
-Subject: [PATCH 10/19] Add more effects
+Subject: [PATCH] Add more effects
 
----
- src/main/java/org/bukkit/Effect.java | 53 ++++++++++++++++++++++++++++++++----
- 1 file changed, 48 insertions(+), 5 deletions(-)
 
 diff --git a/src/main/java/org/bukkit/Effect.java b/src/main/java/org/bukkit/Effect.java
 index b0f6da7..c4c2509 100644
@@ -90,5 +87,5 @@ index b0f6da7..c4c2509 100644
  
      private final int id;
 -- 
-2.8.3
+2.9.0.windows.1
 

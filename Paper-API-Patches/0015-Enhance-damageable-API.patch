@@ -1,11 +1,8 @@
-From d0b944016004739508cfffb3a72663902e9bd90c Mon Sep 17 00:00:00 2001
+From abc1079ce256275f834731ce557cff30808e1e44 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Sun, 19 Jun 2016 14:13:45 -0400
-Subject: [PATCH 15/19] Enhance damageable API
+Subject: [PATCH] Enhance damageable API
 
----
- src/main/java/org/bukkit/entity/Damageable.java | 27 ++++++++++++++++++++++---
- 1 file changed, 24 insertions(+), 3 deletions(-)
 
 diff --git a/src/main/java/org/bukkit/entity/Damageable.java b/src/main/java/org/bukkit/entity/Damageable.java
 index d0599cf..5fab5ff 100644
@@ -73,5 +70,5 @@ index d0599cf..5fab5ff 100644
       */
      @Deprecated
 -- 
-2.8.3
+2.9.0.windows.1
 

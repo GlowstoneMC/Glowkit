@@ -1,12 +1,8 @@
-From d6a5024e0ae2c097e24bd5fac9df37cd958cb9bb Mon Sep 17 00:00:00 2001
+From 58172d06fbdf8840a9f5d754dfe9f2111c6e02c0 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Sun, 12 Jun 2016 23:44:41 -0400
-Subject: [PATCH 08/19] Add setblock command
+Subject: [PATCH] Add setblock command
 
----
- .../bukkit/command/defaults/SetBlockCommand.java   | 103 +++++++++++++++++++++
- 1 file changed, 103 insertions(+)
- create mode 100644 src/main/java/org/bukkit/command/defaults/SetBlockCommand.java
 
 diff --git a/src/main/java/org/bukkit/command/defaults/SetBlockCommand.java b/src/main/java/org/bukkit/command/defaults/SetBlockCommand.java
 new file mode 100644
@@ -118,5 +114,5 @@ index 0000000..9ebd30c
 +    }
 +}
 -- 
-2.8.3
+2.9.0.windows.1
 
