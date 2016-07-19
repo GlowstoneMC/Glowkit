@@ -1,116 +1,14 @@
-From 481070999465aa95cde2a140722850a25e5528d5 Mon Sep 17 00:00:00 2001
+From 8cad312e6d9f87cececc0c3cbca176ee608fc007 Mon Sep 17 00:00:00 2001
 From: Momo <momo@momoperes.ca>
 Date: Mon, 27 Jun 2016 17:34:24 -0400
 Subject: [PATCH] Use lang3, keeps lang2 for compatibility.
 
----
- pom.xml                                                        |  5 +++++
- src/main/java/co/aikar/timings/TimingsCommand.java             |  2 +-
- src/main/java/co/aikar/timings/TimingsExport.java              |  2 +-
- .../destroystokyo/paper/event/player/PlayerHandshakeEvent.java |  2 +-
- .../destroystokyo/paper/event/server/ServerExceptionEvent.java |  2 +-
- .../destroystokyo/paper/exception/ServerPluginException.java   |  2 +-
- src/main/java/org/bukkit/Art.java                              |  2 +-
- src/main/java/org/bukkit/ChatColor.java                        |  2 +-
- src/main/java/org/bukkit/Color.java                            |  2 +-
- src/main/java/org/bukkit/FireworkEffect.java                   |  2 +-
- src/main/java/org/bukkit/Material.java                         |  2 +-
- src/main/java/org/bukkit/Note.java                             |  2 +-
- src/main/java/org/bukkit/attribute/AttributeModifier.java      |  2 +-
- src/main/java/org/bukkit/command/Command.java                  |  2 +-
- src/main/java/org/bukkit/command/PluginCommand.java            |  2 +-
- src/main/java/org/bukkit/command/SimpleCommandMap.java         |  2 +-
- .../java/org/bukkit/command/defaults/AchievementCommand.java   |  2 +-
- src/main/java/org/bukkit/command/defaults/BanCommand.java      |  4 ++--
- src/main/java/org/bukkit/command/defaults/BanIpCommand.java    |  4 ++--
- src/main/java/org/bukkit/command/defaults/BanListCommand.java  |  2 +-
- src/main/java/org/bukkit/command/defaults/ClearCommand.java    |  2 +-
- .../org/bukkit/command/defaults/DefaultGameModeCommand.java    |  2 +-
- src/main/java/org/bukkit/command/defaults/DeopCommand.java     |  2 +-
- .../java/org/bukkit/command/defaults/DifficultyCommand.java    |  2 +-
- src/main/java/org/bukkit/command/defaults/EnchantCommand.java  |  4 ++--
- src/main/java/org/bukkit/command/defaults/ExpCommand.java      |  2 +-
- src/main/java/org/bukkit/command/defaults/GameModeCommand.java |  2 +-
- src/main/java/org/bukkit/command/defaults/GameRuleCommand.java |  2 +-
- src/main/java/org/bukkit/command/defaults/GiveCommand.java     |  2 +-
- src/main/java/org/bukkit/command/defaults/HelpCommand.java     |  8 ++++----
- src/main/java/org/bukkit/command/defaults/KickCommand.java     |  2 +-
- src/main/java/org/bukkit/command/defaults/KillCommand.java     |  2 +-
- src/main/java/org/bukkit/command/defaults/ListCommand.java     |  2 +-
- src/main/java/org/bukkit/command/defaults/OpCommand.java       |  2 +-
- src/main/java/org/bukkit/command/defaults/PardonCommand.java   |  2 +-
- src/main/java/org/bukkit/command/defaults/PardonIpCommand.java |  2 +-
- src/main/java/org/bukkit/command/defaults/SaveCommand.java     |  2 +-
- src/main/java/org/bukkit/command/defaults/SaveOffCommand.java  |  2 +-
- src/main/java/org/bukkit/command/defaults/SaveOnCommand.java   |  2 +-
- src/main/java/org/bukkit/command/defaults/SayCommand.java      |  2 +-
- .../java/org/bukkit/command/defaults/ScoreboardCommand.java    |  6 +++---
- src/main/java/org/bukkit/command/defaults/SeedCommand.java     |  2 +-
- .../org/bukkit/command/defaults/SetIdleTimeoutCommand.java     |  2 +-
- .../java/org/bukkit/command/defaults/SetWorldSpawnCommand.java |  2 +-
- .../java/org/bukkit/command/defaults/SpawnpointCommand.java    |  2 +-
- src/main/java/org/bukkit/command/defaults/StopCommand.java     |  4 ++--
- src/main/java/org/bukkit/command/defaults/TeleportCommand.java |  2 +-
- src/main/java/org/bukkit/command/defaults/TimeCommand.java     |  2 +-
- .../org/bukkit/command/defaults/ToggleDownfallCommand.java     |  2 +-
- src/main/java/org/bukkit/command/defaults/TriggerCommand.java  |  2 +-
- src/main/java/org/bukkit/command/defaults/VersionCommand.java  |  2 +-
- src/main/java/org/bukkit/command/defaults/WeatherCommand.java  |  2 +-
- .../java/org/bukkit/command/defaults/WhitelistCommand.java     |  2 +-
- .../java/org/bukkit/configuration/MemoryConfiguration.java     |  2 +-
- src/main/java/org/bukkit/configuration/MemorySection.java      |  2 +-
- .../java/org/bukkit/configuration/file/FileConfiguration.java  |  2 +-
- .../java/org/bukkit/configuration/file/YamlConfiguration.java  |  2 +-
- .../bukkit/configuration/file/YamlConfigurationOptions.java    |  2 +-
- .../serialization/ConfigurationSerialization.java              |  2 +-
- src/main/java/org/bukkit/conversations/BooleanPrompt.java      |  4 ++--
- src/main/java/org/bukkit/conversations/FixedSetPrompt.java     |  2 +-
- src/main/java/org/bukkit/conversations/NumericPrompt.java      |  2 +-
- .../org/bukkit/event/entity/AreaEffectCloudApplyEvent.java     |  2 +-
- .../org/bukkit/event/entity/EnderDragonChangePhaseEvent.java   |  2 +-
- src/main/java/org/bukkit/event/entity/EntityBreedEvent.java    |  2 +-
- src/main/java/org/bukkit/event/entity/EntityDamageEvent.java   |  2 +-
- .../org/bukkit/event/entity/LingeringPotionSplashEvent.java    |  2 +-
- src/main/java/org/bukkit/event/entity/PotionSplashEvent.java   |  2 +-
- .../java/org/bukkit/event/inventory/InventoryDragEvent.java    |  2 +-
- .../org/bukkit/event/inventory/InventoryMoveItemEvent.java     |  2 +-
- src/main/java/org/bukkit/event/player/PlayerChatEvent.java     |  2 +-
- .../org/bukkit/event/player/PlayerChatTabCompleteEvent.java    |  2 +-
- .../org/bukkit/event/player/PlayerCommandPreprocessEvent.java  |  2 +-
- src/main/java/org/bukkit/event/player/PlayerEditBookEvent.java |  2 +-
- src/main/java/org/bukkit/event/player/PlayerRespawnEvent.java  |  2 +-
- src/main/java/org/bukkit/event/server/ServerListPingEvent.java |  2 +-
- src/main/java/org/bukkit/event/server/TabCompleteEvent.java    |  2 +-
- src/main/java/org/bukkit/help/GenericCommandHelpTopic.java     |  2 +-
- src/main/java/org/bukkit/inventory/DynamicRecipe.java          |  2 +-
- src/main/java/org/bukkit/inventory/ItemStack.java              |  2 +-
- src/main/java/org/bukkit/inventory/ShapedRecipe.java           |  2 +-
- src/main/java/org/bukkit/inventory/ShapelessRecipe.java        |  2 +-
- src/main/java/org/bukkit/material/Mushroom.java                |  2 +-
- src/main/java/org/bukkit/metadata/LazyMetadataValue.java       |  2 +-
- src/main/java/org/bukkit/metadata/MetadataStoreBase.java       |  2 +-
- src/main/java/org/bukkit/metadata/MetadataValueAdapter.java    |  2 +-
- src/main/java/org/bukkit/permissions/Permission.java           |  2 +-
- src/main/java/org/bukkit/plugin/SimplePluginManager.java       |  2 +-
- src/main/java/org/bukkit/plugin/java/JavaPlugin.java           |  2 +-
- src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java     |  2 +-
- src/main/java/org/bukkit/plugin/java/PluginClassLoader.java    |  2 +-
- src/main/java/org/bukkit/potion/Potion.java                    |  2 +-
- src/main/java/org/bukkit/potion/PotionData.java                |  2 +-
- src/main/java/org/bukkit/potion/PotionEffect.java              |  2 +-
- src/main/java/org/bukkit/potion/PotionEffectType.java          |  2 +-
- src/main/java/org/bukkit/util/StringUtil.java                  |  2 +-
- src/test/java/org/bukkit/ArtTest.java                          |  2 +-
- src/test/java/org/bukkit/ChatColorTest.java                    |  2 +-
- src/test/java/org/bukkit/MaterialTest.java                     |  2 +-
- src/test/java/org/bukkit/util/StringUtilTest.java              | 10 +++++-----
- 100 files changed, 118 insertions(+), 113 deletions(-)
 
 diff --git a/pom.xml b/pom.xml
-index 83e39f4..2be4baf 100644
+index 0c0230c..7496b3d 100644
 --- a/pom.xml
 +++ b/pom.xml
-@@ -73,6 +73,11 @@
+@@ -75,6 +75,11 @@
              <scope>provided</scope>
          </dependency>
          <dependency>
@@ -136,7 +34,7 @@ index 3dba3aa..10d866f 100644
  import org.bukkit.command.CommandSender;
  import org.bukkit.command.defaults.BukkitCommand;
 diff --git a/src/main/java/co/aikar/timings/TimingsExport.java b/src/main/java/co/aikar/timings/TimingsExport.java
-index de16138..bbe79ea 100644
+index 6f5e898..56a33b7 100644
 --- a/src/main/java/co/aikar/timings/TimingsExport.java
 +++ b/src/main/java/co/aikar/timings/TimingsExport.java
 @@ -25,7 +25,7 @@ package co.aikar.timings;
@@ -1146,7 +1044,7 @@ index 986f320..d42c5da 100644
  /**
   * Represents a dynamic recipe.
 diff --git a/src/main/java/org/bukkit/inventory/ItemStack.java b/src/main/java/org/bukkit/inventory/ItemStack.java
-index d9cff5b..4bc9cc9 100644
+index 5642878..50bf52a 100644
 --- a/src/main/java/org/bukkit/inventory/ItemStack.java
 +++ b/src/main/java/org/bukkit/inventory/ItemStack.java
 @@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableMap;
@@ -1444,5 +1342,5 @@ index 9c8444c..edae19f 100644
          StringUtil.copyPartialMatches("token", Arrays.asList("token1", "token2", null), new ArrayList<String>());
      }
 -- 
-1.9.5.msysgit.1
+2.9.2.windows.1
 

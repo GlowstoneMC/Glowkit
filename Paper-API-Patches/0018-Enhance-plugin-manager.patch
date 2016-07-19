@@ -1,4 +1,4 @@
-From 758cae36dc9115efa219917d944f9fb2e22e42ab Mon Sep 17 00:00:00 2001
+From 635314709ba0a1993518c931d1b3ca0861317988 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Sun, 19 Jun 2016 14:39:25 -0400
 Subject: [PATCH] Enhance plugin manager
@@ -232,5 +232,5 @@ index 9ce0a5d..04a4ace 100644
              } catch (Throwable ex) {
                  // Paper start - error reporting
 -- 
-2.9.0.windows.1
+2.9.2.windows.1
 
