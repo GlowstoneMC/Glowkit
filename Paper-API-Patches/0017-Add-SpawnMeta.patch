@@ -1,4 +1,4 @@
-From 5aeae8ade389c0d3af1cc2580cbe23b375f9427f Mon Sep 17 00:00:00 2001
+From 8cdb22942ab1914ec1041f9d0466f8ebaf7b4bd9 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Sun, 19 Jun 2016 14:25:50 -0400
 Subject: [PATCH] Add SpawnMeta
@@ -93,5 +93,5 @@ index e5638d5..b2b6918 100644
   * Handles all plugin management from the Server
   */
 -- 
-2.9.0.windows.1
+2.9.2.windows.1
 

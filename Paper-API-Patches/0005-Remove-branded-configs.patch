@@ -1,22 +1,14 @@
-From 26e0625d9908073bd6f483d455900a853eac24d0 Mon Sep 17 00:00:00 2001
+From b8eee472a5df01117131b4c0bcb0a7d5a71f3022 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Sun, 12 Jun 2016 23:33:40 -0400
 Subject: [PATCH] Remove branded configs
 
 
 diff --git a/src/main/java/co/aikar/timings/TimingsExport.java b/src/main/java/co/aikar/timings/TimingsExport.java
-index 17f8c6f..de16138 100644
+index 62cbd39..6f5e898 100644
 --- a/src/main/java/co/aikar/timings/TimingsExport.java
 +++ b/src/main/java/co/aikar/timings/TimingsExport.java
-@@ -45,7 +45,6 @@ import java.io.InputStream;
- import java.io.OutputStream;
- import java.lang.management.GarbageCollectorMXBean;
- import java.lang.management.ManagementFactory;
--import java.lang.management.OperatingSystemMXBean;
- import java.lang.management.RuntimeMXBean;
- import java.net.HttpURLConnection;
- import java.net.InetAddress;
-@@ -200,9 +199,7 @@ class TimingsExport extends Thread {
+@@ -199,9 +199,7 @@ class TimingsExport extends Thread {
          // Information on the users Config
  
          parent.put("config", createObject(
@@ -107,5 +99,5 @@ index edf0d04..ef45898 100644
           * Sends the component to the player
           *
 -- 
-2.9.0.windows.1
+2.9.2.windows.1
 

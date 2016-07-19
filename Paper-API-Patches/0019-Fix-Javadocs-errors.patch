@@ -1,4 +1,4 @@
-From 9ef0128c4123288a69ed0cbe60015334bc1e3f64 Mon Sep 17 00:00:00 2001
+From cee6ecf77794bf5af5393aac7d844e9609faa748 Mon Sep 17 00:00:00 2001
 From: Momo <momo@momoperes.ca>
 Date: Mon, 27 Jun 2016 14:18:03 -0400
 Subject: [PATCH] Fix Javadocs errors
@@ -433,5 +433,5 @@ index 60470b8..79ee347 100644
      @Deprecated
      public static PotionType getByEffect(PotionEffectType effectType) {
 -- 
-2.9.0.windows.1
+2.9.2.windows.1
 

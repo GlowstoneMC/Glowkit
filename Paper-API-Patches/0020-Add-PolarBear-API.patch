@@ -1,11 +1,8 @@
-From 91095bf59fd4b706f7c133aca3bcde45fd492c74 Mon Sep 17 00:00:00 2001
+From a09ea693a856986ec119b1c6404bc3361878735f Mon Sep 17 00:00:00 2001
 From: Momo <momo@momoperes.ca>
 Date: Mon, 27 Jun 2016 15:16:37 -0400
 Subject: [PATCH] Add PolarBear API
 
----
- src/main/java/org/bukkit/entity/PolarBear.java | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
 
 diff --git a/src/main/java/org/bukkit/entity/PolarBear.java b/src/main/java/org/bukkit/entity/PolarBear.java
 index 479f7a7..2a6dc6a 100644
@@ -34,5 +31,5 @@ index 479f7a7..2a6dc6a 100644
 +
 +}
 -- 
-1.9.5.msysgit.1
+2.9.2.windows.1
 
