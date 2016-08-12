@@ -1,0 +1,118 @@
+From fe4857aa4b9306b80003d037b36f9d24d0b14d8d Mon Sep 17 00:00:00 2001
+From: Momo <momo@momoperes.ca>
+Date: Fri, 12 Aug 2016 18:47:44 -0400
+Subject: [PATCH] Add stopsound command
+
+
+diff --git a/src/main/java/org/bukkit/command/CommandTarget.java b/src/main/java/org/bukkit/command/CommandTarget.java
+index 74f8fc6..0a33130 100644
+--- a/src/main/java/org/bukkit/command/CommandTarget.java
++++ b/src/main/java/org/bukkit/command/CommandTarget.java
+@@ -261,7 +261,7 @@ public class CommandTarget {
+     /**
+      * Represents the value of a selector argument
+      */
+-    class SelectorValue {
++    public static class SelectorValue {
+         private String value;
+         private boolean inverted = false;
+ 
+diff --git a/src/main/java/org/bukkit/command/SimpleCommandMap.java b/src/main/java/org/bukkit/command/SimpleCommandMap.java
+index 3a239ee..b975af2 100644
+--- a/src/main/java/org/bukkit/command/SimpleCommandMap.java
++++ b/src/main/java/org/bukkit/command/SimpleCommandMap.java
+@@ -77,6 +77,7 @@ public class SimpleCommandMap implements CommandMap {
+         register("bukkit", new ParticleCommand());
+         register("bukkit", new SetBlockCommand());
+         register("bukkit", new TriggerCommand());
++        register("bukkit", new StopsoundCommand());
+     }
+ 
+     /**
+diff --git a/src/main/java/org/bukkit/command/defaults/StopsoundCommand.java b/src/main/java/org/bukkit/command/defaults/StopsoundCommand.java
+new file mode 100644
+index 0000000..609cbc5
+--- /dev/null
++++ b/src/main/java/org/bukkit/command/defaults/StopsoundCommand.java
+@@ -0,0 +1,78 @@
++package org.bukkit.command.defaults;
++
++import org.bukkit.Bukkit;
++import org.bukkit.ChatColor;
++import org.bukkit.Sound;
++import org.bukkit.command.CommandSender;
++import org.bukkit.command.CommandTarget;
++import org.bukkit.entity.Entity;
++import org.bukkit.entity.Player;
++
++public class StopsoundCommand extends VanillaCommand {
++
++    public StopsoundCommand() {
++        super("stopsound");
++        setDescription("Stops a sound for a player.");
++        setUsage("/stopsound <player> [sound]");
++        setPermission("bukkit.command.stopsound");
++    }
++
++    @Override
++    public boolean execute(CommandSender sender, String commandLabel, String[] args) {
++        if (!testPermission(sender)) return true;
++        if (args.length == 0 || args.length > 2) {
++            sender.sendMessage(usageMessage);
++            return false;
++        }
++        String soundName = "all";
++        if (args.length > 1) {
++            soundName = args[1].toUpperCase();
++        }
++        boolean all = soundName.equalsIgnoreCase("all");
++        Sound sound = getSound(soundName);
++        if (sound == null && !all) {
++            sender.sendMessage(ChatColor.RED + "Cannot find sound for name '" + soundName + "'.");
++            return false;
++        }
++        Entity[] targets;
++        if (args[0].startsWith("@") && sender instanceof Entity) {
++            CommandTarget ct = new CommandTarget(args[0]);
++            ct.getArguments().put("type", new CommandTarget.SelectorValue("PLAYER"));
++            targets = ct.getMatched(((Entity) sender).getLocation());
++        } else {
++            Player targetPlayer = Bukkit.getPlayerExact(args[0]);
++            targets = targetPlayer == null ? new Entity[0] : new Entity[]{targetPlayer};
++        }
++
++        if (targets.length == 0) {
++            sender.sendMessage(ChatColor.RED + "There's no entity matching the target.");
++        } else {
++            for (Entity target : targets) {
++                if (!(target instanceof Player)) {
++                    continue; // Should never happen, but just to be sure
++                }
++                Player player = (Player) target;
++                if (all) {
++                    player.stopSound("all");
++                } else {
++                    player.stopSound(sound);
++                }
++                if (all) {
++                    sender.sendMessage("Stopped all sounds for " + player.getName() + ".");
++                } else {
++                    sender.sendMessage("Stopped sound '" + soundName + "' for " + player.getName() + ".");
++                }
++            }
++        }
++        return false;
++    }
++
++    private Sound getSound(String name) {
++        for (Sound sound : Sound.values()) {
++            if (name.equalsIgnoreCase(sound.name())) {
++                return sound;
++            }
++        }
++        return null;
++    }
++}
+-- 
+1.9.5.msysgit.1
+
