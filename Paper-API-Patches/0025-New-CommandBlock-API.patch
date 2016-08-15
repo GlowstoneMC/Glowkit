@@ -1,4 +1,4 @@
-From 8995ffac58f411864c6123c74bb9330bebcd5d97 Mon Sep 17 00:00:00 2001
+From 3337f76e2263dae6f6a7a9e8e7c180873d42cf51 Mon Sep 17 00:00:00 2001
 From: Momo <momo@momoperes.ca>
 Date: Mon, 15 Aug 2016 14:31:20 -0400
 Subject: [PATCH] New CommandBlock API
@@ -67,13 +67,12 @@ index 0000000..8c87a61
 +    }
 +}
 diff --git a/src/main/java/org/bukkit/material/Command.java b/src/main/java/org/bukkit/material/Command.java
-index b484229..26d6990 100644
+index b484229..cc56412 100644
 --- a/src/main/java/org/bukkit/material/Command.java
 +++ b/src/main/java/org/bukkit/material/Command.java
-@@ -1,11 +1,13 @@
+@@ -1,11 +1,12 @@
  package org.bukkit.material;
  
-+import org.bukkit.Bukkit;
  import org.bukkit.Material;
 +import org.bukkit.block.BlockFace;
  
@@ -85,7 +84,7 @@ index b484229..26d6990 100644
      public Command() {
          super(Material.COMMAND);
      }
-@@ -43,29 +45,70 @@ public class Command extends MaterialData implements Redstone {
+@@ -43,29 +44,64 @@ public class Command extends MaterialData implements Redstone {
          super(type, data);
      }
  
@@ -137,7 +136,6 @@ index b484229..26d6990 100644
 -        return super.toString() + " " + (isPowered() ? "" : "NOT ") + "POWERED";
 +    public void setDirection(BlockFace direction) {
 +        byte data = getData();
-+        Bukkit.getLogger().info("Before: " + getData());
 +        switch (direction) {
 +            case DOWN:
 +                data = (byte) (data & ~0x7 | 0);
@@ -159,19 +157,14 @@ index b484229..26d6990 100644
 +                break;
 +        }
 +        setData(data);
-+        Bukkit.getLogger().info("Data: " + getData() + " / " + direction.name());
 +    }
 +
 +    public boolean isConditional() {
-+        return (getData() & 0x8) != 0;
++        return (getData() & 0x8) == 0x8;
 +    }
 +
 +    public void setConditional(boolean conditional) {
-+        if (conditional) {
-+            setData((byte) (getData() | (1 << 0x7)));
-+        } else {
-+            setData((byte) (getData() & ~(1 << 0x7)));
-+        }
++        setData(conditional ? (byte) ((getData() & 0x7) | 0x8) : (byte) (getData() & 0x7));
      }
  
      @Override
