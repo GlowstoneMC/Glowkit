@@ -1,0 +1,180 @@
+From 8995ffac58f411864c6123c74bb9330bebcd5d97 Mon Sep 17 00:00:00 2001
+From: Momo <momo@momoperes.ca>
+Date: Mon, 15 Aug 2016 14:31:20 -0400
+Subject: [PATCH] New CommandBlock API
+
+
+diff --git a/src/main/java/org/bukkit/block/CommandBlock.java b/src/main/java/org/bukkit/block/CommandBlock.java
+index 85d5345..0a692b6 100644
+--- a/src/main/java/org/bukkit/block/CommandBlock.java
++++ b/src/main/java/org/bukkit/block/CommandBlock.java
+@@ -37,4 +37,24 @@ public interface CommandBlock extends BlockState {
+      * @param name New name for this CommandBlock.
+      */
+     public void setName(String name);
++
++    public int getSuccessCount();
++
++    public void setSuccessCount(int successCount);
++
++    public String getLastOutput();
++
++    public void setLastOutput(String lastOutput);
++
++    public boolean isTrackOutput();
++
++    public void setTrackOutput(boolean trackOutput);
++
++    public boolean isPowered();
++
++    public void setPowered(boolean powered);
++
++    public boolean isAuto();
++
++    public void setAuto(boolean auto);
+ }
+diff --git a/src/main/java/org/bukkit/block/CommandBlockType.java b/src/main/java/org/bukkit/block/CommandBlockType.java
+new file mode 100644
+index 0000000..8c87a61
+--- /dev/null
++++ b/src/main/java/org/bukkit/block/CommandBlockType.java
+@@ -0,0 +1,27 @@
++package org.bukkit.block;
++
++import org.bukkit.Material;
++
++public enum CommandBlockType {
++
++    REDSTONE(Material.COMMAND), SEQUENCE(Material.COMMAND_CHAIN), AUTO(Material.COMMAND_REPEATING);
++
++    private Material material;
++
++    CommandBlockType(Material material) {
++        this.material = material;
++    }
++
++    public Material getMaterial() {
++        return material;
++    }
++
++    public static CommandBlockType fromMaterial(Material material) {
++        for (CommandBlockType commandBlockType : values()) {
++            if (commandBlockType.getMaterial().equals(material)) {
++                return commandBlockType;
++            }
++        }
++        return null;
++    }
++}
+diff --git a/src/main/java/org/bukkit/material/Command.java b/src/main/java/org/bukkit/material/Command.java
+index b484229..26d6990 100644
+--- a/src/main/java/org/bukkit/material/Command.java
++++ b/src/main/java/org/bukkit/material/Command.java
+@@ -1,11 +1,13 @@
+ package org.bukkit.material;
+ 
++import org.bukkit.Bukkit;
+ import org.bukkit.Material;
++import org.bukkit.block.BlockFace;
+ 
+ /**
+  * Represents a command block
+  */
+-public class Command extends MaterialData implements Redstone {
++public class Command extends MaterialData {
+     public Command() {
+         super(Material.COMMAND);
+     }
+@@ -43,29 +45,70 @@ public class Command extends MaterialData implements Redstone {
+         super(type, data);
+     }
+ 
+-    /**
+-     * Gets the current state of this Material, indicating if it's powered or
+-     * unpowered
+-     *
+-     * @return true if powered, otherwise false
+-     */
+-    public boolean isPowered() {
+-        return (getData() & 1) != 0;
++    @Override
++    public String toString() {
++        return super.toString();
+     }
+ 
+-    /**
+-     * Sets the current state of this Material
+-     *
+-     * @param bool
+-     *            whether or not the command block is powered
+-     */
+-    public void setPowered(boolean bool) {
+-        setData((byte) (bool ? (getData() | 1) : (getData() & -2)));
++    public BlockFace getDirection() {
++        switch (getData() & 0x7) {
++            case 0:
++                return BlockFace.DOWN;
++            case 1:
++                return BlockFace.UP;
++            case 2:
++                return BlockFace.NORTH;
++            case 3:
++                return BlockFace.SOUTH;
++            case 4:
++                return BlockFace.WEST;
++            case 5:
++                return BlockFace.EAST;
++            case 6:
++                return BlockFace.DOWN;
++            case 7:
++                return BlockFace.UP;
++        }
++        return BlockFace.DOWN;
+     }
+ 
+-    @Override
+-    public String toString() {
+-        return super.toString() + " " + (isPowered() ? "" : "NOT ") + "POWERED";
++    public void setDirection(BlockFace direction) {
++        byte data = getData();
++        Bukkit.getLogger().info("Before: " + getData());
++        switch (direction) {
++            case DOWN:
++                data = (byte) (data & ~0x7 | 0);
++                break;
++            case UP:
++                data = (byte) (data & ~0x7 | 1);
++                break;
++            case NORTH:
++                data = (byte) (data & ~0x7 | 2);
++                break;
++            case SOUTH:
++                data = (byte) (data & ~0x7 | 3);
++                break;
++            case WEST:
++                data = (byte) (data & ~0x7 | 4);
++                break;
++            case EAST:
++                data = (byte) (data & ~0x7 | 5);
++                break;
++        }
++        setData(data);
++        Bukkit.getLogger().info("Data: " + getData() + " / " + direction.name());
++    }
++
++    public boolean isConditional() {
++        return (getData() & 0x8) != 0;
++    }
++
++    public void setConditional(boolean conditional) {
++        if (conditional) {
++            setData((byte) (getData() | (1 << 0x7)));
++        } else {
++            setData((byte) (getData() & ~(1 << 0x7)));
++        }
+     }
+ 
+     @Override
+-- 
+1.9.5.msysgit.1
+
