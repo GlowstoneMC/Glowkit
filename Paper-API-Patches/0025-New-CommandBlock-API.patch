@@ -1,14 +1,24 @@
-From 3337f76e2263dae6f6a7a9e8e7c180873d42cf51 Mon Sep 17 00:00:00 2001
+From dde7be2e7d6c8667541922e15baa78d2feffc970 Mon Sep 17 00:00:00 2001
 From: Momo <momo@momoperes.ca>
 Date: Mon, 15 Aug 2016 14:31:20 -0400
 Subject: [PATCH] New CommandBlock API
 
 
 diff --git a/src/main/java/org/bukkit/block/CommandBlock.java b/src/main/java/org/bukkit/block/CommandBlock.java
-index 85d5345..0a692b6 100644
+index 85d5345..84fe224 100644
 --- a/src/main/java/org/bukkit/block/CommandBlock.java
 +++ b/src/main/java/org/bukkit/block/CommandBlock.java
-@@ -37,4 +37,24 @@ public interface CommandBlock extends BlockState {
+@@ -1,6 +1,8 @@
+ package org.bukkit.block;
+ 
+-public interface CommandBlock extends BlockState {
++import org.bukkit.command.BlockCommandSender;
++
++public interface CommandBlock extends BlockState, BlockCommandSender {
+ 
+     /**
+      * Gets the command that this CommandBlock will run when powered.
+@@ -37,4 +39,24 @@ public interface CommandBlock extends BlockState {
       * @param name New name for this CommandBlock.
       */
      public void setName(String name);
