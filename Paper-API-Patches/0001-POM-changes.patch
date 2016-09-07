@@ -67,7 +67,7 @@ index 67807c1..111015b 100644
 +
 +        <repository>
 +            <id>destroystokyo-releases</id>
-+            <url>https://repo.destroystokyo.com/content/repositories/releases/</url>
++            <url>https://repo.destroystokyo.com/repository/maven-releases/</url>
 +        </repository>
      </repositories>
  
