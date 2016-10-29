@@ -32,7 +32,7 @@ index 67807c1..111015b 100644
 -    <name>Paper-API</name>
 -    <url>https://github.com/PaperSpigot/Paper</url>
 +    <name>Glowkit</name>
-+    <url>https://github.com/GlowstonePlusPlus/Glowkit</url>
++    <url>https://github.com/Glowstone/Glowkit</url>
      <description>An enhanced plugin API for Minecraft servers.</description>
  
      <properties>
