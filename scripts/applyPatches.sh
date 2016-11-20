@@ -1,18 +1,11 @@
 #!/usr/bin/env bash
 
+(
 PS1="$"
 basedir="$(cd "$1" && pwd -P)"
 workdir="$basedir/work"
 gpgsign="$(git config commit.gpgsign || echo "false")"
 echo "Rebuilding Forked projects.... "
-
-function enableCommitSigningIfNeeded {
-    if [[ "$gpgsign" == "true" ]]; then
-        echo "Re-enabling GPG Signing"
-        # Yes, this has to be global
-        git config --global commit.gpgsign true
-    fi
-}
 
 function applyPatch {
     what=$1
@@ -30,6 +23,11 @@ function applyPatch {
     fi
     cd "$basedir/$target"
 
+    # Disable GPG signing before AM, slows things down and doesn't play nicely.
+    # There is also zero rational or logical reason to do so for these sub-repo AMs.
+    # Calm down kids, it's re-enabled (if needed) immediately after, pass or fail.
+    git config commit.gpgsign false
+
     echo "Resetting $target to $what_name..."
     git remote rm upstream > /dev/null 2>&1
     git remote add upstream "$basedir/$what" >/dev/null 2>&1
@@ -45,56 +43,55 @@ function applyPatch {
         echo "  Something did not apply cleanly to $target."
         echo "  Please review above details and finish the apply then"
         echo "  save the changes with rebuildPatches.sh"
-        enableCommitSigningIfNeeded
         exit 1
     else
         echo "  Patches applied cleanly to $target"
     fi
 }
 
-# Disable GPG signing before AM, slows things down and doesn't play nicely.
-# There is also zero rational or logical reason to do so for these sub-repo AMs.
-# Calm down kids, it's re-enabled (if needed) immediately after, pass or fail.
-if [[ "$gpgsign" == "true" ]]; then
-    echo "_Temporarily_ disabling GPG signing"
-    git config --global commit.gpgsign false
-fi
+function enableCommitSigningIfNeeded {
+    if [[ "$gpgsign" == "true" ]]; then
+        git config commit.gpgsign true
+    fi
+}
 
-
-# Move into spigot dir
+# Move into Spigot dir
 cd "$workdir/Spigot"
 basedir=$(pwd)
 # Apply Spigot
 (
-    applyPatch ../Bukkit Spigot-API HEAD
+	applyPatch ../Bukkit Spigot-API HEAD
 ) || (
-    echo "Failed to apply Spigot Patches"
+	echo "Failed to apply Spigot Patches"
     enableCommitSigningIfNeeded
-    exit 1
+	exit 1
 ) || exit 1
+# Move out of Spigot
+basedir="$1"
+cd "$basedir"
 
-# Move into paper dir
+# Move into Paper dir
 cd "$workdir/Paper"
 basedir=$(pwd)
 # Apply Paper
 (
-    applyPatch ../Spigot/Spigot-API Paper-API HEAD &&
-    enableCommitSigningIfNeeded
+	applyPatch ../Spigot/Spigot-API Paper-API HEAD
 ) || (
-    echo "Failed to apply Paper Patches"
+	echo "Failed to apply Paper Patches"
     enableCommitSigningIfNeeded
-    exit 1
+	exit 1
 ) || exit 1
+# Move out of Paper
+basedir="$1"
+cd "$basedir"
 
-# Move into base dir
-cd "$workdir/.."
-basedir=$(pwd)
 # Apply Glowkit
 (
-    applyPatch "work/Paper/Paper-API" Glowkit-Patched HEAD &&
+	applyPatch "work/Paper/Paper-API" Glowkit-Patched HEAD &&
     enableCommitSigningIfNeeded
 ) || (
-    echo "Failed to apply Paper Patches"
+	echo "Failed to apply Glowkit Patches"
     enableCommitSigningIfNeeded
-    exit 1
+	exit 1
 ) || exit 1
+)
