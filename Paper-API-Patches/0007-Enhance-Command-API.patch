@@ -1,7 +1,7 @@
-From 61a6cb5f427610fe307209011905c11fe8a83c71 Mon Sep 17 00:00:00 2001
+From 33abffd7f77c7f282449992b99347920748979d1 Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
 Date: Mon, 21 Nov 2016 09:59:31 -0500
-Subject: [PATCH] Enhanced Command API
+Subject: [PATCH] Enhance Command API
 
 
 diff --git a/src/main/java/org/bukkit/command/CommandTarget.java b/src/main/java/org/bukkit/command/CommandTarget.java
