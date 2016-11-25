@@ -1,0 +1,86 @@
+From 1ae6e83ea15f4a4be65ca9774ddf0baa9c1895aa Mon Sep 17 00:00:00 2001
+From: ZephireNZ <brynleymcdonald@gmail.com>
+Date: Fri, 25 Nov 2016 12:45:24 -0500
+Subject: [PATCH] Add DynamicRecipe API
+
+
+diff --git a/src/main/java/org/bukkit/inventory/DynamicRecipe.java b/src/main/java/org/bukkit/inventory/DynamicRecipe.java
+new file mode 100644
+index 0000000..d42c5da
+--- /dev/null
++++ b/src/main/java/org/bukkit/inventory/DynamicRecipe.java
+@@ -0,0 +1,52 @@
++package org.bukkit.inventory;
++
++import org.apache.commons.lang3.Validate;
++
++/**
++ * Represents a dynamic recipe.
++ * These are recipes that have can have different results, depending on the inputs used, rather than a simple matching algorithm.
++ *
++ * <p>Used for recipes such as Banners, which require item metadata to be copied to an item, along with having a semi-shaped recipe.</p>
++ */
++public class DynamicRecipe implements Recipe {
++
++    private ItemMatcher matcher;
++    private ItemStack result;
++
++    public DynamicRecipe() {
++        setMatcher(new ItemMatcher());
++    }
++
++    public DynamicRecipe(ItemMatcher matcher) {
++        setMatcher(matcher);
++    }
++
++    /**
++     * Sets the {@link ItemMatcher} to be used with this recipe.
++     * @param matcher ItemMatcher to use. Must not be null.
++     */
++    public void setMatcher(ItemMatcher matcher) {
++        Validate.notNull(matcher, "Matcher cannot be null.");
++        this.matcher = matcher;
++    }
++
++    /**
++     * Checks to see if the recipe will match a crafting matrix. This method also prepares {@link #getResult()}
++     * to return the correct item (including all metadata) for the input.
++     * @param matrix Items on the crafting grid
++     * @return Whether the recipe matches the inputs
++     */
++    public boolean matches(ItemStack[] matrix) {
++        result = matcher.getResult(matrix);
++        return result != null;
++    }
++
++    /**
++     * Gets the result of this recipe, given the input of {@link #matches(ItemStack[])}.
++     * @return The result of the recipe, or null if it does not match
++     */
++    @Override
++    public ItemStack getResult() {
++        return result;
++    }
++}
+diff --git a/src/main/java/org/bukkit/inventory/ItemMatcher.java b/src/main/java/org/bukkit/inventory/ItemMatcher.java
+new file mode 100644
+index 0000000..ca4e1b3
+--- /dev/null
++++ b/src/main/java/org/bukkit/inventory/ItemMatcher.java
+@@ -0,0 +1,13 @@
++package org.bukkit.inventory;
++
++public class ItemMatcher {
++
++    /**
++     * Get the result for a given crafting matrix.
++     * @param matrix a square matrix of items
++     * @return Result of recipe
++     */
++    public ItemStack getResult(ItemStack[] matrix) {
++        return null; // Don't match by default
++    }
++}
+-- 
+2.10.2
+

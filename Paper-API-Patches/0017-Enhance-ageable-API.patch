@@ -1,0 +1,37 @@
+From 27794c36ab9e41d4b629adc8eab0e23e780b4693 Mon Sep 17 00:00:00 2001
+From: momothereal <momothereal.mc@gmail.com>
+Date: Fri, 25 Nov 2016 12:32:52 -0500
+Subject: [PATCH] Enhance ageable API
+
+
+diff --git a/src/main/java/org/bukkit/entity/Ageable.java b/src/main/java/org/bukkit/entity/Ageable.java
+index e9fccb2..aea9d8f 100644
+--- a/src/main/java/org/bukkit/entity/Ageable.java
++++ b/src/main/java/org/bukkit/entity/Ageable.java
+@@ -64,4 +64,23 @@ public interface Ageable extends Creature {
+      * @param breed breedability of the animal
+      */
+     public void setBreed(boolean breed);
++
++    /**
++     * Creates and spawns a baby entity with the same type and location as the parent.
++     * This is a convenience method for spawning a similar entity, with the baby properties, and attributing its parent.
++     * @return The spawned baby ageable entity
++     */
++    public Ageable createBaby();
++
++    /**
++     * The parent of this baby.
++     * @return The baby's parent, null if not applicable
++     */
++    public Ageable getParent();
++
++    /**
++     * Sets the parent of this baby.
++     * @param parent The new baby's parent
++     */
++    public void setParent(Ageable parent);
+ }
+-- 
+2.10.2
+

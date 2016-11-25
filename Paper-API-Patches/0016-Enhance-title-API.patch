@@ -1,0 +1,27 @@
+From 820355b72656e01f82004a4431239391726731d8 Mon Sep 17 00:00:00 2001
+From: mastercoms <circuitsoft@tuta.io>
+Date: Fri, 25 Nov 2016 12:32:08 -0500
+Subject: [PATCH] Enhance title API
+
+
+diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
+index c15c91b..8b3c0d1 100644
+--- a/src/main/java/org/bukkit/entity/Player.java
++++ b/src/main/java/org/bukkit/entity/Player.java
+@@ -540,6 +540,13 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
+     // Paper end
+ 
+     /**
++     * Gets the title currently set on the player
++     *
++     * @return the current title
++     */
++    public Title getTitle();
++
++    /**
+      * Forces an update of the player's entire inventory.
+      *
+      */
+-- 
+2.10.2
+
