@@ -1,4 +1,4 @@
-From f08c89393a2b2a041196db6a298e81d54bfd4a28 Mon Sep 17 00:00:00 2001
+From 8bb6a7f08a37c5d518a7d2d4dd05ca5d5dd55aac Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Sun, 20 Nov 2016 12:34:38 -0500
 Subject: [PATCH] Restore Bukkit version command
@@ -51,29 +51,128 @@ index 08976cd..18de059 100644
  
      /**
 diff --git a/src/main/java/org/bukkit/command/defaults/VersionCommand.java b/src/main/java/org/bukkit/command/defaults/VersionCommand.java
-index 0790f3c..760d58e 100644
+index 0790f3c..b6998f3 100644
 --- a/src/main/java/org/bukkit/command/defaults/VersionCommand.java
 +++ b/src/main/java/org/bukkit/command/defaults/VersionCommand.java
-@@ -28,11 +28,6 @@ import org.json.simple.JSONObject;
- import org.json.simple.parser.JSONParser;
- import org.json.simple.parser.ParseException;
+@@ -1,10 +1,6 @@
+ package org.bukkit.command.defaults;
  
+-import com.google.common.base.Charsets;
+-import java.util.ArrayList;
+-import java.util.Arrays;
+-import java.util.List;
+-
++import com.google.common.collect.ImmutableList;
+ import org.apache.commons.lang.Validate;
+ import org.bukkit.Bukkit;
+ import org.bukkit.ChatColor;
+@@ -13,25 +9,9 @@ import org.bukkit.plugin.Plugin;
+ import org.bukkit.plugin.PluginDescriptionFile;
+ import org.bukkit.util.StringUtil;
+ 
+-import com.google.common.collect.ImmutableList;
+-import com.google.common.io.Resources;
+-import java.io.BufferedReader;
+-import java.io.IOException;
+-import java.net.URL;
+-import java.net.URLEncoder;
+-import java.util.HashSet;
+-import java.util.Set;
+-import java.util.concurrent.locks.ReentrantLock;
+-import java.util.logging.Level;
+-import java.util.logging.Logger;
+-import org.json.simple.JSONObject;
+-import org.json.simple.parser.JSONParser;
+-import org.json.simple.parser.ParseException;
+-
 -// Paper start
 -import java.io.InputStreamReader;
 -import java.net.HttpURLConnection;
 -// Paper end
--
++import java.util.ArrayList;
++import java.util.Arrays;
++import java.util.List;
+ 
  public class VersionCommand extends BukkitCommand {
      public VersionCommand(String name) {
-         super(name);
-@@ -187,28 +182,24 @@ public class VersionCommand extends BukkitCommand {
-         }
-     }
+@@ -49,7 +29,6 @@ public class VersionCommand extends BukkitCommand {
  
+         if (args.length == 0) {
+             sender.sendMessage("This server is running " + Bukkit.getName() + " version " + Bukkit.getVersion() + " (Implementing API version " + Bukkit.getBukkitVersion() + ")");
+-            sendVersion(sender);
+         } else {
+             StringBuilder name = new StringBuilder();
+ 
+@@ -69,9 +48,9 @@ public class VersionCommand extends BukkitCommand {
+             }
+ 
+             boolean found = false;
+-            pluginName = pluginName.toLowerCase(java.util.Locale.ENGLISH);
++            pluginName = pluginName.toLowerCase();
+             for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
+-                if (plugin.getName().toLowerCase(java.util.Locale.ENGLISH).contains(pluginName)) {
++                if (plugin.getName().toLowerCase().contains(pluginName)) {
+                     describeToSender(plugin, sender);
+                     found = true;
+                 }
+@@ -136,7 +115,7 @@ public class VersionCommand extends BukkitCommand {
+ 
+         if (args.length == 1) {
+             List<String> completions = new ArrayList<String>();
+-            String toComplete = args[0].toLowerCase(java.util.Locale.ENGLISH);
++            String toComplete = args[0].toLowerCase();
+             for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
+                 if (StringUtil.startsWithIgnoreCase(plugin.getName(), toComplete)) {
+                     completions.add(plugin.getName());
+@@ -146,176 +125,4 @@ public class VersionCommand extends BukkitCommand {
+         }
+         return ImmutableList.of();
+     }
+-
+-    private final ReentrantLock versionLock = new ReentrantLock();
+-    private boolean hasVersion = false;
+-    private String versionMessage = null;
+-    private final Set<CommandSender> versionWaiters = new HashSet<CommandSender>();
+-    private boolean versionTaskStarted = false;
+-    private long lastCheck = 0;
+-
+-    private void sendVersion(CommandSender sender) {
+-        if (hasVersion) {
+-            if (System.currentTimeMillis() - lastCheck > 21600000) {
+-                lastCheck = System.currentTimeMillis();
+-                hasVersion = false;
+-            } else {
+-                sender.sendMessage(versionMessage);
+-                return;
+-            }
+-        }
+-        versionLock.lock();
+-        try {
+-            if (hasVersion) {
+-                sender.sendMessage(versionMessage);
+-                return;
+-            }
+-            versionWaiters.add(sender);
+-            sender.sendMessage("Checking version, please wait...");
+-            if (!versionTaskStarted) {
+-                versionTaskStarted = true;
+-                new Thread(new Runnable() {
+-
+-                    @Override
+-                    public void run() {
+-                        obtainVersion();
+-                    }
+-                }).start();
+-            }
+-        } finally {
+-            versionLock.unlock();
+-        }
+-    }
+-
 -    // Paper start
-     private void obtainVersion() {
-         String version = Bukkit.getVersion();
-         if (version == null) version = "Custom";
+-    private void obtainVersion() {
+-        String version = Bukkit.getVersion();
+-        if (version == null) version = "Custom";
 -        if (version.startsWith("git-Paper-")) {
 -            String[] parts = version.substring("git-Paper-".length()).split("[-\\s]");
 -            int distance = getDistance(null, parts[0]);
@@ -82,39 +181,51 @@ index 0790f3c..760d58e 100644
 -                    setVersionMessage("Error obtaining version information");
 -                    break;
 -                case 0:
-+        if (version.startsWith("git-Spigot-")) {
-+            String[] parts = version.substring("git-Spigot-".length()).split("-");
-+            int cbVersions = getDistance("craftbukkit", parts[1].substring(0, parts[1].indexOf(' ')));
-+            int spigotVersions = getDistance("spigot", parts[0]);
-+            if (cbVersions == -1 || spigotVersions == -1) {
-+                setVersionMessage("Error obtaining version information");
-+            } else {
-+                if (cbVersions == 0 && spigotVersions == 0) {
-                     setVersionMessage("You are running the latest version");
+-                    setVersionMessage("You are running the latest version");
 -                    break;
 -                case -2:
 -                    setVersionMessage("Unknown version");
 -                    break;
 -                default:
 -                    setVersionMessage("You are " + distance + " version(s) behind");
-+                } else {
-+                    setVersionMessage("You are " + (cbVersions + spigotVersions) + " version(s) behind");
-+                }
-             }
-+
-         } else if (version.startsWith("git-Bukkit-")) {
+-            }
+-        } else if (version.startsWith("git-Bukkit-")) {
 -            // Paper end
-             version = version.substring("git-Bukkit-".length());
-             int cbVersions = getDistance("craftbukkit", version.substring(0, version.indexOf(' ')));
-             if (cbVersions == -1) {
-@@ -241,16 +232,8 @@ public class VersionCommand extends BukkitCommand {
-         }
-     }
- 
+-            version = version.substring("git-Bukkit-".length());
+-            int cbVersions = getDistance("craftbukkit", version.substring(0, version.indexOf(' ')));
+-            if (cbVersions == -1) {
+-                setVersionMessage("Error obtaining version information");
+-            } else {
+-                if (cbVersions == 0) {
+-                    setVersionMessage("You are running the latest version");
+-                } else {
+-                    setVersionMessage("You are " + cbVersions + " version(s) behind");
+-                }
+-            }
+-        } else {
+-            setVersionMessage("Unknown version, custom build?");
+-        }
+-    }
+-
+-    private void setVersionMessage(String msg) {
+-        lastCheck = System.currentTimeMillis();
+-        versionMessage = msg;
+-        versionLock.lock();
+-        try {
+-            hasVersion = true;
+-            versionTaskStarted = false;
+-            for (CommandSender sender : versionWaiters) {
+-                sender.sendMessage(versionMessage);
+-            }
+-            versionWaiters.clear();
+-        } finally {
+-            versionLock.unlock();
+-        }
+-    }
+-
 -    // Paper start
 -    private static int getDistance(String repo, String verInfo) {
-+    private static int getDistance(String repo, String hash) {
-         try {
+-        try {
 -            int currentVer = Integer.decode(verInfo);
 -            return getFromJenkins(currentVer);
 -        } catch (NumberFormatException ex) {
@@ -122,13 +233,19 @@ index 0790f3c..760d58e 100644
 -            return getFromRepo("PaperMC/Paper", verInfo);
 -        }
 -            /*
-             BufferedReader reader = Resources.asCharSource(
-                     new URL("https://hub.spigotmc.org/stash/rest/api/1.0/projects/SPIGOT/repos/" + repo + "/commits?since=" + URLEncoder.encode(hash, "UTF-8") + "&withCounts=true"),
-                     Charsets.UTF_8
-@@ -264,58 +247,9 @@ public class VersionCommand extends BukkitCommand {
-             } finally {
-                 reader.close();
-             }
+-            BufferedReader reader = Resources.asCharSource(
+-                    new URL("https://hub.spigotmc.org/stash/rest/api/1.0/projects/SPIGOT/repos/" + repo + "/commits?since=" + URLEncoder.encode(hash, "UTF-8") + "&withCounts=true"),
+-                    Charsets.UTF_8
+-            ).openBufferedStream();
+-            try {
+-                JSONObject obj = (JSONObject) new JSONParser().parse(reader);
+-                return ((Number) obj.get("totalCount")).intValue();
+-            } catch (ParseException ex) {
+-                ex.printStackTrace();
+-                return -1;
+-            } finally {
+-                reader.close();
+-            }
 -            */
 -    }
 -
@@ -177,13 +294,15 @@ index 0790f3c..760d58e 100644
 -                e.printStackTrace();
 -                return -1;
 -            }
-         } catch (IOException e) {
-             e.printStackTrace();
-             return -1;
-         }
-     }
+-        } catch (IOException e) {
+-            e.printStackTrace();
+-            return -1;
+-        }
+-    }
 -    // Paper end
- }
+-}
++}
+\ No newline at end of file
 -- 
 2.10.2
 
