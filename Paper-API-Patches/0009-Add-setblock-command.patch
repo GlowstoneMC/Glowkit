@@ -1,21 +1,21 @@
-From ad4e9d8db4ea2acbadfe3a61749c2f96e1f897e8 Mon Sep 17 00:00:00 2001
+From 3cf905920447c0b39ade626c9e2c11c5d202b41f Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Mon, 21 Nov 2016 11:07:59 -0500
 Subject: [PATCH] Add setblock command
 
 
 diff --git a/src/main/java/org/bukkit/command/SimpleCommandMap.java b/src/main/java/org/bukkit/command/SimpleCommandMap.java
-index 429b94d..3d8138f 100644
+index c586b2d..78faea1 100644
 --- a/src/main/java/org/bukkit/command/SimpleCommandMap.java
 +++ b/src/main/java/org/bukkit/command/SimpleCommandMap.java
-@@ -29,6 +29,7 @@ public class SimpleCommandMap implements CommandMap {
-         register("bukkit", new co.aikar.timings.TimingsCommand("timings")); // Spigot
-         register("bukkit", new ClearCommand());
+@@ -70,6 +70,7 @@ public class SimpleCommandMap implements CommandMap {
+         register("bukkit", new SetIdleTimeoutCommand());
+         register("bukkit", new AchievementCommand());
          register("bukkit", new ParticleCommand());
 +        register("bukkit", new SetBlockCommand());
      }
  
-     public void setFallbackCommands() {
+     /**
 diff --git a/src/main/java/org/bukkit/command/defaults/SetBlockCommand.java b/src/main/java/org/bukkit/command/defaults/SetBlockCommand.java
 new file mode 100644
 index 0000000..9326ee2

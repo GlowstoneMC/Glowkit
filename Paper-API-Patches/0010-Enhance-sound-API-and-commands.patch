@@ -1,5 +1,5 @@
-From b08b69a62a9ef5295a5c181f5478f2a787b57efd Mon Sep 17 00:00:00 2001
-From: mastercoms <circuitsoft@tuta.io>
+From 53387a95e731ed3d18b026a4901890777f78a714 Mon Sep 17 00:00:00 2001
+From: momothereal <momothereal.mc@gmail.com>
 Date: Mon, 21 Nov 2016 16:27:37 -0500
 Subject: [PATCH] Enhance sound API and commands
 
@@ -1076,18 +1076,18 @@ index ac5e263..a1a3746 100644
 +    }
  }
 diff --git a/src/main/java/org/bukkit/command/SimpleCommandMap.java b/src/main/java/org/bukkit/command/SimpleCommandMap.java
-index 3d8138f..ca0577a 100644
+index 78faea1..533b86a 100644
 --- a/src/main/java/org/bukkit/command/SimpleCommandMap.java
 +++ b/src/main/java/org/bukkit/command/SimpleCommandMap.java
-@@ -30,6 +30,8 @@ public class SimpleCommandMap implements CommandMap {
-         register("bukkit", new ClearCommand());
-         register("bukkit", new ParticleCommand());
-         register("bukkit", new SetBlockCommand());
+@@ -65,6 +65,8 @@ public class SimpleCommandMap implements CommandMap {
+         register("bukkit", new EnchantCommand());
+         register("bukkit", new TestForCommand());
+         register("bukkit", new EffectCommand());
 +        register("bukkit", new PlaySoundCommand());
 +        register("bukkit", new StopSoundCommand());
-     }
- 
-     public void setFallbackCommands() {
+         register("bukkit", new SpreadPlayersCommand());
+         register("bukkit", new SetWorldSpawnCommand());
+         register("bukkit", new SetIdleTimeoutCommand());
 diff --git a/src/main/java/org/bukkit/command/defaults/PlaySoundCommand.java b/src/main/java/org/bukkit/command/defaults/PlaySoundCommand.java
 index 0cb5ca2..93a976b 100644
 --- a/src/main/java/org/bukkit/command/defaults/PlaySoundCommand.java

@@ -1,11 +1,11 @@
-From a0c0c8926a8b1d9a036ad830b22894cb38b01d7e Mon Sep 17 00:00:00 2001
+From ae268caff33e7adf0d70dd3608d7b94e0b77f1e7 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Sun, 20 Nov 2016 13:00:53 -0500
 Subject: [PATCH] Enhance clear command
 
 
 diff --git a/src/main/java/org/bukkit/command/SimpleCommandMap.java b/src/main/java/org/bukkit/command/SimpleCommandMap.java
-index bda4693..d622eae 100644
+index fe1106f..aa8e7ba 100644
 --- a/src/main/java/org/bukkit/command/SimpleCommandMap.java
 +++ b/src/main/java/org/bukkit/command/SimpleCommandMap.java
 @@ -6,10 +6,7 @@ import com.destroystokyo.paper.exception.ServerTabCompleteException;
@@ -20,14 +20,14 @@ index bda4693..d622eae 100644
  import org.bukkit.entity.Player;
  import org.bukkit.util.StringUtil;
  
-@@ -30,6 +27,7 @@ public class SimpleCommandMap implements CommandMap {
-         register("bukkit", new ReloadCommand("reload"));
-         register("bukkit", new PluginsCommand("plugins"));
-         register("bukkit", new co.aikar.timings.TimingsCommand("timings")); // Spigot
+@@ -63,6 +60,7 @@ public class SimpleCommandMap implements CommandMap {
+         register("bukkit", new DifficultyCommand());
+         register("bukkit", new WeatherCommand());
+         register("bukkit", new SpawnpointCommand());
 +        register("bukkit", new ClearCommand());
-     }
- 
-     public void setFallbackCommands() {
+         register("bukkit", new GameRuleCommand());
+         register("bukkit", new EnchantCommand());
+         register("bukkit", new TestForCommand());
 diff --git a/src/main/java/org/bukkit/command/defaults/ClearCommand.java b/src/main/java/org/bukkit/command/defaults/ClearCommand.java
 index 05317e1..a1491c8 100644
 --- a/src/main/java/org/bukkit/command/defaults/ClearCommand.java
