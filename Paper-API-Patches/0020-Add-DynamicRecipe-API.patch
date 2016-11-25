@@ -1,4 +1,4 @@
-From 1ae6e83ea15f4a4be65ca9774ddf0baa9c1895aa Mon Sep 17 00:00:00 2001
+From 8494bc1d79c5559c0121df82e166d85b5a579226 Mon Sep 17 00:00:00 2001
 From: ZephireNZ <brynleymcdonald@gmail.com>
 Date: Fri, 25 Nov 2016 12:45:24 -0500
 Subject: [PATCH] Add DynamicRecipe API
@@ -6,13 +6,13 @@ Subject: [PATCH] Add DynamicRecipe API
 
 diff --git a/src/main/java/org/bukkit/inventory/DynamicRecipe.java b/src/main/java/org/bukkit/inventory/DynamicRecipe.java
 new file mode 100644
-index 0000000..d42c5da
+index 0000000..986f320
 --- /dev/null
 +++ b/src/main/java/org/bukkit/inventory/DynamicRecipe.java
 @@ -0,0 +1,52 @@
 +package org.bukkit.inventory;
 +
-+import org.apache.commons.lang3.Validate;
++import org.apache.commons.lang.Validate;
 +
 +/**
 + * Represents a dynamic recipe.
