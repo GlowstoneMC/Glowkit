@@ -1,14 +1,14 @@
-From 8be4d2f7ebb86050c2d7108c03f755a1f3ae3801 Mon Sep 17 00:00:00 2001
+From 3b3cc8c22177d8ccb0446d5931048ae6a2f71a8c Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Mon, 21 Nov 2016 09:13:43 -0500
 Subject: [PATCH] Add particle command
 
 
 diff --git a/src/main/java/org/bukkit/command/SimpleCommandMap.java b/src/main/java/org/bukkit/command/SimpleCommandMap.java
-index aa8e7ba..c586b2d 100644
+index 8f3f6b6..c2e492b 100644
 --- a/src/main/java/org/bukkit/command/SimpleCommandMap.java
 +++ b/src/main/java/org/bukkit/command/SimpleCommandMap.java
-@@ -69,6 +69,7 @@ public class SimpleCommandMap implements CommandMap {
+@@ -70,6 +70,7 @@ public class SimpleCommandMap implements CommandMap {
          register("bukkit", new SetWorldSpawnCommand());
          register("bukkit", new SetIdleTimeoutCommand());
          register("bukkit", new AchievementCommand());

@@ -1,4 +1,4 @@
-From 53387a95e731ed3d18b026a4901890777f78a714 Mon Sep 17 00:00:00 2001
+From 5fb5c05577f9270670e3f7160ac50fc50826e2b8 Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
 Date: Mon, 21 Nov 2016 16:27:37 -0500
 Subject: [PATCH] Enhance sound API and commands
@@ -1076,10 +1076,10 @@ index ac5e263..a1a3746 100644
 +    }
  }
 diff --git a/src/main/java/org/bukkit/command/SimpleCommandMap.java b/src/main/java/org/bukkit/command/SimpleCommandMap.java
-index 78faea1..533b86a 100644
+index 86569b0..d7e8078 100644
 --- a/src/main/java/org/bukkit/command/SimpleCommandMap.java
 +++ b/src/main/java/org/bukkit/command/SimpleCommandMap.java
-@@ -65,6 +65,8 @@ public class SimpleCommandMap implements CommandMap {
+@@ -66,6 +66,8 @@ public class SimpleCommandMap implements CommandMap {
          register("bukkit", new EnchantCommand());
          register("bukkit", new TestForCommand());
          register("bukkit", new EffectCommand());

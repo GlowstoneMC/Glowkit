@@ -1,14 +1,14 @@
-From 3cf905920447c0b39ade626c9e2c11c5d202b41f Mon Sep 17 00:00:00 2001
+From 693e7f300a37adbce9d73e2cf5f4d759e42dfdf8 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Mon, 21 Nov 2016 11:07:59 -0500
 Subject: [PATCH] Add setblock command
 
 
 diff --git a/src/main/java/org/bukkit/command/SimpleCommandMap.java b/src/main/java/org/bukkit/command/SimpleCommandMap.java
-index c586b2d..78faea1 100644
+index c2e492b..86569b0 100644
 --- a/src/main/java/org/bukkit/command/SimpleCommandMap.java
 +++ b/src/main/java/org/bukkit/command/SimpleCommandMap.java
-@@ -70,6 +70,7 @@ public class SimpleCommandMap implements CommandMap {
+@@ -71,6 +71,7 @@ public class SimpleCommandMap implements CommandMap {
          register("bukkit", new SetIdleTimeoutCommand());
          register("bukkit", new AchievementCommand());
          register("bukkit", new ParticleCommand());

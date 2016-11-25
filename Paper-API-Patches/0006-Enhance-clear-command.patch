@@ -1,26 +1,14 @@
-From ae268caff33e7adf0d70dd3608d7b94e0b77f1e7 Mon Sep 17 00:00:00 2001
+From 6cda8c9df4f7455823987b01727ea63eb5cc3264 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Sun, 20 Nov 2016 13:00:53 -0500
 Subject: [PATCH] Enhance clear command
 
 
 diff --git a/src/main/java/org/bukkit/command/SimpleCommandMap.java b/src/main/java/org/bukkit/command/SimpleCommandMap.java
-index fe1106f..aa8e7ba 100644
+index c303611..8f3f6b6 100644
 --- a/src/main/java/org/bukkit/command/SimpleCommandMap.java
 +++ b/src/main/java/org/bukkit/command/SimpleCommandMap.java
-@@ -6,10 +6,7 @@ import com.destroystokyo.paper.exception.ServerTabCompleteException;
- import org.apache.commons.lang.Validate;
- import org.bukkit.Location;
- import org.bukkit.Server;
--import org.bukkit.command.defaults.HelpCommand;
--import org.bukkit.command.defaults.PluginsCommand;
--import org.bukkit.command.defaults.ReloadCommand;
--import org.bukkit.command.defaults.VanillaCommand;
-+import org.bukkit.command.defaults.*;
- import org.bukkit.entity.Player;
- import org.bukkit.util.StringUtil;
- 
-@@ -63,6 +60,7 @@ public class SimpleCommandMap implements CommandMap {
+@@ -61,6 +61,7 @@ public class SimpleCommandMap implements CommandMap {
          register("bukkit", new DifficultyCommand());
          register("bukkit", new WeatherCommand());
          register("bukkit", new SpawnpointCommand());
