@@ -1,0 +1,40 @@
+From 54266cee4674f642d9ec1b203ad5df8507b327ae Mon Sep 17 00:00:00 2001
+From: momothereal <momothereal.mc@gmail.com>
+Date: Fri, 2 Dec 2016 11:24:16 -0500
+Subject: [PATCH] Fix Javadocs errors
+
+
+diff --git a/src/main/java/co/aikar/timings/Timings.java b/src/main/java/co/aikar/timings/Timings.java
+index bef7cf7..7d4a23c 100644
+--- a/src/main/java/co/aikar/timings/Timings.java
++++ b/src/main/java/co/aikar/timings/Timings.java
+@@ -145,10 +145,9 @@ public final class Timings {
+     }
+ 
+     /**
+-     * Sets whether or not the Timings should monitor at Verbose level.
+-     * <p/>
+-     * When Verbose is disabled, high-frequency timings will not be available.
+-     * Calling this will reset timing data.
++     * <p>Sets whether or not the Timings should monitor at Verbose level. Calling this will reset timing data.</p>
++     *
++     * <p>When Verbose is disabled, high-frequency timings will not be available.</p>
+      *
+      * @param enabled Should high-frequency timings be reported
+      */
+diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
+index 8b3c0d1..6988529 100644
+--- a/src/main/java/org/bukkit/entity/Player.java
++++ b/src/main/java/org/bukkit/entity/Player.java
+@@ -1672,7 +1672,7 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
+          * Sends an array of components as a single message to the specified screen position of this player
+          *
+          * @param position the screen position
+-         * @param component the components to send
++         * @param components the components to send
+          */
+         public void sendMessage(net.md_5.bungee.api.ChatMessageType position, net.md_5.bungee.api.chat.BaseComponent... components) {
+             throw new UnsupportedOperationException("Not supported yet.");
+-- 
+2.10.2.windows.1
+
