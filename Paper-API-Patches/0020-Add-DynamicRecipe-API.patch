@@ -1,7 +1,7 @@
-From caf7e4b513f2ce761c48d4d2f4495b9fe0c2a3cf Mon Sep 17 00:00:00 2001
-From: mastercoms <circuitsoft@tuta.io>
-Date: Sun, 19 Jun 2016 14:21:22 -0400
-Subject: [PATCH] Dynamic recipe API
+From 8494bc1d79c5559c0121df82e166d85b5a579226 Mon Sep 17 00:00:00 2001
+From: ZephireNZ <brynleymcdonald@gmail.com>
+Date: Fri, 25 Nov 2016 12:45:24 -0500
+Subject: [PATCH] Add DynamicRecipe API
 
 
 diff --git a/src/main/java/org/bukkit/inventory/DynamicRecipe.java b/src/main/java/org/bukkit/inventory/DynamicRecipe.java
@@ -82,5 +82,5 @@ index 0000000..ca4e1b3
 +    }
 +}
 -- 
-2.9.0.windows.1
+2.10.2
 

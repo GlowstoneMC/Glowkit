@@ -1,31 +1,13 @@
-From 45186ff982d1d4bac6fd3275641d4026bd51a95c Mon Sep 17 00:00:00 2001
-From: mastercoms <circuitsoft@tuta.io>
-Date: Sun, 19 Jun 2016 14:11:59 -0400
+From 27794c36ab9e41d4b629adc8eab0e23e780b4693 Mon Sep 17 00:00:00 2001
+From: momothereal <momothereal.mc@gmail.com>
+Date: Fri, 25 Nov 2016 12:32:52 -0500
 Subject: [PATCH] Enhance ageable API
 
 
 diff --git a/src/main/java/org/bukkit/entity/Ageable.java b/src/main/java/org/bukkit/entity/Ageable.java
-index e9fccb2..7b23f4c 100644
+index e9fccb2..aea9d8f 100644
 --- a/src/main/java/org/bukkit/entity/Ageable.java
 +++ b/src/main/java/org/bukkit/entity/Ageable.java
-@@ -3,7 +3,7 @@ package org.bukkit.entity;
- /**
-  * Represents an entity that can age and breed.
-  */
--public interface Ageable extends Creature {    
-+public interface Ageable extends Creature {
-     /**
-      * Gets the age of this animal.
-      *
-@@ -49,7 +49,7 @@ public interface Ageable extends Creature {
-      * @return return true if the animal is an adult
-      */
-     public boolean isAdult();
--    
-+
-     /**
-      * Return the ability to breed of the animal.
-      *
 @@ -64,4 +64,23 @@ public interface Ageable extends Creature {
       * @param breed breedability of the animal
       */
@@ -51,5 +33,5 @@ index e9fccb2..7b23f4c 100644
 +    public void setParent(Ageable parent);
  }
 -- 
-2.9.0.windows.1
+2.10.2
 

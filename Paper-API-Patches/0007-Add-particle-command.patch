@@ -1,12 +1,24 @@
-From 89888c08d4df064a09a893351e378b730b137b96 Mon Sep 17 00:00:00 2001
+From 3b3cc8c22177d8ccb0446d5931048ae6a2f71a8c Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
-Date: Sun, 12 Jun 2016 23:41:44 -0400
+Date: Mon, 21 Nov 2016 09:13:43 -0500
 Subject: [PATCH] Add particle command
 
 
+diff --git a/src/main/java/org/bukkit/command/SimpleCommandMap.java b/src/main/java/org/bukkit/command/SimpleCommandMap.java
+index 8f3f6b6..c2e492b 100644
+--- a/src/main/java/org/bukkit/command/SimpleCommandMap.java
++++ b/src/main/java/org/bukkit/command/SimpleCommandMap.java
+@@ -70,6 +70,7 @@ public class SimpleCommandMap implements CommandMap {
+         register("bukkit", new SetWorldSpawnCommand());
+         register("bukkit", new SetIdleTimeoutCommand());
+         register("bukkit", new AchievementCommand());
++        register("bukkit", new ParticleCommand());
+     }
+ 
+     /**
 diff --git a/src/main/java/org/bukkit/command/defaults/ParticleCommand.java b/src/main/java/org/bukkit/command/defaults/ParticleCommand.java
 new file mode 100644
-index 0000000..e518a71
+index 0000000..4d556f0
 --- /dev/null
 +++ b/src/main/java/org/bukkit/command/defaults/ParticleCommand.java
 @@ -0,0 +1,64 @@
@@ -57,7 +69,7 @@ index 0000000..e518a71
 +        final float zd = (float) getDouble(sender, args[6]);
 +        final float speed = (float) getDouble(sender, args[7]);
 +        final int count = args.length > 8 ? getInteger(sender, args[8], 1) : 1;
-+        final boolean force = args.length > 9 ? args[9].equals("force") : false;
++        final boolean force = args.length > 9 && args[9].equals("force");
 +
 +        Effect effect = Effect.getByName(name);
 +        if (effect == null || effect.getType() != Effect.Type.PARTICLE) {
@@ -75,5 +87,5 @@ index 0000000..e518a71
 +    }
 +}
 -- 
-2.9.0.windows.1
+2.10.2
 

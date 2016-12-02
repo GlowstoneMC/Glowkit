@@ -1,0 +1,943 @@
+From e7747535f3af478b2f088b0558af50f5113cf29a Mon Sep 17 00:00:00 2001
+From: mastercoms <circuitsoft@tuta.io>
+Date: Thu, 24 Nov 2016 14:43:16 -0500
+Subject: [PATCH] Restore Bukkit commands
+
+
+diff --git a/src/main/java/org/bukkit/command/SimpleCommandMap.java b/src/main/java/org/bukkit/command/SimpleCommandMap.java
+index 18de059..c303611 100644
+--- a/src/main/java/org/bukkit/command/SimpleCommandMap.java
++++ b/src/main/java/org/bukkit/command/SimpleCommandMap.java
+@@ -24,14 +24,51 @@ public class SimpleCommandMap implements CommandMap {
+     }
+ 
+     private void setDefaultCommands() {
++        register("bukkit", new SaveCommand());
++        register("bukkit", new SaveOnCommand());
++        register("bukkit", new SaveOffCommand());
++        register("bukkit", new StopCommand());
+         register("bukkit", new ReloadCommand("reload"));
+         register("bukkit", new PluginsCommand("plugins"));
+         register("bukkit", new co.aikar.timings.TimingsCommand("timings")); // Spigot
+     }
+ 
+     public void setFallbackCommands() {
++        register("bukkit", new ListCommand());
++        register("bukkit", new OpCommand());
++        register("bukkit", new DeopCommand());
++        register("bukkit", new BanIpCommand());
++        register("bukkit", new PardonIpCommand());
++        register("bukkit", new BanCommand());
++        register("bukkit", new PardonCommand());
++        register("bukkit", new KickCommand());
++        register("bukkit", new TeleportCommand());
++        register("bukkit", new GiveCommand());
++        register("bukkit", new TimeCommand());
++        register("bukkit", new SayCommand());
++        register("bukkit", new WhitelistCommand());
++        register("bukkit", new TellCommand());
++        register("bukkit", new MeCommand());
++        register("bukkit", new KillCommand());
++        register("bukkit", new GameModeCommand());
+         register("bukkit", new HelpCommand());
+         register("bukkit", new VersionCommand("version"));
++        register("bukkit", new ExpCommand());
++        register("bukkit", new ToggleDownfallCommand());
++        register("bukkit", new BanListCommand());
++        register("bukkit", new DefaultGameModeCommand());
++        register("bukkit", new SeedCommand());
++        register("bukkit", new DifficultyCommand());
++        register("bukkit", new WeatherCommand());
++        register("bukkit", new SpawnpointCommand());
++        register("bukkit", new GameRuleCommand());
++        register("bukkit", new EnchantCommand());
++        register("bukkit", new TestForCommand());
++        register("bukkit", new EffectCommand());
++        register("bukkit", new SpreadPlayersCommand());
++        register("bukkit", new SetWorldSpawnCommand());
++        register("bukkit", new SetIdleTimeoutCommand());
++        register("bukkit", new AchievementCommand());
+     }
+ 
+     /**
+diff --git a/src/main/java/org/bukkit/command/defaults/AchievementCommand.java b/src/main/java/org/bukkit/command/defaults/AchievementCommand.java
+index c2e1795..56ec822 100644
+--- a/src/main/java/org/bukkit/command/defaults/AchievementCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/AchievementCommand.java
+@@ -1,15 +1,8 @@
+ package org.bukkit.command.defaults;
+ 
+-import java.util.ArrayList;
+-import java.util.Arrays;
+-import java.util.List;
+-
++import com.google.common.collect.ImmutableList;
+ import org.apache.commons.lang.Validate;
+-import org.bukkit.Achievement;
+-import org.bukkit.Bukkit;
+-import org.bukkit.ChatColor;
+-import org.bukkit.Statistic;
+-import org.bukkit.Material;
++import org.bukkit.*;
+ import org.bukkit.Statistic.Type;
+ import org.bukkit.command.Command;
+ import org.bukkit.command.CommandSender;
+@@ -18,9 +11,10 @@ import org.bukkit.entity.Player;
+ import org.bukkit.event.player.PlayerAchievementAwardedEvent;
+ import org.bukkit.event.player.PlayerStatisticIncrementEvent;
+ 
+-import com.google.common.collect.ImmutableList;
++import java.util.ArrayList;
++import java.util.Arrays;
++import java.util.List;
+ 
+-@Deprecated
+ public class AchievementCommand extends VanillaCommand {
+     public AchievementCommand() {
+         super("achievement");
+diff --git a/src/main/java/org/bukkit/command/defaults/BanCommand.java b/src/main/java/org/bukkit/command/defaults/BanCommand.java
+index 59b804c..ffad3b1 100644
+--- a/src/main/java/org/bukkit/command/defaults/BanCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/BanCommand.java
+@@ -1,7 +1,6 @@
+ package org.bukkit.command.defaults;
+ 
+-import java.util.List;
+-
++import com.google.common.collect.ImmutableList;
+ import org.apache.commons.lang.StringUtils;
+ import org.apache.commons.lang.Validate;
+ import org.bukkit.BanList;
+@@ -11,9 +10,8 @@ import org.bukkit.command.Command;
+ import org.bukkit.command.CommandSender;
+ import org.bukkit.entity.Player;
+ 
+-import com.google.common.collect.ImmutableList;
++import java.util.List;
+ 
+-@Deprecated
+ public class BanCommand extends VanillaCommand {
+     public BanCommand() {
+         super("ban");
+diff --git a/src/main/java/org/bukkit/command/defaults/BanIpCommand.java b/src/main/java/org/bukkit/command/defaults/BanIpCommand.java
+index 9fcd046..b7d7ce1 100644
+--- a/src/main/java/org/bukkit/command/defaults/BanIpCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/BanIpCommand.java
+@@ -1,8 +1,6 @@
+ package org.bukkit.command.defaults;
+ 
+-import java.util.List;
+-import java.util.regex.Pattern;
+-
++import com.google.common.collect.ImmutableList;
+ import org.apache.commons.lang.StringUtils;
+ import org.apache.commons.lang.Validate;
+ import org.bukkit.BanList;
+@@ -12,9 +10,9 @@ import org.bukkit.command.Command;
+ import org.bukkit.command.CommandSender;
+ import org.bukkit.entity.Player;
+ 
+-import com.google.common.collect.ImmutableList;
++import java.util.List;
++import java.util.regex.Pattern;
+ 
+-@Deprecated
+ public class BanIpCommand extends VanillaCommand {
+     public static final Pattern ipValidity = Pattern.compile("^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])$");
+ 
+diff --git a/src/main/java/org/bukkit/command/defaults/BanListCommand.java b/src/main/java/org/bukkit/command/defaults/BanListCommand.java
+index f8d32df..9d15fba 100644
+--- a/src/main/java/org/bukkit/command/defaults/BanListCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/BanListCommand.java
+@@ -1,21 +1,17 @@
+ package org.bukkit.command.defaults;
+ 
+-import java.util.ArrayList;
+-import java.util.List;
+-import java.util.UUID;
+-
++import com.google.common.collect.ImmutableList;
+ import org.apache.commons.lang.Validate;
+ import org.bukkit.BanEntry;
+ import org.bukkit.BanList;
+ import org.bukkit.Bukkit;
+ import org.bukkit.ChatColor;
+-import org.bukkit.OfflinePlayer;
+ import org.bukkit.command.CommandSender;
+ import org.bukkit.util.StringUtil;
+ 
+-import com.google.common.collect.ImmutableList;
++import java.util.ArrayList;
++import java.util.List;
+ 
+-@Deprecated
+ public class BanListCommand extends VanillaCommand {
+     private static final List<String> BANLIST_TYPES = ImmutableList.of("ips", "players");
+ 
+diff --git a/src/main/java/org/bukkit/command/defaults/DefaultGameModeCommand.java b/src/main/java/org/bukkit/command/defaults/DefaultGameModeCommand.java
+index f217aea..e8a63ab 100644
+--- a/src/main/java/org/bukkit/command/defaults/DefaultGameModeCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/DefaultGameModeCommand.java
+@@ -1,8 +1,6 @@
+ package org.bukkit.command.defaults;
+ 
+-import java.util.ArrayList;
+-import java.util.List;
+-
++import com.google.common.collect.ImmutableList;
+ import org.apache.commons.lang.Validate;
+ import org.bukkit.Bukkit;
+ import org.bukkit.GameMode;
+@@ -10,9 +8,9 @@ import org.bukkit.command.Command;
+ import org.bukkit.command.CommandSender;
+ import org.bukkit.util.StringUtil;
+ 
+-import com.google.common.collect.ImmutableList;
++import java.util.ArrayList;
++import java.util.List;
+ 
+-@Deprecated
+ public class DefaultGameModeCommand extends VanillaCommand {
+     private static final List<String> GAMEMODE_NAMES = ImmutableList.of("adventure", "creative", "survival");
+ 
+diff --git a/src/main/java/org/bukkit/command/defaults/DeopCommand.java b/src/main/java/org/bukkit/command/defaults/DeopCommand.java
+index 86be15e..eceaffd 100644
+--- a/src/main/java/org/bukkit/command/defaults/DeopCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/DeopCommand.java
+@@ -1,8 +1,6 @@
+ package org.bukkit.command.defaults;
+ 
+-import java.util.ArrayList;
+-import java.util.List;
+-
++import com.google.common.collect.ImmutableList;
+ import org.apache.commons.lang.Validate;
+ import org.bukkit.Bukkit;
+ import org.bukkit.ChatColor;
+@@ -12,9 +10,9 @@ import org.bukkit.command.CommandSender;
+ import org.bukkit.entity.Player;
+ import org.bukkit.util.StringUtil;
+ 
+-import com.google.common.collect.ImmutableList;
++import java.util.ArrayList;
++import java.util.List;
+ 
+-@Deprecated
+ public class DeopCommand extends VanillaCommand {
+     public DeopCommand() {
+         super("deop");
+diff --git a/src/main/java/org/bukkit/command/defaults/DifficultyCommand.java b/src/main/java/org/bukkit/command/defaults/DifficultyCommand.java
+index 74a8ac2..ca98559 100644
+--- a/src/main/java/org/bukkit/command/defaults/DifficultyCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/DifficultyCommand.java
+@@ -12,7 +12,6 @@ import org.bukkit.Difficulty;
+ import java.util.ArrayList;
+ import java.util.List;
+ 
+-@Deprecated
+ public class DifficultyCommand extends VanillaCommand {
+     private static final List<String> DIFFICULTY_NAMES = ImmutableList.of("peaceful", "easy", "normal", "hard");
+ 
+diff --git a/src/main/java/org/bukkit/command/defaults/EffectCommand.java b/src/main/java/org/bukkit/command/defaults/EffectCommand.java
+index de63bbe..78dc228 100644
+--- a/src/main/java/org/bukkit/command/defaults/EffectCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/EffectCommand.java
+@@ -1,8 +1,6 @@
+ package org.bukkit.command.defaults;
+ 
+ import com.google.common.collect.ImmutableList;
+-import java.util.ArrayList;
+-import java.util.List;
+ import org.bukkit.ChatColor;
+ import org.bukkit.command.CommandSender;
+ import org.bukkit.entity.Player;
+@@ -10,7 +8,9 @@ import org.bukkit.potion.PotionEffect;
+ import org.bukkit.potion.PotionEffectType;
+ import org.bukkit.util.StringUtil;
+ 
+-@Deprecated
++import java.util.ArrayList;
++import java.util.List;
++
+ public class EffectCommand extends VanillaCommand {
+     private static final List<String> effects;
+ 
+diff --git a/src/main/java/org/bukkit/command/defaults/EnchantCommand.java b/src/main/java/org/bukkit/command/defaults/EnchantCommand.java
+index 5737a48..95be1cb 100644
+--- a/src/main/java/org/bukkit/command/defaults/EnchantCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/EnchantCommand.java
+@@ -1,14 +1,8 @@
+ package org.bukkit.command.defaults;
+ 
+-import java.util.ArrayList;
+-import java.util.Collections;
+-import java.util.List;
+-import java.util.Map;
+-
++import com.google.common.collect.ImmutableList;
+ import org.apache.commons.lang.Validate;
+ import org.apache.commons.lang.WordUtils;
+-import com.google.common.collect.ImmutableList;
+-
+ import org.bukkit.Bukkit;
+ import org.bukkit.ChatColor;
+ import org.bukkit.Material;
+@@ -19,7 +13,11 @@ import org.bukkit.entity.Player;
+ import org.bukkit.inventory.ItemStack;
+ import org.bukkit.util.StringUtil;
+ 
+-@Deprecated
++import java.util.ArrayList;
++import java.util.Collections;
++import java.util.List;
++import java.util.Map;
++
+ public class EnchantCommand extends VanillaCommand {
+     private static final List<String> ENCHANTMENT_NAMES = new ArrayList<String>();
+ 
+diff --git a/src/main/java/org/bukkit/command/defaults/ExpCommand.java b/src/main/java/org/bukkit/command/defaults/ExpCommand.java
+index aa33c0c..b74669b 100644
+--- a/src/main/java/org/bukkit/command/defaults/ExpCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/ExpCommand.java
+@@ -1,7 +1,6 @@
+ package org.bukkit.command.defaults;
+ 
+-import java.util.List;
+-
++import com.google.common.collect.ImmutableList;
+ import org.apache.commons.lang.Validate;
+ import org.bukkit.Bukkit;
+ import org.bukkit.ChatColor;
+@@ -9,9 +8,8 @@ import org.bukkit.command.Command;
+ import org.bukkit.command.CommandSender;
+ import org.bukkit.entity.Player;
+ 
+-import com.google.common.collect.ImmutableList;
++import java.util.List;
+ 
+-@Deprecated
+ public class ExpCommand extends VanillaCommand {
+     public ExpCommand() {
+         super("xp");
+diff --git a/src/main/java/org/bukkit/command/defaults/GameModeCommand.java b/src/main/java/org/bukkit/command/defaults/GameModeCommand.java
+index f9675a0..7250fef 100644
+--- a/src/main/java/org/bukkit/command/defaults/GameModeCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/GameModeCommand.java
+@@ -1,8 +1,6 @@
+ package org.bukkit.command.defaults;
+ 
+-import java.util.ArrayList;
+-import java.util.List;
+-
++import com.google.common.collect.ImmutableList;
+ import org.apache.commons.lang.Validate;
+ import org.bukkit.Bukkit;
+ import org.bukkit.ChatColor;
+@@ -12,9 +10,9 @@ import org.bukkit.command.CommandSender;
+ import org.bukkit.entity.Player;
+ import org.bukkit.util.StringUtil;
+ 
+-import com.google.common.collect.ImmutableList;
++import java.util.ArrayList;
++import java.util.List;
+ 
+-@Deprecated
+ public class GameModeCommand extends VanillaCommand {
+     private static final List<String> GAMEMODE_NAMES = ImmutableList.of("adventure", "creative", "survival", "spectator");
+ 
+diff --git a/src/main/java/org/bukkit/command/defaults/GameRuleCommand.java b/src/main/java/org/bukkit/command/defaults/GameRuleCommand.java
+index 13e2589..01ab692 100644
+--- a/src/main/java/org/bukkit/command/defaults/GameRuleCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/GameRuleCommand.java
+@@ -2,20 +2,19 @@ package org.bukkit.command.defaults;
+ 
+ import com.google.common.collect.ImmutableList;
+ import org.apache.commons.lang.Validate;
++import org.bukkit.Bukkit;
+ import org.bukkit.ChatColor;
++import org.bukkit.World;
+ import org.bukkit.command.BlockCommandSender;
+ import org.bukkit.command.Command;
+ import org.bukkit.command.CommandSender;
++import org.bukkit.entity.HumanEntity;
+ import org.bukkit.util.StringUtil;
+ 
+ import java.util.ArrayList;
+ import java.util.Arrays;
+ import java.util.List;
+-import org.bukkit.Bukkit;
+-import org.bukkit.World;
+-import org.bukkit.entity.HumanEntity;
+ 
+-@Deprecated
+ public class GameRuleCommand extends VanillaCommand {
+     private static final List<String> GAMERULE_STATES = ImmutableList.of("true", "false");
+ 
+diff --git a/src/main/java/org/bukkit/command/defaults/GiveCommand.java b/src/main/java/org/bukkit/command/defaults/GiveCommand.java
+index c8b7f0f..1cdafa0 100644
+--- a/src/main/java/org/bukkit/command/defaults/GiveCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/GiveCommand.java
+@@ -1,10 +1,7 @@
+ package org.bukkit.command.defaults;
+ 
+-import java.util.ArrayList;
+-import java.util.Arrays;
+-import java.util.Collections;
+-import java.util.List;
+-
++import com.google.common.base.Joiner;
++import com.google.common.collect.ImmutableList;
+ import org.apache.commons.lang.Validate;
+ import org.bukkit.Bukkit;
+ import org.bukkit.ChatColor;
+@@ -15,10 +12,11 @@ import org.bukkit.entity.Player;
+ import org.bukkit.inventory.ItemStack;
+ import org.bukkit.util.StringUtil;
+ 
+-import com.google.common.base.Joiner;
+-import com.google.common.collect.ImmutableList;
++import java.util.ArrayList;
++import java.util.Arrays;
++import java.util.Collections;
++import java.util.List;
+ 
+-@Deprecated
+ public class GiveCommand extends VanillaCommand {
+     private static List<String> materials;
+     static {
+diff --git a/src/main/java/org/bukkit/command/defaults/KickCommand.java b/src/main/java/org/bukkit/command/defaults/KickCommand.java
+index 634c115..7f4ec57 100644
+--- a/src/main/java/org/bukkit/command/defaults/KickCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/KickCommand.java
+@@ -1,7 +1,6 @@
+ package org.bukkit.command.defaults;
+ 
+-import java.util.List;
+-
++import com.google.common.collect.ImmutableList;
+ import org.apache.commons.lang.Validate;
+ import org.bukkit.Bukkit;
+ import org.bukkit.ChatColor;
+@@ -9,9 +8,8 @@ import org.bukkit.command.Command;
+ import org.bukkit.command.CommandSender;
+ import org.bukkit.entity.Player;
+ 
+-import com.google.common.collect.ImmutableList;
++import java.util.List;
+ 
+-@Deprecated
+ public class KickCommand extends VanillaCommand {
+     public KickCommand() {
+         super("kick");
+diff --git a/src/main/java/org/bukkit/command/defaults/KillCommand.java b/src/main/java/org/bukkit/command/defaults/KillCommand.java
+index 2143eb1..94e6853 100644
+--- a/src/main/java/org/bukkit/command/defaults/KillCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/KillCommand.java
+@@ -1,16 +1,14 @@
+ package org.bukkit.command.defaults;
+ 
+-import java.util.List;
+-
++import com.google.common.collect.ImmutableList;
+ import org.apache.commons.lang.Validate;
+ import org.bukkit.Bukkit;
+ import org.bukkit.command.CommandSender;
+ import org.bukkit.entity.Player;
+ import org.bukkit.event.entity.EntityDamageEvent;
+ 
+-import com.google.common.collect.ImmutableList;
++import java.util.List;
+ 
+-@Deprecated
+ public class KillCommand extends VanillaCommand {
+     public KillCommand() {
+         super("kill");
+diff --git a/src/main/java/org/bukkit/command/defaults/ListCommand.java b/src/main/java/org/bukkit/command/defaults/ListCommand.java
+index ea62bee..a2d05f9 100644
+--- a/src/main/java/org/bukkit/command/defaults/ListCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/ListCommand.java
+@@ -1,16 +1,14 @@
+ package org.bukkit.command.defaults;
+ 
+-import java.util.Collection;
+-import java.util.List;
+-
++import com.google.common.collect.ImmutableList;
+ import org.apache.commons.lang.Validate;
+ import org.bukkit.Bukkit;
+ import org.bukkit.command.CommandSender;
+ import org.bukkit.entity.Player;
+ 
+-import com.google.common.collect.ImmutableList;
++import java.util.Collection;
++import java.util.List;
+ 
+-@Deprecated
+ public class ListCommand extends VanillaCommand {
+     public ListCommand() {
+         super("list");
+diff --git a/src/main/java/org/bukkit/command/defaults/MeCommand.java b/src/main/java/org/bukkit/command/defaults/MeCommand.java
+index b0d7bf5..ddcd9ad 100644
+--- a/src/main/java/org/bukkit/command/defaults/MeCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/MeCommand.java
+@@ -4,7 +4,6 @@ import org.bukkit.Bukkit;
+ import org.bukkit.ChatColor;
+ import org.bukkit.command.CommandSender;
+ 
+-@Deprecated
+ public class MeCommand extends VanillaCommand {
+     public MeCommand() {
+         super("me");
+diff --git a/src/main/java/org/bukkit/command/defaults/OpCommand.java b/src/main/java/org/bukkit/command/defaults/OpCommand.java
+index f5bb8b1..0cbccd5 100644
+--- a/src/main/java/org/bukkit/command/defaults/OpCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/OpCommand.java
+@@ -1,9 +1,6 @@
+ package org.bukkit.command.defaults;
+ 
+-import java.util.ArrayList;
+-import java.util.Collections;
+-import java.util.List;
+-
++import com.google.common.collect.ImmutableList;
+ import org.apache.commons.lang.Validate;
+ import org.bukkit.Bukkit;
+ import org.bukkit.ChatColor;
+@@ -13,9 +10,10 @@ import org.bukkit.command.CommandSender;
+ import org.bukkit.entity.Player;
+ import org.bukkit.util.StringUtil;
+ 
+-import com.google.common.collect.ImmutableList;
++import java.util.ArrayList;
++import java.util.Collections;
++import java.util.List;
+ 
+-@Deprecated
+ public class OpCommand extends VanillaCommand {
+     public OpCommand() {
+         super("op");
+diff --git a/src/main/java/org/bukkit/command/defaults/PardonCommand.java b/src/main/java/org/bukkit/command/defaults/PardonCommand.java
+index 762189a..6ffe543 100644
+--- a/src/main/java/org/bukkit/command/defaults/PardonCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/PardonCommand.java
+@@ -1,8 +1,6 @@
+ package org.bukkit.command.defaults;
+ 
+-import java.util.ArrayList;
+-import java.util.List;
+-
++import com.google.common.collect.ImmutableList;
+ import org.apache.commons.lang.Validate;
+ import org.bukkit.BanList;
+ import org.bukkit.Bukkit;
+@@ -12,9 +10,9 @@ import org.bukkit.command.Command;
+ import org.bukkit.command.CommandSender;
+ import org.bukkit.util.StringUtil;
+ 
+-import com.google.common.collect.ImmutableList;
++import java.util.ArrayList;
++import java.util.List;
+ 
+-@Deprecated
+ public class PardonCommand extends VanillaCommand {
+     public PardonCommand() {
+         super("pardon");
+diff --git a/src/main/java/org/bukkit/command/defaults/PardonIpCommand.java b/src/main/java/org/bukkit/command/defaults/PardonIpCommand.java
+index 0f63c26..d227341 100644
+--- a/src/main/java/org/bukkit/command/defaults/PardonIpCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/PardonIpCommand.java
+@@ -1,8 +1,6 @@
+ package org.bukkit.command.defaults;
+ 
+-import java.util.ArrayList;
+-import java.util.List;
+-
++import com.google.common.collect.ImmutableList;
+ import org.apache.commons.lang.Validate;
+ import org.bukkit.Bukkit;
+ import org.bukkit.ChatColor;
+@@ -10,9 +8,9 @@ import org.bukkit.command.Command;
+ import org.bukkit.command.CommandSender;
+ import org.bukkit.util.StringUtil;
+ 
+-import com.google.common.collect.ImmutableList;
++import java.util.ArrayList;
++import java.util.List;
+ 
+-@Deprecated
+ public class PardonIpCommand extends VanillaCommand {
+     public PardonIpCommand() {
+         super("pardon-ip");
+diff --git a/src/main/java/org/bukkit/command/defaults/SaveCommand.java b/src/main/java/org/bukkit/command/defaults/SaveCommand.java
+index d08d3ed..c8ed052 100644
+--- a/src/main/java/org/bukkit/command/defaults/SaveCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/SaveCommand.java
+@@ -1,16 +1,14 @@
+ package org.bukkit.command.defaults;
+ 
+-import java.util.List;
+-
++import com.google.common.collect.ImmutableList;
+ import org.apache.commons.lang.Validate;
+ import org.bukkit.Bukkit;
+ import org.bukkit.World;
+ import org.bukkit.command.Command;
+ import org.bukkit.command.CommandSender;
+ 
+-import com.google.common.collect.ImmutableList;
++import java.util.List;
+ 
+-@Deprecated
+ public class SaveCommand extends VanillaCommand {
+     public SaveCommand() {
+         super("save-all");
+diff --git a/src/main/java/org/bukkit/command/defaults/SaveOffCommand.java b/src/main/java/org/bukkit/command/defaults/SaveOffCommand.java
+index 54e6bca..43e808a 100644
+--- a/src/main/java/org/bukkit/command/defaults/SaveOffCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/SaveOffCommand.java
+@@ -1,16 +1,14 @@
+ package org.bukkit.command.defaults;
+ 
+-import java.util.List;
+-
++import com.google.common.collect.ImmutableList;
+ import org.apache.commons.lang.Validate;
+ import org.bukkit.Bukkit;
+ import org.bukkit.World;
+ import org.bukkit.command.Command;
+ import org.bukkit.command.CommandSender;
+ 
+-import com.google.common.collect.ImmutableList;
++import java.util.List;
+ 
+-@Deprecated
+ public class SaveOffCommand extends VanillaCommand {
+     public SaveOffCommand() {
+         super("save-off");
+diff --git a/src/main/java/org/bukkit/command/defaults/SaveOnCommand.java b/src/main/java/org/bukkit/command/defaults/SaveOnCommand.java
+index 760e1c4..c85506a 100644
+--- a/src/main/java/org/bukkit/command/defaults/SaveOnCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/SaveOnCommand.java
+@@ -1,16 +1,14 @@
+ package org.bukkit.command.defaults;
+ 
+-import java.util.List;
+-
++import com.google.common.collect.ImmutableList;
+ import org.apache.commons.lang.Validate;
+ import org.bukkit.Bukkit;
+ import org.bukkit.World;
+ import org.bukkit.command.Command;
+ import org.bukkit.command.CommandSender;
+ 
+-import com.google.common.collect.ImmutableList;
++import java.util.List;
+ 
+-@Deprecated
+ public class SaveOnCommand extends VanillaCommand {
+     public SaveOnCommand() {
+         super("save-on");
+diff --git a/src/main/java/org/bukkit/command/defaults/SayCommand.java b/src/main/java/org/bukkit/command/defaults/SayCommand.java
+index 9641d18..48326d3 100644
+--- a/src/main/java/org/bukkit/command/defaults/SayCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/SayCommand.java
+@@ -1,7 +1,6 @@
+ package org.bukkit.command.defaults;
+ 
+-import java.util.List;
+-
++import com.google.common.collect.ImmutableList;
+ import org.apache.commons.lang.Validate;
+ import org.bukkit.Bukkit;
+ import org.bukkit.ChatColor;
+@@ -9,9 +8,8 @@ import org.bukkit.command.CommandSender;
+ import org.bukkit.command.ConsoleCommandSender;
+ import org.bukkit.entity.Player;
+ 
+-import com.google.common.collect.ImmutableList;
++import java.util.List;
+ 
+-@Deprecated
+ public class SayCommand extends VanillaCommand {
+     public SayCommand() {
+         super("say");
+diff --git a/src/main/java/org/bukkit/command/defaults/SeedCommand.java b/src/main/java/org/bukkit/command/defaults/SeedCommand.java
+index 3fb0639..b42afec 100644
+--- a/src/main/java/org/bukkit/command/defaults/SeedCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/SeedCommand.java
+@@ -1,15 +1,13 @@
+ package org.bukkit.command.defaults;
+ 
+-import java.util.List;
+-
++import com.google.common.collect.ImmutableList;
+ import org.apache.commons.lang.Validate;
+ import org.bukkit.Bukkit;
+ import org.bukkit.command.CommandSender;
+ import org.bukkit.entity.Player;
+ 
+-import com.google.common.collect.ImmutableList;
++import java.util.List;
+ 
+-@Deprecated
+ public class SeedCommand extends VanillaCommand {
+     public SeedCommand() {
+         super("seed");
+diff --git a/src/main/java/org/bukkit/command/defaults/SetIdleTimeoutCommand.java b/src/main/java/org/bukkit/command/defaults/SetIdleTimeoutCommand.java
+index f6cbe03..6b8bb2d 100644
+--- a/src/main/java/org/bukkit/command/defaults/SetIdleTimeoutCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/SetIdleTimeoutCommand.java
+@@ -10,7 +10,6 @@ import org.bukkit.command.CommandSender;
+ 
+ import java.util.List;
+ 
+-@Deprecated
+ public class SetIdleTimeoutCommand extends VanillaCommand {
+ 
+     public SetIdleTimeoutCommand() {
+diff --git a/src/main/java/org/bukkit/command/defaults/SetWorldSpawnCommand.java b/src/main/java/org/bukkit/command/defaults/SetWorldSpawnCommand.java
+index 8bec19c..59c5059 100644
+--- a/src/main/java/org/bukkit/command/defaults/SetWorldSpawnCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/SetWorldSpawnCommand.java
+@@ -12,7 +12,6 @@ import org.bukkit.entity.Player;
+ 
+ import java.util.List;
+ 
+-@Deprecated
+ public class SetWorldSpawnCommand extends VanillaCommand {
+ 
+     public SetWorldSpawnCommand() {
+diff --git a/src/main/java/org/bukkit/command/defaults/SpawnpointCommand.java b/src/main/java/org/bukkit/command/defaults/SpawnpointCommand.java
+index be15f7e..4214bee 100644
+--- a/src/main/java/org/bukkit/command/defaults/SpawnpointCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/SpawnpointCommand.java
+@@ -12,7 +12,6 @@ import org.bukkit.entity.Player;
+ 
+ import java.util.List;
+ 
+-@Deprecated
+ public class SpawnpointCommand extends VanillaCommand {
+ 
+     public SpawnpointCommand() {
+diff --git a/src/main/java/org/bukkit/command/defaults/SpreadPlayersCommand.java b/src/main/java/org/bukkit/command/defaults/SpreadPlayersCommand.java
+index 489f760..13038e6 100644
+--- a/src/main/java/org/bukkit/command/defaults/SpreadPlayersCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/SpreadPlayersCommand.java
+@@ -3,11 +3,6 @@ package org.bukkit.command.defaults;
+ import com.google.common.collect.Lists;
+ import com.google.common.collect.Maps;
+ import com.google.common.collect.Sets;
+-import java.util.List;
+-import java.util.Map;
+-import java.util.Random;
+-import java.util.Set;
+-
+ import org.bukkit.Bukkit;
+ import org.bukkit.ChatColor;
+ import org.bukkit.Location;
+@@ -16,7 +11,11 @@ import org.bukkit.command.CommandSender;
+ import org.bukkit.entity.Player;
+ import org.bukkit.scoreboard.Team;
+ 
+-@Deprecated
++import java.util.List;
++import java.util.Map;
++import java.util.Random;
++import java.util.Set;
++
+ public class SpreadPlayersCommand extends VanillaCommand {
+     private static final Random random = new Random();
+ 
+diff --git a/src/main/java/org/bukkit/command/defaults/StopCommand.java b/src/main/java/org/bukkit/command/defaults/StopCommand.java
+index a9467e1..44b69ce 100644
+--- a/src/main/java/org/bukkit/command/defaults/StopCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/StopCommand.java
+@@ -1,18 +1,15 @@
+ package org.bukkit.command.defaults;
+ 
+-import java.util.List;
+-
++import com.google.common.collect.ImmutableList;
+ import org.apache.commons.lang.StringUtils;
+ import org.apache.commons.lang.Validate;
+-
+ import org.bukkit.Bukkit;
+ import org.bukkit.command.Command;
+ import org.bukkit.command.CommandSender;
+ import org.bukkit.entity.Player;
+ 
+-import com.google.common.collect.ImmutableList;
++import java.util.List;
+ 
+-@Deprecated
+ public class StopCommand extends VanillaCommand {
+     public StopCommand() {
+         super("stop");
+diff --git a/src/main/java/org/bukkit/command/defaults/TeleportCommand.java b/src/main/java/org/bukkit/command/defaults/TeleportCommand.java
+index 7460196..4f754e8 100644
+--- a/src/main/java/org/bukkit/command/defaults/TeleportCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/TeleportCommand.java
+@@ -1,7 +1,6 @@
+ package org.bukkit.command.defaults;
+ 
+-import java.util.List;
+-
++import com.google.common.collect.ImmutableList;
+ import org.apache.commons.lang.Validate;
+ import org.bukkit.Bukkit;
+ import org.bukkit.ChatColor;
+@@ -11,9 +10,8 @@ import org.bukkit.command.CommandSender;
+ import org.bukkit.entity.Player;
+ import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
+ 
+-import com.google.common.collect.ImmutableList;
++import java.util.List;
+ 
+-@Deprecated
+ public class TeleportCommand extends VanillaCommand {
+ 
+     public TeleportCommand() {
+diff --git a/src/main/java/org/bukkit/command/defaults/TellCommand.java b/src/main/java/org/bukkit/command/defaults/TellCommand.java
+index 2e5d811..d4b2d61 100644
+--- a/src/main/java/org/bukkit/command/defaults/TellCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/TellCommand.java
+@@ -1,13 +1,12 @@
+ package org.bukkit.command.defaults;
+ 
+-import java.util.Arrays;
+-
+ import org.bukkit.Bukkit;
+ import org.bukkit.ChatColor;
+ import org.bukkit.command.CommandSender;
+ import org.bukkit.entity.Player;
+ 
+-@Deprecated
++import java.util.Arrays;
++
+ public class TellCommand extends VanillaCommand {
+     public TellCommand() {
+         super("tell");
+diff --git a/src/main/java/org/bukkit/command/defaults/TestForCommand.java b/src/main/java/org/bukkit/command/defaults/TestForCommand.java
+index e168b49..54b7f93 100644
+--- a/src/main/java/org/bukkit/command/defaults/TestForCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/TestForCommand.java
+@@ -1,10 +1,8 @@
+ package org.bukkit.command.defaults;
+ 
+-import org.bukkit.Bukkit;
+ import org.bukkit.ChatColor;
+ import org.bukkit.command.CommandSender;
+ 
+-@Deprecated
+ public class TestForCommand extends VanillaCommand {
+     public TestForCommand() {
+         super("testfor");
+diff --git a/src/main/java/org/bukkit/command/defaults/TimeCommand.java b/src/main/java/org/bukkit/command/defaults/TimeCommand.java
+index edce68a..74ad3a2 100644
+--- a/src/main/java/org/bukkit/command/defaults/TimeCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/TimeCommand.java
+@@ -1,8 +1,6 @@
+ package org.bukkit.command.defaults;
+ 
+-import java.util.ArrayList;
+-import java.util.List;
+-
++import com.google.common.collect.ImmutableList;
+ import org.apache.commons.lang.Validate;
+ import org.bukkit.Bukkit;
+ import org.bukkit.ChatColor;
+@@ -11,9 +9,9 @@ import org.bukkit.command.Command;
+ import org.bukkit.command.CommandSender;
+ import org.bukkit.util.StringUtil;
+ 
+-import com.google.common.collect.ImmutableList;
++import java.util.ArrayList;
++import java.util.List;
+ 
+-@Deprecated
+ public class TimeCommand extends VanillaCommand {
+     private static final List<String> TABCOMPLETE_ADD_SET = ImmutableList.of("add", "set");
+     private static final List<String> TABCOMPLETE_DAY_NIGHT = ImmutableList.of("day", "night");
+diff --git a/src/main/java/org/bukkit/command/defaults/ToggleDownfallCommand.java b/src/main/java/org/bukkit/command/defaults/ToggleDownfallCommand.java
+index 91268a6..efddebb 100644
+--- a/src/main/java/org/bukkit/command/defaults/ToggleDownfallCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/ToggleDownfallCommand.java
+@@ -1,7 +1,6 @@
+ package org.bukkit.command.defaults;
+ 
+-import java.util.List;
+-
++import com.google.common.collect.ImmutableList;
+ import org.apache.commons.lang.Validate;
+ import org.bukkit.Bukkit;
+ import org.bukkit.ChatColor;
+@@ -10,9 +9,8 @@ import org.bukkit.command.Command;
+ import org.bukkit.command.CommandSender;
+ import org.bukkit.entity.Player;
+ 
+-import com.google.common.collect.ImmutableList;
++import java.util.List;
+ 
+-@Deprecated
+ public class ToggleDownfallCommand extends VanillaCommand {
+     public ToggleDownfallCommand() {
+         super("toggledownfall");
+diff --git a/src/main/java/org/bukkit/command/defaults/VanillaCommand.java b/src/main/java/org/bukkit/command/defaults/VanillaCommand.java
+index 9105712..0bcb91c 100644
+--- a/src/main/java/org/bukkit/command/defaults/VanillaCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/VanillaCommand.java
+@@ -1,11 +1,10 @@
+ package org.bukkit.command.defaults;
+ 
+-import java.util.List;
+-
+ import org.bukkit.command.Command;
+ import org.bukkit.command.CommandSender;
+ 
+-@Deprecated
++import java.util.List;
++
+ public abstract class VanillaCommand extends Command {
+     static final int MAX_COORD = 30000000;
+     static final int MIN_COORD_MINUS_ONE = -30000001;
+diff --git a/src/main/java/org/bukkit/command/defaults/WeatherCommand.java b/src/main/java/org/bukkit/command/defaults/WeatherCommand.java
+index b86a508..a39c1b0 100644
+--- a/src/main/java/org/bukkit/command/defaults/WeatherCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/WeatherCommand.java
+@@ -13,7 +13,6 @@ import java.util.ArrayList;
+ import java.util.List;
+ import java.util.Random;
+ 
+-@Deprecated
+ public class WeatherCommand extends VanillaCommand {
+     private static final List<String> WEATHER_TYPES = ImmutableList.of("clear", "rain", "thunder");
+ 
+diff --git a/src/main/java/org/bukkit/command/defaults/WhitelistCommand.java b/src/main/java/org/bukkit/command/defaults/WhitelistCommand.java
+index 855f560..194a2b4 100644
+--- a/src/main/java/org/bukkit/command/defaults/WhitelistCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/WhitelistCommand.java
+@@ -1,8 +1,6 @@
+ package org.bukkit.command.defaults;
+ 
+-import java.util.ArrayList;
+-import java.util.List;
+-
++import com.google.common.collect.ImmutableList;
+ import org.apache.commons.lang.Validate;
+ import org.bukkit.Bukkit;
+ import org.bukkit.ChatColor;
+@@ -11,9 +9,9 @@ import org.bukkit.command.Command;
+ import org.bukkit.command.CommandSender;
+ import org.bukkit.util.StringUtil;
+ 
+-import com.google.common.collect.ImmutableList;
++import java.util.ArrayList;
++import java.util.List;
+ 
+-@Deprecated
+ public class WhitelistCommand extends VanillaCommand {
+     private static final List<String> WHITELIST_SUBCOMMANDS = ImmutableList.of("add", "remove", "on", "off", "list", "reload");
+ 
+-- 
+2.10.2
+

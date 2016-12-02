@@ -1,11 +1,11 @@
-From 3e6ec21ec8e36109acf6fd9555a102c74571f59a Mon Sep 17 00:00:00 2001
+From 8ff6679a19d41bf69171004d2de436855c074627 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
-Date: Sun, 19 Jun 2016 09:11:35 -0400
+Date: Thu, 24 Nov 2016 14:36:31 -0500
 Subject: [PATCH] Add more effects
 
 
 diff --git a/src/main/java/org/bukkit/Effect.java b/src/main/java/org/bukkit/Effect.java
-index b0f6da7..c4c2509 100644
+index a803228..6df6044 100644
 --- a/src/main/java/org/bukkit/Effect.java
 +++ b/src/main/java/org/bukkit/Effect.java
 @@ -1,13 +1,12 @@
@@ -29,14 +29,14 @@ index b0f6da7..c4c2509 100644
      /**
       * Particles displayed when a villager grows a plant, data
 -     * is the number of particles
-+     * is the number of particles, by default it is 15.
++     * is the number of particles, which has a default of 15
       */
      VILLAGER_PLANT_GROW(2005, Type.VISUAL, Integer.class),
      /**
-@@ -340,7 +339,51 @@ public enum Effect {
-      * The particles generated while sprinting a block
-      * This particle requires a Material and data value so that the client can select the correct texture.
+@@ -410,7 +409,51 @@ public enum Effect {
+      * @deprecated Spigot specific API, use {@link Particle}.
       */
+     @Deprecated
 -    TILE_DUST("blockdust", Type.PARTICLE, MaterialData.class)
 +    TILE_DUST("blockdust", Type.PARTICLE, MaterialData.class),
 +    /**
@@ -87,5 +87,5 @@ index b0f6da7..c4c2509 100644
  
      private final int id;
 -- 
-2.9.0.windows.1
+2.10.2
 

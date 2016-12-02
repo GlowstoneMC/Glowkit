@@ -1,26 +1,26 @@
-From b8eee472a5df01117131b4c0bcb0a7d5a71f3022 Mon Sep 17 00:00:00 2001
+From a4bd6046dbd0fe60b634c8a861793f275219c980 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
-Date: Sun, 12 Jun 2016 23:33:40 -0400
+Date: Sun, 20 Nov 2016 12:58:57 -0500
 Subject: [PATCH] Remove branded configs
 
 
 diff --git a/src/main/java/co/aikar/timings/TimingsExport.java b/src/main/java/co/aikar/timings/TimingsExport.java
-index 62cbd39..6f5e898 100644
+index a4a7fea..6a5cdaa 100644
 --- a/src/main/java/co/aikar/timings/TimingsExport.java
 +++ b/src/main/java/co/aikar/timings/TimingsExport.java
-@@ -199,9 +199,7 @@ class TimingsExport extends Thread {
+@@ -211,9 +211,7 @@ class TimingsExport extends Thread {
          // Information on the users Config
  
          parent.put("config", createObject(
 -            pair("spigot", mapAsJSON(Bukkit.spigot().getSpigotConfig(), null)),
 -            pair("bukkit", mapAsJSON(Bukkit.spigot().getBukkitConfig(), null)),
 -            pair("paper", mapAsJSON(Bukkit.spigot().getPaperConfig(), null))
-+            pair("spigot", mapAsJSON(Bukkit.spigot().getConfig(), null))
++            pair("bukkit", mapAsJSON(Bukkit.spigot().getConfig(), null))
          ));
  
          new TimingsExport(sender, parent, history).start();
 diff --git a/src/main/java/org/bukkit/Server.java b/src/main/java/org/bukkit/Server.java
-index edf0d04..ef45898 100644
+index 0850009..1700987 100644
 --- a/src/main/java/org/bukkit/Server.java
 +++ b/src/main/java/org/bukkit/Server.java
 @@ -1,17 +1,7 @@
@@ -43,7 +43,7 @@ index edf0d04..ef45898 100644
  import org.bukkit.Warning.WarningState;
  import org.bukkit.boss.BarColor;
  import org.bukkit.boss.BarFlag;
-@@ -22,11 +12,10 @@ import org.bukkit.entity.Entity;
+@@ -22,12 +12,10 @@ import org.bukkit.entity.Entity;
  import org.bukkit.entity.Player;
  import org.bukkit.event.inventory.InventoryType;
  import org.bukkit.event.server.ServerListPingEvent;
@@ -52,13 +52,14 @@ index edf0d04..ef45898 100644
 -import org.bukkit.inventory.Inventory;
 -import org.bukkit.inventory.InventoryHolder;
 -import org.bukkit.inventory.ItemStack;
+-import org.bukkit.inventory.Merchant;
 -import org.bukkit.inventory.Recipe;
 +import org.bukkit.inventory.*;
 +import org.bukkit.inventory.meta.ItemMeta;
  import org.bukkit.map.MapView;
  import org.bukkit.permissions.Permissible;
  import org.bukkit.plugin.PluginManager;
-@@ -37,12 +26,11 @@ import org.bukkit.scheduler.BukkitScheduler;
+@@ -38,12 +26,11 @@ import org.bukkit.scheduler.BukkitScheduler;
  import org.bukkit.scoreboard.ScoreboardManager;
  import org.bukkit.util.CachedServerIcon;
  
@@ -76,28 +77,38 @@ index edf0d04..ef45898 100644
  
  /**
   * Represents a server implementation.
-@@ -976,21 +964,6 @@ public interface Server extends PluginMessageRecipient {
+@@ -963,25 +950,27 @@ public interface Server extends PluginMessageRecipient {
+ 
+     public class Spigot
+     {
+-        @Deprecated
+         public org.bukkit.configuration.file.YamlConfiguration getConfig()
+         {
              throw new UnsupportedOperationException( "Not supported yet." );
          }
  
--        public org.bukkit.configuration.file.YamlConfiguration getBukkitConfig()
--        {
++        @Deprecated
+         public org.bukkit.configuration.file.YamlConfiguration getBukkitConfig()
+         {
 -            throw new UnsupportedOperationException( "Not supported yet." );
--        }
--
--        public org.bukkit.configuration.file.YamlConfiguration getSpigotConfig()
--        {
++            return getConfig();
+         }
+ 
++        @Deprecated
+         public org.bukkit.configuration.file.YamlConfiguration getSpigotConfig()
+         {
 -            throw new UnsupportedOperationException("Not supported yet.");
--        }
--
--        public org.bukkit.configuration.file.YamlConfiguration getPaperConfig()
--        {
++            return getConfig();
+         }
+ 
++        @Deprecated
+         public org.bukkit.configuration.file.YamlConfiguration getPaperConfig()
+         {
 -            throw new UnsupportedOperationException("Not supported yet.");
--        }
--
++            return getConfig();
+         }
+ 
          /**
-          * Sends the component to the player
-          *
 -- 
-2.9.2.windows.1
+2.10.2
 

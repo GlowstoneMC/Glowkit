@@ -1,23 +1,23 @@
-From 2e051c567bd82ffc87cb182a5d24859c67f70bf8 Mon Sep 17 00:00:00 2001
-From: Momo <momo@momoperes.ca>
-Date: Fri, 12 Aug 2016 18:47:44 -0400
-Subject: [PATCH] Add stopsound command
+From 5fb5c05577f9270670e3f7160ac50fc50826e2b8 Mon Sep 17 00:00:00 2001
+From: momothereal <momothereal.mc@gmail.com>
+Date: Mon, 21 Nov 2016 16:27:37 -0500
+Subject: [PATCH] Enhance sound API and commands
 
 
 diff --git a/src/main/java/org/bukkit/Sound.java b/src/main/java/org/bukkit/Sound.java
-index f1a3148..e7c1747 100644
+index 615f317..392e953 100644
 --- a/src/main/java/org/bukkit/Sound.java
 +++ b/src/main/java/org/bukkit/Sound.java
 @@ -1,5 +1,7 @@
  package org.bukkit;
  
-+import static org.bukkit.Sound.Category.*;
++import static org.bukkit.SoundCategory.*;
 +
  /**
   * An Enum of Sounds the server is able to send to players.
   * <p>
-@@ -9,467 +11,530 @@ package org.bukkit;
-  * not depend on the ordinal values of this class.
+@@ -9,497 +11,543 @@ package org.bukkit;
+  * depend on the ordinal values of this class.
   */
  public enum Sound {
 -    AMBIENT_CAVE,
@@ -105,6 +105,8 @@ index f1a3148..e7c1747 100644
 -    BLOCK_SAND_HIT,
 -    BLOCK_SAND_PLACE,
 -    BLOCK_SAND_STEP,
+-    BLOCK_SHULKER_BOX_CLOSE,
+-    BLOCK_SHULKER_BOX_OPEN,
 -    BLOCK_SLIME_BREAK,
 -    BLOCK_SLIME_FALL,
 -    BLOCK_SLIME_HIT,
@@ -193,6 +195,7 @@ index f1a3148..e7c1747 100644
 -    ENTITY_ELDER_GUARDIAN_CURSE,
 -    ENTITY_ELDER_GUARDIAN_DEATH,
 -    ENTITY_ELDER_GUARDIAN_DEATH_LAND,
+-    ENTITY_ELDER_GUARDIAN_FLOP,
 -    ENTITY_ELDER_GUARDIAN_HURT,
 -    ENTITY_ELDER_GUARDIAN_HURT_LAND,
 -    ENTITY_ENDERDRAGON_AMBIENT,
@@ -214,9 +217,16 @@ index f1a3148..e7c1747 100644
 -    ENTITY_ENDERMITE_HURT,
 -    ENTITY_ENDERMITE_STEP,
 -    ENTITY_ENDERPEARL_THROW,
+-    ENTITY_EVOCATION_FANGS_ATTACK,
+-    ENTITY_EVOCATION_ILLAGER_AMBIENT,
+-    ENTITY_EVOCATION_ILLAGER_CAST_SPELL,
+-    ENTITY_EVOCATION_ILLAGER_DEATH,
+-    ENTITY_EVOCATION_ILLAGER_HURT,
+-    ENTITY_EVOCATION_ILLAGER_PREPARE_ATTACK,
+-    ENTITY_EVOCATION_ILLAGER_PREPARE_SUMMON,
+-    ENTITY_EVOCATION_ILLAGER_PREPARE_WOLOLO,
 -    ENTITY_EXPERIENCE_BOTTLE_THROW,
 -    ENTITY_EXPERIENCE_ORB_PICKUP,
--    ENTITY_EXPERIENCE_ORB_TOUCH,
 -    ENTITY_FIREWORK_BLAST,
 -    ENTITY_FIREWORK_BLAST_FAR,
 -    ENTITY_FIREWORK_LARGE_BLAST,
@@ -289,6 +299,15 @@ index f1a3148..e7c1747 100644
 -    ENTITY_LIGHTNING_IMPACT,
 -    ENTITY_LIGHTNING_THUNDER,
 -    ENTITY_LINGERINGPOTION_THROW,
+-    ENTITY_LLAMA_AMBIENT,
+-    ENTITY_LLAMA_ANGRY,
+-    ENTITY_LLAMA_CHEST,
+-    ENTITY_LLAMA_DEATH,
+-    ENTITY_LLAMA_EAT,
+-    ENTITY_LLAMA_HURT,
+-    ENTITY_LLAMA_SPIT,
+-    ENTITY_LLAMA_STEP,
+-    ENTITY_LLAMA_SWAG,
 -    ENTITY_MAGMACUBE_DEATH,
 -    ENTITY_MAGMACUBE_HURT,
 -    ENTITY_MAGMACUBE_JUMP,
@@ -297,6 +316,7 @@ index f1a3148..e7c1747 100644
 -    ENTITY_MINECART_RIDING,
 -    ENTITY_MOOSHROOM_SHEAR,
 -    ENTITY_MULE_AMBIENT,
+-    ENTITY_MULE_CHEST,
 -    ENTITY_MULE_DEATH,
 -    ENTITY_MULE_HURT,
 -    ENTITY_PAINTING_BREAK,
@@ -390,12 +410,19 @@ index f1a3148..e7c1747 100644
 -    ENTITY_STRAY_HURT,
 -    ENTITY_STRAY_STEP,
 -    ENTITY_TNT_PRIMED,
+-    ENTITY_VEX_AMBIENT,
+-    ENTITY_VEX_CHARGE,
+-    ENTITY_VEX_DEATH,
+-    ENTITY_VEX_HURT,
 -    ENTITY_VILLAGER_AMBIENT,
 -    ENTITY_VILLAGER_DEATH,
 -    ENTITY_VILLAGER_HURT,
 -    ENTITY_VILLAGER_NO,
 -    ENTITY_VILLAGER_TRADING,
 -    ENTITY_VILLAGER_YES,
+-    ENTITY_VINDICATION_ILLAGER_AMBIENT,
+-    ENTITY_VINDICATION_ILLAGER_DEATH,
+-    ENTITY_VINDICATION_ILLAGER_HURT,
 -    ENTITY_WITCH_AMBIENT,
 -    ENTITY_WITCH_DEATH,
 -    ENTITY_WITCH_DRINK,
@@ -443,10 +470,12 @@ index f1a3148..e7c1747 100644
 -    ENTITY_ZOMBIE_VILLAGER_STEP,
 -    ITEM_ARMOR_EQUIP_CHAIN,
 -    ITEM_ARMOR_EQUIP_DIAMOND,
+-    ITEM_ARMOR_EQUIP_ELYTRA,
 -    ITEM_ARMOR_EQUIP_GENERIC,
 -    ITEM_ARMOR_EQUIP_GOLD,
 -    ITEM_ARMOR_EQUIP_IRON,
 -    ITEM_ARMOR_EQUIP_LEATHER,
+-    ITEM_BOTTLE_EMPTY,
 -    ITEM_BOTTLE_FILL,
 -    ITEM_BOTTLE_FILL_DRAGONBREATH,
 -    ITEM_BUCKET_EMPTY,
@@ -461,6 +490,7 @@ index f1a3148..e7c1747 100644
 -    ITEM_SHIELD_BLOCK,
 -    ITEM_SHIELD_BREAK,
 -    ITEM_SHOVEL_FLATTEN,
+-    ITEM_TOTEM_USE,
 -    MUSIC_CREATIVE,
 -    MUSIC_CREDITS,
 -    MUSIC_DRAGON,
@@ -484,136 +514,138 @@ index f1a3148..e7c1747 100644
 -    WEATHER_RAIN,
 -    WEATHER_RAIN_ABOVE;
 +    AMBIENT_CAVE("minecraft:ambient.cave", AMBIENT),
-+    BLOCK_ANVIL_BREAK("minecraft:block.anvil.break", BLOCK),
-+    BLOCK_ANVIL_DESTROY("minecraft:block.anvil.destroy", BLOCK),
-+    BLOCK_ANVIL_FALL("minecraft:block.anvil.fall", BLOCK),
-+    BLOCK_ANVIL_HIT("minecraft:block.anvil.hit", BLOCK),
-+    BLOCK_ANVIL_LAND("minecraft:block.anvil.land", BLOCK),
-+    BLOCK_ANVIL_PLACE("minecraft:block.anvil.place", BLOCK),
-+    BLOCK_ANVIL_STEP("minecraft:block.anvil.step", BLOCK),
-+    BLOCK_ANVIL_USE("minecraft:block.anvil.use", BLOCK),
-+    BLOCK_BREWING_STAND_BREW("minecraft:block.brewing_stand.brew", BLOCK),
-+    BLOCK_CHEST_CLOSE("minecraft:block.chest.close", BLOCK),
-+    BLOCK_CHEST_LOCKED("minecraft:block.chest.locked", BLOCK),
-+    BLOCK_CHEST_OPEN("minecraft:block.chest.open", BLOCK),
-+    BLOCK_CHORUS_FLOWER_DEATH("minecraft:block.chorus_flower.death", BLOCK),
-+    BLOCK_CHORUS_FLOWER_GROW("minecraft:block.chorus_flower.grow", BLOCK),
-+    BLOCK_CLOTH_BREAK("minecraft:block.cloth.break", BLOCK),
-+    BLOCK_CLOTH_FALL("minecraft:block.cloth.fall", BLOCK),
-+    BLOCK_CLOTH_HIT("minecraft:block.cloth.hit", BLOCK),
-+    BLOCK_CLOTH_PLACE("minecraft:block.cloth.place", BLOCK),
-+    BLOCK_CLOTH_STEP("minecraft:block.cloth.step", BLOCK),
-+    BLOCK_COMPARATOR_CLICK("minecraft:block.comparator.click", BLOCK),
-+    BLOCK_DISPENSER_DISPENSE("minecraft:block.dispenser.dispense", BLOCK),
-+    BLOCK_DISPENSER_FAIL("minecraft:block.dispenser.fail", BLOCK),
-+    BLOCK_DISPENSER_LAUNCH("minecraft:block.dispenser.launch", BLOCK),
-+    BLOCK_ENCHANTMENT_TABLE_USE("minecraft:block.enchantment_table.use", BLOCK),
-+    BLOCK_ENDERCHEST_CLOSE("minecraft:block.enderchest.close", BLOCK),
-+    BLOCK_ENDERCHEST_OPEN("minecraft:block.enderchest.open", BLOCK),
-+    BLOCK_END_GATEWAY_SPAWN("minecraft:block.end_gateway.spawn", BLOCK),
-+    BLOCK_FENCE_GATE_CLOSE("minecraft:block.fence_gate.close", BLOCK),
-+    BLOCK_FENCE_GATE_OPEN("minecraft:block.fence_gate.open", BLOCK),
-+    BLOCK_FIRE_AMBIENT("minecraft:block.fire.ambient", BLOCK),
-+    BLOCK_FIRE_EXTINGUISH("minecraft:block.fire.extinguish", BLOCK),
-+    BLOCK_FURNACE_FIRE_CRACKLE("minecraft:block.furnace.fire_crackle", BLOCK),
-+    BLOCK_GLASS_BREAK("minecraft:block.glass.break", BLOCK),
-+    BLOCK_GLASS_FALL("minecraft:block.glass.fall", BLOCK),
-+    BLOCK_GLASS_HIT("minecraft:block.glass.hit", BLOCK),
-+    BLOCK_GLASS_PLACE("minecraft:block.glass.place", BLOCK),
-+    BLOCK_GLASS_STEP("minecraft:block.glass.step", BLOCK),
-+    BLOCK_GRASS_BREAK("minecraft:block.grass.break", BLOCK),
-+    BLOCK_GRASS_FALL("minecraft:block.grass.fall", BLOCK),
-+    BLOCK_GRASS_HIT("minecraft:block.grass.hit", BLOCK),
-+    BLOCK_GRASS_PLACE("minecraft:block.grass.place", BLOCK),
-+    BLOCK_GRASS_STEP("minecraft:block.grass.step", BLOCK),
-+    BLOCK_GRAVEL_BREAK("minecraft:block.gravel.break", BLOCK),
-+    BLOCK_GRAVEL_FALL("minecraft:block.gravel.fall", BLOCK),
-+    BLOCK_GRAVEL_HIT("minecraft:block.gravel.hit", BLOCK),
-+    BLOCK_GRAVEL_PLACE("minecraft:block.gravel.place", BLOCK),
-+    BLOCK_GRAVEL_STEP("minecraft:block.gravel.step", BLOCK),
-+    BLOCK_IRON_DOOR_CLOSE("minecraft:block.iron_door.close", BLOCK),
-+    BLOCK_IRON_DOOR_OPEN("minecraft:block.iron_door.open", BLOCK),
-+    BLOCK_IRON_TRAPDOOR_CLOSE("minecraft:block.iron_trapdoor.close", BLOCK),
-+    BLOCK_IRON_TRAPDOOR_OPEN("minecraft:block.iron_trapdoor.open", BLOCK),
-+    BLOCK_LADDER_BREAK("minecraft:block.ladder.break", BLOCK),
-+    BLOCK_LADDER_FALL("minecraft:block.ladder.fall", BLOCK),
-+    BLOCK_LADDER_HIT("minecraft:block.ladder.hit", BLOCK),
-+    BLOCK_LADDER_PLACE("minecraft:block.ladder.place", BLOCK),
-+    BLOCK_LADDER_STEP("minecraft:block.ladder.step", BLOCK),
-+    BLOCK_LAVA_AMBIENT("minecraft:block.lava.ambient", BLOCK),
-+    BLOCK_LAVA_EXTINGUISH("minecraft:block.lava.extinguish", BLOCK),
-+    BLOCK_LAVA_POP("minecraft:block.lava.pop", BLOCK),
-+    BLOCK_LEVER_CLICK("minecraft:block.lever.click", BLOCK),
-+    BLOCK_METAL_BREAK("minecraft:block.metal.break", BLOCK),
-+    BLOCK_METAL_FALL("minecraft:block.metal.fall", BLOCK),
-+    BLOCK_METAL_HIT("minecraft:block.metal.hit", BLOCK),
-+    BLOCK_METAL_PLACE("minecraft:block.metal.place", BLOCK),
-+    BLOCK_METAL_PRESSUREPLATE_CLICK_OFF("minecraft:block.metal_pressureplate.click_off", BLOCK),
-+    BLOCK_METAL_PRESSUREPLATE_CLICK_ON("minecraft:block.metal_pressureplate.click_on", BLOCK),
-+    BLOCK_METAL_STEP("minecraft:block.metal.step", BLOCK),
-+    BLOCK_NOTE_BASEDRUM("minecraft:block.note.basedrum", BLOCK),
-+    BLOCK_NOTE_BASS("minecraft:block.note.bass", BLOCK),
-+    BLOCK_NOTE_HARP("minecraft:block.note.harp", BLOCK),
-+    BLOCK_NOTE_HAT("minecraft:block.note.hat", BLOCK),
-+    BLOCK_NOTE_PLING("minecraft:block.note.pling", BLOCK),
-+    BLOCK_NOTE_SNARE("minecraft:block.note.snare", BLOCK),
-+    BLOCK_PISTON_CONTRACT("minecraft:block.piston.contract", BLOCK),
-+    BLOCK_PISTON_EXTEND("minecraft:block.piston.extend", BLOCK),
-+    BLOCK_PORTAL_AMBIENT("minecraft:block.portal.ambient", BLOCK),
-+    BLOCK_PORTAL_TRAVEL("minecraft:block.portal.travel", BLOCK),
-+    BLOCK_PORTAL_TRIGGER("minecraft:block.portal.trigger", BLOCK),
-+    BLOCK_REDSTONE_TORCH_BURNOUT("minecraft:block.redstone_torch.burnout", BLOCK),
-+    BLOCK_SAND_BREAK("minecraft:block.sand.break", BLOCK),
-+    BLOCK_SAND_FALL("minecraft:block.sand.fall", BLOCK),
-+    BLOCK_SAND_HIT("minecraft:block.sand.hit", BLOCK),
-+    BLOCK_SAND_PLACE("minecraft:block.sand.place", BLOCK),
-+    BLOCK_SAND_STEP("minecraft:block.sand.step", BLOCK),
-+    BLOCK_SLIME_BREAK("minecraft:block.slime.break", BLOCK),
-+    BLOCK_SLIME_FALL("minecraft:block.slime.fall", BLOCK),
-+    BLOCK_SLIME_HIT("minecraft:block.slime.hit", BLOCK),
-+    BLOCK_SLIME_PLACE("minecraft:block.slime.place", BLOCK),
-+    BLOCK_SLIME_STEP("minecraft:block.slime.step", BLOCK),
-+    BLOCK_SNOW_BREAK("minecraft:block.snow.break", BLOCK),
-+    BLOCK_SNOW_FALL("minecraft:block.snow.fall", BLOCK),
-+    BLOCK_SNOW_HIT("minecraft:block.snow.hit", BLOCK),
-+    BLOCK_SNOW_PLACE("minecraft:block.snow.place", BLOCK),
-+    BLOCK_SNOW_STEP("minecraft:block.snow.step", BLOCK),
-+    BLOCK_STONE_BREAK("minecraft:block.stone.break", BLOCK),
-+    BLOCK_STONE_BUTTON_CLICK_OFF("minecraft:block.stone_button.click_off", BLOCK),
-+    BLOCK_STONE_BUTTON_CLICK_ON("minecraft:block.stone_button.click_on", BLOCK),
-+    BLOCK_STONE_FALL("minecraft:block.stone.fall", BLOCK),
-+    BLOCK_STONE_HIT("minecraft:block.stone.hit", BLOCK),
-+    BLOCK_STONE_PLACE("minecraft:block.stone.place", BLOCK),
-+    BLOCK_STONE_PRESSUREPLATE_CLICK_OFF("minecraft:block.stone_pressureplate.click_off", BLOCK),
-+    BLOCK_STONE_PRESSUREPLATE_CLICK_ON("minecraft:block.stone_pressureplate.click_on", BLOCK),
-+    BLOCK_STONE_STEP("minecraft:block.stone.step", BLOCK),
-+    BLOCK_TRIPWIRE_ATTACH("minecraft:block.tripwire.attach", BLOCK),
-+    BLOCK_TRIPWIRE_CLICK_OFF("minecraft:block.tripwire.click_off", BLOCK),
-+    BLOCK_TRIPWIRE_CLICK_ON("minecraft:block.tripwire.click_on", BLOCK),
-+    BLOCK_TRIPWIRE_DETACH("minecraft:block.tripwire.detach", BLOCK),
-+    BLOCK_WATERLILY_PLACE("minecraft:block.waterlily.place", BLOCK),
-+    BLOCK_WATER_AMBIENT("minecraft:block.water.ambient", BLOCK),
-+    BLOCK_WOODEN_DOOR_CLOSE("minecraft:block.wooden_door.close", BLOCK),
-+    BLOCK_WOODEN_DOOR_OPEN("minecraft:block.wooden_door.open", BLOCK),
-+    BLOCK_WOODEN_TRAPDOOR_CLOSE("minecraft:block.wooden_trapdoor.close", BLOCK),
-+    BLOCK_WOODEN_TRAPDOOR_OPEN("minecraft:block.wooden_trapdoor.open", BLOCK),
-+    BLOCK_WOOD_BREAK("minecraft:block.wood.break", BLOCK),
-+    BLOCK_WOOD_BUTTON_CLICK_OFF("minecraft:block.wood_button.click_off", BLOCK),
-+    BLOCK_WOOD_BUTTON_CLICK_ON("minecraft:block.wood_button.click_on", BLOCK),
-+    BLOCK_WOOD_FALL("minecraft:block.wood.fall", BLOCK),
-+    BLOCK_WOOD_HIT("minecraft:block.wood.hit", BLOCK),
-+    BLOCK_WOOD_PLACE("minecraft:block.wood.place", BLOCK),
-+    BLOCK_WOOD_PRESSUREPLATE_CLICK_OFF("minecraft:block.wood_pressureplate.click_off", BLOCK),
-+    BLOCK_WOOD_PRESSUREPLATE_CLICK_ON("minecraft:block.wood_pressureplate.click_on", BLOCK),
-+    BLOCK_WOOD_STEP("minecraft:block.wood.step", BLOCK),
++    BLOCK_ANVIL_BREAK("minecraft:block.anvil.break", BLOCKS),
++    BLOCK_ANVIL_DESTROY("minecraft:block.anvil.destroy", BLOCKS),
++    BLOCK_ANVIL_FALL("minecraft:block.anvil.fall", BLOCKS),
++    BLOCK_ANVIL_HIT("minecraft:block.anvil.hit", BLOCKS),
++    BLOCK_ANVIL_LAND("minecraft:block.anvil.land", BLOCKS),
++    BLOCK_ANVIL_PLACE("minecraft:block.anvil.place", BLOCKS),
++    BLOCK_ANVIL_STEP("minecraft:block.anvil.step", BLOCKS),
++    BLOCK_ANVIL_USE("minecraft:block.anvil.use", BLOCKS),
++    BLOCK_BREWING_STAND_BREW("minecraft:block.brewing_stand.brew", BLOCKS),
++    BLOCK_CHEST_CLOSE("minecraft:block.chest.close", BLOCKS),
++    BLOCK_CHEST_LOCKED("minecraft:block.chest.locked", BLOCKS),
++    BLOCK_CHEST_OPEN("minecraft:block.chest.open", BLOCKS),
++    BLOCK_CHORUS_FLOWER_DEATH("minecraft:block.chorus_flower.death", BLOCKS),
++    BLOCK_CHORUS_FLOWER_GROW("minecraft:block.chorus_flower.grow", BLOCKS),
++    BLOCK_CLOTH_BREAK("minecraft:block.cloth.break", BLOCKS),
++    BLOCK_CLOTH_FALL("minecraft:block.cloth.fall", BLOCKS),
++    BLOCK_CLOTH_HIT("minecraft:block.cloth.hit", BLOCKS),
++    BLOCK_CLOTH_PLACE("minecraft:block.cloth.place", BLOCKS),
++    BLOCK_CLOTH_STEP("minecraft:block.cloth.step", BLOCKS),
++    BLOCK_COMPARATOR_CLICK("minecraft:block.comparator.click", BLOCKS),
++    BLOCK_DISPENSER_DISPENSE("minecraft:block.dispenser.dispense", BLOCKS),
++    BLOCK_DISPENSER_FAIL("minecraft:block.dispenser.fail", BLOCKS),
++    BLOCK_DISPENSER_LAUNCH("minecraft:block.dispenser.launch", BLOCKS),
++    BLOCK_ENCHANTMENT_TABLE_USE("minecraft:block.enchantment_table.use", BLOCKS),
++    BLOCK_ENDERCHEST_CLOSE("minecraft:block.enderchest.close", BLOCKS),
++    BLOCK_ENDERCHEST_OPEN("minecraft:block.enderchest.open", BLOCKS),
++    BLOCK_END_GATEWAY_SPAWN("minecraft:block.end_gateway.spawn", BLOCKS),
++    BLOCK_FENCE_GATE_CLOSE("minecraft:block.fence_gate.close", BLOCKS),
++    BLOCK_FENCE_GATE_OPEN("minecraft:block.fence_gate.open", BLOCKS),
++    BLOCK_FIRE_AMBIENT("minecraft:block.fire.ambient", BLOCKS),
++    BLOCK_FIRE_EXTINGUISH("minecraft:block.fire.extinguish", BLOCKS),
++    BLOCK_FURNACE_FIRE_CRACKLE("minecraft:block.furnace.fire_crackle", BLOCKS),
++    BLOCK_GLASS_BREAK("minecraft:block.glass.break", BLOCKS),
++    BLOCK_GLASS_FALL("minecraft:block.glass.fall", BLOCKS),
++    BLOCK_GLASS_HIT("minecraft:block.glass.hit", BLOCKS),
++    BLOCK_GLASS_PLACE("minecraft:block.glass.place", BLOCKS),
++    BLOCK_GLASS_STEP("minecraft:block.glass.step", BLOCKS),
++    BLOCK_GRASS_BREAK("minecraft:block.grass.break", BLOCKS),
++    BLOCK_GRASS_FALL("minecraft:block.grass.fall", BLOCKS),
++    BLOCK_GRASS_HIT("minecraft:block.grass.hit", BLOCKS),
++    BLOCK_GRASS_PLACE("minecraft:block.grass.place", BLOCKS),
++    BLOCK_GRASS_STEP("minecraft:block.grass.step", BLOCKS),
++    BLOCK_GRAVEL_BREAK("minecraft:block.gravel.break", BLOCKS),
++    BLOCK_GRAVEL_FALL("minecraft:block.gravel.fall", BLOCKS),
++    BLOCK_GRAVEL_HIT("minecraft:block.gravel.hit", BLOCKS),
++    BLOCK_GRAVEL_PLACE("minecraft:block.gravel.place", BLOCKS),
++    BLOCK_GRAVEL_STEP("minecraft:block.gravel.step", BLOCKS),
++    BLOCK_IRON_DOOR_CLOSE("minecraft:block.iron_door.close", BLOCKS),
++    BLOCK_IRON_DOOR_OPEN("minecraft:block.iron_door.open", BLOCKS),
++    BLOCK_IRON_TRAPDOOR_CLOSE("minecraft:block.iron_trapdoor.close", BLOCKS),
++    BLOCK_IRON_TRAPDOOR_OPEN("minecraft:block.iron_trapdoor.open", BLOCKS),
++    BLOCK_LADDER_BREAK("minecraft:block.ladder.break", BLOCKS),
++    BLOCK_LADDER_FALL("minecraft:block.ladder.fall", BLOCKS),
++    BLOCK_LADDER_HIT("minecraft:block.ladder.hit", BLOCKS),
++    BLOCK_LADDER_PLACE("minecraft:block.ladder.place", BLOCKS),
++    BLOCK_LADDER_STEP("minecraft:block.ladder.step", BLOCKS),
++    BLOCK_LAVA_AMBIENT("minecraft:block.lava.ambient", BLOCKS),
++    BLOCK_LAVA_EXTINGUISH("minecraft:block.lava.extinguish", BLOCKS),
++    BLOCK_LAVA_POP("minecraft:block.lava.pop", BLOCKS),
++    BLOCK_LEVER_CLICK("minecraft:block.lever.click", BLOCKS),
++    BLOCK_METAL_BREAK("minecraft:block.metal.break", BLOCKS),
++    BLOCK_METAL_FALL("minecraft:block.metal.fall", BLOCKS),
++    BLOCK_METAL_HIT("minecraft:block.metal.hit", BLOCKS),
++    BLOCK_METAL_PLACE("minecraft:block.metal.place", BLOCKS),
++    BLOCK_METAL_PRESSUREPLATE_CLICK_OFF("minecraft:block.metal_pressureplate.click_off", BLOCKS),
++    BLOCK_METAL_PRESSUREPLATE_CLICK_ON("minecraft:block.metal_pressureplate.click_on", BLOCKS),
++    BLOCK_METAL_STEP("minecraft:block.metal.step", BLOCKS),
++    BLOCK_NOTE_BASEDRUM("minecraft:block.note.basedrum", BLOCKS),
++    BLOCK_NOTE_BASS("minecraft:block.note.bass", BLOCKS),
++    BLOCK_NOTE_HARP("minecraft:block.note.harp", BLOCKS),
++    BLOCK_NOTE_HAT("minecraft:block.note.hat", BLOCKS),
++    BLOCK_NOTE_PLING("minecraft:block.note.pling", BLOCKS),
++    BLOCK_NOTE_SNARE("minecraft:block.note.snare", BLOCKS),
++    BLOCK_PISTON_CONTRACT("minecraft:block.piston.contract", BLOCKS),
++    BLOCK_PISTON_EXTEND("minecraft:block.piston.extend", BLOCKS),
++    BLOCK_PORTAL_AMBIENT("minecraft:block.portal.ambient", BLOCKS),
++    BLOCK_PORTAL_TRAVEL("minecraft:block.portal.travel", BLOCKS),
++    BLOCK_PORTAL_TRIGGER("minecraft:block.portal.trigger", BLOCKS),
++    BLOCK_REDSTONE_TORCH_BURNOUT("minecraft:block.redstone_torch.burnout", BLOCKS),
++    BLOCK_SAND_BREAK("minecraft:block.sand.break", BLOCKS),
++    BLOCK_SAND_FALL("minecraft:block.sand.fall", BLOCKS),
++    BLOCK_SAND_HIT("minecraft:block.sand.hit", BLOCKS),
++    BLOCK_SAND_PLACE("minecraft:block.sand.place", BLOCKS),
++    BLOCK_SAND_STEP("minecraft:block.sand.step", BLOCKS),
++    BLOCK_SHULKER_BOX_CLOSE("minecraft:block.shulker_box.close", BLOCKS),
++    BLOCK_SHULKER_BOX_OPEN("minecraft:block.shulker_box.open", BLOCKS),
++    BLOCK_SLIME_BREAK("minecraft:block.slime.break", BLOCKS),
++    BLOCK_SLIME_FALL("minecraft:block.slime.fall", BLOCKS),
++    BLOCK_SLIME_HIT("minecraft:block.slime.hit", BLOCKS),
++    BLOCK_SLIME_PLACE("minecraft:block.slime.place", BLOCKS),
++    BLOCK_SLIME_STEP("minecraft:block.slime.step", BLOCKS),
++    BLOCK_SNOW_BREAK("minecraft:block.snow.break", BLOCKS),
++    BLOCK_SNOW_FALL("minecraft:block.snow.fall", BLOCKS),
++    BLOCK_SNOW_HIT("minecraft:block.snow.hit", BLOCKS),
++    BLOCK_SNOW_PLACE("minecraft:block.snow.place", BLOCKS),
++    BLOCK_SNOW_STEP("minecraft:block.snow.step", BLOCKS),
++    BLOCK_STONE_BREAK("minecraft:block.stone.break", BLOCKS),
++    BLOCK_STONE_BUTTON_CLICK_OFF("minecraft:block.stone_button.click_off", BLOCKS),
++    BLOCK_STONE_BUTTON_CLICK_ON("minecraft:block.stone_button.click_on", BLOCKS),
++    BLOCK_STONE_FALL("minecraft:block.stone.fall", BLOCKS),
++    BLOCK_STONE_HIT("minecraft:block.stone.hit", BLOCKS),
++    BLOCK_STONE_PLACE("minecraft:block.stone.place", BLOCKS),
++    BLOCK_STONE_PRESSUREPLATE_CLICK_OFF("minecraft:block.stone_pressureplate.click_off", BLOCKS),
++    BLOCK_STONE_PRESSUREPLATE_CLICK_ON("minecraft:block.stone_pressureplate.click_on", BLOCKS),
++    BLOCK_STONE_STEP("minecraft:block.stone.step", BLOCKS),
++    BLOCK_TRIPWIRE_ATTACH("minecraft:block.tripwire.attach", BLOCKS),
++    BLOCK_TRIPWIRE_CLICK_OFF("minecraft:block.tripwire.click_off", BLOCKS),
++    BLOCK_TRIPWIRE_CLICK_ON("minecraft:block.tripwire.click_on", BLOCKS),
++    BLOCK_TRIPWIRE_DETACH("minecraft:block.tripwire.detach", BLOCKS),
++    BLOCK_WATERLILY_PLACE("minecraft:block.waterlily.place", BLOCKS),
++    BLOCK_WATER_AMBIENT("minecraft:block.water.ambient", BLOCKS),
++    BLOCK_WOODEN_DOOR_CLOSE("minecraft:block.wooden_door.close", BLOCKS),
++    BLOCK_WOODEN_DOOR_OPEN("minecraft:block.wooden_door.open", BLOCKS),
++    BLOCK_WOODEN_TRAPDOOR_CLOSE("minecraft:block.wooden_trapdoor.close", BLOCKS),
++    BLOCK_WOODEN_TRAPDOOR_OPEN("minecraft:block.wooden_trapdoor.open", BLOCKS),
++    BLOCK_WOOD_BREAK("minecraft:block.wood.break", BLOCKS),
++    BLOCK_WOOD_BUTTON_CLICK_OFF("minecraft:block.wood_button.click_off", BLOCKS),
++    BLOCK_WOOD_BUTTON_CLICK_ON("minecraft:block.wood_button.click_on", BLOCKS),
++    BLOCK_WOOD_FALL("minecraft:block.wood.fall", BLOCKS),
++    BLOCK_WOOD_HIT("minecraft:block.wood.hit", BLOCKS),
++    BLOCK_WOOD_PLACE("minecraft:block.wood.place", BLOCKS),
++    BLOCK_WOOD_PRESSUREPLATE_CLICK_OFF("minecraft:block.wood_pressureplate.click_off", BLOCKS),
++    BLOCK_WOOD_PRESSUREPLATE_CLICK_ON("minecraft:block.wood_pressureplate.click_on", BLOCKS),
++    BLOCK_WOOD_STEP("minecraft:block.wood.step", BLOCKS),
 +    ENCHANT_THORNS_HIT("minecraft:enchant.thorns.hit", NEUTRAL),
-+    ENTITY_ARMORSTAND_BREAK("minecraft:entity.armorstand.break", PLAYER),
++    ENTITY_ARMORSTAND_BREAK("minecraft:entity.armorstand.break", PLAYERS),
 +    ENTITY_ARMORSTAND_FALL("minecraft:entity.armorstand.fall", NEUTRAL),
 +    ENTITY_ARMORSTAND_HIT("minecraft:entity.armorstand.hit", MASTER),
-+    ENTITY_ARMORSTAND_PLACE("minecraft:entity.armorstand.place", BLOCK),
++    ENTITY_ARMORSTAND_PLACE("minecraft:entity.armorstand.place", BLOCKS),
 +    ENTITY_ARROW_HIT("minecraft:entity.arrow.hit", NEUTRAL),
-+    ENTITY_ARROW_HIT_PLAYER("minecraft:entity.arrow.hit_player", PLAYER),
-+    ENTITY_ARROW_SHOOT("minecraft:entity.arrow.shoot", PLAYER),
++    ENTITY_ARROW_HIT_PLAYER("minecraft:entity.arrow.hit_player", PLAYERS),
++    ENTITY_ARROW_SHOOT("minecraft:entity.arrow.shoot", PLAYERS),
 +    ENTITY_BAT_AMBIENT("minecraft:entity.bat.ambient", NEUTRAL),
 +    ENTITY_BAT_DEATH("minecraft:entity.bat.death", NEUTRAL),
 +    ENTITY_BAT_HURT("minecraft:entity.bat.hurt", NEUTRAL),
@@ -656,6 +688,7 @@ index f1a3148..e7c1747 100644
 +    ENTITY_ELDER_GUARDIAN_CURSE("minecraft:entity.elder_guardian.curse", HOSTILE),
 +    ENTITY_ELDER_GUARDIAN_DEATH("minecraft:entity.elder_guardian.death", HOSTILE),
 +    ENTITY_ELDER_GUARDIAN_DEATH_LAND("minecraft:entity.elder_guardian.death_land", HOSTILE),
++    ENTITY_ELDER_GUARDIAN_FLOP("minecraft:entity.elder_guardian.flop", HOSTILE),
 +    ENTITY_ELDER_GUARDIAN_HURT("minecraft:entity.elder_guardian.hurt", HOSTILE),
 +    ENTITY_ELDER_GUARDIAN_HURT_LAND("minecraft:entity.elder_guardian.hurt_land", HOSTILE),
 +    ENTITY_ENDERDRAGON_AMBIENT("minecraft:entity.enderdragon.ambient", HOSTILE),
@@ -677,9 +710,17 @@ index f1a3148..e7c1747 100644
 +    ENTITY_ENDERMITE_HURT("minecraft:entity.endermite.hurt", HOSTILE),
 +    ENTITY_ENDERMITE_STEP("minecraft:entity.endermite.step", HOSTILE),
 +    ENTITY_ENDERPEARL_THROW("minecraft:entity.enderpearl.throw", NEUTRAL),
++    ENTITY_EVOCATION_FANGS_ATTACK("minecraft:entity.evocation_illager.fangs_attack", HOSTILE),
++    ENTITY_EVOCATION_ILLAGER_AMBIENT("minecraft:entity.evocation_illager.ambient", HOSTILE),
++    ENTITY_EVOCATION_ILLAGER_CAST_SPELL("minecraft:entity.evocation_illager.cast_spell", HOSTILE),
++    ENTITY_EVOCATION_ILLAGER_DEATH("minecraft:entity.evocation_illager.death", HOSTILE),
++    ENTITY_EVOCATION_ILLAGER_HURT("minecraft:entity.evocation_illager.hurt", HOSTILE),
++    ENTITY_EVOCATION_ILLAGER_PREPARE_ATTACK("minecraft:entity.evocation_illager.prepare_attack", HOSTILE),
++    ENTITY_EVOCATION_ILLAGER_PREPARE_SUMMON("minecraft:entity.evocation_illager.prepare_summon", HOSTILE),
++    ENTITY_EVOCATION_ILLAGER_PREPARE_WOLOLO("minecraft:entity.evocation_illager.prepare_wololo", HOSTILE),
 +    ENTITY_EXPERIENCE_BOTTLE_THROW("minecraft:entity.experience_bottle.throw", NEUTRAL),
-+    ENTITY_EXPERIENCE_ORB_PICKUP("minecraft:entity.experience_orb.pickup", PLAYER),
-+    ENTITY_EXPERIENCE_ORB_TOUCH("minecraft:entity.experience_orb.touch", PLAYER),
++    ENTITY_EXPERIENCE_ORB_PICKUP("minecraft:entity.experience_orb.pickup", PLAYERS),
++    ENTITY_EXPERIENCE_ORB_TOUCH("minecraft:entity.experience_orb.touch", PLAYERS),
 +    ENTITY_FIREWORK_BLAST("minecraft:entity.firework.blast", NEUTRAL),
 +    ENTITY_FIREWORK_BLAST_FAR("minecraft:entity.firework.blast_far", NEUTRAL),
 +    ENTITY_FIREWORK_LARGE_BLAST("minecraft:entity.firework.large_blast", NEUTRAL),
@@ -745,13 +786,22 @@ index f1a3148..e7c1747 100644
 +    ENTITY_ITEMFRAME_PLACE("minecraft:entity.itemframe.place", NEUTRAL),
 +    ENTITY_ITEMFRAME_REMOVE_ITEM("minecraft:entity.itemframe.remove_item", NEUTRAL),
 +    ENTITY_ITEMFRAME_ROTATE_ITEM("minecraft:entity.itemframe.rotate_item", NEUTRAL),
-+    ENTITY_ITEM_BREAK("minecraft:entity.item.break", PLAYER),
-+    ENTITY_ITEM_PICKUP("minecraft:entity.item.pickup", PLAYER),
++    ENTITY_ITEM_BREAK("minecraft:entity.item.break", PLAYERS),
++    ENTITY_ITEM_PICKUP("minecraft:entity.item.pickup", PLAYERS),
 +    ENTITY_LEASHKNOT_BREAK("minecraft:entity.leashknot.break", NEUTRAL),
 +    ENTITY_LEASHKNOT_PLACE("minecraft:entity.leashknot.place", NEUTRAL),
 +    ENTITY_LIGHTNING_IMPACT("minecraft:entity.lightning.impact", WEATHER),
 +    ENTITY_LIGHTNING_THUNDER("minecraft:entity.lightning.thunder", WEATHER),
 +    ENTITY_LINGERINGPOTION_THROW("minecraft:entity.lingeringpotion.throw", NEUTRAL),
++    ENTITY_LLAMA_AMBIENT("minecraft:entity.llama.ambient", NEUTRAL),
++    ENTITY_LLAMA_ANGRY("minecraft:entity.llama.angry", NEUTRAL),
++    ENTITY_LLAMA_CHEST("minecraft:entity.llama.chest", NEUTRAL),
++    ENTITY_LLAMA_DEATH("minecraft:entity.llama.death", NEUTRAL),
++    ENTITY_LLAMA_EAT("minecraft:entity.llama.eat", NEUTRAL),
++    ENTITY_LLAMA_HURT("minecraft:entity.llama.hurt", NEUTRAL),
++    ENTITY_LLAMA_SPIT("minecraft:entity.llama.spit", NEUTRAL),
++    ENTITY_LLAMA_STEP("minecraft:entity.llama.step", NEUTRAL),
++    ENTITY_LLAMA_SWAG("minecraft:entity.llama.swag", NEUTRAL),
 +    ENTITY_MAGMACUBE_DEATH("minecraft:entity.magmacube.death", HOSTILE),
 +    ENTITY_MAGMACUBE_HURT("minecraft:entity.magmacube.hurt", HOSTILE),
 +    ENTITY_MAGMACUBE_JUMP("minecraft:entity.magmacube.jump", HOSTILE),
@@ -769,21 +819,21 @@ index f1a3148..e7c1747 100644
 +    ENTITY_PIG_HURT("minecraft:entity.pig.hurt", NEUTRAL),
 +    ENTITY_PIG_SADDLE("minecraft:entity.pig.saddle", NEUTRAL),
 +    ENTITY_PIG_STEP("minecraft:entity.pig.step", NEUTRAL),
-+    ENTITY_PLAYER_ATTACK_CRIT("minecraft:entity.player.attack.crit", PLAYER),
-+    ENTITY_PLAYER_ATTACK_KNOCKBACK("minecraft:entity.player.attack.knockback", PLAYER),
-+    ENTITY_PLAYER_ATTACK_NODAMAGE("minecraft:entity.player.attack.nodamage", PLAYER),
-+    ENTITY_PLAYER_ATTACK_STRONG("minecraft:entity.player.attack.strong", PLAYER),
-+    ENTITY_PLAYER_ATTACK_SWEEP("minecraft:entity.player.attack.sweep", PLAYER),
-+    ENTITY_PLAYER_ATTACK_WEAK("minecraft:entity.player.attack.weak", PLAYER),
-+    ENTITY_PLAYER_BIG_FALL("minecraft:entity.player.big_fall", PLAYER),
-+    ENTITY_PLAYER_BREATH("minecraft:entity.player.breath", PLAYER),
-+    ENTITY_PLAYER_BURP("minecraft:entity.player.burp", PLAYER),
-+    ENTITY_PLAYER_DEATH("minecraft:entity.player.death", PLAYER),
-+    ENTITY_PLAYER_HURT("minecraft:entity.player.hurt", PLAYER),
-+    ENTITY_PLAYER_LEVELUP("minecraft:entity.player.levelup", PLAYER),
-+    ENTITY_PLAYER_SMALL_FALL("minecraft:entity.player.small_fall", PLAYER),
-+    ENTITY_PLAYER_SPLASH("minecraft:entity.player.splash", PLAYER),
-+    ENTITY_PLAYER_SWIM("minecraft:entity.player.swim", PLAYER),
++    ENTITY_PLAYER_ATTACK_CRIT("minecraft:entity.player.attack.crit", PLAYERS),
++    ENTITY_PLAYER_ATTACK_KNOCKBACK("minecraft:entity.player.attack.knockback", PLAYERS),
++    ENTITY_PLAYER_ATTACK_NODAMAGE("minecraft:entity.player.attack.nodamage", PLAYERS),
++    ENTITY_PLAYER_ATTACK_STRONG("minecraft:entity.player.attack.strong", PLAYERS),
++    ENTITY_PLAYER_ATTACK_SWEEP("minecraft:entity.player.attack.sweep", PLAYERS),
++    ENTITY_PLAYER_ATTACK_WEAK("minecraft:entity.player.attack.weak", PLAYERS),
++    ENTITY_PLAYER_BIG_FALL("minecraft:entity.player.big_fall", PLAYERS),
++    ENTITY_PLAYER_BREATH("minecraft:entity.player.breath", PLAYERS),
++    ENTITY_PLAYER_BURP("minecraft:entity.player.burp", PLAYERS),
++    ENTITY_PLAYER_DEATH("minecraft:entity.player.death", PLAYERS),
++    ENTITY_PLAYER_HURT("minecraft:entity.player.hurt", PLAYERS),
++    ENTITY_PLAYER_LEVELUP("minecraft:entity.player.levelup", PLAYERS),
++    ENTITY_PLAYER_SMALL_FALL("minecraft:entity.player.small_fall", PLAYERS),
++    ENTITY_PLAYER_SPLASH("minecraft:entity.player.splash", PLAYERS),
++    ENTITY_PLAYER_SWIM("minecraft:entity.player.swim", PLAYERS),
 +    ENTITY_POLAR_BEAR_AMBIENT("minecraft:entity.polar_bear.ambient", HOSTILE),
 +    ENTITY_POLAR_BEAR_BABY_AMBIENT("minecraft:entity.polar_bear.baby_ambient", HOSTILE),
 +    ENTITY_POLAR_BEAR_DEATH("minecraft:entity.polar_bear.death", HOSTILE),
@@ -853,12 +903,19 @@ index f1a3148..e7c1747 100644
 +    ENTITY_STRAY_HURT("minecraft:entity.stray.hurt", HOSTILE),
 +    ENTITY_STRAY_STEP("minecraft:entity.stray.step", HOSTILE),
 +    ENTITY_TNT_PRIMED("minecraft:entity.tnt.primed", NEUTRAL),
++    ENTITY_VEX_AMBIENT("minecraft:entity.vex.ambient", HOSTILE),
++    ENTITY_VEX_CHARGE("minecraft:entity.vex.charge", HOSTILE),
++    ENTITY_VEX_DEATH("minecraft:entity.vex.death", HOSTILE),
++    ENTITY_VEX_HURT("minecraft:entity.vex.hurt", HOSTILE),
 +    ENTITY_VILLAGER_AMBIENT("minecraft:entity.villager.ambient", NEUTRAL),
 +    ENTITY_VILLAGER_DEATH("minecraft:entity.villager.death", NEUTRAL),
 +    ENTITY_VILLAGER_HURT("minecraft:entity.villager.hurt", NEUTRAL),
 +    ENTITY_VILLAGER_NO("minecraft:entity.villager.no", NEUTRAL),
 +    ENTITY_VILLAGER_TRADING("minecraft:entity.villager.trading", NEUTRAL),
 +    ENTITY_VILLAGER_YES("minecraft:entity.villager.yes", NEUTRAL),
++    ENTITY_VINDICATION_ILLAGER_AMBIENT("minecraft:entity.vindication_illager.ambient", HOSTILE),
++    ENTITY_VINDICATION_ILLAGER_DEATH("minecraft:entity.vindication_illager.death", HOSTILE),
++    ENTITY_VINDICATION_ILLAGER_HURT("minecraft:entity.vindication_illager.hurt", HOSTILE),
 +    ENTITY_WITCH_AMBIENT("minecraft:entity.witch.ambient", HOSTILE),
 +    ENTITY_WITCH_DEATH("minecraft:entity.witch.death", HOSTILE),
 +    ENTITY_WITCH_DRINK("minecraft:entity.witch.drink", HOSTILE),
@@ -906,10 +963,12 @@ index f1a3148..e7c1747 100644
 +    ENTITY_ZOMBIE_VILLAGER_STEP("minecraft:entity.zombie_villager.step", HOSTILE),
 +    ITEM_ARMOR_EQUIP_CHAIN("minecraft:item.armor.equip_chain", NEUTRAL),
 +    ITEM_ARMOR_EQUIP_DIAMOND("minecraft:item.armor.equip_diamond", NEUTRAL),
++    ITEM_ARMOR_EQUIP_ELYTRA("minecraft:item.armor.equip_elytra", NEUTRAL),
 +    ITEM_ARMOR_EQUIP_GENERIC("minecraft:item.armor.equip_generic", NEUTRAL),
 +    ITEM_ARMOR_EQUIP_GOLD("minecraft:item.armor.equip_gold", NEUTRAL),
 +    ITEM_ARMOR_EQUIP_IRON("minecraft:item.armor.equip_iron", NEUTRAL),
 +    ITEM_ARMOR_EQUIP_LEATHER("minecraft:item.armor.equip_leather", NEUTRAL),
++    ITEM_BOTTLE_EMPTY("minecraft:item.bottle.empty", NEUTRAL),
 +    ITEM_BOTTLE_FILL("minecraft:item.bottle.fill", NEUTRAL),
 +    ITEM_BOTTLE_FILL_DRAGONBREATH("minecraft:item.bottle.fill_dragonbreath", NEUTRAL),
 +    ITEM_BUCKET_EMPTY("minecraft:item.bucket.empty", NEUTRAL),
@@ -920,10 +979,11 @@ index f1a3148..e7c1747 100644
 +    ITEM_ELYTRA_FLYING("minecraft:item.elytra.flying", NEUTRAL),
 +    ITEM_FIRECHARGE_USE("minecraft:item.firecharge.use", NEUTRAL),
 +    ITEM_FLINTANDSTEEL_USE("minecraft:item.flintandsteel.use", NEUTRAL),
-+    ITEM_HOE_TILL("minecraft:item.hoe.till", PLAYER),
++    ITEM_HOE_TILL("minecraft:item.hoe.till", PLAYERS),
 +    ITEM_SHIELD_BLOCK("minecraft:item.shield.block", NEUTRAL),
 +    ITEM_SHIELD_BREAK("minecraft:item.shield.break", NEUTRAL),
-+    ITEM_SHOVEL_FLATTEN("minecraft:item.shovel.flatten", PLAYER),
++    ITEM_SHOVEL_FLATTEN("minecraft:item.shovel.flatten", PLAYERS),
++    ITEM_TOTEM_USE("minecraft:item.totem.use", NEUTRAL),
 +    MUSIC_CREATIVE("minecraft:music.creative", MUSIC),
 +    MUSIC_CREDITS("minecraft:music.credits", MUSIC),
 +    MUSIC_DRAGON("minecraft:music.dragon", MUSIC),
@@ -931,18 +991,18 @@ index f1a3148..e7c1747 100644
 +    MUSIC_GAME("minecraft:music.game", MUSIC),
 +    MUSIC_MENU("minecraft:music.menu", MUSIC),
 +    MUSIC_NETHER("minecraft:music.nether", MUSIC),
-+    RECORD_11("minecraft:record.11", RECORD),
-+    RECORD_13("minecraft:record.13", RECORD),
-+    RECORD_BLOCKS("minecraft:record.blocks", RECORD),
-+    RECORD_CAT("minecraft:record.cat", RECORD),
-+    RECORD_CHIRP("minecraft:record.chirp", RECORD),
-+    RECORD_FAR("minecraft:record.far", RECORD),
-+    RECORD_MALL("minecraft:record.mall", RECORD),
-+    RECORD_MELLOHI("minecraft:record.mellohi", RECORD),
-+    RECORD_STAL("minecraft:record.stal", RECORD),
-+    RECORD_STRAD("minecraft:record.strad", RECORD),
-+    RECORD_WAIT("minecraft:record.wait", RECORD),
-+    RECORD_WARD("minecraft:record.ward", RECORD),
++    RECORD_11("minecraft:record.11", RECORDS),
++    RECORD_13("minecraft:record.13", RECORDS),
++    RECORD_BLOCKS("minecraft:record.blocks", RECORDS),
++    RECORD_CAT("minecraft:record.cat", RECORDS),
++    RECORD_CHIRP("minecraft:record.chirp", RECORDS),
++    RECORD_FAR("minecraft:record.far", RECORDS),
++    RECORD_MALL("minecraft:record.mall", RECORDS),
++    RECORD_MELLOHI("minecraft:record.mellohi", RECORDS),
++    RECORD_STAL("minecraft:record.stal", RECORDS),
++    RECORD_STRAD("minecraft:record.strad", RECORDS),
++    RECORD_WAIT("minecraft:record.wait", RECORDS),
++    RECORD_WARD("minecraft:record.ward", RECORDS),
 +    UI_BUTTON_CLICK("minecraft:ui.button.click"),
 +    WEATHER_RAIN("minecraft:weather.rain", WEATHER),
 +    WEATHER_RAIN_ABOVE("minecraft:weather.rain.above", WEATHER);
@@ -950,13 +1010,13 @@ index f1a3148..e7c1747 100644
 +    private static Sound[] SOUNDS;
 +
 +    private String id;
-+    private Category category;
++    private SoundCategory category;
 +
 +    Sound(String id) {
-+        this(id, Category.MASTER);
++        this(id, SoundCategory.MASTER);
 +    }
 +
-+    Sound(String id, Category category) {
++    Sound(String id, SoundCategory category) {
 +        this.id = id;
 +        this.category = category;
 +    }
@@ -965,7 +1025,16 @@ index f1a3148..e7c1747 100644
 +        return id;
 +    }
 +
-+    public Category getCategory() {
++    public static Sound getSound(String name) {
++        for (Sound sound : values()) {
++            if (name.equalsIgnoreCase(sound.name())) {
++                return sound;
++            }
++        }
++        return null;
++    }
++
++    public SoundCategory getCategory() {
 +        return category;
 +    }
 +
@@ -983,71 +1052,57 @@ index f1a3148..e7c1747 100644
 +        }
 +        return null;
 +    }
+ }
+diff --git a/src/main/java/org/bukkit/SoundCategory.java b/src/main/java/org/bukkit/SoundCategory.java
+index ac5e263..a1a3746 100644
+--- a/src/main/java/org/bukkit/SoundCategory.java
++++ b/src/main/java/org/bukkit/SoundCategory.java
+@@ -15,4 +15,17 @@ public enum SoundCategory {
+     PLAYERS,
+     AMBIENT,
+     VOICE;
 +
-+    public enum Category {
-+        MASTER,
-+        MUSIC,
-+        RECORD,
-+        WEATHER,
-+        BLOCK,
-+        HOSTILE,
-+        NEUTRAL,
-+        PLAYER,
-+        AMBIENT,
-+        VOICE;
-+
-+        public static Category getCategory(String name) {
-+            for (Category category : values()) {
-+                if (category.name().equalsIgnoreCase(name)) {
-+                    return category;
-+                }
++    public static SoundCategory getCategory(String name) {
++        for (SoundCategory category : values()) {
++            if (category.name().equalsIgnoreCase(name)) {
++                return category;
 +            }
-+            return Category.MASTER;
 +        }
++        return SoundCategory.MASTER;
++    }
 +
-+        public static Sound.Category fromInt(int i) {
-+            return values()[i];
-+        }
++    public static SoundCategory fromInt(int i) {
++        return values()[i];
 +    }
  }
-diff --git a/src/main/java/org/bukkit/command/CommandTarget.java b/src/main/java/org/bukkit/command/CommandTarget.java
-index 74f8fc6..0a33130 100644
---- a/src/main/java/org/bukkit/command/CommandTarget.java
-+++ b/src/main/java/org/bukkit/command/CommandTarget.java
-@@ -261,7 +261,7 @@ public class CommandTarget {
-     /**
-      * Represents the value of a selector argument
-      */
--    class SelectorValue {
-+    public static class SelectorValue {
-         private String value;
-         private boolean inverted = false;
- 
 diff --git a/src/main/java/org/bukkit/command/SimpleCommandMap.java b/src/main/java/org/bukkit/command/SimpleCommandMap.java
-index 3a239ee..b975af2 100644
+index 86569b0..d7e8078 100644
 --- a/src/main/java/org/bukkit/command/SimpleCommandMap.java
 +++ b/src/main/java/org/bukkit/command/SimpleCommandMap.java
-@@ -77,6 +77,7 @@ public class SimpleCommandMap implements CommandMap {
-         register("bukkit", new ParticleCommand());
-         register("bukkit", new SetBlockCommand());
-         register("bukkit", new TriggerCommand());
-+        register("bukkit", new StopsoundCommand());
-     }
- 
-     /**
+@@ -66,6 +66,8 @@ public class SimpleCommandMap implements CommandMap {
+         register("bukkit", new EnchantCommand());
+         register("bukkit", new TestForCommand());
+         register("bukkit", new EffectCommand());
++        register("bukkit", new PlaySoundCommand());
++        register("bukkit", new StopSoundCommand());
+         register("bukkit", new SpreadPlayersCommand());
+         register("bukkit", new SetWorldSpawnCommand());
+         register("bukkit", new SetIdleTimeoutCommand());
 diff --git a/src/main/java/org/bukkit/command/defaults/PlaySoundCommand.java b/src/main/java/org/bukkit/command/defaults/PlaySoundCommand.java
-index a7737ad..d98b1de 100644
+index 0cb5ca2..93a976b 100644
 --- a/src/main/java/org/bukkit/command/defaults/PlaySoundCommand.java
 +++ b/src/main/java/org/bukkit/command/defaults/PlaySoundCommand.java
-@@ -3,6 +3,7 @@ package org.bukkit.command.defaults;
- import org.bukkit.Bukkit;
- import org.bukkit.ChatColor;
- import org.bukkit.Location;
-+import org.bukkit.Sound;
+@@ -1,8 +1,6 @@
+ package org.bukkit.command.defaults;
+ 
+-import org.bukkit.Bukkit;
+-import org.bukkit.ChatColor;
+-import org.bukkit.Location;
++import org.bukkit.*;
  import org.bukkit.command.CommandSender;
  import org.bukkit.entity.Player;
  
-@@ -11,7 +12,7 @@ public class PlaySoundCommand extends VanillaCommand {
+@@ -10,7 +8,7 @@ public class PlaySoundCommand extends VanillaCommand {
      public PlaySoundCommand() {
          super("playsound");
          this.description = "Plays a sound to a given player";
@@ -1056,7 +1111,7 @@ index a7737ad..d98b1de 100644
          this.setPermission("bukkit.command.playsound");
      }
  
-@@ -21,12 +22,29 @@ public class PlaySoundCommand extends VanillaCommand {
+@@ -20,12 +18,29 @@ public class PlaySoundCommand extends VanillaCommand {
              return true;
          }
  
@@ -1071,11 +1126,11 @@ index a7737ad..d98b1de 100644
 +        final String playerArg = args[2];
 +
 +        final Sound sound;
-+        final Sound.Category source = getCategory(sourceArg);
++        final SoundCategory source = SoundCategory.getCategory(sourceArg);
 +        if (soundArg.contains(".") || soundArg.contains("minecraft:")) {
 +            sound = Sound.fromId(soundArg);
 +        } else {
-+            sound = getSound(soundArg);
++            sound = Sound.getSound(soundArg);
 +        }
 +        if (sound == null) {
 +            sender.sendMessage(ChatColor.RED + "Unknown sound: " + soundArg);
@@ -1088,7 +1143,7 @@ index a7737ad..d98b1de 100644
  
          final Player player = Bukkit.getPlayerExact(playerArg);
          if (player == null) {
-@@ -44,21 +62,21 @@ public class PlaySoundCommand extends VanillaCommand {
+@@ -43,21 +58,21 @@ public class PlaySoundCommand extends VanillaCommand {
          double minimumVolume = 0.0D;
  
          switch (args.length) {
@@ -1125,7 +1180,7 @@ index a7737ad..d98b1de 100644
          }
  
          final double fixedVolume = volume > 1.0D ? volume * 16.0D : 16.0D;
-@@ -78,11 +96,29 @@ public class PlaySoundCommand extends VanillaCommand {
+@@ -77,9 +92,9 @@ public class PlaySoundCommand extends VanillaCommand {
                  location.add(deltaX / delta, deltaY / delta, deltaZ / delta);
              }
  
@@ -1137,45 +1192,26 @@ index a7737ad..d98b1de 100644
          }
          sender.sendMessage(String.format("Played '%s' to %s", soundArg, playerArg));
          return true;
-     }
-+
-+    private Sound getSound(String name) {
-+        for (Sound sound : Sound.values()) {
-+            if (name.equalsIgnoreCase(sound.name())) {
-+                return sound;
-+            }
-+        }
-+        return null;
-+    }
-+
-+    private Sound.Category getCategory(String source) {
-+        for (Sound.Category category : Sound.Category.values()) {
-+            if (category.name().equalsIgnoreCase(source)) {
-+                return category;
-+            }
-+        }
-+        return null;
-+    }
- }
-diff --git a/src/main/java/org/bukkit/command/defaults/StopsoundCommand.java b/src/main/java/org/bukkit/command/defaults/StopsoundCommand.java
+diff --git a/src/main/java/org/bukkit/command/defaults/StopSoundCommand.java b/src/main/java/org/bukkit/command/defaults/StopSoundCommand.java
 new file mode 100644
-index 0000000..0f7ad66
+index 0000000..cde4633
 --- /dev/null
-+++ b/src/main/java/org/bukkit/command/defaults/StopsoundCommand.java
-@@ -0,0 +1,93 @@
++++ b/src/main/java/org/bukkit/command/defaults/StopSoundCommand.java
+@@ -0,0 +1,94 @@
 +package org.bukkit.command.defaults;
 +
 +import org.bukkit.Bukkit;
 +import org.bukkit.ChatColor;
 +import org.bukkit.Sound;
++import org.bukkit.SoundCategory;
 +import org.bukkit.command.CommandSender;
 +import org.bukkit.command.CommandTarget;
 +import org.bukkit.entity.Entity;
 +import org.bukkit.entity.Player;
 +
-+public class StopsoundCommand extends VanillaCommand {
++public class StopSoundCommand extends VanillaCommand {
 +
-+    public StopsoundCommand() {
++    public StopSoundCommand() {
 +        super("stopsound");
 +        setDescription("Stops a sound for a player.");
 +        setUsage("/stopsound <player> [source] [sound]");
@@ -1191,12 +1227,12 @@ index 0000000..0f7ad66
 +        }
 +
 +        String sourceName, soundName;
-+        Sound.Category source = null;
++        SoundCategory source = null;
 +        Sound sound = null;
 +
 +        if (args.length > 1) {
 +            sourceName = args[1];
-+            source = Sound.Category.getCategory(sourceName);
++            source = SoundCategory.getCategory(sourceName);
 +            if (source == null) {
 +                sender.sendMessage(ChatColor.RED + "There is no such category as '" + sourceName.toLowerCase() + "'.");
 +                return false;
@@ -1239,7 +1275,7 @@ index 0000000..0f7ad66
 +                    player.stopSound(source);
 +                    sender.sendMessage("Stopped all sounds from source '" + source.name().toLowerCase() + "' for " + player.getName() + ".");
 +                } else {
-+                    player.stopSound(source, sound);
++                    player.stopSound(sound, source);
 +                    sender.sendMessage("Stopped sound '" + sound.getId() + "' from source '" + source.name().toLowerCase() + "' for " + player.getName() + ".");
 +                }
 +            }
@@ -1257,35 +1293,35 @@ index 0000000..0f7ad66
 +    }
 +}
 diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
-index 209470c..b75cd55 100644
+index ac58f3a..c15c91b 100644
 --- a/src/main/java/org/bukkit/entity/Player.java
 +++ b/src/main/java/org/bukkit/entity/Player.java
-@@ -230,6 +230,10 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
-      */
-     public void playSound(Location location, String sound, float volume, float pitch);
- 
-+    public void playSound(Location location, Sound sound, Sound.Category category, float volume, float pitch);
-+
-+    public void playSound(Location location, String sound, Sound.Category category, float volume, float pitch);
-+
-     /**
-      * Stop the specified sound from playing.
-      *
-@@ -244,6 +248,14 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
-      */
+@@ -286,6 +286,13 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
      public void stopSound(String sound);
  
-+    public void stopSound(Sound.Category category);
+     /**
++     * Stop all sounds in the specified category from playing.
++     *
++     * @param category the category of sound to stop
++     */
++    public void stopSound(SoundCategory category);
 +
-+    public void stopSound(Sound.Category category, String sound);
-+
-+    public void stopSound(Sound.Category category, Sound sound);
-+
++    /**
+      * Stop the specified sound from playing.
+      *
+      * @param sound the sound to stop
+@@ -302,6 +309,11 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
+     public void stopSound(String sound, SoundCategory category);
+ 
+     /**
++     * Stop all sounds from playing.
++     */
 +    public void stopAllSounds();
 +
-     /**
++    /**
       * Plays an effect to just this player.
       *
+      * @param loc the location to play the effect at
 -- 
-1.9.5.msysgit.1
+2.10.2
 

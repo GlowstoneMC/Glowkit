@@ -1,17 +1,18 @@
-From 34ec3c1556851862b845598effd2d425bd8ea9db Mon Sep 17 00:00:00 2001
+From 7aaaef7b7b5178174fa45cde3b53dece0d35ded9 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
-Date: Sun, 12 Jun 2016 23:30:44 -0400
+Date: Sun, 20 Nov 2016 12:52:14 -0500
 Subject: [PATCH] Add missing MaterialData
 
 
 diff --git a/src/main/java/org/bukkit/Material.java b/src/main/java/org/bukkit/Material.java
-index 4f08fa5..a1e43d3 100644
+index 6206223..5cfa875 100644
 --- a/src/main/java/org/bukkit/Material.java
 +++ b/src/main/java/org/bukkit/Material.java
-@@ -1,78 +1,22 @@
+@@ -1,77 +1,22 @@
  package org.bukkit;
  
 -import java.lang.reflect.Constructor;
+-import java.util.Arrays;
 -import java.util.Map;
 -
 +import com.google.common.collect.Maps;
@@ -70,14 +71,13 @@ index 4f08fa5..a1e43d3 100644
 -import org.bukkit.material.Wood;
 -import org.bukkit.material.WoodenStep;
 -import org.bukkit.material.Wool;
--import org.bukkit.potion.Potion;
 +import org.bukkit.material.*;
- import org.bukkit.util.Java15Compat;
  
 -import com.google.common.collect.Maps;
 -
 -import org.bukkit.material.Banner;
 +import java.lang.reflect.Constructor;
++import java.util.Arrays;
 +import java.util.Map;
  
  /**
@@ -93,7 +93,7 @@ index 4f08fa5..a1e43d3 100644
      COBBLESTONE(4),
      WOOD(5, Wood.class),
      SAPLING(6, Sapling.class),
-@@ -81,14 +25,14 @@ public enum Material {
+@@ -80,14 +25,14 @@ public enum Material {
      STATIONARY_WATER(9, MaterialData.class),
      LAVA(10, MaterialData.class),
      STATIONARY_LAVA(11, MaterialData.class),
@@ -110,7 +110,7 @@ index 4f08fa5..a1e43d3 100644
      GLASS(20),
      LAPIS_ORE(21),
      LAPIS_BLOCK(22),
-@@ -237,14 +181,14 @@ public enum Material {
+@@ -236,14 +181,14 @@ public enum Material {
      SLIME_BLOCK(165),
      BARRIER(166),
      IRON_TRAPDOOR(167, TrapDoor.class),
@@ -129,10 +129,10 @@ index 4f08fa5..a1e43d3 100644
      DAYLIGHT_DETECTOR_INVERTED(178),
 diff --git a/src/main/java/org/bukkit/material/Dirt.java b/src/main/java/org/bukkit/material/Dirt.java
 new file mode 100644
-index 0000000..b14447b
+index 0000000..adcaca6
 --- /dev/null
 +++ b/src/main/java/org/bukkit/material/Dirt.java
-@@ -0,0 +1,75 @@
+@@ -0,0 +1,83 @@
 +package org.bukkit.material;
 +
 +import org.bukkit.Material;
@@ -154,6 +154,8 @@ index 0000000..b14447b
 +
 +    /**
 +     * @deprecated Magic value
++     *
++     * @param type the type
 +     */
 +    @Deprecated
 +    public Dirt(final int type) {
@@ -166,6 +168,9 @@ index 0000000..b14447b
 +
 +    /**
 +     * @deprecated Magic value
++     *
++     * @param type the type
++     * @param data the data
 +     */
 +    @Deprecated
 +    public Dirt(final int type, final byte data) {
@@ -174,6 +179,9 @@ index 0000000..b14447b
 +
 +    /**
 +     * @deprecated Magic value
++     *
++     * @param type the type
++     * @param data the data
 +     */
 +    @Deprecated
 +    public Dirt(final Material type, final byte data) {
@@ -210,10 +218,10 @@ index 0000000..b14447b
 +}
 diff --git a/src/main/java/org/bukkit/material/DoublePlant.java b/src/main/java/org/bukkit/material/DoublePlant.java
 new file mode 100644
-index 0000000..4898777
+index 0000000..7c93512
 --- /dev/null
 +++ b/src/main/java/org/bukkit/material/DoublePlant.java
-@@ -0,0 +1,75 @@
+@@ -0,0 +1,83 @@
 +package org.bukkit.material;
 +
 +import org.bukkit.Material;
@@ -235,6 +243,8 @@ index 0000000..4898777
 +
 +    /**
 +     * @deprecated Magic value
++     *
++     * @param type the type
 +     */
 +    @Deprecated
 +    public DoublePlant(final int type) {
@@ -247,6 +257,9 @@ index 0000000..4898777
 +
 +    /**
 +     * @deprecated Magic value
++     *
++     * @param type the type
++     * @param data the data
 +     */
 +    @Deprecated
 +    public DoublePlant(final int type, final byte data) {
@@ -255,6 +268,9 @@ index 0000000..4898777
 +
 +    /**
 +     * @deprecated Magic value
++     *
++     * @param type the type
++     * @param data the data
 +     */
 +    @Deprecated
 +    public DoublePlant(final Material type, final byte data) {
@@ -291,10 +307,10 @@ index 0000000..4898777
 +}
 diff --git a/src/main/java/org/bukkit/material/Prismarine.java b/src/main/java/org/bukkit/material/Prismarine.java
 new file mode 100644
-index 0000000..8f49168
+index 0000000..8aefef5
 --- /dev/null
 +++ b/src/main/java/org/bukkit/material/Prismarine.java
-@@ -0,0 +1,78 @@
+@@ -0,0 +1,86 @@
 +package org.bukkit.material;
 +
 +import org.bukkit.Material;
@@ -316,6 +332,8 @@ index 0000000..8f49168
 +    /**
 +     *
 +     * @deprecated Magic value
++     *
++     * @param type the type
 +     */
 +    @Deprecated
 +    public Prismarine(final int type) {
@@ -329,6 +347,9 @@ index 0000000..8f49168
 +    /**
 +     *
 +     * @deprecated Magic value
++     *
++     * @param type the type
++     * @param data the data
 +     */
 +    @Deprecated
 +    public Prismarine(final int type, final byte data) {
@@ -338,6 +359,9 @@ index 0000000..8f49168
 +    /**
 +     *
 +     * @deprecated Magic value
++     *
++     * @param type the type
++     * @param data the data
 +     */
 +    @Deprecated
 +    public Prismarine(final Material type, final byte data) {
@@ -375,10 +399,10 @@ index 0000000..8f49168
 +
 diff --git a/src/main/java/org/bukkit/material/Sand.java b/src/main/java/org/bukkit/material/Sand.java
 new file mode 100644
-index 0000000..f7338a1
+index 0000000..fe18b5a
 --- /dev/null
 +++ b/src/main/java/org/bukkit/material/Sand.java
-@@ -0,0 +1,77 @@
+@@ -0,0 +1,85 @@
 +package org.bukkit.material;
 +
 +import org.bukkit.Material;
@@ -400,6 +424,8 @@ index 0000000..f7338a1
 +    /**
 +     *
 +     * @deprecated Magic value
++     *
++     * @param type the type
 +     */
 +    @Deprecated
 +    public Sand(final int type) {
@@ -413,6 +439,9 @@ index 0000000..f7338a1
 +    /**
 +     *
 +     * @deprecated Magic value
++     *
++     * @param type the type
++     * @param data the data
 +     */
 +    @Deprecated
 +    public Sand(final int type, final byte data) {
@@ -422,6 +451,9 @@ index 0000000..f7338a1
 +    /**
 +     *
 +     * @deprecated Magic value
++     *
++     * @param type the type
++     * @param data the data
 +     */
 +    @Deprecated
 +    public Sand(final Material type, final byte data) {
@@ -458,10 +490,10 @@ index 0000000..f7338a1
 +}
 diff --git a/src/main/java/org/bukkit/material/Sponge.java b/src/main/java/org/bukkit/material/Sponge.java
 new file mode 100644
-index 0000000..155ba63
+index 0000000..63f0fe1
 --- /dev/null
 +++ b/src/main/java/org/bukkit/material/Sponge.java
-@@ -0,0 +1,77 @@
+@@ -0,0 +1,85 @@
 +package org.bukkit.material;
 +
 +import org.bukkit.Material;
@@ -483,6 +515,8 @@ index 0000000..155ba63
 +    /**
 +     *
 +     * @deprecated Magic value
++     *
++     * @param type the type
 +     */
 +    @Deprecated
 +    public Sponge(final int type) {
@@ -496,6 +530,9 @@ index 0000000..155ba63
 +    /**
 +     *
 +     * @deprecated Magic value
++     *
++     * @param type the type
++     * @param data the data
 +     */
 +    @Deprecated
 +    public Sponge(final int type, final byte data) {
@@ -505,6 +542,9 @@ index 0000000..155ba63
 +    /**
 +     *
 +     * @deprecated Magic value
++     *
++     * @param type the type
++     * @param data the data
 +     */
 +    @Deprecated
 +    public Sponge(final Material type, final byte data) {
@@ -541,10 +581,10 @@ index 0000000..155ba63
 +}
 diff --git a/src/main/java/org/bukkit/material/Stone.java b/src/main/java/org/bukkit/material/Stone.java
 new file mode 100644
-index 0000000..78e1156
+index 0000000..2ea20f1
 --- /dev/null
 +++ b/src/main/java/org/bukkit/material/Stone.java
-@@ -0,0 +1,75 @@
+@@ -0,0 +1,83 @@
 +package org.bukkit.material;
 +
 +import org.bukkit.Material;
@@ -566,6 +606,8 @@ index 0000000..78e1156
 +
 +    /**
 +     * @deprecated Magic value
++     *
++     * @param type the type
 +     */
 +    @Deprecated
 +    public Stone(final int type) {
@@ -578,6 +620,9 @@ index 0000000..78e1156
 +
 +    /**
 +     * @deprecated Magic value
++     *
++     * @param type the type
++     * @param data the data
 +     */
 +    @Deprecated
 +    public Stone(final int type, final byte data) {
@@ -586,6 +631,9 @@ index 0000000..78e1156
 +
 +    /**
 +     * @deprecated Magic value
++     *
++     * @param type the type
++     * @param data the data
 +     */
 +    @Deprecated
 +    public Stone(final Material type, final byte data) {
@@ -1025,5 +1073,5 @@ index 0000000..cc023ed
 +}
 +
 -- 
-2.9.0.windows.1
+2.10.2
 

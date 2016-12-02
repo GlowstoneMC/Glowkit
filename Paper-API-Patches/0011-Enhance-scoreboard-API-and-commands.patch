@@ -1,11 +1,24 @@
-From 22c4fc3108110761a52c726963e9457dc240cc40 Mon Sep 17 00:00:00 2001
+From f7a7499d59431ea925d18d432369fed06ed81dfb Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
-Date: Sun, 12 Jun 2016 23:46:42 -0400
+Date: Fri, 25 Nov 2016 11:07:38 -0500
 Subject: [PATCH] Enhance scoreboard API and commands
 
 
+diff --git a/src/main/java/org/bukkit/command/SimpleCommandMap.java b/src/main/java/org/bukkit/command/SimpleCommandMap.java
+index d7e8078..7b7af2e 100644
+--- a/src/main/java/org/bukkit/command/SimpleCommandMap.java
++++ b/src/main/java/org/bukkit/command/SimpleCommandMap.java
+@@ -66,6 +66,8 @@ public class SimpleCommandMap implements CommandMap {
+         register("bukkit", new EnchantCommand());
+         register("bukkit", new TestForCommand());
+         register("bukkit", new EffectCommand());
++        register("bukkit", new ScoreboardCommand());
++        register("bukkit", new TriggerCommand());
+         register("bukkit", new PlaySoundCommand());
+         register("bukkit", new StopSoundCommand());
+         register("bukkit", new SpreadPlayersCommand());
 diff --git a/src/main/java/org/bukkit/command/defaults/ScoreboardCommand.java b/src/main/java/org/bukkit/command/defaults/ScoreboardCommand.java
-index ff7f562..3ced734 100644
+index ff7f562..0f778f8 100644
 --- a/src/main/java/org/bukkit/command/defaults/ScoreboardCommand.java
 +++ b/src/main/java/org/bukkit/command/defaults/ScoreboardCommand.java
 @@ -1,13 +1,7 @@
@@ -24,7 +37,7 @@ index ff7f562..3ced734 100644
  import org.apache.commons.lang.ArrayUtils;
  import org.apache.commons.lang.StringUtils;
  import org.apache.commons.lang.Validate;
-@@ -16,23 +10,18 @@ import org.bukkit.ChatColor;
+@@ -16,23 +10,17 @@ import org.bukkit.ChatColor;
  import org.bukkit.OfflinePlayer;
  import org.bukkit.command.CommandSender;
  import org.bukkit.entity.Player;
@@ -40,7 +53,7 @@ index ff7f562..3ced734 100644
 -import com.google.common.collect.ImmutableMap;
 +import java.util.*;
  
- @Deprecated
+-@Deprecated
  public class ScoreboardCommand extends VanillaCommand {
  
      private static final List<String> MAIN_CHOICES = ImmutableList.of("objectives", "players", "teams");
@@ -52,16 +65,7 @@ index ff7f562..3ced734 100644
      private static final List<String> TEAMS_CHOICES = ImmutableList.of("add", "remove", "join", "leave", "empty", "list", "option");
      private static final List<String> TEAMS_OPTION_CHOICES = ImmutableList.of("color", "friendlyfire", "seeFriendlyInvisibles");
      private static final Map<String, DisplaySlot> OBJECTIVES_DISPLAYSLOT = ImmutableMap.of("belowName", DisplaySlot.BELOW_NAME, "list", DisplaySlot.PLAYER_LIST, "sidebar", DisplaySlot.SIDEBAR);
-@@ -43,7 +32,7 @@ public class ScoreboardCommand extends VanillaCommand {
-             .put("bold", ChatColor.BOLD)
-             .put("dark_aqua", ChatColor.DARK_AQUA)
-             .put("dark_blue", ChatColor.DARK_BLUE)
--            .put("dark_gray",  ChatColor.DARK_GRAY)
-+            .put("dark_gray", ChatColor.DARK_GRAY)
-             .put("dark_green", ChatColor.DARK_GREEN)
-             .put("dark_purple", ChatColor.DARK_PURPLE)
-             .put("dark_red", ChatColor.DARK_RED)
-@@ -263,6 +252,29 @@ public class ScoreboardCommand extends VanillaCommand {
+@@ -263,6 +251,29 @@ public class ScoreboardCommand extends VanillaCommand {
                      }
                  }
              }
@@ -91,7 +95,7 @@ index ff7f562..3ced734 100644
          } else if (args[0].equalsIgnoreCase("teams")) {
              if (args.length == 1) {
                  sender.sendMessage(ChatColor.RED + "/scoreboard teams <list|add|remove|empty|join|leave|option>");
-@@ -512,7 +524,7 @@ public class ScoreboardCommand extends VanillaCommand {
+@@ -512,7 +523,7 @@ public class ScoreboardCommand extends VanillaCommand {
                  if (args.length == 2) {
                      return StringUtil.copyPartialMatches(args[1], PLAYERS_CHOICES, new ArrayList<String>());
                  }
@@ -102,15 +106,13 @@ index ff7f562..3ced734 100644
                      }
 diff --git a/src/main/java/org/bukkit/command/defaults/TriggerCommand.java b/src/main/java/org/bukkit/command/defaults/TriggerCommand.java
 new file mode 100644
-index 0000000..90d6d2a
+index 0000000..5042194
 --- /dev/null
 +++ b/src/main/java/org/bukkit/command/defaults/TriggerCommand.java
-@@ -0,0 +1,102 @@
+@@ -0,0 +1,99 @@
 +package org.bukkit.command.defaults;
 +
-+import java.util.ArrayList;
-+import java.util.List;
-+
++import com.google.common.collect.ImmutableList;
 +import org.apache.commons.lang.Validate;
 +import org.bukkit.Bukkit;
 +import org.bukkit.ChatColor;
@@ -121,7 +123,9 @@ index 0000000..90d6d2a
 +import org.bukkit.scoreboard.Score;
 +import org.bukkit.util.StringUtil;
 +
-+import com.google.common.collect.ImmutableList;
++import java.util.ArrayList;
++import java.util.List;
++import java.util.stream.Collectors;
 +
 +public class TriggerCommand extends VanillaCommand {
 +
@@ -195,10 +199,7 @@ index 0000000..90d6d2a
 +
 +        if (args.length == 1) {
 +            if (sender instanceof Player) {
-+                List<String> objectives = new ArrayList<String>();
-+                for (Objective objective : Bukkit.getScoreboardManager().getMainScoreboard().getObjectivesByCriteria(Criterias.TRIGGER)) {
-+                    objectives.add(objective.getName());
-+                }
++                List<String> objectives = Bukkit.getScoreboardManager().getMainScoreboard().getObjectivesByCriteria(Criterias.TRIGGER).stream().map(Objective::getName).collect(Collectors.toList());
 +                return objectives;
 +            }
 +        } else if (args.length == 2) {
@@ -248,17 +249,6 @@ index 5d58a18..204befa 100644
 +     * Displays in the sidebar on the right-hand side of the screen.
 +     */
 +    SIDEBAR
- }
-diff --git a/src/main/java/org/bukkit/scoreboard/NameTagVisibility.java b/src/main/java/org/bukkit/scoreboard/NameTagVisibility.java
-index d9e9ae1..fd9ff37 100644
---- a/src/main/java/org/bukkit/scoreboard/NameTagVisibility.java
-+++ b/src/main/java/org/bukkit/scoreboard/NameTagVisibility.java
-@@ -21,5 +21,5 @@ public enum NameTagVisibility {
-     /**
-      * Show the player's nametag only to members of other teams.
-      */
--    HIDE_FOR_OWN_TEAM;
-+    HIDE_FOR_OWN_TEAM
  }
 diff --git a/src/main/java/org/bukkit/scoreboard/Objective.java b/src/main/java/org/bukkit/scoreboard/Objective.java
 index 321aac7..2bc2aab 100644
@@ -342,19 +332,10 @@ index 0000000..dc9f7e4
 +    HEARTS
 +}
 diff --git a/src/main/java/org/bukkit/scoreboard/Score.java b/src/main/java/org/bukkit/scoreboard/Score.java
-index 2410cbd..92c2576 100644
+index 2410cbd..ded4e91 100644
 --- a/src/main/java/org/bukkit/scoreboard/Score.java
 +++ b/src/main/java/org/bukkit/scoreboard/Score.java
-@@ -54,7 +54,7 @@ public interface Score {
-     // Spigot start
-     /**
-      * Shows if this score has been set at any point in time.
--     * 
-+     *
-      * @return if this score has been set before
-      * @throws IllegalStateException if the associated objective has been
-      *     unregistered
-@@ -69,4 +69,25 @@ public interface Score {
+@@ -69,4 +69,24 @@ public interface Score {
       *     {@link Objective#unregister() unregistered}
       */
      Scoreboard getScoreboard();
@@ -378,10 +359,9 @@ index 2410cbd..92c2576 100644
 +     *     unregistered
 +     */
 +    void setLocked(boolean locked);
-+
  }
 diff --git a/src/main/java/org/bukkit/scoreboard/Team.java b/src/main/java/org/bukkit/scoreboard/Team.java
-index 9052b4a..0c02071 100644
+index 9052b4a..7209b79 100644
 --- a/src/main/java/org/bukkit/scoreboard/Team.java
 +++ b/src/main/java/org/bukkit/scoreboard/Team.java
 @@ -1,10 +1,11 @@
@@ -398,27 +378,10 @@ index 9052b4a..0c02071 100644
  /**
   * A team on a scoreboard that has a common display theme and other
   * properties. This team is only relevant to the display of the associated
-@@ -132,6 +133,40 @@ public interface Team {
+@@ -132,6 +133,23 @@ public interface Team {
      void setNameTagVisibility(NameTagVisibility visibility) throws IllegalArgumentException;
  
      /**
-+     * Set the visiblity of death messages for players on this team.
-+     *
-+     * @param visibility The visiblity of death messages
-+     * @throws IllegalArgumentException if the visibility is null
-+     * @throws IllegalStateException if this team has been unregistered
-+     */
-+    void setDeathMessageVisibility(NameTagVisibility visibility) throws IllegalStateException, IllegalArgumentException;
-+
-+    /**
-+     * Get the visiblity of death messages for players on this team.
-+     *
-+     * @return visibility The visiblity of death messages
-+     * @throws IllegalStateException if this team has been unregistered
-+     */
-+    NameTagVisibility getDeathMessageVisibility() throws IllegalStateException;
-+
-+    /**
 +     * Gets the color of a team
 +     * This is only used for the team color sidebar slots
 +     * @return color
@@ -440,5 +403,5 @@ index 9052b4a..0c02071 100644
       *
       * @return players on the team
 -- 
-2.9.0.windows.1
+2.10.2
 

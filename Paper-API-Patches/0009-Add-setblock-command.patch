@@ -1,23 +1,35 @@
-From 58172d06fbdf8840a9f5d754dfe9f2111c6e02c0 Mon Sep 17 00:00:00 2001
+From 693e7f300a37adbce9d73e2cf5f4d759e42dfdf8 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
-Date: Sun, 12 Jun 2016 23:44:41 -0400
+Date: Mon, 21 Nov 2016 11:07:59 -0500
 Subject: [PATCH] Add setblock command
 
 
+diff --git a/src/main/java/org/bukkit/command/SimpleCommandMap.java b/src/main/java/org/bukkit/command/SimpleCommandMap.java
+index c2e492b..86569b0 100644
+--- a/src/main/java/org/bukkit/command/SimpleCommandMap.java
++++ b/src/main/java/org/bukkit/command/SimpleCommandMap.java
+@@ -71,6 +71,7 @@ public class SimpleCommandMap implements CommandMap {
+         register("bukkit", new SetIdleTimeoutCommand());
+         register("bukkit", new AchievementCommand());
+         register("bukkit", new ParticleCommand());
++        register("bukkit", new SetBlockCommand());
+     }
+ 
+     /**
 diff --git a/src/main/java/org/bukkit/command/defaults/SetBlockCommand.java b/src/main/java/org/bukkit/command/defaults/SetBlockCommand.java
 new file mode 100644
-index 0000000..9ebd30c
+index 0000000..9326ee2
 --- /dev/null
 +++ b/src/main/java/org/bukkit/command/defaults/SetBlockCommand.java
-@@ -0,0 +1,103 @@
+@@ -0,0 +1,111 @@
 +package org.bukkit.command.defaults;
 +
-+import org.bukkit.Bukkit;
-+import org.bukkit.ChatColor;
-+import org.bukkit.Material;
-+import org.bukkit.World;
++import org.bukkit.*;
 +import org.bukkit.block.Block;
++import org.bukkit.command.BlockCommandSender;
 +import org.bukkit.command.CommandSender;
++import org.bukkit.command.CommandUtils;
++import org.bukkit.entity.Entity;
 +import org.bukkit.entity.Player;
 +
 +public class SetBlockCommand extends VanillaCommand {
@@ -41,10 +53,16 @@ index 0000000..9ebd30c
 +            sender.sendMessage(ChatColor.RED + "Usage: " + usageMessage);
 +            return false;
 +        }
++        Location base = null;
++        if (sender instanceof BlockCommandSender) {
++            base = ((BlockCommandSender) sender).getBlock().getLocation();
++        } else if (sender instanceof Entity) {
++            base = ((Entity) sender).getLocation();
++        }
 +
-+        int x = getInteger(sender, args[0], 0); // TODO: support relative '~' notation like in TeleportCommand
-+        int y = getInteger(sender, args[1], 0);
-+        int z = getInteger(sender, args[2], 0);
++        String xP = args[0], yP = args[1], zP = args[2];
++        Location location = CommandUtils.getLocation(base, xP, yP, zP);
++
 +        String tileName = args[3];
 +
 +        byte dataValue = 0;
@@ -81,9 +99,9 @@ index 0000000..9ebd30c
 +            return false;
 +        }
 +
-+        Block block = world.getBlockAt(x, y, z);
++        Block block = world.getBlockAt(location);
 +        if (block == null) {
-+            sender.sendMessage(ChatColor.RED + "No block found at (" + x + "," + y + "," + z + ")");
++            sender.sendMessage(ChatColor.RED + "No block found at (" + location.getBlockX() + "," + location.getBlockY() + "," + location.getBlockZ() + ")");
 +            return false;
 +        }
 +
@@ -102,17 +120,19 @@ index 0000000..9ebd30c
 +
 +        boolean applyPhysics = true;
 +
-+        block.setTypeIdAndData(material.getId(), dataValue, applyPhysics);
-+        //block.setType(material);
-+        //block.setData(dataValue);
++        //block.setTypeIdAndData(material.getId(), dataValue, applyPhysics);
++        block.setType(material);
++        block.setData(dataValue);
 +
 +        if (oldBlockHandling == OldBlockHandling.DESTROY) {
-+            // TODO: destory old block, play breaking sound, drop item as if broken by player
++            throw new UnsupportedOperationException("Destroying blocks not supported.");
++            // TODO: destroy old block, play breaking sound, drop item as if broken by player
 +        }
++        sender.sendMessage("Block placed.");
 +
 +        return true;
 +    }
 +}
 -- 
-2.9.0.windows.1
+2.10.2
 
