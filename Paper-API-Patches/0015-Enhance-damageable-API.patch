@@ -1,22 +1,22 @@
-From 49233b401f2e8be03b6479a5046b2b94e2a99b61 Mon Sep 17 00:00:00 2001
+From 21aee1a427d71e756f57c2cdd05e9a7ff44d699c Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Fri, 25 Nov 2016 12:30:51 -0500
 Subject: [PATCH] Enhance damageable API
 
 
 diff --git a/src/main/java/org/bukkit/entity/Damageable.java b/src/main/java/org/bukkit/entity/Damageable.java
-index d0599cf..1d28e1e 100644
+index bd601bb6..b86ebe35 100644
 --- a/src/main/java/org/bukkit/entity/Damageable.java
 +++ b/src/main/java/org/bukkit/entity/Damageable.java
-@@ -1,5 +1,7 @@
+@@ -1,6 +1,7 @@
  package org.bukkit.entity;
  
+ import org.bukkit.attribute.Attribute;
 +import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
-+
+ 
  /**
   * Represents an {@link Entity} that has health and can take damage.
-  */
-@@ -42,6 +44,25 @@ public interface Damageable extends Entity {
+@@ -44,6 +45,25 @@ public interface Damageable extends Entity {
      void _INVALID_damage(int amount, Entity source);
  
      /**
@@ -43,5 +43,5 @@ index d0599cf..1d28e1e 100644
       *
       * @return Health represented from 0 to max
 -- 
-2.10.2
+2.11.0
 
