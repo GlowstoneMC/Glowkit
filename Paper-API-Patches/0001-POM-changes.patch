@@ -1,11 +1,11 @@
-From 7c8c455bd1f38574911244e7707ae230a99d80b6 Mon Sep 17 00:00:00 2001
+From 324d4ac1d1321e9f625c804fe7bc2089a0cde1e6 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Sun, 20 Nov 2016 12:28:10 -0500
 Subject: [PATCH] POM changes
 
 
 diff --git a/pom.xml b/pom.xml
-index b0eba81..74830c0 100644
+index f5f62b44..253fc7d5 100644
 --- a/pom.xml
 +++ b/pom.xml
 @@ -1,26 +1,25 @@
@@ -29,7 +29,7 @@ index b0eba81..74830c0 100644
 -    <artifactId>paper-api</artifactId>
 +    <groupId>net.glowstone</groupId>
 +    <artifactId>glowkit</artifactId>
-     <version>1.11-R0.1-SNAPSHOT</version>
+     <version>1.11.2-R0.1-SNAPSHOT</version>
      <packaging>jar</packaging>
  
 -    <name>Paper-API</name>
@@ -155,5 +155,5 @@ index b0eba81..74830c0 100644
          <dependency>
              <groupId>org.ow2.asm</groupId>
 -- 
-2.10.2
+2.11.0
 
