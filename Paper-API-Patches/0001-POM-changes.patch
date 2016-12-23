@@ -1,11 +1,11 @@
-From f55098fe1b5bb48ab0cdea7b9506931bec1b3654 Mon Sep 17 00:00:00 2001
+From a4cc99dceadaf4620734aa37e18060fd6c93580a Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Sun, 20 Nov 2016 12:28:10 -0500
 Subject: [PATCH] POM changes
 
 
 diff --git a/pom.xml b/pom.xml
-index f5f62b44..a503b5ec 100644
+index f5f62b44..12963c0d 100644
 --- a/pom.xml
 +++ b/pom.xml
 @@ -1,25 +1,25 @@
@@ -139,9 +139,10 @@ index f5f62b44..a503b5ec 100644
          <dependency>
              <groupId>net.md-5</groupId>
              <artifactId>bungeecord-chat</artifactId>
-             <version>1.10-SNAPSHOT</version>
+-            <version>1.10-SNAPSHOT</version>
 -            <type>jar</type>
 -            <scope>compile</scope>
++            <version>1.11-SNAPSHOT</version>
          </dependency>
  
          <!-- testing -->
