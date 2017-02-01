@@ -1,14 +1,14 @@
-From 7aaaef7b7b5178174fa45cde3b53dece0d35ded9 Mon Sep 17 00:00:00 2001
+From 6b33675d3a22027cd8113739ea7e340275d51670 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Sun, 20 Nov 2016 12:52:14 -0500
 Subject: [PATCH] Add missing MaterialData
 
 
 diff --git a/src/main/java/org/bukkit/Material.java b/src/main/java/org/bukkit/Material.java
-index 6206223..5cfa875 100644
+index 681c5de6..aa342664 100644
 --- a/src/main/java/org/bukkit/Material.java
 +++ b/src/main/java/org/bukkit/Material.java
-@@ -1,77 +1,22 @@
+@@ -1,78 +1,27 @@
  package org.bukkit;
  
 -import java.lang.reflect.Constructor;
@@ -73,12 +73,14 @@ index 6206223..5cfa875 100644
 -import org.bukkit.material.Wool;
 +import org.bukkit.material.*;
  
--import com.google.common.collect.Maps;
--
--import org.bukkit.material.Banner;
+ import com.google.common.collect.Maps;
+ 
+ import org.bukkit.material.Banner;
+ import org.bukkit.material.Observer;
 +import java.lang.reflect.Constructor;
 +import java.util.Arrays;
 +import java.util.Map;
++
  
  /**
   * An enum of all material IDs accepted by the official server and client
@@ -93,7 +95,7 @@ index 6206223..5cfa875 100644
      COBBLESTONE(4),
      WOOD(5, Wood.class),
      SAPLING(6, Sapling.class),
-@@ -80,14 +25,14 @@ public enum Material {
+@@ -81,14 +30,14 @@ public enum Material {
      STATIONARY_WATER(9, MaterialData.class),
      LAVA(10, MaterialData.class),
      STATIONARY_LAVA(11, MaterialData.class),
@@ -110,7 +112,7 @@ index 6206223..5cfa875 100644
      GLASS(20),
      LAPIS_ORE(21),
      LAPIS_BLOCK(22),
-@@ -236,14 +181,14 @@ public enum Material {
+@@ -237,14 +186,14 @@ public enum Material {
      SLIME_BLOCK(165),
      BARRIER(166),
      IRON_TRAPDOOR(167, TrapDoor.class),
@@ -129,7 +131,7 @@ index 6206223..5cfa875 100644
      DAYLIGHT_DETECTOR_INVERTED(178),
 diff --git a/src/main/java/org/bukkit/material/Dirt.java b/src/main/java/org/bukkit/material/Dirt.java
 new file mode 100644
-index 0000000..adcaca6
+index 00000000..adcaca60
 --- /dev/null
 +++ b/src/main/java/org/bukkit/material/Dirt.java
 @@ -0,0 +1,83 @@
@@ -218,7 +220,7 @@ index 0000000..adcaca6
 +}
 diff --git a/src/main/java/org/bukkit/material/DoublePlant.java b/src/main/java/org/bukkit/material/DoublePlant.java
 new file mode 100644
-index 0000000..7c93512
+index 00000000..7c935129
 --- /dev/null
 +++ b/src/main/java/org/bukkit/material/DoublePlant.java
 @@ -0,0 +1,83 @@
@@ -307,7 +309,7 @@ index 0000000..7c93512
 +}
 diff --git a/src/main/java/org/bukkit/material/Prismarine.java b/src/main/java/org/bukkit/material/Prismarine.java
 new file mode 100644
-index 0000000..8aefef5
+index 00000000..8aefef5f
 --- /dev/null
 +++ b/src/main/java/org/bukkit/material/Prismarine.java
 @@ -0,0 +1,86 @@
@@ -399,7 +401,7 @@ index 0000000..8aefef5
 +
 diff --git a/src/main/java/org/bukkit/material/Sand.java b/src/main/java/org/bukkit/material/Sand.java
 new file mode 100644
-index 0000000..fe18b5a
+index 00000000..fe18b5a3
 --- /dev/null
 +++ b/src/main/java/org/bukkit/material/Sand.java
 @@ -0,0 +1,85 @@
@@ -490,7 +492,7 @@ index 0000000..fe18b5a
 +}
 diff --git a/src/main/java/org/bukkit/material/Sponge.java b/src/main/java/org/bukkit/material/Sponge.java
 new file mode 100644
-index 0000000..63f0fe1
+index 00000000..63f0fe1c
 --- /dev/null
 +++ b/src/main/java/org/bukkit/material/Sponge.java
 @@ -0,0 +1,85 @@
@@ -581,7 +583,7 @@ index 0000000..63f0fe1
 +}
 diff --git a/src/main/java/org/bukkit/material/Stone.java b/src/main/java/org/bukkit/material/Stone.java
 new file mode 100644
-index 0000000..2ea20f1
+index 00000000..2ea20f1d
 --- /dev/null
 +++ b/src/main/java/org/bukkit/material/Stone.java
 @@ -0,0 +1,83 @@
@@ -670,7 +672,7 @@ index 0000000..2ea20f1
 +}
 diff --git a/src/main/java/org/bukkit/material/types/DirtType.java b/src/main/java/org/bukkit/material/types/DirtType.java
 new file mode 100644
-index 0000000..cda0f2e
+index 00000000..cda0f2ea
 --- /dev/null
 +++ b/src/main/java/org/bukkit/material/types/DirtType.java
 @@ -0,0 +1,61 @@
@@ -737,7 +739,7 @@ index 0000000..cda0f2e
 +}
 diff --git a/src/main/java/org/bukkit/material/types/DoublePlantSpecies.java b/src/main/java/org/bukkit/material/types/DoublePlantSpecies.java
 new file mode 100644
-index 0000000..7ff4478
+index 00000000..7ff44785
 --- /dev/null
 +++ b/src/main/java/org/bukkit/material/types/DoublePlantSpecies.java
 @@ -0,0 +1,76 @@
@@ -819,7 +821,7 @@ index 0000000..7ff4478
 +}
 diff --git a/src/main/java/org/bukkit/material/types/PrismarineType.java b/src/main/java/org/bukkit/material/types/PrismarineType.java
 new file mode 100644
-index 0000000..238b7bc
+index 00000000..238b7bc6
 --- /dev/null
 +++ b/src/main/java/org/bukkit/material/types/PrismarineType.java
 @@ -0,0 +1,52 @@
@@ -877,7 +879,7 @@ index 0000000..238b7bc
 +
 diff --git a/src/main/java/org/bukkit/material/types/SandType.java b/src/main/java/org/bukkit/material/types/SandType.java
 new file mode 100644
-index 0000000..510a343
+index 00000000..510a3433
 --- /dev/null
 +++ b/src/main/java/org/bukkit/material/types/SandType.java
 @@ -0,0 +1,52 @@
@@ -935,7 +937,7 @@ index 0000000..510a343
 +
 diff --git a/src/main/java/org/bukkit/material/types/SpongeType.java b/src/main/java/org/bukkit/material/types/SpongeType.java
 new file mode 100644
-index 0000000..77cf34e
+index 00000000..77cf34e3
 --- /dev/null
 +++ b/src/main/java/org/bukkit/material/types/SpongeType.java
 @@ -0,0 +1,50 @@
@@ -991,7 +993,7 @@ index 0000000..77cf34e
 +}
 diff --git a/src/main/java/org/bukkit/material/types/StoneType.java b/src/main/java/org/bukkit/material/types/StoneType.java
 new file mode 100644
-index 0000000..cc023ed
+index 00000000..cc023ede
 --- /dev/null
 +++ b/src/main/java/org/bukkit/material/types/StoneType.java
 @@ -0,0 +1,77 @@
@@ -1073,5 +1075,5 @@ index 0000000..cc023ed
 +}
 +
 -- 
-2.10.2
+2.11.0
 

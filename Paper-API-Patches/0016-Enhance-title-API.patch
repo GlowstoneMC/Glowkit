@@ -1,14 +1,14 @@
-From d2c43575de2796ef369fbe9b52619abdbb88fbf6 Mon Sep 17 00:00:00 2001
+From 6f0b9f0171dfbc15c4501f41626670414fb74cab Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Fri, 25 Nov 2016 12:32:08 -0500
 Subject: [PATCH] Enhance title API
 
 
 diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
-index 2435277c..98490720 100644
+index bf174445..b75a0eec 100644
 --- a/src/main/java/org/bukkit/entity/Player.java
 +++ b/src/main/java/org/bukkit/entity/Player.java
-@@ -552,6 +552,13 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
+@@ -568,6 +568,13 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
      // Paper end
  
      /**

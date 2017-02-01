@@ -1,4 +1,4 @@
-From c7c964c677f2200eaec49916a53bcfa2ece0b21a Mon Sep 17 00:00:00 2001
+From 34049e96497d1c63470b97c9c17f919430c9b675 Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
 Date: Fri, 2 Dec 2016 11:24:16 -0500
 Subject: [PATCH] Fix Javadocs errors
@@ -22,19 +22,6 @@ index 4e5cf35e..99c8a6d5 100644
       *
       * @param enabled Should high-frequency timings be reported
       */
-diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
-index 98490720..188f721f 100644
---- a/src/main/java/org/bukkit/entity/Player.java
-+++ b/src/main/java/org/bukkit/entity/Player.java
-@@ -1699,7 +1699,7 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
-          * Sends an array of components as a single message to the specified screen position of this player
-          *
-          * @param position the screen position
--         * @param component the components to send
-+         * @param components the components to send
-          */
-         public void sendMessage(net.md_5.bungee.api.ChatMessageType position, net.md_5.bungee.api.chat.BaseComponent... components) {
-             throw new UnsupportedOperationException("Not supported yet.");
 -- 
 2.11.0
 
