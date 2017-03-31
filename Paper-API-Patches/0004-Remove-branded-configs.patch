@@ -1,14 +1,14 @@
-From 9bf40f65978192c05310ba3c3b398be01d7730e7 Mon Sep 17 00:00:00 2001
+From b07358d698d500ca26a7df4e8d9f4ac7ff3ff1d9 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Sun, 20 Nov 2016 12:58:57 -0500
 Subject: [PATCH] Remove branded configs
 
 
 diff --git a/src/main/java/co/aikar/timings/TimingsExport.java b/src/main/java/co/aikar/timings/TimingsExport.java
-index a4a7fea9..6a5cdaa1 100644
+index df7f4259..7e1e6c70 100644
 --- a/src/main/java/co/aikar/timings/TimingsExport.java
 +++ b/src/main/java/co/aikar/timings/TimingsExport.java
-@@ -211,9 +211,7 @@ class TimingsExport extends Thread {
+@@ -191,9 +191,7 @@ class TimingsExport extends Thread {
          // Information on the users Config
  
          parent.put("config", createObject(
@@ -18,9 +18,9 @@ index a4a7fea9..6a5cdaa1 100644
 +            pair("bukkit", mapAsJSON(Bukkit.spigot().getConfig(), null))
          ));
  
-         new TimingsExport(sender, parent, history).start();
+         new TimingsExport(listeners, parent, history).start();
 diff --git a/src/main/java/org/bukkit/Server.java b/src/main/java/org/bukkit/Server.java
-index 179e08d7..39f6cd39 100644
+index 4a90d581..0a31366b 100644
 --- a/src/main/java/org/bukkit/Server.java
 +++ b/src/main/java/org/bukkit/Server.java
 @@ -1,17 +1,7 @@
@@ -110,5 +110,5 @@ index 179e08d7..39f6cd39 100644
  
          /**
 -- 
-2.11.0
+2.12.2
 

@@ -1,11 +1,11 @@
-From 5fb5c05577f9270670e3f7160ac50fc50826e2b8 Mon Sep 17 00:00:00 2001
+From cae03642ad190f44aef6b4551d3c3b798dd36549 Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
 Date: Mon, 21 Nov 2016 16:27:37 -0500
 Subject: [PATCH] Enhance sound API and commands
 
 
 diff --git a/src/main/java/org/bukkit/Sound.java b/src/main/java/org/bukkit/Sound.java
-index 615f317..392e953 100644
+index 615f3172..392e9534 100644
 --- a/src/main/java/org/bukkit/Sound.java
 +++ b/src/main/java/org/bukkit/Sound.java
 @@ -1,5 +1,7 @@
@@ -1054,7 +1054,7 @@ index 615f317..392e953 100644
 +    }
  }
 diff --git a/src/main/java/org/bukkit/SoundCategory.java b/src/main/java/org/bukkit/SoundCategory.java
-index ac5e263..a1a3746 100644
+index ac5e263d..a1a3746b 100644
 --- a/src/main/java/org/bukkit/SoundCategory.java
 +++ b/src/main/java/org/bukkit/SoundCategory.java
 @@ -15,4 +15,17 @@ public enum SoundCategory {
@@ -1076,7 +1076,7 @@ index ac5e263..a1a3746 100644
 +    }
  }
 diff --git a/src/main/java/org/bukkit/command/SimpleCommandMap.java b/src/main/java/org/bukkit/command/SimpleCommandMap.java
-index 86569b0..d7e8078 100644
+index 12cadbac..f643ded7 100644
 --- a/src/main/java/org/bukkit/command/SimpleCommandMap.java
 +++ b/src/main/java/org/bukkit/command/SimpleCommandMap.java
 @@ -66,6 +66,8 @@ public class SimpleCommandMap implements CommandMap {
@@ -1089,7 +1089,7 @@ index 86569b0..d7e8078 100644
          register("bukkit", new SetWorldSpawnCommand());
          register("bukkit", new SetIdleTimeoutCommand());
 diff --git a/src/main/java/org/bukkit/command/defaults/PlaySoundCommand.java b/src/main/java/org/bukkit/command/defaults/PlaySoundCommand.java
-index 0cb5ca2..93a976b 100644
+index 0cb5ca2d..93a976b2 100644
 --- a/src/main/java/org/bukkit/command/defaults/PlaySoundCommand.java
 +++ b/src/main/java/org/bukkit/command/defaults/PlaySoundCommand.java
 @@ -1,8 +1,6 @@
@@ -1194,7 +1194,7 @@ index 0cb5ca2..93a976b 100644
          return true;
 diff --git a/src/main/java/org/bukkit/command/defaults/StopSoundCommand.java b/src/main/java/org/bukkit/command/defaults/StopSoundCommand.java
 new file mode 100644
-index 0000000..cde4633
+index 00000000..cde46335
 --- /dev/null
 +++ b/src/main/java/org/bukkit/command/defaults/StopSoundCommand.java
 @@ -0,0 +1,94 @@
@@ -1293,10 +1293,10 @@ index 0000000..cde4633
 +    }
 +}
 diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
-index ac58f3a..c15c91b 100644
+index 29a8ec09..1ad2a1a8 100644
 --- a/src/main/java/org/bukkit/entity/Player.java
 +++ b/src/main/java/org/bukkit/entity/Player.java
-@@ -286,6 +286,13 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
+@@ -287,6 +287,13 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
      public void stopSound(String sound);
  
      /**
@@ -1310,7 +1310,7 @@ index ac58f3a..c15c91b 100644
       * Stop the specified sound from playing.
       *
       * @param sound the sound to stop
-@@ -302,6 +309,11 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
+@@ -303,6 +310,11 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
      public void stopSound(String sound, SoundCategory category);
  
      /**
@@ -1323,5 +1323,5 @@ index ac58f3a..c15c91b 100644
       *
       * @param loc the location to play the effect at
 -- 
-2.10.2
+2.12.2
 

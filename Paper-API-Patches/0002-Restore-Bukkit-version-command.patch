@@ -1,11 +1,11 @@
-From 8c7d5de523344a62cd40254afef4ce8c49bce453 Mon Sep 17 00:00:00 2001
+From fa1b152de212d16eb31e2ddb74891f3467a8e968 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Sun, 20 Nov 2016 12:34:38 -0500
 Subject: [PATCH] Restore Bukkit version command
 
 
 diff --git a/src/main/java/org/bukkit/command/SimpleCommandMap.java b/src/main/java/org/bukkit/command/SimpleCommandMap.java
-index 08976cd..18de059 100644
+index 2e232fd1..97608569 100644
 --- a/src/main/java/org/bukkit/command/SimpleCommandMap.java
 +++ b/src/main/java/org/bukkit/command/SimpleCommandMap.java
 @@ -1,15 +1,5 @@
@@ -51,7 +51,7 @@ index 08976cd..18de059 100644
  
      /**
 diff --git a/src/main/java/org/bukkit/command/defaults/VersionCommand.java b/src/main/java/org/bukkit/command/defaults/VersionCommand.java
-index 0790f3c..e8ec63f 100644
+index aae605e9..e8ec63f7 100644
 --- a/src/main/java/org/bukkit/command/defaults/VersionCommand.java
 +++ b/src/main/java/org/bukkit/command/defaults/VersionCommand.java
 @@ -1,10 +1,6 @@
@@ -139,7 +139,7 @@ index 0790f3c..e8ec63f 100644
 -
 -    private void sendVersion(CommandSender sender) {
 -        if (hasVersion) {
--            if (System.currentTimeMillis() - lastCheck > 21600000) {
+-            if (System.currentTimeMillis() - lastCheck > 7200000) { // Paper - Lower to 2 hours
 -                lastCheck = System.currentTimeMillis();
 -                hasVersion = false;
 -            } else {
@@ -303,5 +303,5 @@ index 0790f3c..e8ec63f 100644
 -    // Paper end
  }
 -- 
-2.10.2
+2.12.2
 
