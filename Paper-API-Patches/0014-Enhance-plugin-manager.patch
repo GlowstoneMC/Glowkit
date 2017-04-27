@@ -1,11 +1,11 @@
-From f306e8ef0abeff792965dc65eadde0d41ff7ef4c Mon Sep 17 00:00:00 2001
+From e66cf8ef45d42c70bcf15027fba87ddf67e09b86 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Fri, 25 Nov 2016 12:25:01 -0500
 Subject: [PATCH] Enhance plugin manager
 
 
 diff --git a/src/main/java/org/bukkit/plugin/PluginManager.java b/src/main/java/org/bukkit/plugin/PluginManager.java
-index e5638d5..da1e5a9 100644
+index e5638d56..da1e5a9c 100644
 --- a/src/main/java/org/bukkit/plugin/PluginManager.java
 +++ b/src/main/java/org/bukkit/plugin/PluginManager.java
 @@ -1,14 +1,16 @@
@@ -59,7 +59,7 @@ index e5638d5..da1e5a9 100644
       */
      public void disablePlugins();
 diff --git a/src/main/java/org/bukkit/plugin/SimplePluginManager.java b/src/main/java/org/bukkit/plugin/SimplePluginManager.java
-index 9ce0a5d..43d6726 100644
+index ba5e8959..0f330e6d 100644
 --- a/src/main/java/org/bukkit/plugin/SimplePluginManager.java
 +++ b/src/main/java/org/bukkit/plugin/SimplePluginManager.java
 @@ -1,26 +1,9 @@
@@ -161,7 +161,7 @@ index 9ce0a5d..43d6726 100644
                      continue;
                  } else if (description.rawName.indexOf(' ') != -1) {
                      server.getLogger().warning(String.format(
-                         "Plugin `%s' uses the space-character (0x20) in its name `%s' - this is discouraged",
+                         "Plugin `%s' uses the space-character (0x20) in its name `%s' - this will not work in Minecraft 1.12",
                          description.getFullName(),
                          description.rawName
 -                        ));
@@ -266,5 +266,5 @@ index 9ce0a5d..43d6726 100644
  
      /**
 -- 
-2.10.2
+2.12.2
 
