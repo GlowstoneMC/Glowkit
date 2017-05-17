@@ -1,14 +1,14 @@
-From 6a209fc645cab15d2e3b90ad7c2a7d7c92fa21a8 Mon Sep 17 00:00:00 2001
+From debd7a5ce2ac2c396605292369be4c7afafead55 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Tue, 16 May 2017 22:07:47 -0400
 Subject: [PATCH] POM Changes
 
 
 diff --git a/pom.xml b/pom.xml
-index c671cc33..a6407e33 100644
+index c671cc33..c3beec67 100644
 --- a/pom.xml
 +++ b/pom.xml
-@@ -4,18 +4,20 @@
+@@ -4,23 +4,23 @@
      <modelVersion>4.0.0</modelVersion>
  
      <parent>
@@ -36,7 +36,12 @@ index c671cc33..a6407e33 100644
      <description>An enhanced plugin API for Minecraft servers.</description>
  
      <properties>
-@@ -29,12 +31,12 @@
+-        <!-- Paper - Bump to 1.8 - This will haunt me -->
+-        <additionalparam>-Xdoclint:none</additionalparam>
+         <maven.compiler.source>1.8</maven.compiler.source>
+         <maven.compiler.target>1.8</maven.compiler.target>
+         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+@@ -29,12 +29,12 @@
      <!-- just until we get deployment to central approved -->
      <distributionManagement>
          <repository>
@@ -53,7 +58,7 @@ index c671cc33..a6407e33 100644
          </snapshotRepository>
      </distributionManagement>
  
-@@ -51,6 +53,10 @@
+@@ -51,6 +51,10 @@
              <id>sonatype</id>
              <url>https://oss.sonatype.org/content/groups/public/</url>
          </repository>
@@ -64,6 +69,27 @@ index c671cc33..a6407e33 100644
      </repositories>
  
      <dependencies>
+@@ -144,20 +148,6 @@
+                 <artifactId>maven-compiler-plugin</artifactId>
+                 <!-- versions after this appear to be broken -->
+                 <version>3.1</version>
+-                <configuration>
+-                    <!-- we use the Eclipse compiler as it doesn't need a JDK -->
+-                    <compilerId>eclipse</compilerId>
+-                    <!-- source and target are ignored if this isn't true -->
+-                    <optimize>true</optimize>
+-                </configuration>
+-                <dependencies>
+-                    <!-- we need our custom version as it fixes some bugs on case sensitive file systems -->
+-                    <dependency>
+-                        <groupId>org.codehaus.plexus</groupId>
+-                        <artifactId>plexus-compiler-eclipse</artifactId>
+-                        <version>2.5.0-spigotmc</version>
+-                    </dependency>
+-                </dependencies>
+             </plugin>
+             <plugin>
+                 <groupId>org.apache.maven.plugins</groupId>
 -- 
 2.13.0
 
