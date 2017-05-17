@@ -1,0 +1,69 @@
+From 6a209fc645cab15d2e3b90ad7c2a7d7c92fa21a8 Mon Sep 17 00:00:00 2001
+From: mastercoms <circuitsoft@tuta.io>
+Date: Tue, 16 May 2017 22:07:47 -0400
+Subject: [PATCH] POM Changes
+
+
+diff --git a/pom.xml b/pom.xml
+index c671cc33..a6407e33 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -4,18 +4,20 @@
+     <modelVersion>4.0.0</modelVersion>
+ 
+     <parent>
+-        <groupId>com.destroystokyo.paper</groupId>
+-        <artifactId>paper-parent</artifactId>
+-        <version>dev-SNAPSHOT</version>
++        <groupId>org.sonatype.oss</groupId>
++        <artifactId>oss-parent</artifactId>
++        <version>9</version>
++        <!-- Fix for maven warning -->
++        <relativePath></relativePath>
+     </parent>
+ 
+-    <groupId>com.destroystokyo.paper</groupId>
+-    <artifactId>paper-api</artifactId>
++    <groupId>net.glowstone</groupId>
++    <artifactId>glowkit</artifactId>
+     <version>1.12-pre2-SNAPSHOT</version>
+     <packaging>jar</packaging>
+ 
+-    <name>Paper-API</name>
+-    <url>https://github.com/PaperMC/Paper</url>
++    <name>Glowkit</name>
++    <url>https://github.com/GlowstoneMC/Glowkit</url>
+     <description>An enhanced plugin API for Minecraft servers.</description>
+ 
+     <properties>
+@@ -29,12 +31,12 @@
+     <!-- just until we get deployment to central approved -->
+     <distributionManagement>
+         <repository>
+-            <id>destroystokyo-releases</id>
+-            <url>https://repo.destroystokyo.com/repository/maven-releases/</url>
++            <id>glowstone-releases</id>
++            <url>https://repo.glowstone.net/content/repositories/releases/</url>
+         </repository>
+         <snapshotRepository>
+-            <id>destroystokyo-snapshots</id>
+-            <url>https://repo.destroystokyo.com/repository/maven-snapshots/</url>
++            <id>glowstone-snapshots</id>
++            <url>https://repo.glowstone.net/content/repositories/snapshots/</url>
+         </snapshotRepository>
+     </distributionManagement>
+ 
+@@ -51,6 +53,10 @@
+             <id>sonatype</id>
+             <url>https://oss.sonatype.org/content/groups/public/</url>
+         </repository>
++        <repository>
++            <id>aikar</id>
++            <url>http://ci.emc.gs/nexus/content/groups/aikar/</url>
++        </repository>
+     </repositories>
+ 
+     <dependencies>
+-- 
+2.13.0
+
