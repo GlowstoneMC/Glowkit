@@ -1,14 +1,14 @@
-From debd7a5ce2ac2c396605292369be4c7afafead55 Mon Sep 17 00:00:00 2001
+From 405b3563b42fb1624e3c15097335facca175ffbc Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Tue, 16 May 2017 22:07:47 -0400
 Subject: [PATCH] POM Changes
 
 
 diff --git a/pom.xml b/pom.xml
-index c671cc33..c3beec67 100644
+index 9003ee9b..01795235 100644
 --- a/pom.xml
 +++ b/pom.xml
-@@ -4,23 +4,23 @@
+@@ -4,23 +4,25 @@
      <modelVersion>4.0.0</modelVersion>
  
      <parent>
@@ -22,11 +22,11 @@ index c671cc33..c3beec67 100644
 +        <relativePath></relativePath>
      </parent>
  
--    <groupId>com.destroystokyo.paper</groupId>
--    <artifactId>paper-api</artifactId>
+     <groupId>com.destroystokyo.paper</groupId>
+     <artifactId>paper-api</artifactId>
 +    <groupId>net.glowstone</groupId>
 +    <artifactId>glowkit</artifactId>
-     <version>1.12-pre2-SNAPSHOT</version>
+     <version>1.12-pre5-SNAPSHOT</version>
      <packaging>jar</packaging>
  
 -    <name>Paper-API</name>
@@ -41,7 +41,7 @@ index c671cc33..c3beec67 100644
          <maven.compiler.source>1.8</maven.compiler.source>
          <maven.compiler.target>1.8</maven.compiler.target>
          <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-@@ -29,12 +29,12 @@
+@@ -29,12 +31,12 @@
      <!-- just until we get deployment to central approved -->
      <distributionManagement>
          <repository>
@@ -58,7 +58,7 @@ index c671cc33..c3beec67 100644
          </snapshotRepository>
      </distributionManagement>
  
-@@ -51,6 +51,10 @@
+@@ -51,6 +53,10 @@
              <id>sonatype</id>
              <url>https://oss.sonatype.org/content/groups/public/</url>
          </repository>
@@ -69,7 +69,7 @@ index c671cc33..c3beec67 100644
      </repositories>
  
      <dependencies>
-@@ -144,20 +148,6 @@
+@@ -144,20 +150,6 @@
                  <artifactId>maven-compiler-plugin</artifactId>
                  <!-- versions after this appear to be broken -->
                  <version>3.1</version>
