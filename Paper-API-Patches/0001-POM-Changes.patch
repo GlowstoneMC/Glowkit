@@ -1,11 +1,11 @@
-From f2a82dda2d73a1536c6a171c31a35fb192afb7de Mon Sep 17 00:00:00 2001
+From 3803bc82af450452ada44bc5c9ee30f630080d61 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Tue, 16 May 2017 22:07:47 -0400
 Subject: [PATCH] POM Changes
 
 
 diff --git a/pom.xml b/pom.xml
-index 9003ee9b..1d872bbe 100644
+index 9003ee9b..d230c3d3 100644
 --- a/pom.xml
 +++ b/pom.xml
 @@ -4,23 +4,23 @@
@@ -58,18 +58,7 @@ index 9003ee9b..1d872bbe 100644
          </snapshotRepository>
      </distributionManagement>
  
-@@ -51,6 +51,10 @@
-             <id>sonatype</id>
-             <url>https://oss.sonatype.org/content/groups/public/</url>
-         </repository>
-+        <repository>
-+            <id>aikar</id>
-+            <url>http://ci.emc.gs/nexus/content/groups/aikar/</url>
-+        </repository>
-     </repositories>
- 
-     <dependencies>
-@@ -144,20 +148,6 @@
+@@ -144,20 +144,6 @@
                  <artifactId>maven-compiler-plugin</artifactId>
                  <!-- versions after this appear to be broken -->
                  <version>3.1</version>
