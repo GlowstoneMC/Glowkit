@@ -1,14 +1,14 @@
-From 2b934afa76864b4f12219e70629b85042a3f88f9 Mon Sep 17 00:00:00 2001
+From 9fda480d6d66aac5d6b524601017094f547edff2 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Tue, 16 May 2017 22:07:47 -0400
 Subject: [PATCH] POM Changes
 
 
 diff --git a/pom.xml b/pom.xml
-index 9003ee9b..beb3bfba 100644
+index e7a4eb2c..beb3bfba 100644
 --- a/pom.xml
 +++ b/pom.xml
-@@ -4,23 +4,23 @@
+@@ -4,22 +4,23 @@
      <modelVersion>4.0.0</modelVersion>
  
      <parent>
@@ -36,12 +36,11 @@ index 9003ee9b..beb3bfba 100644
      <description>An enhanced plugin API for Minecraft servers.</description>
  
      <properties>
--        <!-- Paper - Bump to 1.8 - This will haunt me -->
--        <additionalparam>-Xdoclint:none</additionalparam>
+-        <!-- Paper - Bump to 1.8 - Because Duh... -->
          <maven.compiler.source>1.8</maven.compiler.source>
          <maven.compiler.target>1.8</maven.compiler.target>
          <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-@@ -29,12 +29,12 @@
+@@ -28,12 +29,12 @@
      <!-- just until we get deployment to central approved -->
      <distributionManagement>
          <repository>
@@ -58,7 +57,7 @@ index 9003ee9b..beb3bfba 100644
          </snapshotRepository>
      </distributionManagement>
  
-@@ -51,6 +51,10 @@
+@@ -50,6 +51,10 @@
              <id>sonatype</id>
              <url>https://oss.sonatype.org/content/groups/public/</url>
          </repository>
@@ -69,7 +68,7 @@ index 9003ee9b..beb3bfba 100644
      </repositories>
  
      <dependencies>
-@@ -144,20 +148,6 @@
+@@ -143,20 +148,6 @@
                  <artifactId>maven-compiler-plugin</artifactId>
                  <!-- versions after this appear to be broken -->
                  <version>3.1</version>
