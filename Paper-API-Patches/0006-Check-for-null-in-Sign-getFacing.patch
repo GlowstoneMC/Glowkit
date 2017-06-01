@@ -1,0 +1,36 @@
+From 41492cfb0db1bdd43509a4c2fab4727f84fff5f0 Mon Sep 17 00:00:00 2001
+From: satoshinm <snmatsutake@yahoo.co.jp>
+Date: Thu, 1 Jun 2017 15:13:10 -0400
+Subject: [PATCH] Check for null in Sign#getFacing()
+
+
+diff --git a/src/main/java/org/bukkit/material/Sign.java b/src/main/java/org/bukkit/material/Sign.java
+index 0accdbce..db7822ae 100644
+--- a/src/main/java/org/bukkit/material/Sign.java
++++ b/src/main/java/org/bukkit/material/Sign.java
+@@ -3,6 +3,8 @@ package org.bukkit.material;
+ import org.bukkit.block.BlockFace;
+ import org.bukkit.Material;
+ 
++import java.util.Optional;
++
+ /**
+  * MaterialData for signs
+  */
+@@ -144,7 +146,12 @@ public class Sign extends MaterialData implements Attachable {
+ 
+             return null;
+         } else {
+-            return getAttachedFace().getOppositeFace();
++            BlockFace attachedFace = getAttachedFace();
++            if (attachedFace != null) {
++                return getAttachedFace().getOppositeFace();
++            }
++
++            return null;
+         }
+     }
+ 
+-- 
+2.13.0
+
