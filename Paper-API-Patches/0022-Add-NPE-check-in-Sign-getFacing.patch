@@ -1,0 +1,28 @@
+From 1572e54268f11f5ac37a1d92b8805a1f0892cb9d Mon Sep 17 00:00:00 2001
+From: "Satoshi N. M" <snmatsutake@yahoo.co.jp>
+Date: Tue, 30 May 2017 10:09:35 -0700
+Subject: [PATCH] Add NPE check in Sign#getFacing()
+
+Fixes https://github.com/GlowstoneMC/Glowstone/issues/484
+
+diff --git a/src/main/java/org/bukkit/material/Sign.java b/src/main/java/org/bukkit/material/Sign.java
+index 0accdbce..addb3ea0 100644
+--- a/src/main/java/org/bukkit/material/Sign.java
++++ b/src/main/java/org/bukkit/material/Sign.java
+@@ -144,7 +144,12 @@ public class Sign extends MaterialData implements Attachable {
+ 
+             return null;
+         } else {
+-            return getAttachedFace().getOppositeFace();
++            BlockFace attachedFace = getAttachedFace();
++            if (attachedFace != null) {
++                return attachedFace.getOppositeFace();
++            }
++
++            return null;
+         }
+     }
+ 
+-- 
+2.11.0 (Apple Git-81)
+
