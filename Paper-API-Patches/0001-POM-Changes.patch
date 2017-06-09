@@ -1,14 +1,14 @@
-From 872ff8b758fac9ced1e39b0b2f471e7dbbf937db Mon Sep 17 00:00:00 2001
+From 9f13ad8b292badcf5ccda8a19b6215efd9a29bd1 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Tue, 16 May 2017 22:07:47 -0400
 Subject: [PATCH] POM Changes
 
 
 diff --git a/pom.xml b/pom.xml
-index eec78d4..b947ddb 100644
+index eec78d4e..56b3b61e 100644
 --- a/pom.xml
 +++ b/pom.xml
-@@ -4,22 +4,23 @@
+@@ -4,22 +4,24 @@
      <modelVersion>4.0.0</modelVersion>
  
      <parent>
@@ -37,10 +37,11 @@ index eec78d4..b947ddb 100644
  
      <properties>
 -        <!-- Paper - Bump to 1.8 - Because Duh... -->
++        <additionalparam>-Xdoclint:none</additionalparam>
          <maven.compiler.source>1.8</maven.compiler.source>
          <maven.compiler.target>1.8</maven.compiler.target>
          <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-@@ -28,12 +29,12 @@
+@@ -28,12 +30,12 @@
      <!-- just until we get deployment to central approved -->
      <distributionManagement>
          <repository>
@@ -57,7 +58,7 @@ index eec78d4..b947ddb 100644
          </snapshotRepository>
      </distributionManagement>
  
-@@ -50,6 +51,10 @@
+@@ -50,6 +52,10 @@
              <id>sonatype</id>
              <url>https://oss.sonatype.org/content/groups/public/</url>
          </repository>
@@ -68,7 +69,7 @@ index eec78d4..b947ddb 100644
      </repositories>
  
      <dependencies>
-@@ -143,20 +148,6 @@
+@@ -143,20 +149,6 @@
                  <artifactId>maven-compiler-plugin</artifactId>
                  <!-- versions after this appear to be broken -->
                  <version>3.1</version>
@@ -90,5 +91,5 @@ index eec78d4..b947ddb 100644
              <plugin>
                  <groupId>org.apache.maven.plugins</groupId>
 -- 
-2.10.2.windows.1
+2.11.0.windows.1
 
