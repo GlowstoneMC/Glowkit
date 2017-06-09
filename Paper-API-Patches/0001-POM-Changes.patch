@@ -1,0 +1,94 @@
+From 44cbe3fc750d13783414491cd63af1221106fcec Mon Sep 17 00:00:00 2001
+From: mastercoms <circuitsoft@tuta.io>
+Date: Tue, 16 May 2017 22:07:47 -0400
+Subject: [PATCH] POM Changes
+
+
+diff --git a/pom.xml b/pom.xml
+index 97ad7f2e..fb0d9332 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -4,22 +4,23 @@
+     <modelVersion>4.0.0</modelVersion>
+ 
+     <parent>
+-        <groupId>com.destroystokyo.paper</groupId>
+-        <artifactId>paper-parent</artifactId>
+-        <version>dev-SNAPSHOT</version>
++        <groupId>org.sonatype.oss</groupId>
++        <artifactId>oss-parent</artifactId>
++        <version>9</version>
++        <!-- Fix for maven warning -->
++        <relativePath></relativePath>
+     </parent>
+ 
+-    <groupId>com.destroystokyo.paper</groupId>
+-    <artifactId>paper-api</artifactId>
++    <groupId>net.glowstone</groupId>
++    <artifactId>glowkit</artifactId>
+     <version>1.12-pre6-SNAPSHOT</version>
+     <packaging>jar</packaging>
+ 
+-    <name>Paper-API</name>
+-    <url>https://github.com/PaperMC/Paper</url>
++    <name>Glowkit</name>
++    <url>https://github.com/GlowstoneMC/Glowkit</url>
+     <description>An enhanced plugin API for Minecraft servers.</description>
+ 
+     <properties>
+-        <!-- Paper - Bump to 1.8 - Because Duh... -->
+         <maven.compiler.source>1.8</maven.compiler.source>
+         <maven.compiler.target>1.8</maven.compiler.target>
+         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+@@ -28,12 +29,12 @@
+     <!-- just until we get deployment to central approved -->
+     <distributionManagement>
+         <repository>
+-            <id>destroystokyo-releases</id>
+-            <url>https://repo.destroystokyo.com/repository/maven-releases/</url>
++            <id>glowstone-releases</id>
++            <url>https://repo.glowstone.net/content/repositories/releases/</url>
+         </repository>
+         <snapshotRepository>
+-            <id>destroystokyo-snapshots</id>
+-            <url>https://repo.destroystokyo.com/repository/maven-snapshots/</url>
++            <id>glowstone-snapshots</id>
++            <url>https://repo.glowstone.net/content/repositories/snapshots/</url>
+         </snapshotRepository>
+     </distributionManagement>
+ 
+@@ -50,6 +51,10 @@
+             <id>sonatype</id>
+             <url>https://oss.sonatype.org/content/groups/public/</url>
+         </repository>
++        <repository>
++            <id>glowstone</id>
++            <url>https://repo.glowstone.net/repository/internal/</url>
++        </repository>
+     </repositories>
+ 
+     <dependencies>
+@@ -143,20 +148,6 @@
+                 <artifactId>maven-compiler-plugin</artifactId>
+                 <!-- versions after this appear to be broken -->
+                 <version>3.1</version>
+-                <configuration>
+-                    <!-- we use the Eclipse compiler as it doesn't need a JDK -->
+-                    <compilerId>eclipse</compilerId>
+-                    <!-- source and target are ignored if this isn't true -->
+-                    <optimize>true</optimize>
+-                </configuration>
+-                <dependencies>
+-                    <!-- we need our custom version as it fixes some bugs on case sensitive file systems -->
+-                    <dependency>
+-                        <groupId>org.codehaus.plexus</groupId>
+-                        <artifactId>plexus-compiler-eclipse</artifactId>
+-                        <version>2.5.0-spigotmc</version>
+-                    </dependency>
+-                </dependencies>
+             </plugin>
+             <plugin>
+                 <groupId>org.apache.maven.plugins</groupId>
+-- 
+2.13.0
+

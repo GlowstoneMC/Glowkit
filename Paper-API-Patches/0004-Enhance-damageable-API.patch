@@ -1,47 +1,46 @@
-From 21aee1a427d71e756f57c2cdd05e9a7ff44d699c Mon Sep 17 00:00:00 2001
+From 1d481c4eaf67f4a667b3e06c31d003a53af59d97 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
-Date: Fri, 25 Nov 2016 12:30:51 -0500
+Date: Wed, 24 May 2017 09:00:31 -0400
 Subject: [PATCH] Enhance damageable API
 
 
 diff --git a/src/main/java/org/bukkit/entity/Damageable.java b/src/main/java/org/bukkit/entity/Damageable.java
-index bd601bb6..b86ebe35 100644
+index e173cf01..358ad5ee 100644
 --- a/src/main/java/org/bukkit/entity/Damageable.java
 +++ b/src/main/java/org/bukkit/entity/Damageable.java
 @@ -1,6 +1,7 @@
  package org.bukkit.entity;
  
  import org.bukkit.attribute.Attribute;
-+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
++import org.bukkit.event.entity.EntityDamageEvent;
  
  /**
   * Represents an {@link Entity} that has health and can take damage.
-@@ -44,6 +45,25 @@ public interface Damageable extends Entity {
-     void _INVALID_damage(int amount, Entity source);
+@@ -23,6 +24,24 @@ public interface Damageable extends Entity {
+     void damage(double amount, Entity source);
  
      /**
-+     * Deals the given amount of damage to this entity, from a specified
-+     * cause.
++     * Deals the given amount of damage to this entity, with a specified cause.
 +     *
 +     * @param amount Amount of damage to deal
-+     * @param cause  Cause of the damage
++     * @param cause Cause of the damage
 +     */
-+    void damage(double amount, DamageCause cause);
++    void damage(double amount, EntityDamageEvent.DamageCause cause);
 +
 +    /**
-+     * Deals the given amount of damage to this entity, from a specified
-+     * cause.
++     * Deals the given amount of damage to this entity, from a specified entity,
++     * with a specified cause.
 +     *
 +     * @param amount Amount of damage to deal
 +     * @param source Entity which to attribute this damage from
-+     * @param cause  Cause of the damage
++     * @param cause Cause of the damage
 +     */
-+    void damage(double amount, Entity source, DamageCause cause);
++    void damage(double amount, Entity source, EntityDamageEvent.DamageCause cause);
 +
 +    /**
       * Gets the entity's health from 0 to {@link #getMaxHealth()}, where 0 is dead.
       *
       * @return Health represented from 0 to max
 -- 
-2.11.0
+2.13.0
 

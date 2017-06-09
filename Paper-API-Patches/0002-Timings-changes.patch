@@ -1,0 +1,36 @@
+From a7389349501eb9e3d547314a0a56389d7f6d87f7 Mon Sep 17 00:00:00 2001
+From: mastercoms <circuitsoft@tuta.io>
+Date: Tue, 16 May 2017 22:26:39 -0400
+Subject: [PATCH] Timings changes
+
+
+diff --git a/src/main/java/co/aikar/timings/TimingsExport.java b/src/main/java/co/aikar/timings/TimingsExport.java
+index df7f4259..42913270 100644
+--- a/src/main/java/co/aikar/timings/TimingsExport.java
++++ b/src/main/java/co/aikar/timings/TimingsExport.java
+@@ -191,9 +191,7 @@ class TimingsExport extends Thread {
+         // Information on the users Config
+ 
+         parent.put("config", createObject(
+-            pair("spigot", mapAsJSON(Bukkit.spigot().getSpigotConfig(), null)),
+-            pair("bukkit", mapAsJSON(Bukkit.spigot().getBukkitConfig(), null)),
+-            pair("paper", mapAsJSON(Bukkit.spigot().getPaperConfig(), null))
++            pair("bukkit", mapAsJSON(Bukkit.spigot().getBukkitConfig(), null))
+         ));
+ 
+         new TimingsExport(listeners, parent, history).start();
+diff --git a/src/main/java/co/aikar/timings/TimingsManager.java b/src/main/java/co/aikar/timings/TimingsManager.java
+index 58ed35e0..6b22e26c 100644
+--- a/src/main/java/co/aikar/timings/TimingsManager.java
++++ b/src/main/java/co/aikar/timings/TimingsManager.java
+@@ -161,6 +161,7 @@ public final class TimingsManager {
+         if (!(  server == null || pluginName == null ||
+                 "minecraft".equals(pluginName) || "bukkit".equals(pluginName) ||
+                 "spigot".equalsIgnoreCase(pluginName) || "paper".equals(pluginName)
++                || "glowstone".equalsIgnoreCase(pluginName)
+         )) {
+             plugin = server.getPluginManager().getPlugin(pluginName);
+         }
+-- 
+2.13.0
+

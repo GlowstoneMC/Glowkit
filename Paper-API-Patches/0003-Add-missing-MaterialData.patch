@@ -1,89 +1,48 @@
-From 6b33675d3a22027cd8113739ea7e340275d51670 Mon Sep 17 00:00:00 2001
+From 209260dddf1875ee16ce83443f5b21dfd979299f Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
-Date: Sun, 20 Nov 2016 12:52:14 -0500
+Date: Mon, 22 May 2017 19:15:07 -0400
 Subject: [PATCH] Add missing MaterialData
 
 
 diff --git a/src/main/java/org/bukkit/Material.java b/src/main/java/org/bukkit/Material.java
-index 681c5de6..aa342664 100644
+index 86489593..6aeec5e5 100644
 --- a/src/main/java/org/bukkit/Material.java
 +++ b/src/main/java/org/bukkit/Material.java
-@@ -1,78 +1,27 @@
- package org.bukkit;
- 
--import java.lang.reflect.Constructor;
--import java.util.Arrays;
--import java.util.Map;
--
-+import com.google.common.collect.Maps;
- import org.apache.commons.lang.Validate;
- import org.bukkit.map.MapView;
--import org.bukkit.material.Bed;
--import org.bukkit.material.Button;
--import org.bukkit.material.Cake;
--import org.bukkit.material.Cauldron;
--import org.bukkit.material.Chest;
--import org.bukkit.material.Coal;
--import org.bukkit.material.CocoaPlant;
--import org.bukkit.material.Command;
--import org.bukkit.material.Comparator;
--import org.bukkit.material.Crops;
--import org.bukkit.material.DetectorRail;
--import org.bukkit.material.Diode;
--import org.bukkit.material.Dispenser;
--import org.bukkit.material.Door;
--import org.bukkit.material.Dye;
--import org.bukkit.material.EnderChest;
--import org.bukkit.material.FlowerPot;
--import org.bukkit.material.Furnace;
--import org.bukkit.material.Gate;
--import org.bukkit.material.Hopper;
--import org.bukkit.material.Ladder;
--import org.bukkit.material.Leaves;
--import org.bukkit.material.Lever;
--import org.bukkit.material.LongGrass;
--import org.bukkit.material.MaterialData;
--import org.bukkit.material.MonsterEggs;
--import org.bukkit.material.Mushroom;
--import org.bukkit.material.NetherWarts;
--import org.bukkit.material.PistonBaseMaterial;
--import org.bukkit.material.PistonExtensionMaterial;
--import org.bukkit.material.PoweredRail;
--import org.bukkit.material.PressurePlate;
--import org.bukkit.material.Pumpkin;
--import org.bukkit.material.Rails;
--import org.bukkit.material.RedstoneTorch;
--import org.bukkit.material.RedstoneWire;
--import org.bukkit.material.Sandstone;
--import org.bukkit.material.Sapling;
--import org.bukkit.material.Sign;
--import org.bukkit.material.Skull;
--import org.bukkit.material.SmoothBrick;
--import org.bukkit.material.SpawnEgg;
--import org.bukkit.material.Stairs;
--import org.bukkit.material.Step;
--import org.bukkit.material.Torch;
--import org.bukkit.material.TrapDoor;
--import org.bukkit.material.Tree;
--import org.bukkit.material.Tripwire;
--import org.bukkit.material.TripwireHook;
--import org.bukkit.material.Vine;
--import org.bukkit.material.Wood;
--import org.bukkit.material.WoodenStep;
--import org.bukkit.material.Wool;
-+import org.bukkit.material.*;
- 
- import com.google.common.collect.Maps;
- 
- import org.bukkit.material.Banner;
- import org.bukkit.material.Observer;
-+import java.lang.reflect.Constructor;
-+import java.util.Arrays;
-+import java.util.Map;
-+
- 
- /**
-  * An enum of all material IDs accepted by the official server and client
+@@ -18,8 +18,10 @@ import org.bukkit.material.Comparator;
+ import org.bukkit.material.Crops;
+ import org.bukkit.material.DetectorRail;
+ import org.bukkit.material.Diode;
++import org.bukkit.material.Dirt;
+ import org.bukkit.material.Dispenser;
+ import org.bukkit.material.Door;
++import org.bukkit.material.DoublePlant;
+ import org.bukkit.material.Dye;
+ import org.bukkit.material.EnderChest;
+ import org.bukkit.material.FlowerPot;
+@@ -38,18 +40,22 @@ import org.bukkit.material.PistonBaseMaterial;
+ import org.bukkit.material.PistonExtensionMaterial;
+ import org.bukkit.material.PoweredRail;
+ import org.bukkit.material.PressurePlate;
++import org.bukkit.material.Prismarine;
+ import org.bukkit.material.Pumpkin;
+ import org.bukkit.material.Rails;
+ import org.bukkit.material.RedstoneTorch;
+ import org.bukkit.material.RedstoneWire;
++import org.bukkit.material.Sand;
+ import org.bukkit.material.Sandstone;
+ import org.bukkit.material.Sapling;
+ import org.bukkit.material.Sign;
+ import org.bukkit.material.Skull;
+ import org.bukkit.material.SmoothBrick;
+ import org.bukkit.material.SpawnEgg;
++import org.bukkit.material.Sponge;
+ import org.bukkit.material.Stairs;
+ import org.bukkit.material.Step;
++import org.bukkit.material.Stone;
+ import org.bukkit.material.Torch;
+ import org.bukkit.material.TrapDoor;
+ import org.bukkit.material.Tree;
+@@ -70,9 +76,9 @@ import org.bukkit.material.Observer;
   */
  public enum Material {
      AIR(0, 0),
@@ -95,7 +54,7 @@ index 681c5de6..aa342664 100644
      COBBLESTONE(4),
      WOOD(5, Wood.class),
      SAPLING(6, Sapling.class),
-@@ -81,14 +30,14 @@ public enum Material {
+@@ -81,14 +87,14 @@ public enum Material {
      STATIONARY_WATER(9, MaterialData.class),
      LAVA(10, MaterialData.class),
      STATIONARY_LAVA(11, MaterialData.class),
@@ -112,7 +71,7 @@ index 681c5de6..aa342664 100644
      GLASS(20),
      LAPIS_ORE(21),
      LAPIS_BLOCK(22),
-@@ -237,14 +186,14 @@ public enum Material {
+@@ -237,14 +243,14 @@ public enum Material {
      SLIME_BLOCK(165),
      BARRIER(166),
      IRON_TRAPDOOR(167, TrapDoor.class),
@@ -1075,5 +1034,5 @@ index 00000000..cc023ede
 +}
 +
 -- 
-2.11.0
+2.13.0
 
