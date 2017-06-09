@@ -11,26 +11,25 @@ index 0accdbce..db7822ae 100644
 @@ -3,6 +3,8 @@ package org.bukkit.material;
  import org.bukkit.block.BlockFace;
  import org.bukkit.Material;
- 
+
 +import java.util.Optional;
 +
  /**
   * MaterialData for signs
   */
 @@ -144,7 +146,12 @@ public class Sign extends MaterialData implements Attachable {
- 
+
              return null;
          } else {
 -            return getAttachedFace().getOppositeFace();
 +            BlockFace attachedFace = getAttachedFace();
 +            if (attachedFace != null) {
-+                return getAttachedFace().getOppositeFace();
++                return attachedFace.getOppositeFace();
 +            }
 +
 +            return null;
          }
      }
- 
--- 
-2.13.0
 
+--
+2.13.0
