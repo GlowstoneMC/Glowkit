@@ -8,13 +8,16 @@ dependencies:
 test:
     override:
         - ./glowkit p
-        - cd Glowkit-Patched && mvn clean test package
-        - cd Glowkit-Patched && cp -r target/glowkit*.jar 
-$CIRCLE_ARTIFACTS/
+        - mvn clean test package:
+            pwd: Glowkit-Patched
+        - cp -r target/glowkit*.jar $CIRCLE_ARTIFACTS/:
+            pwd: Glowkit-Patched
 
 deployment:
   master:
     branch: master
     commands:
-      - "cd Glowkit-Patched && mvn javadoc:javadoc javadoc:jar"
-      - "cd Glowkit-Patched && mvn -s ../.circleci.settings.xml -Dmaven.test.skip=true deploy"
+      - mvn javadoc:javadoc javadoc:jar:
+          pwd: Glowkit-Patched
+      - mvn -s ../.circleci.settings.xml -Dmaven.test.skip=true deploy:
+          pwd: Glowkit-Patched
