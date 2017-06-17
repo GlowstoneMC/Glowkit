@@ -8,6 +8,7 @@ dependencies:
 test:
     override:
         - ./glowkit p
+        - cd Glowkit-Patched
         - mvn clean test package
         - cp -r target/glowkit*.jar $CIRCLE_ARTIFACTS/
 
