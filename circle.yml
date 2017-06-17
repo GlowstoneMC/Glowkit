@@ -1,0 +1,19 @@
+machine:
+   java:
+       version: oraclejdk8
+dependencies:
+    override:
+        - git config --global user.email "circuitsoft@tuta.io"
+        - git config --global user.name "mastercoms"
+test:
+    override:
+        - ./glowkit p
+        - mvn clean test package
+        - cp -r target/glowkit*.jar $CIRCLE_ARTIFACTS/
+
+deployment:
+  master:
+    branch: master
+    commands:
+      - "mvn javadoc:javadoc javadoc:jar"
+      - "mvn -s .circleci.settings.xml -Dmaven.test.skip=true deploy"
