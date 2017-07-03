@@ -21,3 +21,7 @@ deployment:
           pwd: Glowkit-Patched
       - mvn -s ../.circleci.settings.xml -Dmaven.test.skip=true deploy:
           pwd: Glowkit-Patched
+      - "mv Glowkit-Patched/target/site/apidocs ./glowkit"
+      - "zip -r javadocs.zip glowkit/"
+      - "chmod +x .circle/*"
+      - "./.circle/deploy.sh"
