@@ -17,9 +17,7 @@ deployment:
   master:
     branch: master
     commands:
-      - mvn javadoc:javadoc javadoc:jar:
-          pwd: Glowkit-Patched
-      - mvn -s ../.circleci.settings.xml -Dmaven.test.skip=true deploy:
+      - mvn -s ../.circleci.settings.xml -Dmaven.test.skip=true javadoc:javadoc javadoc:jar deploy:
           pwd: Glowkit-Patched
       - "rm ./glowkit"  # Don't need it anymore and it's not a `.sh` for some reason
       - "mv Glowkit-Patched/target/site/apidocs ./glowkit"
