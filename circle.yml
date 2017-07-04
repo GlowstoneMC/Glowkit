@@ -24,5 +24,4 @@ deployment:
       - "rm ./glowkit"  # Don't need it anymore and it's not a `.sh` for some reason
       - "mv Glowkit-Patched/target/site/apidocs ./glowkit"
       - "zip -r javadocs.zip glowkit/"
-      - "chmod +x .circle/*"
-      - "./.circle/deploy.sh"
+      - "cp -r javadocs.zip $CIRCLE_ARTIFACTS/"
