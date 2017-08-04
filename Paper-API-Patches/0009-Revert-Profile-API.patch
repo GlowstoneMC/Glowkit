@@ -1,0 +1,353 @@
+From 3f3fe263416b61e7ec8863188077a07a753d5ed6 Mon Sep 17 00:00:00 2001
+From: momothereal <momothereal.mc@gmail.com>
+Date: Fri, 4 Aug 2017 10:48:13 -0400
+Subject: [PATCH] Revert Profile API
+
+
+diff --git a/pom.xml b/pom.xml
+index 9cb9393..b0c67ad 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -65,13 +65,6 @@
+             <!-- Trove Provided by CraftBukkit -->
+             <scope>provided</scope>
+         </dependency>
+-        <!-- Paper - Add Authlib for Profile API -->
+-        <dependency>
+-            <groupId>com.mojang</groupId>
+-            <artifactId>authlib</artifactId>
+-            <version>1.5.25</version> <!-- keep in sync with major MC versions -->
+-            <scope>compile</scope> <!-- expose to Plugins -->
+-        </dependency>
+         <dependency>
+             <groupId>co.aikar</groupId>
+             <artifactId>fastutil-lite</artifactId>
+diff --git a/src/main/java/com/destroystokyo/paper/event/profile/LookupProfileEvent.java b/src/main/java/com/destroystokyo/paper/event/profile/LookupProfileEvent.java
+deleted file mode 100644
+index 6074ecd..0000000
+--- a/src/main/java/com/destroystokyo/paper/event/profile/LookupProfileEvent.java
++++ /dev/null
+@@ -1,43 +0,0 @@
+-package com.destroystokyo.paper.event.profile;
+-
+-import com.mojang.authlib.GameProfile;
+-import org.bukkit.Bukkit;
+-import org.bukkit.event.Event;
+-import org.bukkit.event.HandlerList;
+-
+-import javax.annotation.Nonnull;
+-
+-/**
+- * Allows a plugin to be notified anytime AFTER a Profile has been looked up from the Mojang API
+- * This is an opportunity to view the response and potentially cache things.
+- *
+- * No guarantees are made about thread execution context for this event. If you need to know, check
+- * event.isAsync()
+- */
+-public class LookupProfileEvent extends Event {
+-
+-    private static final HandlerList handlers = new HandlerList();
+-
+-    private final GameProfile profile;
+-
+-    public LookupProfileEvent(@Nonnull GameProfile profile) {
+-        super(!Bukkit.isPrimaryThread());
+-        this.profile = profile;
+-    }
+-
+-    /**
+-     * @return The profile that was recently looked up. This profile can be mutated
+-     */
+-    @Nonnull
+-    public GameProfile getProfile() {
+-        return profile;
+-    }
+-
+-    public HandlerList getHandlers() {
+-        return handlers;
+-    }
+-
+-    public static HandlerList getHandlerList() {
+-        return handlers;
+-    }
+-}
+diff --git a/src/main/java/com/destroystokyo/paper/event/profile/PreLookupProfileEvent.java b/src/main/java/com/destroystokyo/paper/event/profile/PreLookupProfileEvent.java
+deleted file mode 100644
+index 750b933..0000000
+--- a/src/main/java/com/destroystokyo/paper/event/profile/PreLookupProfileEvent.java
++++ /dev/null
+@@ -1,155 +0,0 @@
+-package com.destroystokyo.paper.event.profile;
+-
+-import com.google.common.collect.Multimap;
+-import com.google.common.collect.Sets;
+-import com.mojang.authlib.GameProfile;
+-import com.mojang.authlib.GameProfileRepository;
+-import com.mojang.authlib.ProfileLookupCallback;
+-import com.mojang.authlib.properties.Property;
+-import com.mojang.authlib.properties.PropertyMap;
+-import org.bukkit.Bukkit;
+-import org.bukkit.event.Event;
+-import org.bukkit.event.HandlerList;
+-
+-import javax.annotation.Nonnull;
+-import javax.annotation.Nullable;
+-import java.util.Set;
+-import java.util.UUID;
+-
+-/**
+- * Allows a plugin to intercept a Profile Lookup for a Profile by name
+- *
+- * At the point of event fire, the UUID and properties are unset.
+- *
+- * If a plugin sets the UUID, and optionally the properties, the API call to look up the profile may be skipped.
+- *
+- * No guarantees are made about thread execution context for this event. If you need to know, check
+- * event.isAsync()
+- */
+-public class PreLookupProfileEvent extends Event {
+-
+-    private static final HandlerList handlers = new HandlerList();
+-
+-    private final String name;
+-
+-    private UUID uuid;
+-    private PropertyMap properties = new PropertyMap();
+-
+-    public PreLookupProfileEvent(@Nonnull String name) {
+-        super(!Bukkit.isPrimaryThread());
+-        this.name = name;
+-    }
+-
+-    /**
+-     * @return Name of the profile
+-     */
+-    @Nonnull
+-    public String getName() {
+-        return name;
+-    }
+-
+-    /**
+-     *  @return The UUID of the profile if it has already been provided by a plugin
+-     *
+-     * If this value is left null by the completion of the event call, then the server will
+-     * trigger a call to the Mojang API to look up the UUID (Network Request), and subsequently, fire a
+-     * {@link LookupProfileEvent}
+-     */
+-    @Nullable
+-    public UUID getUUID() {
+-        return uuid;
+-    }
+-
+-    /**
+-     * Sets the UUID for this player name. This will skip the initial API call to find the players UUID.
+-     *
+-     * However, if Profile Properties are needed by the server, you must also set them or else an API call will still be made.
+-     *
+-     * @param uuid the UUID to set on the {@link GameProfile} or null to reset
+-     */
+-    public void setUUID(@Nullable UUID uuid) {
+-        this.uuid = uuid;
+-    }
+-
+-    /**
+-     * Get the properties for this profile
+-     *
+-     * @return the property map to attach to the new {@link GameProfile}
+-     */
+-    @Nonnull
+-    public Multimap<String, Property> getProperties() {
+-        return properties;
+-    }
+-
+-    /**
+-     * Completely replaces all Properties with the new provided properties
+-     * @param properties the properties to set on the new profile
+-     */
+-    public void setProperties(Multimap<String, Property> properties) {
+-        this.properties = new PropertyMap();
+-        this.properties.putAll(properties);
+-    }
+-
+-    /**
+-     * Adds additional properties, without removing the original properties
+-     * @param properties the properties to add to the existing properties
+-     */
+-    public void addProperties(Multimap<String, Property> properties) {
+-        this.properties.putAll(properties);
+-    }
+-
+-    public HandlerList getHandlers() {
+-        return handlers;
+-    }
+-
+-    public static HandlerList getHandlerList() {
+-        return handlers;
+-    }
+-
+-    /*
+-     * Wraps the Profile Repository so we can intercept all lookups
+-     */
+-    public static GameProfileRepository wrapProfileRepository(final GameProfileRepository orig) {
+-        return (names, agent, callback) -> {
+-            Set<String> unfoundNames = Sets.newHashSet();
+-            for (String name : names) {
+-                PreLookupProfileEvent event = new PreLookupProfileEvent(name);
+-                event.callEvent();
+-                if (event.getUUID() != null) {
+-                    // Plugin provided UUI, we can skip network call.
+-                    GameProfile gameprofile = new GameProfile(event.getUUID(), name);
+-                    // We might even have properties!
+-                    gameprofile.getProperties().putAll(event.getProperties());
+-                    callback.onProfileLookupSucceeded(gameprofile);
+-                } else {
+-                    unfoundNames.add(name);
+-                }
+-            }
+-
+-            // Some things were not found.... Proceed to look up.
+-            if (!unfoundNames.isEmpty() && orig != null) {
+-                String[] namesArr = unfoundNames.toArray(new String[unfoundNames.size()]);
+-                orig.findProfilesByNames(namesArr, agent, new PreProfileLookupCallback(callback));
+-            }
+-        };
+-    }
+-
+-    private static class PreProfileLookupCallback implements ProfileLookupCallback {
+-        private final ProfileLookupCallback callback;
+-
+-        PreProfileLookupCallback(ProfileLookupCallback callback) {
+-            this.callback = callback;
+-        }
+-
+-        @Override
+-        public void onProfileLookupSucceeded(GameProfile gameProfile) {
+-            new LookupProfileEvent(gameProfile).callEvent();
+-            callback.onProfileLookupSucceeded(gameProfile);
+-        }
+-
+-        @Override
+-        public void onProfileLookupFailed(GameProfile gameProfile, Exception e) {
+-            callback.onProfileLookupFailed(gameProfile, e);
+-        }
+-    }
+-}
+diff --git a/src/main/java/com/destroystokyo/paper/event/profile/ProfileWhitelistVerifyEvent.java b/src/main/java/com/destroystokyo/paper/event/profile/ProfileWhitelistVerifyEvent.java
+deleted file mode 100644
+index 59b69b2..0000000
+--- a/src/main/java/com/destroystokyo/paper/event/profile/ProfileWhitelistVerifyEvent.java
++++ /dev/null
+@@ -1,110 +0,0 @@
+-/*
+- * Copyright (c) 2017 - Daniel Ennis (Aikar) - MIT License
+- *
+- *  Permission is hereby granted, free of charge, to any person obtaining
+- *  a copy of this software and associated documentation files (the
+- *  "Software"), to deal in the Software without restriction, including
+- *  without limitation the rights to use, copy, modify, merge, publish,
+- *  distribute, sublicense, and/or sell copies of the Software, and to
+- *  permit persons to whom the Software is furnished to do so, subject to
+- *  the following conditions:
+- *
+- *  The above copyright notice and this permission notice shall be
+- *  included in all copies or substantial portions of the Software.
+- *
+- *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+- *  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+- *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+- *  NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+- *  LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+- *  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+- *  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+- */
+-
+-package com.destroystokyo.paper.event.profile;
+-
+-import com.mojang.authlib.GameProfile;
+-import org.bukkit.event.Event;
+-import org.bukkit.event.HandlerList;
+-
+-/**
+- * Fires when the server needs to verify if a player is whitelisted.
+- *
+- * Plugins may override/control the servers whitelist with this event,
+- * and dynamically change the kick message.
+- *
+- */
+-public class ProfileWhitelistVerifyEvent extends Event {
+-    private static final HandlerList handlers = new HandlerList();
+-    private final GameProfile profile;
+-    private final boolean whitelistEnabled;
+-    private boolean whitelisted;
+-    private final boolean isOp;
+-    private String kickMessage;
+-
+-    public ProfileWhitelistVerifyEvent(final GameProfile profile, boolean whitelistEnabled, boolean whitelisted, boolean isOp, String kickMessage) {
+-        this.profile = profile;
+-        this.whitelistEnabled = whitelistEnabled;
+-        this.whitelisted = whitelisted;
+-        this.isOp = isOp;
+-        this.kickMessage = kickMessage;
+-    }
+-
+-    /**
+-     * Gets the currently planned message to send to the user if they are not whitelisted
+-     */
+-    public String getKickMessage() {
+-        return kickMessage;
+-    }
+-
+-    /**
+-     * @param kickMessage The message to send to the player on kick if not whitelisted. May set to null to use the server configured default
+-     */
+-    public void setKickMessage(String kickMessage) {
+-        this.kickMessage = kickMessage;
+-    }
+-
+-    /**
+-     * The gameprofile of the player trying to connect
+-     */
+-    public GameProfile getProfile() {
+-        return profile;
+-    }
+-
+-    /**
+-     * Whether the player is whitelisted to play on this server (whitelist may be off is why its true)
+-     */
+-    public boolean isWhitelisted() {
+-        return whitelisted;
+-    }
+-
+-    /**
+-     * Changes the players whitelisted state. false will deny the login
+-     */
+-    public void setWhitelisted(boolean whitelisted) {
+-        this.whitelisted = whitelisted;
+-    }
+-
+-    /**
+-     * Returns if the player obtained whitelist status by having op
+-     */
+-    public boolean isOp() {
+-        return isOp;
+-    }
+-
+-    /**
+-     * Returns if the server even has whitelist on
+-     */
+-    public boolean isWhitelistEnabled() {
+-        return whitelistEnabled;
+-    }
+-
+-    @Override
+-    public HandlerList getHandlers() {
+-        return handlers;
+-    }
+-
+-    public static HandlerList getHandlerList() {
+-        return handlers;
+-    }
+-}
+-- 
+2.10.2.windows.1
+

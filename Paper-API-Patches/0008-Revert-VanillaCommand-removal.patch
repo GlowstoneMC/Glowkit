@@ -1,25 +1,25 @@
-From 4c44a62b2e8915c8ae8363ee3ec5396e6f1c4f29 Mon Sep 17 00:00:00 2001
+From dd28305e741e5f69cccbacbb7002f6a62610357d Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
 Date: Fri, 9 Jun 2017 11:00:46 -0400
 Subject: [PATCH] Revert VanillaCommand removal
 
 
 diff --git a/src/main/java/org/bukkit/command/SimpleCommandMap.java b/src/main/java/org/bukkit/command/SimpleCommandMap.java
-index 6f733fe0..2e232fd1 100644
+index c6613c0..2e232fd 100644
 --- a/src/main/java/org/bukkit/command/SimpleCommandMap.java
 +++ b/src/main/java/org/bukkit/command/SimpleCommandMap.java
 @@ -99,7 +99,7 @@ public class SimpleCommandMap implements CommandMap {
       */
      private synchronized boolean register(String label, Command command, boolean isAlias, String fallbackPrefix) {
          knownCommands.put(fallbackPrefix + ":" + label, command);
--        if (isAlias && knownCommands.containsKey(label)) {
+-        if ((command instanceof BukkitCommand || isAlias) && knownCommands.containsKey(label)) {
 +        if ((command instanceof VanillaCommand || isAlias) && knownCommands.containsKey(label)) {
              // Request is for an alias/fallback command and it conflicts with
              // a existing command or previous alias ignore it
              // Note: This will mean it gets removed from the commands list of active aliases
 diff --git a/src/main/java/org/bukkit/command/defaults/VanillaCommand.java b/src/main/java/org/bukkit/command/defaults/VanillaCommand.java
 new file mode 100644
-index 00000000..9105712b
+index 0000000..9105712
 --- /dev/null
 +++ b/src/main/java/org/bukkit/command/defaults/VanillaCommand.java
 @@ -0,0 +1,111 @@
@@ -135,5 +135,5 @@ index 00000000..9105712b
 +    }
 +}
 -- 
-2.11.0.windows.1
+2.10.2.windows.1
 
