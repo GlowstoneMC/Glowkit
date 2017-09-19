@@ -1,11 +1,11 @@
-From 02ee7618092db1d019386dc4c0b0b6d4b3d34260 Mon Sep 17 00:00:00 2001
+From 3bcf8d99e3152ab6b8547be3348c0eb76da4f6ea Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Tue, 16 May 2017 22:07:47 -0400
 Subject: [PATCH] POM Changes
 
 
 diff --git a/pom.xml b/pom.xml
-index 293442c..9cb9393 100644
+index a775f4ed..d349c598 100644
 --- a/pom.xml
 +++ b/pom.xml
 @@ -4,35 +4,38 @@
@@ -26,7 +26,7 @@ index 293442c..9cb9393 100644
 -    <artifactId>paper-api</artifactId>
 +    <groupId>net.glowstone</groupId>
 +    <artifactId>glowkit</artifactId>
-     <version>1.12.1-R0.1-SNAPSHOT</version>
+     <version>1.12.2-R0.1-SNAPSHOT</version>
      <packaging>jar</packaging>
  
 -    <name>Paper-API</name>
@@ -59,14 +59,15 @@ index 293442c..9cb9393 100644
          </snapshotRepository>
      </distributionManagement>
  
-@@ -45,13 +48,13 @@
+@@ -44,14 +47,14 @@
+     </pluginRepositories>
  
      <repositories>
-         <repository>
+-        <repository>
 -            <id>spigotmc-public</id>
 -            <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
 -        </repository>
--        <repository>
+         <repository>
              <id>sonatype</id>
              <url>https://oss.sonatype.org/content/groups/public/</url>
          </repository>
@@ -77,11 +78,11 @@ index 293442c..9cb9393 100644
      </repositories>
  
      <dependencies>
-@@ -150,24 +153,13 @@
+@@ -149,24 +152,13 @@
              <plugin>
                  <groupId>org.apache.maven.plugins</groupId>
                  <artifactId>maven-compiler-plugin</artifactId>
--                <version>3.6.1</version>
+-                <version>3.7.0</version>
 -                <configuration>
 -                    <!-- we use the Eclipse compiler as it doesn't need a JDK -->
 -                    <compilerId>eclipse</compilerId>
@@ -91,7 +92,7 @@ index 293442c..9cb9393 100644
 -                    <dependency>
 -                        <groupId>org.codehaus.plexus</groupId>
 -                        <artifactId>plexus-compiler-eclipse</artifactId>
--                        <version>2.8.1-spigotmc</version>
+-                        <version>2.8.2-spigotmc</version>
 -                    </dependency>
 -                </dependencies>
 +                <!-- versions after this appear to be broken -->
@@ -100,11 +101,11 @@ index 293442c..9cb9393 100644
              <plugin>
                  <groupId>org.apache.maven.plugins</groupId>
                  <artifactId>maven-shade-plugin</artifactId>
--                <version>3.0.0</version>
+-                <version>3.1.0</version>
 +                <version>2.4.3</version>
                  <executions>
                      <execution>
                          <phase>package</phase>
 -- 
-2.10.2.windows.1
+2.14.1
 

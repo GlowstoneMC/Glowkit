@@ -1,11 +1,11 @@
-From 3f3fe263416b61e7ec8863188077a07a753d5ed6 Mon Sep 17 00:00:00 2001
+From 8a2d57af504ce1ccd8376f4b6343cb072b3d2b7e Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
 Date: Fri, 4 Aug 2017 10:48:13 -0400
 Subject: [PATCH] Revert Profile API
 
 
 diff --git a/pom.xml b/pom.xml
-index 9cb9393..b0c67ad 100644
+index d349c598..9e47b1e6 100644
 --- a/pom.xml
 +++ b/pom.xml
 @@ -65,13 +65,6 @@
@@ -24,10 +24,10 @@ index 9cb9393..b0c67ad 100644
              <artifactId>fastutil-lite</artifactId>
 diff --git a/src/main/java/com/destroystokyo/paper/event/profile/LookupProfileEvent.java b/src/main/java/com/destroystokyo/paper/event/profile/LookupProfileEvent.java
 deleted file mode 100644
-index 6074ecd..0000000
+index 37e957f4..00000000
 --- a/src/main/java/com/destroystokyo/paper/event/profile/LookupProfileEvent.java
 +++ /dev/null
-@@ -1,43 +0,0 @@
+@@ -1,53 +0,0 @@
 -package com.destroystokyo.paper.event.profile;
 -
 -import com.mojang.authlib.GameProfile;
@@ -47,9 +47,16 @@ index 6074ecd..0000000
 -public class LookupProfileEvent extends Event {
 -
 -    private static final HandlerList handlers = new HandlerList();
--
+-    /**
+-     * @deprecated will be removed with 1.13
+-     */
+-    @Deprecated
 -    private final GameProfile profile;
 -
+-    /**
+-     * @deprecated will be removed with 1.13
+-     */
+-    @Deprecated
 -    public LookupProfileEvent(@Nonnull GameProfile profile) {
 -        super(!Bukkit.isPrimaryThread());
 -        this.profile = profile;
@@ -57,12 +64,15 @@ index 6074ecd..0000000
 -
 -    /**
 -     * @return The profile that was recently looked up. This profile can be mutated
+-     * @deprecated will be removed with 1.13
 -     */
+-    @Deprecated
 -    @Nonnull
 -    public GameProfile getProfile() {
 -        return profile;
 -    }
 -
+-    @Override
 -    public HandlerList getHandlers() {
 -        return handlers;
 -    }
@@ -73,10 +83,10 @@ index 6074ecd..0000000
 -}
 diff --git a/src/main/java/com/destroystokyo/paper/event/profile/PreLookupProfileEvent.java b/src/main/java/com/destroystokyo/paper/event/profile/PreLookupProfileEvent.java
 deleted file mode 100644
-index 750b933..0000000
+index 455ffaa1..00000000
 --- a/src/main/java/com/destroystokyo/paper/event/profile/PreLookupProfileEvent.java
 +++ /dev/null
-@@ -1,155 +0,0 @@
+@@ -1,170 +0,0 @@
 -package com.destroystokyo.paper.event.profile;
 -
 -import com.google.common.collect.Multimap;
@@ -108,10 +118,12 @@ index 750b933..0000000
 -public class PreLookupProfileEvent extends Event {
 -
 -    private static final HandlerList handlers = new HandlerList();
--
 -    private final String name;
--
 -    private UUID uuid;
+-    /**
+-     * @deprecated will be removed with 1.13
+-     */
+-    @Deprecated
 -    private PropertyMap properties = new PropertyMap();
 -
 -    public PreLookupProfileEvent(@Nonnull String name) {
@@ -128,11 +140,11 @@ index 750b933..0000000
 -    }
 -
 -    /**
--     *  @return The UUID of the profile if it has already been provided by a plugin
--     *
 -     * If this value is left null by the completion of the event call, then the server will
 -     * trigger a call to the Mojang API to look up the UUID (Network Request), and subsequently, fire a
 -     * {@link LookupProfileEvent}
+-     *
+-     * @return The UUID of the profile if it has already been provided by a plugin
 -     */
 -    @Nullable
 -    public UUID getUUID() {
@@ -154,7 +166,9 @@ index 750b933..0000000
 -     * Get the properties for this profile
 -     *
 -     * @return the property map to attach to the new {@link GameProfile}
+-     * @deprecated will be removed with 1.13
 -     */
+-    @Deprecated
 -    @Nonnull
 -    public Multimap<String, Property> getProperties() {
 -        return properties;
@@ -163,7 +177,9 @@ index 750b933..0000000
 -    /**
 -     * Completely replaces all Properties with the new provided properties
 -     * @param properties the properties to set on the new profile
+-     * @deprecated will be removed with 1.13
 -     */
+-    @Deprecated
 -    public void setProperties(Multimap<String, Property> properties) {
 -        this.properties = new PropertyMap();
 -        this.properties.putAll(properties);
@@ -172,11 +188,14 @@ index 750b933..0000000
 -    /**
 -     * Adds additional properties, without removing the original properties
 -     * @param properties the properties to add to the existing properties
+-     * @deprecated will be removed with 1.13
 -     */
+-    @Deprecated
 -    public void addProperties(Multimap<String, Property> properties) {
 -        this.properties.putAll(properties);
 -    }
 -
+-    @Override
 -    public HandlerList getHandlers() {
 -        return handlers;
 -    }
@@ -185,9 +204,11 @@ index 750b933..0000000
 -        return handlers;
 -    }
 -
--    /*
+-    /**
 -     * Wraps the Profile Repository so we can intercept all lookups
+-     * @deprecated will be removed with 1.13
 -     */
+-    @Deprecated
 -    public static GameProfileRepository wrapProfileRepository(final GameProfileRepository orig) {
 -        return (names, agent, callback) -> {
 -            Set<String> unfoundNames = Sets.newHashSet();
@@ -213,6 +234,10 @@ index 750b933..0000000
 -        };
 -    }
 -
+-    /**
+-     * @deprecated will be removed with 1.13
+-     */
+-    @Deprecated
 -    private static class PreProfileLookupCallback implements ProfileLookupCallback {
 -        private final ProfileLookupCallback callback;
 -
@@ -234,7 +259,7 @@ index 750b933..0000000
 -}
 diff --git a/src/main/java/com/destroystokyo/paper/event/profile/ProfileWhitelistVerifyEvent.java b/src/main/java/com/destroystokyo/paper/event/profile/ProfileWhitelistVerifyEvent.java
 deleted file mode 100644
-index 59b69b2..0000000
+index 59b69b23..00000000
 --- a/src/main/java/com/destroystokyo/paper/event/profile/ProfileWhitelistVerifyEvent.java
 +++ /dev/null
 @@ -1,110 +0,0 @@
@@ -349,5 +374,5 @@ index 59b69b2..0000000
 -    }
 -}
 -- 
-2.10.2.windows.1
+2.14.1
 
