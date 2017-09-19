@@ -1,4 +1,4 @@
-From 1d481c4eaf67f4a667b3e06c31d003a53af59d97 Mon Sep 17 00:00:00 2001
+From 9c146e745343094e8e54a6c04e39e4bf6521eb4d Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Wed, 24 May 2017 09:00:31 -0400
 Subject: [PATCH] Enhance damageable API
@@ -16,10 +16,11 @@ index e173cf01..358ad5ee 100644
  
  /**
   * Represents an {@link Entity} that has health and can take damage.
-@@ -23,6 +24,24 @@ public interface Damageable extends Entity {
+@@ -22,6 +23,24 @@ public interface Damageable extends Entity {
+      */
      void damage(double amount, Entity source);
  
-     /**
++    /**
 +     * Deals the given amount of damage to this entity, with a specified cause.
 +     *
 +     * @param amount Amount of damage to deal
@@ -37,10 +38,9 @@ index e173cf01..358ad5ee 100644
 +     */
 +    void damage(double amount, Entity source, EntityDamageEvent.DamageCause cause);
 +
-+    /**
+     /**
       * Gets the entity's health from 0 to {@link #getMaxHealth()}, where 0 is dead.
       *
-      * @return Health represented from 0 to max
 -- 
-2.13.0
+2.14.1
 

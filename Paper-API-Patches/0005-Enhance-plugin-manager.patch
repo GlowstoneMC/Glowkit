@@ -1,4 +1,4 @@
-From 3c3324416675346cea5c6960029e76be24d9220b Mon Sep 17 00:00:00 2001
+From 546b3e029729c067df18841115f7f78faa0d5273 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Wed, 24 May 2017 09:16:55 -0400
 Subject: [PATCH] Enhance plugin manager
@@ -17,10 +17,11 @@ index e5638d56..f77e4b51 100644
  import java.util.Set;
  
  import org.bukkit.event.Event;
-@@ -83,6 +85,19 @@ public interface PluginManager {
+@@ -82,6 +84,19 @@ public interface PluginManager {
+      */
      public Plugin[] loadPlugins(File directory);
  
-     /**
++    /**
 +     * Loads multiple plugins from a folder
 +     *
 +     * @param directory Directory containing the plugin files (for error messages)
@@ -33,12 +34,11 @@ index e5638d56..f77e4b51 100644
 +
 +    void ignore(URL... urls);
 +
-+    /**
+     /**
       * Disables all the loaded plugins
       */
-     public void disablePlugins();
 diff --git a/src/main/java/org/bukkit/plugin/SimplePluginManager.java b/src/main/java/org/bukkit/plugin/SimplePluginManager.java
-index 7aece13e..e6e6ad31 100644
+index a7bf24d2..051d0a3f 100644
 --- a/src/main/java/org/bukkit/plugin/SimplePluginManager.java
 +++ b/src/main/java/org/bukkit/plugin/SimplePluginManager.java
 @@ -3,17 +3,9 @@ package org.bukkit.plugin;
@@ -111,7 +111,7 @@ index 7aece13e..e6e6ad31 100644
              PluginLoader loader = null;
              for (Pattern filter : filters) {
                  Matcher match = filter.matcher(file.getName());
-@@ -131,31 +136,31 @@ public final class SimplePluginManager implements PluginManager {
+@@ -131,30 +136,30 @@ public final class SimplePluginManager implements PluginManager {
  
              if (loader == null) continue;
  
@@ -143,16 +143,14 @@ index 7aece13e..e6e6ad31 100644
 -                    file.getPath(),
 -                    replacedFile.getPath(),
 -                    directory.getPath()
--                    ));
 +                        "Ambiguous plugin name `%s' for files `%s' and `%s' in `%s'",
 +                        description.getName(),
 +                        file.getPath(),
 +                        replacedFile.getPath(),
 +                        directory
-+                ));
+                 ));
              }
  
-             Collection<String> softDependencySet = description.getSoftDepend();
 @@ -164,13 +169,13 @@ public final class SimplePluginManager implements PluginManager {
                      // Duplicates do not matter, they will be removed together if applicable
                      softDependencies.get(description.getName()).addAll(softDependencySet);
@@ -266,5 +264,5 @@ index 7aece13e..e6e6ad31 100644
       * Loads the plugin in the specified file
       * <p>
 -- 
-2.13.0
+2.14.1
 
