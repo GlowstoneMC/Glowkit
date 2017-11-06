@@ -1,11 +1,11 @@
-From 99323fe9bde56645bbfe2069c10b32773e85f93b Mon Sep 17 00:00:00 2001
+From 0d57ba256cc4b3120393f72c7ed3291a3b9aa840 Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
 Date: Sat, 9 Sep 2017 23:00:00 -0400
 Subject: [PATCH] Villager career API
 
 
 diff --git a/src/main/java/org/bukkit/entity/Villager.java b/src/main/java/org/bukkit/entity/Villager.java
-index 8fc69da0..b93ba347 100644
+index 151c2aaf..2add6aca 100644
 --- a/src/main/java/org/bukkit/entity/Villager.java
 +++ b/src/main/java/org/bukkit/entity/Villager.java
 @@ -23,6 +23,20 @@ public interface Villager extends Ageable, NPC, InventoryHolder, Merchant {
@@ -47,7 +47,7 @@ index 8fc69da0..b93ba347 100644
       */
      public enum Profession {
          /**
-@@ -103,4 +116,53 @@ public interface Villager extends Ageable, NPC, InventoryHolder, Merchant {
+@@ -109,4 +122,53 @@ public interface Villager extends Ageable, NPC, InventoryHolder, Merchant {
              return zombie;
          }
      }

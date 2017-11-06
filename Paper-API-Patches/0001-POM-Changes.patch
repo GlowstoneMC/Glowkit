@@ -1,11 +1,11 @@
-From 996348800c3c27bd57676d06def5cb033811b651 Mon Sep 17 00:00:00 2001
+From e842b325cb66988b589152cca71d79a47e615f79 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Tue, 16 May 2017 22:07:47 -0400
 Subject: [PATCH] POM Changes
 
 
 diff --git a/pom.xml b/pom.xml
-index a775f4ed..edbd26db 100644
+index b83c6eb1..a2709181 100644
 --- a/pom.xml
 +++ b/pom.xml
 @@ -4,22 +4,23 @@
@@ -68,15 +68,10 @@ index a775f4ed..edbd26db 100644
          </repository>
          <repository>
              <id>sonatype</id>
-@@ -149,19 +150,8 @@
-             <plugin>
+@@ -158,14 +159,6 @@
                  <groupId>org.apache.maven.plugins</groupId>
                  <artifactId>maven-compiler-plugin</artifactId>
--                <version>3.7.0</version>
--                <configuration>
--                    <!-- we use the Eclipse compiler as it doesn't need a JDK -->
--                    <compilerId>eclipse</compilerId>
--                </configuration>
+                 <version>3.7.0</version>
 -                <dependencies>
 -                    <!-- we need our custom version as it fixes some bugs on case sensitive file systems -->
 -                    <dependency>
@@ -85,8 +80,6 @@ index a775f4ed..edbd26db 100644
 -                        <version>2.8.2-spigotmc</version>
 -                    </dependency>
 -                </dependencies>
-+                <!-- versions after this appear to be broken -->
-+                <version>3.1</version>
              </plugin>
              <plugin>
                  <groupId>org.apache.maven.plugins</groupId>
