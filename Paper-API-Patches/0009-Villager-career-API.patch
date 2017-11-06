@@ -1,14 +1,14 @@
-From 09edfe3d89460b638ddd45e5c93004d2cae1a624 Mon Sep 17 00:00:00 2001
+From 99323fe9bde56645bbfe2069c10b32773e85f93b Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
 Date: Sat, 9 Sep 2017 23:00:00 -0400
 Subject: [PATCH] Villager career API
 
 
 diff --git a/src/main/java/org/bukkit/entity/Villager.java b/src/main/java/org/bukkit/entity/Villager.java
-index 8fc69da0..86e491b3 100644
+index 8fc69da0..b93ba347 100644
 --- a/src/main/java/org/bukkit/entity/Villager.java
 +++ b/src/main/java/org/bukkit/entity/Villager.java
-@@ -23,12 +23,26 @@ public interface Villager extends Ageable, NPC, InventoryHolder, Merchant {
+@@ -23,6 +23,20 @@ public interface Villager extends Ageable, NPC, InventoryHolder, Merchant {
       */
      public void setProfession(Profession profession);
  
@@ -29,13 +29,6 @@ index 8fc69da0..86e491b3 100644
      /**
       * Gets this villager's inventory.
       * <br>
-      * Note that this inventory is not the Merchant inventory, rather, it is the
-      * items that a villager might have collected (from harvesting crops, etc.)
--     *
-+     * <p>
-      * {@inheritDoc}
-      */
-     @Override
 @@ -45,15 +59,14 @@ public interface Villager extends Ageable, NPC, InventoryHolder, Merchant {
      /**
       * Sets this villager's riches.
@@ -109,5 +102,5 @@ index 8fc69da0..86e491b3 100644
 +    }
  }
 -- 
-2.14.1
+2.15.0
 

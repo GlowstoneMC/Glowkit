@@ -1,14 +1,14 @@
-From 3bcf8d99e3152ab6b8547be3348c0eb76da4f6ea Mon Sep 17 00:00:00 2001
+From 996348800c3c27bd57676d06def5cb033811b651 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Tue, 16 May 2017 22:07:47 -0400
 Subject: [PATCH] POM Changes
 
 
 diff --git a/pom.xml b/pom.xml
-index a775f4ed..d349c598 100644
+index a775f4ed..edbd26db 100644
 --- a/pom.xml
 +++ b/pom.xml
-@@ -4,35 +4,38 @@
+@@ -4,22 +4,23 @@
      <modelVersion>4.0.0</modelVersion>
  
      <parent>
@@ -37,13 +37,11 @@ index a775f4ed..d349c598 100644
  
      <properties>
 -        <!-- Paper - Bump to 1.8 - Because Duh... -->
-+        <additionalparam>-Xdoclint:none</additionalparam>
          <maven.compiler.source>1.8</maven.compiler.source>
          <maven.compiler.target>1.8</maven.compiler.target>
          <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-     </properties>
+@@ -27,12 +28,12 @@
  
-+    <!-- just until we get deployment to central approved -->
      <distributionManagement>
          <repository>
 -            <id>destroystokyo-releases</id>
@@ -59,26 +57,18 @@ index a775f4ed..d349c598 100644
          </snapshotRepository>
      </distributionManagement>
  
-@@ -44,14 +47,14 @@
-     </pluginRepositories>
+@@ -45,8 +46,8 @@
  
      <repositories>
--        <repository>
+         <repository>
 -            <id>spigotmc-public</id>
 -            <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
--        </repository>
-         <repository>
-             <id>sonatype</id>
-             <url>https://oss.sonatype.org/content/groups/public/</url>
-         </repository>
-+        <repository>
 +            <id>glowstone</id>
 +            <url>https://repo.glowstone.net/repository/internal/</url>
-+        </repository>
-     </repositories>
- 
-     <dependencies>
-@@ -149,24 +152,13 @@
+         </repository>
+         <repository>
+             <id>sonatype</id>
+@@ -149,19 +150,8 @@
              <plugin>
                  <groupId>org.apache.maven.plugins</groupId>
                  <artifactId>maven-compiler-plugin</artifactId>
@@ -100,12 +90,6 @@ index a775f4ed..d349c598 100644
              </plugin>
              <plugin>
                  <groupId>org.apache.maven.plugins</groupId>
-                 <artifactId>maven-shade-plugin</artifactId>
--                <version>3.1.0</version>
-+                <version>2.4.3</version>
-                 <executions>
-                     <execution>
-                         <phase>package</phase>
 -- 
-2.14.1
+2.15.0
 

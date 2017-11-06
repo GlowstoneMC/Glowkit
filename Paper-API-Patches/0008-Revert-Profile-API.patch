@@ -1,14 +1,14 @@
-From 8a2d57af504ce1ccd8376f4b6343cb072b3d2b7e Mon Sep 17 00:00:00 2001
+From 6bedde7a0a2c3beda6af8671dbb1e12362ef0f31 Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
 Date: Fri, 4 Aug 2017 10:48:13 -0400
 Subject: [PATCH] Revert Profile API
 
 
 diff --git a/pom.xml b/pom.xml
-index d349c598..9e47b1e6 100644
+index edbd26db..08424e69 100644
 --- a/pom.xml
 +++ b/pom.xml
-@@ -65,13 +65,6 @@
+@@ -63,13 +63,6 @@
              <!-- Trove Provided by CraftBukkit -->
              <scope>provided</scope>
          </dependency>
@@ -374,5 +374,5 @@ index 59b69b23..00000000
 -    }
 -}
 -- 
-2.14.1
+2.15.0
 
