@@ -1,4 +1,4 @@
-From 546b3e029729c067df18841115f7f78faa0d5273 Mon Sep 17 00:00:00 2001
+From e198fb430560587af7dd0f68011a607ba244e82f Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Wed, 24 May 2017 09:16:55 -0400
 Subject: [PATCH] Enhance plugin manager
@@ -38,7 +38,7 @@ index e5638d56..f77e4b51 100644
       * Disables all the loaded plugins
       */
 diff --git a/src/main/java/org/bukkit/plugin/SimplePluginManager.java b/src/main/java/org/bukkit/plugin/SimplePluginManager.java
-index a7bf24d2..051d0a3f 100644
+index bd0588a2..a583d4d9 100644
 --- a/src/main/java/org/bukkit/plugin/SimplePluginManager.java
 +++ b/src/main/java/org/bukkit/plugin/SimplePluginManager.java
 @@ -3,17 +3,9 @@ package org.bukkit.plugin;
@@ -176,7 +176,7 @@ index a7bf24d2..051d0a3f 100644
                          shortSoftDependency.add(description.getName());
                          softDependencies.put(loadBeforeTarget, shortSoftDependency);
                      }
-@@ -205,7 +210,7 @@ public final class SimplePluginManager implements PluginManager {
+@@ -206,7 +211,7 @@ public final class SimplePluginManager implements PluginManager {
                          if (loadedPlugins.contains(dependency)) {
                              dependencyIterator.remove();
  
@@ -184,20 +184,16 @@ index a7bf24d2..051d0a3f 100644
 +                            // We have a dependency not found
                          } else if (!plugins.containsKey(dependency)) {
                              missingDependency = false;
-                             File file = plugins.get(plugin);
-@@ -214,9 +219,9 @@ public final class SimplePluginManager implements PluginManager {
-                             dependencies.remove(plugin);
+                             pluginIterator.remove();
+@@ -215,7 +220,7 @@ public final class SimplePluginManager implements PluginManager {
  
                              server.getLogger().log(
--                                Level.SEVERE,
--                                "Could not load '" + file.getPath() + "' in folder '" + directory.getPath() + "'",
--                                new UnknownDependencyException(dependency));
-+                                    Level.SEVERE,
-+                                    "Could not load '" + file.getPath() + "' in folder '" + directory + "'",
-+                                    new UnknownDependencyException(dependency));
+                                 Level.SEVERE,
+-                                "Could not load '" + entry.getValue().getPath() + "' in folder '" + directory.getPath() + "'",
++                                "Could not load '" + entry.getValue().getPath() + "' in folder '" + directory + "'",
+                                 new UnknownDependencyException(dependency));
                              break;
                          }
-                     }
 @@ -226,16 +231,9 @@ public final class SimplePluginManager implements PluginManager {
                      }
                  }
@@ -228,7 +224,7 @@ index a7bf24d2..051d0a3f 100644
                      }
                  }
              }
-@@ -276,7 +273,7 @@ public final class SimplePluginManager implements PluginManager {
+@@ -277,7 +274,7 @@ public final class SimplePluginManager implements PluginManager {
                              loadedPlugins.add(plugin);
                              break;
                          } catch (InvalidPluginException ex) {
@@ -237,7 +233,7 @@ index a7bf24d2..051d0a3f 100644
                          }
                      }
                  }
-@@ -289,7 +286,7 @@ public final class SimplePluginManager implements PluginManager {
+@@ -290,7 +287,7 @@ public final class SimplePluginManager implements PluginManager {
                      while (failedPluginIterator.hasNext()) {
                          File file = failedPluginIterator.next();
                          failedPluginIterator.remove();
@@ -246,7 +242,7 @@ index a7bf24d2..051d0a3f 100644
                      }
                  }
              }
-@@ -298,6 +295,16 @@ public final class SimplePluginManager implements PluginManager {
+@@ -299,6 +296,16 @@ public final class SimplePluginManager implements PluginManager {
          return result.toArray(new Plugin[result.size()]);
      }
  
@@ -264,5 +260,5 @@ index a7bf24d2..051d0a3f 100644
       * Loads the plugin in the specified file
       * <p>
 -- 
-2.14.1
+2.15.1
 
