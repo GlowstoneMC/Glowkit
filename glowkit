@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Heavily based on the paper tool (thanks Paper!)
 
 # resolve shell-specifics
 case "$(echo "$SHELL" | sed 's|/usr||g')" in
