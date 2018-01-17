@@ -1,0 +1,23 @@
+From 6d2e3ff6ad8e944d80cf10449c55496f81726c67 Mon Sep 17 00:00:00 2001
+From: Chris Hennick <4961925+Pr0methean@users.noreply.github.com>
+Date: Wed, 17 Jan 2018 01:41:27 +0000
+Subject: [PATCH] Fix NPE in toString() if unknown PotionEffectType used
+
+
+diff --git a/src/main/java/org/bukkit/potion/PotionEffectTypeWrapper.java b/src/main/java/org/bukkit/potion/PotionEffectTypeWrapper.java
+index 356a866f..27e7d1d1 100644
+--- a/src/main/java/org/bukkit/potion/PotionEffectTypeWrapper.java
++++ b/src/main/java/org/bukkit/potion/PotionEffectTypeWrapper.java
+@@ -14,7 +14,8 @@ public class PotionEffectTypeWrapper extends PotionEffectType {
+ 
+     @Override
+     public String getName() {
+-        return getType().getName();
++        PotionEffectType type = getType();
++        return type == null ? "unknown effect " + getId() : type.getName();
+     }
+ 
+     /**
+-- 
+2.14.1
+
