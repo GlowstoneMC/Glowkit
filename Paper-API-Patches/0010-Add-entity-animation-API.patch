@@ -1,4 +1,4 @@
-From ca75c2744a04823afa39326757773debd5f0db6d Mon Sep 17 00:00:00 2001
+From 6cc5ca4fe3445cbfcef40e072d9dbc5da84e86ea Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
 Date: Sun, 10 Sep 2017 02:07:28 -0400
 Subject: [PATCH] Add entity animation API
@@ -53,7 +53,7 @@ index 4a51c519..26c89ca1 100644
 +    void playAnimation(EntityAnimation animation);
  }
 diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
-index 0c3eb03f..888842f5 100644
+index a882323d..6ae6d21f 100644
 --- a/src/main/java/org/bukkit/entity/Player.java
 +++ b/src/main/java/org/bukkit/entity/Player.java
 @@ -6,6 +6,7 @@ import com.destroystokyo.paper.Title;
@@ -64,7 +64,7 @@ index 0c3eb03f..888842f5 100644
  import org.bukkit.GameMode;
  import org.bukkit.Instrument;
  import org.bukkit.Location;
-@@ -1671,10 +1672,18 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
+@@ -1715,10 +1716,18 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
      boolean hasResourcePack();
      // Paper end
  
@@ -84,5 +84,5 @@ index 0c3eb03f..888842f5 100644
           * Gets the connection address of this player, regardless of whether it
           * has been spoofed or not.
 -- 
-2.15.0
+2.16.0
 

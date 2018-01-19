@@ -1,35 +1,14 @@
-From 0d57ba256cc4b3120393f72c7ed3291a3b9aa840 Mon Sep 17 00:00:00 2001
+From 1777f17ce5bdc2f90f25ab53ec6d6295268d9887 Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
 Date: Sat, 9 Sep 2017 23:00:00 -0400
 Subject: [PATCH] Villager career API
 
 
 diff --git a/src/main/java/org/bukkit/entity/Villager.java b/src/main/java/org/bukkit/entity/Villager.java
-index 151c2aaf..2add6aca 100644
+index f2095f61..9bf2cabf 100644
 --- a/src/main/java/org/bukkit/entity/Villager.java
 +++ b/src/main/java/org/bukkit/entity/Villager.java
-@@ -23,6 +23,20 @@ public interface Villager extends Ageable, NPC, InventoryHolder, Merchant {
-      */
-     public void setProfession(Profession profession);
- 
-+    /**
-+     * Gets the current career of this villager.
-+     *
-+     * @return Current career.
-+     */
-+    public Career getCareer();
-+
-+    /**
-+     * Sets the new career of this villager.
-+     *
-+     * @param career New profession.
-+     */
-+    public void setCareer(Career career);
-+
-     /**
-      * Gets this villager's inventory.
-      * <br>
-@@ -45,15 +59,14 @@ public interface Villager extends Ageable, NPC, InventoryHolder, Merchant {
+@@ -77,15 +77,14 @@ public interface Villager extends Ageable, NPC, InventoryHolder, Merchant {
      /**
       * Sets this villager's riches.
       *
@@ -47,8 +26,8 @@ index 151c2aaf..2add6aca 100644
       */
      public enum Profession {
          /**
-@@ -109,4 +122,53 @@ public interface Villager extends Ageable, NPC, InventoryHolder, Merchant {
-             return zombie;
+@@ -261,4 +260,53 @@ public interface Villager extends Ageable, NPC, InventoryHolder, Merchant {
+             }
          }
      }
 +
@@ -102,5 +81,5 @@ index 151c2aaf..2add6aca 100644
 +    }
  }
 -- 
-2.15.0
+2.16.0
 
