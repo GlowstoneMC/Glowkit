@@ -1,4 +1,4 @@
-From 71f8f96d4f03f3983193b582190ac475069789c0 Mon Sep 17 00:00:00 2001
+From 3911249ab07b5a23401a0492b7d3e00b418a663d Mon Sep 17 00:00:00 2001
 From: Chris Hennick <4961925+Pr0methean@users.noreply.github.com>
 Date: Mon, 29 Jan 2018 10:14:07 -0500
 Subject: [PATCH] Add PotionDataHolder Interface
@@ -161,14 +161,16 @@ index d9151259..dcf545a2 100644
       * Sets the underlying potion data
 diff --git a/src/main/java/org/bukkit/potion/PotionDataHolder.java b/src/main/java/org/bukkit/potion/PotionDataHolder.java
 new file mode 100644
-index 00000000..95f66efa
+index 00000000..d01d75be
 --- /dev/null
 +++ b/src/main/java/org/bukkit/potion/PotionDataHolder.java
-@@ -0,0 +1,116 @@
+@@ -0,0 +1,118 @@
 +package org.bukkit.potion;
 +
 +import java.util.List;
 +import org.bukkit.Color;
++import org.bukkit.entity.TippedArrow;
++import org.bukkit.inventory.meta.PotionMeta;
 +
 +/**
 + * A mutable object that has fields for color, base potion data and custom effects, like a {@link
