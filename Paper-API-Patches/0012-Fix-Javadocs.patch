@@ -1,11 +1,11 @@
-From 132ec0f5d60187620967c0032569da7b463e23fd Mon Sep 17 00:00:00 2001
+From 2b7589d1acbb784e9891181d94618e047b0caa50 Mon Sep 17 00:00:00 2001
 From: mastercoms <mastercoms@tutanota.de>
 Date: Mon, 29 Jan 2018 11:54:32 -0500
 Subject: [PATCH] Fix Javadocs
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/event/profile/ProfileWhitelistVerifyEvent.java b/src/main/java/com/destroystokyo/paper/event/profile/ProfileWhitelistVerifyEvent.java
-index a11f811e..083912da 100644
+index a11f811e..7dc9f9b1 100644
 --- a/src/main/java/com/destroystokyo/paper/event/profile/ProfileWhitelistVerifyEvent.java
 +++ b/src/main/java/com/destroystokyo/paper/event/profile/ProfileWhitelistVerifyEvent.java
 @@ -52,6 +52,8 @@ public class ProfileWhitelistVerifyEvent extends Event {
@@ -26,7 +26,16 @@ index a11f811e..083912da 100644
       */
      public boolean isWhitelisted() {
          return whitelisted;
-@@ -87,6 +91,8 @@ public class ProfileWhitelistVerifyEvent extends Event {
+@@ -80,6 +84,8 @@ public class ProfileWhitelistVerifyEvent extends Event {
+ 
+     /**
+      * Changes the players whitelisted state. false will deny the login
++     *
++     * @param whitelisted If the player is whitelisted
+      */
+     public void setWhitelisted(boolean whitelisted) {
+         this.whitelisted = whitelisted;
+@@ -87,6 +93,8 @@ public class ProfileWhitelistVerifyEvent extends Event {
  
      /**
       * Returns if the player obtained whitelist status by having op
@@ -35,7 +44,7 @@ index a11f811e..083912da 100644
       */
      public boolean isOp() {
          return isOp;
-@@ -94,6 +100,8 @@ public class ProfileWhitelistVerifyEvent extends Event {
+@@ -94,6 +102,8 @@ public class ProfileWhitelistVerifyEvent extends Event {
  
      /**
       * Returns if the server even has whitelist on
@@ -83,7 +92,7 @@ index 6ae6d21f..ace34b50 100644
      public int applyMending(int amount);
      // Paper end
 diff --git a/src/main/java/org/bukkit/event/server/ServerListPingEvent.java b/src/main/java/org/bukkit/event/server/ServerListPingEvent.java
-index cb8d0fcd..83e019b2 100644
+index cb8d0fcd..7b75bf7b 100644
 --- a/src/main/java/org/bukkit/event/server/ServerListPingEvent.java
 +++ b/src/main/java/org/bukkit/event/server/ServerListPingEvent.java
 @@ -151,6 +151,9 @@ public class ServerListPingEvent extends ServerEvent implements Iterable<Player>
@@ -92,7 +101,7 @@ index cb8d0fcd..83e019b2 100644
      /**
 +     * Sets the text of the sample player list
 +     *
-+     * @param The list of text items in the sample player list
++     * @param sample The list of text items in the sample player list
       * @deprecated Will be replaced in 1.13
       */
      @Deprecated
