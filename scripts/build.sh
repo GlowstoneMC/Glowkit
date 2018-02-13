@@ -8,4 +8,7 @@ basedir="$(cd "$1" && pwd -P)"
 	echo "Failed to build Glowkit"
 	exit 1
 ) || exit 1
+if [ "$2" == "--jar" ]; then
+	(cd Glowkit-Patched && mvn clean install)
+fi
 )

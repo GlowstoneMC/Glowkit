@@ -1,0 +1,110 @@
+version: 2
+jobs:
+    build:
+        docker:
+            - image: circleci/openjdk:8-jdk
+
+        working_directory: ~/glowkit
+
+        environment:
+            MAVEN_OPTS: -Xmx3200m
+
+        steps:
+            - run: mvn --version
+            - run: java -version
+
+            - checkout
+
+            - run: ./glowkit p
+            - run: cd Glowkit-Patched
+
+            - restore_cache:
+                keys:
+                # Use cache for this pom
+                - glowkit-{{ checksum "pom.xml" }}
+                # Fallback to latest cache is an exact match is not found
+                - glowkit-
+
+            - run: mvn -T 2 -B dependency:go-offline
+
+            - save_cache:
+                paths:
+                    - ~/.m2
+                key: glowkit-{{ checksum "pom.xml" }}
+
+            - run: mvn -T 2 -B package
+
+            - store_test_results:
+                path: target/surefire-reports
+
+            - store_artifacts:
+                path: target/glowkit.jar
+                destination: glowkit.jar
+
+    build-deploy:
+        docker:
+            - image: circleci/openjdk:8-jdk
+
+        working_directory: ~/glowkit
+
+        environment:
+            MAVEN_OPTS: -Xmx3200m
+
+        steps:
+            - checkout
+
+            - run: ./glowkit p
+            - run: cd Glowkit-Patched
+
+            - restore_cache:
+                keys:
+                # Use cache for this pom
+                - glowkit-{{ checksum "pom.xml" }}
+                # Fallback to latest cache is an exact match is not found
+                - glowkit-
+
+            - run: mvn -T 2 -B dependency:go-offline
+
+            - save_cache:
+                paths:
+                    - ~/.m2
+                key: glowkit-{{ checksum "pom.xml" }}
+
+            # Ensure we are on the right repo before attempting a deploy
+            - run: |
+                if [ "${CIRCLE_PROJECT_USERNAME}" == "GlowstoneMC" ]; then
+                  mvn -T 2 -B -s .circleci/maven.xml source:jar javadoc:jar deploy
+                else
+                  mvn -T 2 -B package
+                fi
+
+            - store_test_results:
+                path: target/surefire-reports
+
+            - store_artifacts:
+                path: target/glowkit.jar
+                destination: glowkit.jar
+
+            - store_artifacts:
+                path: target/glowkit-javadoc.jar
+                destination: glowkit-javadoc.jar
+
+            - store_artifacts:
+                path: target/glowkit-sources.jar
+                destination: glowkit-sources.jar
+workflows:
+    version: 2
+
+    default-branch-build:
+        jobs:
+            - build-deploy:
+                filters:
+                    branches:
+                        only: dev
+
+    other-branch-build:
+        jobs:
+            - build:
+                filters:
+                    branches:
+                        ignore: dev
