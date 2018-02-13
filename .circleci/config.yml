@@ -53,6 +53,9 @@ jobs:
         steps:
             - checkout
 
+            - run: git config --global user.email "mastercoms@tutanota.de"
+            - run: git config --global user.name "mastercoms"
+
             - run: ./glowkit p
             - run: cd Glowkit-Patched
 
