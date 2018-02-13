@@ -19,29 +19,28 @@ jobs:
             - run: git config --global user.name "mastercoms"
 
             - run: ./glowkit p
-            - run: cd Glowkit-Patched
 
             - restore_cache:
                 keys:
                 # Use cache for this pom
-                - glowkit-{{ checksum "pom.xml" }}
+                - glowkit-{{ checksum "Glowkit-Patched/pom.xml" }}
                 # Fallback to latest cache is an exact match is not found
                 - glowkit-
 
-            - run: mvn -T 1C -B dependency:go-offline
+            - run: (cd Glowkit-Patched && mvn -T 1C -B dependency:go-offline)
 
             - save_cache:
                 paths:
                     - ~/.m2
-                key: glowkit-{{ checksum "pom.xml" }}
+                key: glowkit-{{ checksum "Glowkit-Patched/pom.xml" }}
 
-            - run: mvn -T 2 -B package
+            - run: (cd Glowkit-Patched && mvn -T 2 -B package)
 
             - store_test_results:
-                path: target/surefire-reports
+                path: Glowkit-Patched/target/surefire-reports
 
             - store_artifacts:
-                path: target/glowkit.jar
+                path: Glowkit-Patched/target/glowkit.jar
                 destination: glowkit.jar
 
     build-deploy:
@@ -60,43 +59,42 @@ jobs:
             - run: git config --global user.name "mastercoms"
 
             - run: ./glowkit p
-            - run: cd Glowkit-Patched
 
             - restore_cache:
                 keys:
                 # Use cache for this pom
-                - glowkit-{{ checksum "pom.xml" }}
+                - glowkit-{{ checksum "Glowkit-Patched/pom.xml" }}
                 # Fallback to latest cache is an exact match is not found
                 - glowkit-
 
-            - run: mvn -T 1C -B dependency:go-offline
+            - run: (cd Glowkit-Patched && mvn -T 1C -B dependency:go-offline)
 
             - save_cache:
                 paths:
                     - ~/.m2
-                key: glowkit-{{ checksum "pom.xml" }}
+                key: glowkit-{{ checksum "Glowkit-Patched/pom.xml" }}
 
             # Ensure we are on the right repo before attempting a deploy
             - run: |
                 if [ "${CIRCLE_PROJECT_USERNAME}" == "GlowstoneMC" ]; then
-                  mvn -T 2 -B -s .circleci/maven.xml source:jar javadoc:jar deploy
+                  (cd Glowkit-Patched && mvn -T 2 -B -s .circleci/maven.xml source:jar javadoc:jar deploy)
                 else
-                  mvn -T 2 -B package
+                  (cd Glowkit-Patched && mvn -T 2 -B package)
                 fi
 
             - store_test_results:
-                path: target/surefire-reports
+                path: Glowkit-Patched/target/surefire-reports
 
             - store_artifacts:
-                path: target/glowkit.jar
+                path: Glowkit-Patched/target/glowkit.jar
                 destination: glowkit.jar
 
             - store_artifacts:
-                path: target/glowkit-javadoc.jar
+                path: Glowkit-Patched/target/glowkit-javadoc.jar
                 destination: glowkit-javadoc.jar
 
             - store_artifacts:
-                path: target/glowkit-sources.jar
+                path: Glowkit-Patched/target/glowkit-sources.jar
                 destination: glowkit-sources.jar
 workflows:
     version: 2
