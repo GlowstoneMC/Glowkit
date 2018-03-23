@@ -1,4 +1,4 @@
-From 2b7589d1acbb784e9891181d94618e047b0caa50 Mon Sep 17 00:00:00 2001
+From 9ff20f007063b85fe512b198150554736096435d Mon Sep 17 00:00:00 2001
 From: mastercoms <mastercoms@tutanota.de>
 Date: Mon, 29 Jan 2018 11:54:32 -0500
 Subject: [PATCH] Fix Javadocs
@@ -77,10 +77,10 @@ index 3071320e..07524719 100644
      @Override
      public void setCancelled(boolean cancelled) {
 diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
-index 6ae6d21f..ace34b50 100644
+index 25d11cc9..9525fc0d 100644
 --- a/src/main/java/org/bukkit/entity/Player.java
 +++ b/src/main/java/org/bukkit/entity/Player.java
-@@ -941,8 +941,8 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
+@@ -942,8 +942,8 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
       *
       * Can also be called with {@link #giveExp(int, boolean)} by passing true to applyMending
       *
@@ -92,29 +92,33 @@ index 6ae6d21f..ace34b50 100644
      public int applyMending(int amount);
      // Paper end
 diff --git a/src/main/java/org/bukkit/event/server/ServerListPingEvent.java b/src/main/java/org/bukkit/event/server/ServerListPingEvent.java
-index cb8d0fcd..7b75bf7b 100644
+index 116d7c7a..2e72ea2e 100644
 --- a/src/main/java/org/bukkit/event/server/ServerListPingEvent.java
 +++ b/src/main/java/org/bukkit/event/server/ServerListPingEvent.java
-@@ -151,6 +151,9 @@ public class ServerListPingEvent extends ServerEvent implements Iterable<Player>
+@@ -152,7 +152,10 @@ public class ServerListPingEvent extends ServerEvent implements Iterable<Player>
      private java.util.List<String> sample;
  
      /**
+-     * @deprecated Will be removed in 1.13, use {@link PaperServerListPingEvent#getPlayerSample()}
 +     * Sets the text of the sample player list
 +     *
 +     * @param sample The list of text items in the sample player list
-      * @deprecated Will be replaced in 1.13
++     * @deprecated Will be replaced in 1.13, use {@link PaperServerListPingEvent#getPlayerSample()}
       */
      @Deprecated
-@@ -159,6 +162,9 @@ public class ServerListPingEvent extends ServerEvent implements Iterable<Player>
+     public void setSampleText(java.util.List<String> sample) {
+@@ -160,7 +163,10 @@ public class ServerListPingEvent extends ServerEvent implements Iterable<Player>
      }
  
      /**
+-     * @deprecated Will be removed in 1.13, use {@link PaperServerListPingEvent#getPlayerSample()}
 +     * Gets the text of the sample player list
 +     *
 +     * @return The list of text items in the sample player list
-      * @deprecated Will be replaced in 1.13
++     * @deprecated Will be replaced in 1.13, use {@link PaperServerListPingEvent#getPlayerSample()}
       */
      @Deprecated
+     public java.util.List<String> getSampleText() {
 -- 
-2.16.1
+2.16.2
 
