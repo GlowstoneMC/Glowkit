@@ -1,16 +1,16 @@
-From 950052ced298d56baa996f2672ebec042a69f103 Mon Sep 17 00:00:00 2001
+From 6b58bd3760759e8f49a1f6d02a8415e175ba1b7a Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
 Date: Fri, 4 Aug 2017 10:48:13 -0400
 Subject: [PATCH] Remove deprecated Profile API
 
 
 diff --git a/pom.xml b/pom.xml
-index 889b1873..3d73259f 100644
+index 6d27b8ee..89e5dcc0 100644
 --- a/pom.xml
 +++ b/pom.xml
-@@ -64,13 +64,6 @@
-             <!-- Trove Provided by CraftBukkit -->
-             <scope>provided</scope>
+@@ -62,13 +62,6 @@
+             <artifactId>trove4j</artifactId>
+             <version>3.0.3</version>
          </dependency>
 -        <!-- Paper - Add Authlib for Profile API -->
 -        <dependency>

@@ -1,11 +1,11 @@
-From ca0e2bf653e894c815ee8b0f6a086059a9cf4610 Mon Sep 17 00:00:00 2001
+From 4429c345eb7a0a4fe2859adb61ad6fb41417b5f3 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Tue, 16 May 2017 22:07:47 -0400
 Subject: [PATCH] POM Changes
 
 
 diff --git a/pom.xml b/pom.xml
-index 45145c5f..6861ac19 100644
+index 45145c5f..6d27b8ee 100644
 --- a/pom.xml
 +++ b/pom.xml
 @@ -4,18 +4,20 @@
@@ -27,7 +27,7 @@ index 45145c5f..6861ac19 100644
 -    <version>1.12.2-R0.1-SNAPSHOT</version>
 +    <groupId>net.glowstone</groupId>
 +    <artifactId>glowkit</artifactId>
-+    <version>1.12.2-R3.0-SNAPSHOT</version>
++    <version>1.12.2-R4.0-SNAPSHOT</version>
      <packaging>jar</packaging>
  
 -    <name>Paper-API</name>
@@ -65,7 +65,16 @@ index 45145c5f..6861ac19 100644
          </repository>
          <repository>
              <id>sonatype</id>
-@@ -158,14 +160,6 @@
+@@ -59,8 +61,6 @@
+             <groupId>net.sf.trove4j</groupId>
+             <artifactId>trove4j</artifactId>
+             <version>3.0.3</version>
+-            <!-- Trove Provided by CraftBukkit -->
+-            <scope>provided</scope>
+         </dependency>
+         <!-- Paper - Add Authlib for Profile API -->
+         <dependency>
+@@ -158,14 +158,6 @@
                  <groupId>org.apache.maven.plugins</groupId>
                  <artifactId>maven-compiler-plugin</artifactId>
                  <version>3.7.0</version>
