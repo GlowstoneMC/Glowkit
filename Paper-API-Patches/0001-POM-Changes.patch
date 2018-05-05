@@ -1,11 +1,11 @@
-From 4429c345eb7a0a4fe2859adb61ad6fb41417b5f3 Mon Sep 17 00:00:00 2001
+From 309ec6fd19225d7f36c29707a69bcebe273702e4 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Tue, 16 May 2017 22:07:47 -0400
 Subject: [PATCH] POM Changes
 
 
 diff --git a/pom.xml b/pom.xml
-index 45145c5f..6d27b8ee 100644
+index 45145c5f..fb1ed039 100644
 --- a/pom.xml
 +++ b/pom.xml
 @@ -4,18 +4,20 @@
@@ -27,7 +27,7 @@ index 45145c5f..6d27b8ee 100644
 -    <version>1.12.2-R0.1-SNAPSHOT</version>
 +    <groupId>net.glowstone</groupId>
 +    <artifactId>glowkit</artifactId>
-+    <version>1.12.2-R4.0-SNAPSHOT</version>
++    <version>1.12.2-R4.1-SNAPSHOT</version>
      <packaging>jar</packaging>
  
 -    <name>Paper-API</name>
@@ -74,6 +74,15 @@ index 45145c5f..6d27b8ee 100644
          </dependency>
          <!-- Paper - Add Authlib for Profile API -->
          <dependency>
+@@ -147,7 +147,7 @@
+         <dependency>
+             <groupId>org.ow2.asm</groupId>
+             <artifactId>asm-all</artifactId>
+-            <version>5.0.4</version>
++            <version>6.1.1</version>
+         </dependency>
+     </dependencies>
+ 
 @@ -158,14 +158,6 @@
                  <groupId>org.apache.maven.plugins</groupId>
                  <artifactId>maven-compiler-plugin</artifactId>
