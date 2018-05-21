@@ -1,11 +1,11 @@
-From a9b6b44b7065e1cb0d80eb552b720d2422edc65a Mon Sep 17 00:00:00 2001
+From a0f0e257853e5b134e0302a669a21e9bb831c570 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Tue, 16 May 2017 22:07:47 -0400
 Subject: [PATCH] POM Changes
 
 
 diff --git a/pom.xml b/pom.xml
-index 45145c5f..4a92f86b 100644
+index 1a644a42..90e4a709 100644
 --- a/pom.xml
 +++ b/pom.xml
 @@ -4,18 +4,20 @@
@@ -27,7 +27,7 @@ index 45145c5f..4a92f86b 100644
 -    <version>1.12.2-R0.1-SNAPSHOT</version>
 +    <groupId>net.glowstone</groupId>
 +    <artifactId>glowkit</artifactId>
-+    <version>1.12.2-R4.1-SNAPSHOT</version>
++    <version>1.12.2-R4.2-SNAPSHOT</version>
      <packaging>jar</packaging>
  
 -    <name>Paper-API</name>
@@ -42,13 +42,13 @@ index 45145c5f..4a92f86b 100644
      <distributionManagement>
          <repository>
 -            <id>destroystokyo-releases</id>
--            <url>https://repo.destroystokyo.com/repository/maven-releases/</url>
+-            <url>https://destroystokyo.com/repo/repository/maven-releases/</url>
 +            <id>glowstone-releases</id>
 +            <url>https://repo.glowstone.net/content/repositories/releases/</url>
          </repository>
          <snapshotRepository>
 -            <id>destroystokyo-snapshots</id>
--            <url>https://repo.destroystokyo.com/repository/maven-snapshots/</url>
+-            <url>https://destroystokyo.com/repo/repository/maven-snapshots/</url>
 +            <id>glowstone-snapshots</id>
 +            <url>https://repo.glowstone.net/content/repositories/snapshots/</url>
          </snapshotRepository>
