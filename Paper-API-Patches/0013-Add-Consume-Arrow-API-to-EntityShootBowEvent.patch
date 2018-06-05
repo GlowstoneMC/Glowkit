@@ -1,11 +1,11 @@
-From bf9e492ef5ac9a27cc921901e2da9aad7691ce42 Mon Sep 17 00:00:00 2001
+From 629e199de2aa969dce17484bf38888b87cc196b0 Mon Sep 17 00:00:00 2001
 From: Mystiflow <mystiflow@gmail.com>
 Date: Tue, 5 Jun 2018 00:03:09 +0100
 Subject: [PATCH] Add Consume Arrow API to EntityShootBowEvent
 
 
 diff --git a/src/main/java/org/bukkit/event/entity/EntityShootBowEvent.java b/src/main/java/org/bukkit/event/entity/EntityShootBowEvent.java
-index f8c91a13..63248c6f 100644
+index f8c91a13..7954d454 100644
 --- a/src/main/java/org/bukkit/event/entity/EntityShootBowEvent.java
 +++ b/src/main/java/org/bukkit/event/entity/EntityShootBowEvent.java
 @@ -15,13 +15,19 @@ public class EntityShootBowEvent extends EntityEvent implements Cancellable {
@@ -15,8 +15,7 @@ index f8c91a13..63248c6f 100644
 +    private boolean consumeArrow;
      private boolean cancelled;
  
--    public EntityShootBowEvent(final LivingEntity shooter, final ItemStack bow, final Projectile projectile, final float force) {
-+    public EntityShootBowEvent(final LivingEntity shooter, final ItemStack bow, final Projectile projectile, final float force)
+     public EntityShootBowEvent(final LivingEntity shooter, final ItemStack bow, final Projectile projectile, final float force) {
 +        this(shooter, bow, projectile, force, true);
 +    }
 +
