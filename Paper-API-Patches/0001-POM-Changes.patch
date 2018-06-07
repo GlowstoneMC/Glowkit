@@ -1,11 +1,11 @@
-From a0f0e257853e5b134e0302a669a21e9bb831c570 Mon Sep 17 00:00:00 2001
+From d2a7f413919cc2142befce1fe5b5b2dc458a3f5b Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Tue, 16 May 2017 22:07:47 -0400
 Subject: [PATCH] POM Changes
 
 
 diff --git a/pom.xml b/pom.xml
-index 1a644a42..90e4a709 100644
+index ae5cfd10..90e4a709 100644
 --- a/pom.xml
 +++ b/pom.xml
 @@ -4,18 +4,20 @@
@@ -74,23 +74,7 @@ index 1a644a42..90e4a709 100644
          </dependency>
          <!-- Paper - Add Authlib for Profile API -->
          <dependency>
-@@ -146,8 +146,13 @@
-         <!-- ASM -->
-         <dependency>
-             <groupId>org.ow2.asm</groupId>
--            <artifactId>asm-all</artifactId>
--            <version>5.0.4</version>
-+            <artifactId>asm</artifactId>
-+            <version>6.1.1</version>
-+        </dependency>
-+        <dependency>
-+            <groupId>org.ow2.asm</groupId>
-+            <artifactId>asm-commons</artifactId>
-+            <version>6.1.1</version>
-         </dependency>
-     </dependencies>
- 
-@@ -158,14 +163,6 @@
+@@ -163,14 +163,6 @@
                  <groupId>org.apache.maven.plugins</groupId>
                  <artifactId>maven-compiler-plugin</artifactId>
                  <version>3.7.0</version>
@@ -106,5 +90,5 @@ index 1a644a42..90e4a709 100644
              <plugin>
                  <groupId>org.apache.maven.plugins</groupId>
 -- 
-2.17.0
+2.17.1
 
