@@ -1,0 +1,58 @@
+From 629e199de2aa969dce17484bf38888b87cc196b0 Mon Sep 17 00:00:00 2001
+From: Mystiflow <mystiflow@gmail.com>
+Date: Tue, 5 Jun 2018 00:03:09 +0100
+Subject: [PATCH] Add Consume Arrow API to EntityShootBowEvent
+
+
+diff --git a/src/main/java/org/bukkit/event/entity/EntityShootBowEvent.java b/src/main/java/org/bukkit/event/entity/EntityShootBowEvent.java
+index f8c91a13..7954d454 100644
+--- a/src/main/java/org/bukkit/event/entity/EntityShootBowEvent.java
++++ b/src/main/java/org/bukkit/event/entity/EntityShootBowEvent.java
+@@ -15,13 +15,19 @@ public class EntityShootBowEvent extends EntityEvent implements Cancellable {
+     private final ItemStack bow;
+     private Entity projectile;
+     private final float force;
++    private boolean consumeArrow;
+     private boolean cancelled;
+ 
+     public EntityShootBowEvent(final LivingEntity shooter, final ItemStack bow, final Projectile projectile, final float force) {
++        this(shooter, bow, projectile, force, true);
++    }
++
++    public EntityShootBowEvent(final LivingEntity shooter, final ItemStack bow, final Projectile projectile, final float force, final boolean consumeArrow) {
+         super(shooter);
+         this.bow = bow;
+         this.projectile = projectile;
+         this.force = force;
++        this.consumeArrow = consumeArrow;
+     }
+ 
+     @Override
+@@ -65,6 +71,24 @@ public class EntityShootBowEvent extends EntityEvent implements Cancellable {
+         return force;
+     }
+ 
++    /**
++     * Gets if an arrow will be consumed if arrow is fired
++     *
++     * @return state of arrow consumption
++     */
++    public boolean isConsumeArrow() {
++         return consumeArrow;
++    }
++
++    /**
++     * Sets if an arrow will be consumed if arrow is fired
++     *
++     * @param consumeArrow state of arrow consumption to set
++     */
++    public void setConsumeArrow(boolean consumeArrow) {
++        this.consumeArrow = consumeArrow;
++    }
++
+     public boolean isCancelled() {
+         return cancelled;
+     }
+-- 
+2.17.1.windows.2
+
