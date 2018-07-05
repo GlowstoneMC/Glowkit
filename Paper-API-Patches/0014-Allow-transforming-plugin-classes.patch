@@ -1,0 +1,83 @@
+From 0941c97556e790ba9f701f1369e094a7d834ae77 Mon Sep 17 00:00:00 2001
+From: aki_ks <aki@kaysubs.de>
+Date: Tue, 3 Jul 2018 18:09:25 +0200
+Subject: [PATCH] Allow transforming plugin classes
+
+
+diff --git a/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java b/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java
+index 1ea695d5..97330544 100644
+--- a/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java
++++ b/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java
+@@ -45,7 +45,7 @@ import org.yaml.snakeyaml.error.YAMLException;
+ /**
+  * Represents a Java plugin loader, allowing plugins in the form of .jar
+  */
+-public final class JavaPluginLoader implements PluginLoader {
++public class JavaPluginLoader implements PluginLoader {
+     final Server server;
+     private final Pattern[] fileFilters = new Pattern[] { Pattern.compile("\\.jar$"), };
+     private final Map<String, Class<?>> classes = new java.util.concurrent.ConcurrentHashMap<String, Class<?>>(); // Spigot
+@@ -124,7 +124,7 @@ public final class JavaPluginLoader implements PluginLoader {
+ 
+         final PluginClassLoader loader;
+         try {
+-            loader = new PluginClassLoader(this, getClass().getClassLoader(), description, dataFolder, file);
++            loader = newPluginLoader(this, getClass().getClassLoader(), description, dataFolder, file);
+         } catch (InvalidPluginException ex) {
+             throw ex;
+         } catch (Throwable ex) {
+@@ -136,6 +136,10 @@ public final class JavaPluginLoader implements PluginLoader {
+         return loader.plugin;
+     }
+ 
++    protected PluginClassLoader newPluginLoader(JavaPluginLoader loader, ClassLoader parent, PluginDescriptionFile description, File dataFolder, File file) throws Exception {
++        return new PluginClassLoader(loader, parent, description, dataFolder, file);
++    }
++
+     public PluginDescriptionFile getPluginDescription(File file) throws InvalidDescriptionException {
+         Validate.notNull(file, "File cannot be null");
+ 
+diff --git a/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java b/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java
+index bd936d9f..84a40825 100644
+--- a/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java
++++ b/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java
+@@ -23,7 +23,7 @@ import org.bukkit.plugin.PluginDescriptionFile;
+ /**
+  * A ClassLoader for plugins, to allow shared classes across multiple plugins
+  */
+-public final class PluginClassLoader extends URLClassLoader { // Spigot
++public class PluginClassLoader extends URLClassLoader { // Spigot
+     public JavaPlugin getPlugin() { return plugin; } // Spigot
+     private final JavaPluginLoader loader;
+     private final Map<String, Class<?>> classes = new java.util.concurrent.ConcurrentHashMap<String, Class<?>>(); // Spigot
+@@ -62,7 +62,7 @@ public final class PluginClassLoader extends URLClassLoader { // Spigot
+     }
+     // Spigot End
+ 
+-    PluginClassLoader(final JavaPluginLoader loader, final ClassLoader parent, final PluginDescriptionFile description, final File dataFolder, final File file) throws IOException, InvalidPluginException, MalformedURLException {
++    public PluginClassLoader(final JavaPluginLoader loader, final ClassLoader parent, final PluginDescriptionFile description, final File dataFolder, final File file) throws IOException, InvalidPluginException, MalformedURLException {
+         super(new URL[] {file.toURI().toURL()}, parent);
+         Validate.notNull(loader, "Loader cannot be null");
+ 
+@@ -149,6 +149,7 @@ public final class PluginClassLoader extends URLClassLoader { // Spigot
+                     CodeSigner[] signers = entry.getCodeSigners();
+                     CodeSource source = new CodeSource(url, signers);
+ 
++                    classBytes = transformBytecode(classBytes);
+                     result = defineClass(name, classBytes, 0, classBytes.length, source);
+                 }
+ 
+@@ -167,6 +168,10 @@ public final class PluginClassLoader extends URLClassLoader { // Spigot
+         return result;
+     }
+ 
++    protected byte[] transformBytecode(byte[] bytecode) {
++        return bytecode;
++    }
++
+     @Override
+     public void close() throws IOException {
+         try {
+-- 
+2.18.0
+
