@@ -1,11 +1,11 @@
-From 0941c97556e790ba9f701f1369e094a7d834ae77 Mon Sep 17 00:00:00 2001
+From d929c4e1c4cc76a0e69e6e71ae402dd77f89a093 Mon Sep 17 00:00:00 2001
 From: aki_ks <aki@kaysubs.de>
 Date: Tue, 3 Jul 2018 18:09:25 +0200
 Subject: [PATCH] Allow transforming plugin classes
 
 
 diff --git a/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java b/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java
-index 1ea695d5..97330544 100644
+index 1ea695d5..40ba15f6 100644
 --- a/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java
 +++ b/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java
 @@ -45,7 +45,7 @@ import org.yaml.snakeyaml.error.YAMLException;
@@ -37,6 +37,15 @@ index 1ea695d5..97330544 100644
      public PluginDescriptionFile getPluginDescription(File file) throws InvalidDescriptionException {
          Validate.notNull(file, "File cannot be null");
  
+@@ -178,7 +182,7 @@ public final class JavaPluginLoader implements PluginLoader {
+         return fileFilters.clone();
+     }
+ 
+-    Class<?> getClassByName(final String name) {
++    protected Class<?> getClassByName(final String name) {
+         Class<?> cachedClass = classes.get(name);
+ 
+         if (cachedClass != null) {
 diff --git a/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java b/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java
 index bd936d9f..84a40825 100644
 --- a/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java
