@@ -1,22 +1,27 @@
-From d1a8716642b122e7e4c6f4a808c47b073157e982 Mon Sep 17 00:00:00 2001
+From 283794f081287902672b5df346259d94a5b82cb2 Mon Sep 17 00:00:00 2001
 From: Mystiflow <mystiflow@gmail.com>
 Date: Tue, 5 Jun 2018 00:03:09 +0100
 Subject: [PATCH] Add Consume Arrow API to EntityShootBowEvent
 
 
 diff --git a/src/main/java/org/bukkit/event/entity/EntityShootBowEvent.java b/src/main/java/org/bukkit/event/entity/EntityShootBowEvent.java
-index c9eb75aa..4faa0733 100644
+index c9eb75aa..9480f5cc 100644
 --- a/src/main/java/org/bukkit/event/entity/EntityShootBowEvent.java
 +++ b/src/main/java/org/bukkit/event/entity/EntityShootBowEvent.java
-@@ -15,6 +15,7 @@ public class EntityShootBowEvent extends EntityEvent implements Cancellable {
-     private final ItemStack bow;
-     private Entity projectile;
-     private final float force;
-+    private boolean consumeArrow;
-     private boolean cancelled;
+@@ -19,12 +19,6 @@ public class EntityShootBowEvent extends EntityEvent implements Cancellable {
      // Paper start
      private boolean consumeArrow = true;
-@@ -34,13 +35,19 @@ public class EntityShootBowEvent extends EntityEvent implements Cancellable {
+     private final ItemStack arrowItem;
+-    public boolean getConsumeArrow() {
+-        return consumeArrow;
+-    }
+-    public void setConsumeArrow(boolean consumeArrow) {
+-        this.consumeArrow = consumeArrow;
+-    }
+ 
+     public ItemStack getArrowItem() {
+         return arrowItem;
+@@ -34,13 +28,19 @@ public class EntityShootBowEvent extends EntityEvent implements Cancellable {
      public EntityShootBowEvent(final LivingEntity shooter, final ItemStack bow, final Projectile projectile, final float force) {
          this(shooter, bow, new ItemStack(org.bukkit.Material.AIR), projectile, force);
      }
@@ -36,7 +41,7 @@ index c9eb75aa..4faa0733 100644
      }
  
      @Override
-@@ -84,6 +91,24 @@ public class EntityShootBowEvent extends EntityEvent implements Cancellable {
+@@ -84,6 +84,24 @@ public class EntityShootBowEvent extends EntityEvent implements Cancellable {
          return force;
      }
  
@@ -45,7 +50,7 @@ index c9eb75aa..4faa0733 100644
 +     *
 +     * @return state of arrow consumption
 +     */
-+    public boolean isConsumeArrow() {
++    public boolean getConsumeArrow() {
 +         return consumeArrow;
 +    }
 +
