@@ -1,4 +1,4 @@
-From 2f248eb4a017585812021f268d5f533bee49dd88 Mon Sep 17 00:00:00 2001
+From c8ebb244edb5ff97dddcbbef5a6f17f295ad4505 Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
 Date: Sun, 10 Sep 2017 02:07:28 -0400
 Subject: [PATCH] Add entity animation API
@@ -29,7 +29,7 @@ index 00000000..427128bb
 +    MAGIC_CRITICAL_HIT
 +}
 diff --git a/src/main/java/org/bukkit/entity/LivingEntity.java b/src/main/java/org/bukkit/entity/LivingEntity.java
-index 5ccb8ef3..4bb1ab21 100644
+index fea831e6..fe116bf3 100644
 --- a/src/main/java/org/bukkit/entity/LivingEntity.java
 +++ b/src/main/java/org/bukkit/entity/LivingEntity.java
 @@ -5,6 +5,7 @@ import java.util.HashSet;
@@ -40,7 +40,7 @@ index 5ccb8ef3..4bb1ab21 100644
  import org.bukkit.Location;
  import org.bukkit.Material;
  import org.bukkit.attribute.Attributable;
-@@ -423,4 +424,11 @@ public interface LivingEntity extends Attributable, Entity, Damageable, Projecti
+@@ -439,4 +440,11 @@ public interface LivingEntity extends Attributable, Entity, Damageable, Projecti
       */
      boolean isHandRaised();
      // Paper end
@@ -53,7 +53,7 @@ index 5ccb8ef3..4bb1ab21 100644
 +    void playAnimation(EntityAnimation animation);
  }
 diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
-index d874d166..3cf5083a 100644
+index 59c6a097..d929f608 100644
 --- a/src/main/java/org/bukkit/entity/Player.java
 +++ b/src/main/java/org/bukkit/entity/Player.java
 @@ -11,6 +11,7 @@ import org.bukkit.BanList;
@@ -64,7 +64,7 @@ index d874d166..3cf5083a 100644
  import org.bukkit.GameMode;
  import org.bukkit.Instrument;
  import org.bukkit.Location;
-@@ -1866,10 +1867,18 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
+@@ -1864,10 +1865,18 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
      void setPlayerProfile(PlayerProfile profile);
      // Paper end
  

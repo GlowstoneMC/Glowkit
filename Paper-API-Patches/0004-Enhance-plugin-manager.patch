@@ -1,11 +1,11 @@
-From e198fb430560587af7dd0f68011a607ba244e82f Mon Sep 17 00:00:00 2001
+From 7d6b9952730653244ae4985662aedf9152786854 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Wed, 24 May 2017 09:16:55 -0400
 Subject: [PATCH] Enhance plugin manager
 
 
 diff --git a/src/main/java/org/bukkit/plugin/PluginManager.java b/src/main/java/org/bukkit/plugin/PluginManager.java
-index e5638d56..f77e4b51 100644
+index b72d5a9b..305901d8 100644
 --- a/src/main/java/org/bukkit/plugin/PluginManager.java
 +++ b/src/main/java/org/bukkit/plugin/PluginManager.java
 @@ -1,6 +1,8 @@
@@ -38,7 +38,7 @@ index e5638d56..f77e4b51 100644
       * Disables all the loaded plugins
       */
 diff --git a/src/main/java/org/bukkit/plugin/SimplePluginManager.java b/src/main/java/org/bukkit/plugin/SimplePluginManager.java
-index bd0588a2..a583d4d9 100644
+index cb2b0b9c..8d0577dc 100644
 --- a/src/main/java/org/bukkit/plugin/SimplePluginManager.java
 +++ b/src/main/java/org/bukkit/plugin/SimplePluginManager.java
 @@ -3,17 +3,9 @@ package org.bukkit.plugin;
@@ -260,5 +260,5 @@ index bd0588a2..a583d4d9 100644
       * Loads the plugin in the specified file
       * <p>
 -- 
-2.15.1
+2.18.0.windows.1
 

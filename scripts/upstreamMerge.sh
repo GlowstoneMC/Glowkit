@@ -15,6 +15,6 @@ function update {
 
 update Bukkit master
 update Spigot master
-update Paper master
+update Paper pre/1.13
 
 )

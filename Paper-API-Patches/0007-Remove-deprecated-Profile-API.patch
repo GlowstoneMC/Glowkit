@@ -1,11 +1,11 @@
-From 6b58bd3760759e8f49a1f6d02a8415e175ba1b7a Mon Sep 17 00:00:00 2001
+From 703d09180ab99bb1e890f1b12bd6da006dd639cd Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
 Date: Fri, 4 Aug 2017 10:48:13 -0400
 Subject: [PATCH] Remove deprecated Profile API
 
 
 diff --git a/pom.xml b/pom.xml
-index 6d27b8ee..89e5dcc0 100644
+index cb021f9f..f147f206 100644
 --- a/pom.xml
 +++ b/pom.xml
 @@ -62,13 +62,6 @@
@@ -164,5 +164,5 @@ index e060c38a..1a69e5f7 100644
 -    GameProfile getGameProfile();
  }
 -- 
-2.17.0
+2.18.0.windows.1
 

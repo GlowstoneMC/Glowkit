@@ -1,4 +1,4 @@
-From 9c146e745343094e8e54a6c04e39e4bf6521eb4d Mon Sep 17 00:00:00 2001
+From 04adaa58ac6ca4ce8be09a74340742895ee83ec6 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Wed, 24 May 2017 09:00:31 -0400
 Subject: [PATCH] Enhance damageable API
@@ -42,5 +42,5 @@ index e173cf01..358ad5ee 100644
       * Gets the entity's health from 0 to {@link #getMaxHealth()}, where 0 is dead.
       *
 -- 
-2.14.1
+2.18.0.windows.1
 

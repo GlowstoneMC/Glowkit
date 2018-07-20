@@ -1,11 +1,11 @@
-From 9c3f9c53b8e2889624feea07c212c4152fa2ec4a Mon Sep 17 00:00:00 2001
+From 5ebbd088ec6c690399bfe17bc75c4ff1bbc76445 Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
 Date: Fri, 9 Jun 2017 11:00:46 -0400
 Subject: [PATCH] Revert VanillaCommand removal
 
 
 diff --git a/src/main/java/org/bukkit/command/SimpleCommandMap.java b/src/main/java/org/bukkit/command/SimpleCommandMap.java
-index c6613c0a..2e232fd1 100644
+index 63d27392..c0060c45 100644
 --- a/src/main/java/org/bukkit/command/SimpleCommandMap.java
 +++ b/src/main/java/org/bukkit/command/SimpleCommandMap.java
 @@ -99,7 +99,7 @@ public class SimpleCommandMap implements CommandMap {
@@ -135,5 +135,5 @@ index 00000000..9105712b
 +    }
 +}
 -- 
-2.15.0
+2.18.0.windows.1
 

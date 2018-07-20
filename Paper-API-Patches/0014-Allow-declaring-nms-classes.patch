@@ -1,4 +1,4 @@
-From f61008d6c324b676b6566e1b487d774d0c08e06f Mon Sep 17 00:00:00 2001
+From 253f16198a695e7260221b8e1d92fcd44b9d4933 Mon Sep 17 00:00:00 2001
 From: aki_ks <aki@kaysubs.de>
 Date: Wed, 4 Jul 2018 15:59:22 +0200
 Subject: [PATCH] Allow declaring nms classes
@@ -19,5 +19,5 @@ index 84a40825..fdf89113 100644
  
          if (result == null) {
 -- 
-2.18.0
+2.18.0.windows.1
 
