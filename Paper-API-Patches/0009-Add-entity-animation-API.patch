@@ -1,4 +1,4 @@
-From bd4395362c1201ddaaeaec351c48f80b50c31ab4 Mon Sep 17 00:00:00 2001
+From 2f248eb4a017585812021f268d5f533bee49dd88 Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
 Date: Sun, 10 Sep 2017 02:07:28 -0400
 Subject: [PATCH] Add entity animation API
@@ -29,7 +29,7 @@ index 00000000..427128bb
 +    MAGIC_CRITICAL_HIT
 +}
 diff --git a/src/main/java/org/bukkit/entity/LivingEntity.java b/src/main/java/org/bukkit/entity/LivingEntity.java
-index 42cf95e1..705ca882 100644
+index 5ccb8ef3..4bb1ab21 100644
 --- a/src/main/java/org/bukkit/entity/LivingEntity.java
 +++ b/src/main/java/org/bukkit/entity/LivingEntity.java
 @@ -5,6 +5,7 @@ import java.util.HashSet;
@@ -40,9 +40,9 @@ index 42cf95e1..705ca882 100644
  import org.bukkit.Location;
  import org.bukkit.Material;
  import org.bukkit.attribute.Attributable;
-@@ -386,4 +387,11 @@ public interface LivingEntity extends Attributable, Entity, Damageable, Projecti
+@@ -423,4 +424,11 @@ public interface LivingEntity extends Attributable, Entity, Damageable, Projecti
       */
-     void setArrowsStuck(int arrows);
+     boolean isHandRaised();
      // Paper end
 +
 +    /**
@@ -84,5 +84,5 @@ index d874d166..3cf5083a 100644
           * Gets the connection address of this player, regardless of whether it
           * has been spoofed or not.
 -- 
-2.17.0
+2.18.0.windows.1
 

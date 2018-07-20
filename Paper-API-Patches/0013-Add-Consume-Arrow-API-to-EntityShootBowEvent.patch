@@ -1,26 +1,34 @@
-From 629e199de2aa969dce17484bf38888b87cc196b0 Mon Sep 17 00:00:00 2001
+From d1a8716642b122e7e4c6f4a808c47b073157e982 Mon Sep 17 00:00:00 2001
 From: Mystiflow <mystiflow@gmail.com>
 Date: Tue, 5 Jun 2018 00:03:09 +0100
 Subject: [PATCH] Add Consume Arrow API to EntityShootBowEvent
 
 
 diff --git a/src/main/java/org/bukkit/event/entity/EntityShootBowEvent.java b/src/main/java/org/bukkit/event/entity/EntityShootBowEvent.java
-index f8c91a13..7954d454 100644
+index c9eb75aa..4faa0733 100644
 --- a/src/main/java/org/bukkit/event/entity/EntityShootBowEvent.java
 +++ b/src/main/java/org/bukkit/event/entity/EntityShootBowEvent.java
-@@ -15,13 +15,19 @@ public class EntityShootBowEvent extends EntityEvent implements Cancellable {
+@@ -15,6 +15,7 @@ public class EntityShootBowEvent extends EntityEvent implements Cancellable {
      private final ItemStack bow;
      private Entity projectile;
      private final float force;
 +    private boolean consumeArrow;
      private boolean cancelled;
- 
+     // Paper start
+     private boolean consumeArrow = true;
+@@ -34,13 +35,19 @@ public class EntityShootBowEvent extends EntityEvent implements Cancellable {
      public EntityShootBowEvent(final LivingEntity shooter, final ItemStack bow, final Projectile projectile, final float force) {
-+        this(shooter, bow, projectile, force, true);
+         this(shooter, bow, new ItemStack(org.bukkit.Material.AIR), projectile, force);
+     }
++
+     public EntityShootBowEvent(final LivingEntity shooter, final ItemStack bow, ItemStack arrowItem, final Projectile projectile, final float force) {
++        this(shooter, bow, arrowItem, projectile, force, true);
 +    }
 +
-+    public EntityShootBowEvent(final LivingEntity shooter, final ItemStack bow, final Projectile projectile, final float force, final boolean consumeArrow) {
++    public EntityShootBowEvent(final LivingEntity shooter, final ItemStack bow, ItemStack arrowItem, final Projectile projectile, final float force, final boolean consumeArrow) {
          super(shooter);
+         this.arrowItem = arrowItem;
+         // Paper end
          this.bow = bow;
          this.projectile = projectile;
          this.force = force;
@@ -28,7 +36,7 @@ index f8c91a13..7954d454 100644
      }
  
      @Override
-@@ -65,6 +71,24 @@ public class EntityShootBowEvent extends EntityEvent implements Cancellable {
+@@ -84,6 +91,24 @@ public class EntityShootBowEvent extends EntityEvent implements Cancellable {
          return force;
      }
  
@@ -54,5 +62,5 @@ index f8c91a13..7954d454 100644
          return cancelled;
      }
 -- 
-2.17.1.windows.2
+2.18.0.windows.1
 
