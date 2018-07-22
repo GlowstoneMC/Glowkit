@@ -1,14 +1,14 @@
-From 703d09180ab99bb1e890f1b12bd6da006dd639cd Mon Sep 17 00:00:00 2001
+From c2f1c881aecfba79f4a85355edcfb472c17fcb5c Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
 Date: Fri, 4 Aug 2017 10:48:13 -0400
 Subject: [PATCH] Remove deprecated Profile API
 
 
 diff --git a/pom.xml b/pom.xml
-index cb021f9f..f147f206 100644
+index 98f9d7eb..8f75e7b8 100644
 --- a/pom.xml
 +++ b/pom.xml
-@@ -62,13 +62,6 @@
+@@ -64,13 +64,6 @@
              <artifactId>trove4j</artifactId>
              <version>3.0.3</version>
          </dependency>
@@ -164,5 +164,5 @@ index e060c38a..1a69e5f7 100644
 -    GameProfile getGameProfile();
  }
 -- 
-2.18.0.windows.1
+2.18.0
 
