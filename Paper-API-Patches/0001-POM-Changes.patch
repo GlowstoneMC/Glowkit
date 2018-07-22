@@ -1,14 +1,14 @@
-From 2720f03ba02c9a92e59a4775e5a332f0376c97b3 Mon Sep 17 00:00:00 2001
+From 5d327569e001efc53ddb04bb0f889d4a782fd457 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Tue, 16 May 2017 22:07:47 -0400
 Subject: [PATCH] POM Changes
 
 
 diff --git a/pom.xml b/pom.xml
-index 5167f5b9..98f9d7eb 100644
+index 5167f5b9..d9f47e63 100644
 --- a/pom.xml
 +++ b/pom.xml
-@@ -4,17 +4,22 @@
+@@ -4,17 +4,20 @@
      <modelVersion>4.0.0</modelVersion>
  
      <parent>
@@ -22,8 +22,7 @@ index 5167f5b9..98f9d7eb 100644
 +        <relativePath></relativePath>
      </parent>
  
-     <artifactId>paper-api</artifactId>
-+
+-    <artifactId>paper-api</artifactId>
 +    <groupId>net.glowstone</groupId>
 +    <artifactId>glowkit</artifactId>
      <version>1.13-R0.1-SNAPSHOT</version>
@@ -36,7 +35,7 @@ index 5167f5b9..98f9d7eb 100644
      <description>An enhanced plugin API for Minecraft servers.</description>
  
      <properties>
-@@ -26,19 +31,19 @@
+@@ -26,19 +29,19 @@
  
      <distributionManagement>
          <repository>
@@ -62,7 +61,7 @@ index 5167f5b9..98f9d7eb 100644
          </repository>
          <repository>
              <id>sonatype</id>
-@@ -58,8 +63,6 @@
+@@ -58,8 +61,6 @@
              <groupId>net.sf.trove4j</groupId>
              <artifactId>trove4j</artifactId>
              <version>3.0.3</version>
@@ -71,7 +70,7 @@ index 5167f5b9..98f9d7eb 100644
          </dependency>
          <!-- Paper - Add Authlib for Profile API -->
          <dependency>
-@@ -162,14 +165,6 @@
+@@ -162,14 +163,6 @@
                  <groupId>org.apache.maven.plugins</groupId>
                  <artifactId>maven-compiler-plugin</artifactId>
                  <version>3.7.0</version>

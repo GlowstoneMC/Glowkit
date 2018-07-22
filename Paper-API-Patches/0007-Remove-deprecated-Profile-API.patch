@@ -1,14 +1,14 @@
-From c2f1c881aecfba79f4a85355edcfb472c17fcb5c Mon Sep 17 00:00:00 2001
+From 579728864ea8882be9d2500d5e9812f62b5eca14 Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
 Date: Fri, 4 Aug 2017 10:48:13 -0400
 Subject: [PATCH] Remove deprecated Profile API
 
 
 diff --git a/pom.xml b/pom.xml
-index 98f9d7eb..8f75e7b8 100644
+index d9f47e63..8d159ffe 100644
 --- a/pom.xml
 +++ b/pom.xml
-@@ -64,13 +64,6 @@
+@@ -62,13 +62,6 @@
              <artifactId>trove4j</artifactId>
              <version>3.0.3</version>
          </dependency>
