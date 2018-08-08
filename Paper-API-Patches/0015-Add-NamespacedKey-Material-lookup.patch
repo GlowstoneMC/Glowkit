@@ -1,4 +1,4 @@
-From c0f2bbcff2622c91141d48acfe477f4b391e1cbd Mon Sep 17 00:00:00 2001
+From 4bec149bf1ddcb5d523f5db3812bb6abfb06e5ef Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
 Date: Wed, 8 Aug 2018 00:24:11 -0400
 Subject: [PATCH] Add NamespacedKey->Material lookup
@@ -43,6 +43,28 @@ index af0ec817..9eb62a7a 100644
          }
      }
  
+diff --git a/src/test/java/org/bukkit/MaterialTest.java b/src/test/java/org/bukkit/MaterialTest.java
+index 692bb920..1878c45b 100644
+--- a/src/test/java/org/bukkit/MaterialTest.java
++++ b/src/test/java/org/bukkit/MaterialTest.java
+@@ -16,7 +16,16 @@ public class MaterialTest {
+ 
+     @Test
+     public void getByNameNull() {
+-        assertThat(Material.getMaterial(null), is(nullValue()));
++        assertThat(Material.getMaterial((String) null), is(nullValue()));
++    }
++
++    @Test
++    public void getByNamespacedKey() {
++        for (Material material : Material.values()) {
++            if (!material.isLegacy()) {
++                assertThat(Material.getMaterial(material.getKey()), is(material));
++            }
++        }
+     }
+ 
+     @Test
 -- 
 2.17.1.windows.2
 
