@@ -1,0 +1,48 @@
+From c0f2bbcff2622c91141d48acfe477f4b391e1cbd Mon Sep 17 00:00:00 2001
+From: momothereal <momothereal.mc@gmail.com>
+Date: Wed, 8 Aug 2018 00:24:11 -0400
+Subject: [PATCH] Add NamespacedKey->Material lookup
+
+
+diff --git a/src/main/java/org/bukkit/Material.java b/src/main/java/org/bukkit/Material.java
+index af0ec817..9eb62a7a 100644
+--- a/src/main/java/org/bukkit/Material.java
++++ b/src/main/java/org/bukkit/Material.java
+@@ -1878,6 +1878,7 @@ public enum Material implements Keyed {
+     private final int id;
+     private final Constructor<? extends MaterialData> ctor;
+     private final static Map<String, Material> BY_NAME = Maps.newHashMap();
++    private final static Map<NamespacedKey, Material> BY_KEY = Maps.newHashMap();
+     private final int maxStack;
+     private final short durability;
+     public final Class<?> data;
+@@ -2766,6 +2767,16 @@ public enum Material implements Keyed {
+         return BY_NAME.get(name);
+     }
+ 
++    /**
++     * Attempts to get the Material with the given {@link NamespacedKey}.
++     *
++     * @param key Namespaced key of the material to get
++     * @return Material if found, or null
++     */
++    public static Material getMaterial(NamespacedKey key) {
++        return BY_KEY.get(key);
++    }
++
+     /**
+      * Attempts to match the Material with the given name.
+      * <p>
+@@ -2803,6 +2814,9 @@ public enum Material implements Keyed {
+     static {
+         for (Material material : values()) {
+             BY_NAME.put(material.name(), material);
++            if (!material.legacy) {
++                BY_KEY.put(material.key, material);
++            }
+         }
+     }
+ 
+-- 
+2.17.1.windows.2
+
