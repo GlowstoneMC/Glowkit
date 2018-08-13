@@ -1,4 +1,4 @@
-From 6f7c52c2d6d5306bd78ae5eeb975c70c899ddcc9 Mon Sep 17 00:00:00 2001
+From a3956b99f007c26d23b9e3734a7a6c69751dd53e Mon Sep 17 00:00:00 2001
 From: mastercoms <mastercoms@tutanota.de>
 Date: Mon, 29 Jan 2018 11:54:32 -0500
 Subject: [PATCH] Fix Javadocs
@@ -77,10 +77,10 @@ index 3071320e..07524719 100644
      @Override
      public void setCancelled(boolean cancelled) {
 diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
-index d929f608..fcf171e0 100644
+index 82357f32..265eeb74 100644
 --- a/src/main/java/org/bukkit/entity/Player.java
 +++ b/src/main/java/org/bukkit/entity/Player.java
-@@ -1077,8 +1077,8 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
+@@ -1124,8 +1124,8 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
       *
       * Can also be called with {@link #giveExp(int, boolean)} by passing true to applyMending
       *
@@ -92,5 +92,5 @@ index d929f608..fcf171e0 100644
      public int applyMending(int amount);
      // Paper end
 -- 
-2.18.0.windows.1
+2.17.1.windows.2
 

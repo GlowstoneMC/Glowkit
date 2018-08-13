@@ -1,11 +1,11 @@
-From 5d327569e001efc53ddb04bb0f889d4a782fd457 Mon Sep 17 00:00:00 2001
+From 5a613f83301eb2f948aa6be329208508c90467ca Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Tue, 16 May 2017 22:07:47 -0400
 Subject: [PATCH] POM Changes
 
 
 diff --git a/pom.xml b/pom.xml
-index 5167f5b9..d9f47e63 100644
+index a771e156..8d159ffe 100644
 --- a/pom.xml
 +++ b/pom.xml
 @@ -4,17 +4,20 @@
@@ -68,9 +68,9 @@ index 5167f5b9..d9f47e63 100644
 -            <!-- Trove Provided by CraftBukkit -->
 -            <scope>provided</scope>
          </dependency>
-         <!-- Paper - Add Authlib for Profile API -->
          <dependency>
-@@ -162,14 +163,6 @@
+             <groupId>co.aikar</groupId>
+@@ -155,14 +156,6 @@
                  <groupId>org.apache.maven.plugins</groupId>
                  <artifactId>maven-compiler-plugin</artifactId>
                  <version>3.7.0</version>
@@ -86,5 +86,5 @@ index 5167f5b9..d9f47e63 100644
              <plugin>
                  <groupId>org.apache.maven.plugins</groupId>
 -- 
-2.18.0
+2.17.1.windows.2
 

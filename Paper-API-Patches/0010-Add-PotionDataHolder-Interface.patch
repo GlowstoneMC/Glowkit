@@ -1,11 +1,11 @@
-From bd04683ea64d233ceff4503074e5ba5b2074ad09 Mon Sep 17 00:00:00 2001
+From 8d0ef9d11346e9b3697a0737718d07a9d15ff975 Mon Sep 17 00:00:00 2001
 From: Chris Hennick <4961925+Pr0methean@users.noreply.github.com>
 Date: Mon, 29 Jan 2018 10:14:07 -0500
 Subject: [PATCH] Add PotionDataHolder Interface
 
 
 diff --git a/src/main/java/org/bukkit/entity/AreaEffectCloud.java b/src/main/java/org/bukkit/entity/AreaEffectCloud.java
-index f88be2ff..1237dccb 100644
+index 9a569d3a..db4f710b 100644
 --- a/src/main/java/org/bukkit/entity/AreaEffectCloud.java
 +++ b/src/main/java/org/bukkit/entity/AreaEffectCloud.java
 @@ -4,6 +4,7 @@ import java.util.List;
@@ -25,7 +25,7 @@ index f88be2ff..1237dccb 100644
  
      /**
       * Gets the duration which this cloud will exist for (in ticks).
-@@ -195,6 +196,11 @@ public interface AreaEffectCloud extends Entity {
+@@ -204,6 +205,11 @@ public interface AreaEffectCloud extends Entity {
       */
      void clearCustomEffects();
  
@@ -284,5 +284,5 @@ index 00000000..6ef07179
 +    }
 +}
 -- 
-2.18.0.windows.1
+2.17.1.windows.2
 
