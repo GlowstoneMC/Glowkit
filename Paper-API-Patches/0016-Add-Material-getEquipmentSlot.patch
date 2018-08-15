@@ -1,0 +1,70 @@
+From bc4e40c3fb5f9ad1b0387fc9de3558c2bdb7cd32 Mon Sep 17 00:00:00 2001
+From: momothereal <momothereal.mc@gmail.com>
+Date: Wed, 15 Aug 2018 11:00:21 -0400
+Subject: [PATCH] Add Material#getEquipmentSlot()
+
+
+diff --git a/src/main/java/org/bukkit/Material.java b/src/main/java/org/bukkit/Material.java
+index 173f5a77..0b2995fd 100644
+--- a/src/main/java/org/bukkit/Material.java
++++ b/src/main/java/org/bukkit/Material.java
+@@ -66,6 +66,7 @@ import org.bukkit.block.data.type.Tripwire;
+ import org.bukkit.block.data.type.TripwireHook;
+ import org.bukkit.block.data.type.TurtleEgg;
+ import org.bukkit.block.data.type.WallSign;
++import org.bukkit.inventory.EquipmentSlot;
+ import org.bukkit.material.MaterialData;
+ 
+ /**
+@@ -6125,4 +6126,48 @@ public enum Material implements Keyed {
+             // </editor-fold>
+         }
+     }
++
++    public EquipmentSlot getEquipmentSlot() {
++        switch (this) {
++            // <editor-fold defaultstate="collapsed" desc="getEquipmentSlot">
++            case IRON_HELMET:
++            case LEATHER_HELMET:
++            case CHAINMAIL_HELMET:
++            case GOLDEN_HELMET:
++            case DIAMOND_HELMET:
++            case CARVED_PUMPKIN:
++            case TURTLE_HELMET:
++            case SKELETON_SKULL:
++            case WITHER_SKELETON_SKULL:
++            case ZOMBIE_HEAD:
++            case PLAYER_HEAD:
++            case CREEPER_HEAD:
++            case DRAGON_HEAD:
++                return EquipmentSlot.HEAD;
++            case IRON_CHESTPLATE:
++            case GOLDEN_CHESTPLATE:
++            case LEATHER_CHESTPLATE:
++            case CHAINMAIL_CHESTPLATE:
++            case DIAMOND_CHESTPLATE:
++            case ELYTRA:
++                return EquipmentSlot.CHEST;
++            case IRON_LEGGINGS:
++            case GOLDEN_LEGGINGS:
++            case LEATHER_LEGGINGS:
++            case CHAINMAIL_LEGGINGS:
++            case DIAMOND_LEGGINGS:
++                return EquipmentSlot.LEGS;
++            case IRON_BOOTS:
++            case GOLDEN_BOOTS:
++            case LEATHER_BOOTS:
++            case CHAINMAIL_BOOTS:
++            case DIAMOND_BOOTS:
++                return EquipmentSlot.FEET;
++            case SHIELD:
++                return EquipmentSlot.OFF_HAND;
++            default:
++                return EquipmentSlot.HAND;
++            // </editor-fold>
++        }
++    }
+ }
+-- 
+2.17.1.windows.2
+
