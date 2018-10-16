@@ -1,14 +1,14 @@
-From bc4e40c3fb5f9ad1b0387fc9de3558c2bdb7cd32 Mon Sep 17 00:00:00 2001
+From 9c9efbfeaf6e06f534caf4040c7d1fef21aea287 Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
 Date: Wed, 15 Aug 2018 11:00:21 -0400
 Subject: [PATCH] Add Material#getEquipmentSlot()
 
 
 diff --git a/src/main/java/org/bukkit/Material.java b/src/main/java/org/bukkit/Material.java
-index 173f5a77..0b2995fd 100644
+index 4f11a7f6..b67b9b32 100644
 --- a/src/main/java/org/bukkit/Material.java
 +++ b/src/main/java/org/bukkit/Material.java
-@@ -66,6 +66,7 @@ import org.bukkit.block.data.type.Tripwire;
+@@ -67,6 +67,7 @@ import org.bukkit.block.data.type.Tripwire;
  import org.bukkit.block.data.type.TripwireHook;
  import org.bukkit.block.data.type.TurtleEgg;
  import org.bukkit.block.data.type.WallSign;
@@ -16,7 +16,7 @@ index 173f5a77..0b2995fd 100644
  import org.bukkit.material.MaterialData;
  
  /**
-@@ -6125,4 +6126,48 @@ public enum Material implements Keyed {
+@@ -6164,4 +6165,48 @@ public enum Material implements Keyed {
              // </editor-fold>
          }
      }
@@ -66,5 +66,5 @@ index 173f5a77..0b2995fd 100644
 +    }
  }
 -- 
-2.17.1.windows.2
+2.19.1
 

@@ -1,31 +1,27 @@
-From 5a613f83301eb2f948aa6be329208508c90467ca Mon Sep 17 00:00:00 2001
+From eca950dd5330904e80c99bd1ad4792200a48a3d9 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Tue, 16 May 2017 22:07:47 -0400
 Subject: [PATCH] POM Changes
 
 
 diff --git a/pom.xml b/pom.xml
-index a771e156..8d159ffe 100644
+index e6293023..4d2040ef 100644
 --- a/pom.xml
 +++ b/pom.xml
-@@ -4,17 +4,20 @@
+@@ -3,18 +3,13 @@
+          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
      <modelVersion>4.0.0</modelVersion>
  
-     <parent>
+-    <parent>
 -        <groupId>com.destroystokyo.paper</groupId>
 -        <artifactId>paper-parent</artifactId>
 -        <version>dev-SNAPSHOT</version>
-+        <groupId>org.sonatype.oss</groupId>
-+        <artifactId>oss-parent</artifactId>
-+        <version>9</version>
-+        <!-- Fix for maven warning -->
-+        <relativePath></relativePath>
-     </parent>
- 
+-    </parent>
+-
 -    <artifactId>paper-api</artifactId>
 +    <groupId>net.glowstone</groupId>
-+    <artifactId>glowkit</artifactId>
-     <version>1.13-R0.1-SNAPSHOT</version>
++    <artifactId>glowkti</artifactId>
+     <version>1.13.1-R0.1-SNAPSHOT</version>
      <packaging>jar</packaging>
  
 -    <name>Paper-API</name>
@@ -35,23 +31,21 @@ index a771e156..8d159ffe 100644
      <description>An enhanced plugin API for Minecraft servers.</description>
  
      <properties>
-@@ -26,19 +29,19 @@
+@@ -24,10 +19,21 @@
+         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+     </properties>
  
-     <distributionManagement>
-         <repository>
--            <id>destroystokyo-releases</id>
--            <url>https://destroystokyo.com/repo/repository/maven-releases/</url>
++    <distributionManagement>
++        <repository>
 +            <id>glowstone-releases</id>
 +            <url>https://repo.glowstone.net/content/repositories/releases/</url>
-         </repository>
-         <snapshotRepository>
--            <id>destroystokyo-snapshots</id>
--            <url>https://destroystokyo.com/repo/repository/maven-snapshots/</url>
++        </repository>
++        <snapshotRepository>
 +            <id>glowstone-snapshots</id>
 +            <url>https://repo.glowstone.net/content/repositories/snapshots/</url>
-         </snapshotRepository>
-     </distributionManagement>
- 
++        </snapshotRepository>
++    </distributionManagement>
++
      <repositories>
          <repository>
 -            <id>spigotmc-public</id>
@@ -61,16 +55,21 @@ index a771e156..8d159ffe 100644
          </repository>
          <repository>
              <id>sonatype</id>
-@@ -58,8 +61,6 @@
-             <groupId>net.sf.trove4j</groupId>
-             <artifactId>trove4j</artifactId>
-             <version>3.0.3</version>
--            <!-- Trove Provided by CraftBukkit -->
--            <scope>provided</scope>
-         </dependency>
+@@ -35,13 +41,6 @@
+         </repository>
+     </repositories>
+ 
+-    <pluginRepositories>
+-        <pluginRepository>
+-            <id>spigotmc-public</id>
+-            <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
+-        </pluginRepository>
+-    </pluginRepositories>
+-
+     <dependencies>
          <dependency>
-             <groupId>co.aikar</groupId>
-@@ -155,14 +156,6 @@
+             <groupId>it.unimi.dsi</groupId>
+@@ -137,14 +136,6 @@
                  <groupId>org.apache.maven.plugins</groupId>
                  <artifactId>maven-compiler-plugin</artifactId>
                  <version>3.7.0</version>
@@ -86,5 +85,5 @@ index a771e156..8d159ffe 100644
              <plugin>
                  <groupId>org.apache.maven.plugins</groupId>
 -- 
-2.17.1.windows.2
+2.19.1
 

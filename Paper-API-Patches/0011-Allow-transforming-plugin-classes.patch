@@ -1,4 +1,4 @@
-From 162700ef3116297b6f00ed8758ea3ad542a2dc7c Mon Sep 17 00:00:00 2001
+From 71d2ed12372f92898b48845d6d2df4860be05a23 Mon Sep 17 00:00:00 2001
 From: aki_ks <aki@kaysubs.de>
 Date: Tue, 3 Jul 2018 18:09:25 +0200
 Subject: [PATCH] Allow transforming plugin classes
@@ -47,7 +47,7 @@ index 2b9aad0a..bee19b83 100644
  
          if (cachedClass != null) {
 diff --git a/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java b/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java
-index cbf810ef..ff96f16e 100644
+index ab79b71b..048c3ee5 100644
 --- a/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java
 +++ b/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java
 @@ -23,7 +23,7 @@ import org.bukkit.plugin.PluginDescriptionFile;
@@ -88,5 +88,5 @@ index cbf810ef..ff96f16e 100644
      public void close() throws IOException {
          try {
 -- 
-2.18.0.windows.1
+2.19.1
 

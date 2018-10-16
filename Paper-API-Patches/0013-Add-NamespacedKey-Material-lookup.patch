@@ -1,14 +1,14 @@
-From 4bec149bf1ddcb5d523f5db3812bb6abfb06e5ef Mon Sep 17 00:00:00 2001
+From 74748f44528d99417499e48706278aad68702462 Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
 Date: Wed, 8 Aug 2018 00:24:11 -0400
 Subject: [PATCH] Add NamespacedKey->Material lookup
 
 
 diff --git a/src/main/java/org/bukkit/Material.java b/src/main/java/org/bukkit/Material.java
-index af0ec817..9eb62a7a 100644
+index 98775ea5..4f11a7f6 100644
 --- a/src/main/java/org/bukkit/Material.java
 +++ b/src/main/java/org/bukkit/Material.java
-@@ -1878,6 +1878,7 @@ public enum Material implements Keyed {
+@@ -1885,6 +1885,7 @@ public enum Material implements Keyed {
      private final int id;
      private final Constructor<? extends MaterialData> ctor;
      private final static Map<String, Material> BY_NAME = Maps.newHashMap();
@@ -16,7 +16,7 @@ index af0ec817..9eb62a7a 100644
      private final int maxStack;
      private final short durability;
      public final Class<?> data;
-@@ -2766,6 +2767,16 @@ public enum Material implements Keyed {
+@@ -2795,6 +2796,16 @@ public enum Material implements Keyed {
          return BY_NAME.get(name);
      }
  
@@ -33,7 +33,7 @@ index af0ec817..9eb62a7a 100644
      /**
       * Attempts to match the Material with the given name.
       * <p>
-@@ -2803,6 +2814,9 @@ public enum Material implements Keyed {
+@@ -2837,6 +2848,9 @@ public enum Material implements Keyed {
      static {
          for (Material material : values()) {
              BY_NAME.put(material.name(), material);
@@ -44,7 +44,7 @@ index af0ec817..9eb62a7a 100644
      }
  
 diff --git a/src/test/java/org/bukkit/MaterialTest.java b/src/test/java/org/bukkit/MaterialTest.java
-index 692bb920..1878c45b 100644
+index 66f4603a..30c93102 100644
 --- a/src/test/java/org/bukkit/MaterialTest.java
 +++ b/src/test/java/org/bukkit/MaterialTest.java
 @@ -16,7 +16,16 @@ public class MaterialTest {
@@ -66,5 +66,5 @@ index 692bb920..1878c45b 100644
  
      @Test
 -- 
-2.17.1.windows.2
+2.19.1
 
