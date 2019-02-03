@@ -1,11 +1,11 @@
-From d929c4e1c4cc76a0e69e6e71ae402dd77f89a093 Mon Sep 17 00:00:00 2001
+From e9146904d5a9a954415527b0c1a62c14e4916536 Mon Sep 17 00:00:00 2001
 From: aki_ks <aki@kaysubs.de>
 Date: Tue, 3 Jul 2018 18:09:25 +0200
 Subject: [PATCH] Allow transforming plugin classes
 
 
 diff --git a/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java b/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java
-index 1ea695d5..40ba15f6 100644
+index 8b5cea64..3795ada7 100644
 --- a/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java
 +++ b/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java
 @@ -45,7 +45,7 @@ import org.yaml.snakeyaml.error.YAMLException;
@@ -88,5 +88,5 @@ index bd936d9f..84a40825 100644
      public void close() throws IOException {
          try {
 -- 
-2.18.0
+2.20.1
 

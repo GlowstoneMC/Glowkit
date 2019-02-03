@@ -13,8 +13,8 @@ function update {
     git add $1
 }
 
-update Bukkit master
-update Spigot master
-update Paper master
+update Bukkit version/1.12.2
+update Spigot version/1.12.2
+update Paper ver/1.12.2
 
 )

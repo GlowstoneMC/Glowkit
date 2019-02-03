@@ -1,11 +1,11 @@
-From a8d8bcc28e6644f815f07341f89c192d99352a6c Mon Sep 17 00:00:00 2001
+From 3a011a19ed49020ea53b22479947113f1b8c1329 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Tue, 16 May 2017 22:07:47 -0400
 Subject: [PATCH] POM Changes
 
 
 diff --git a/pom.xml b/pom.xml
-index ae5cfd10..cb021f9f 100644
+index 2fa2dd7c..b775cc2b 100644
 --- a/pom.xml
 +++ b/pom.xml
 @@ -4,18 +4,20 @@
@@ -27,7 +27,7 @@ index ae5cfd10..cb021f9f 100644
 -    <version>1.12.2-R0.1-SNAPSHOT</version>
 +    <groupId>net.glowstone</groupId>
 +    <artifactId>glowkit</artifactId>
-+    <version>1.12.2-R5.0-SNAPSHOT</version>
++    <version>1.12.2-R6.0-SNAPSHOT</version>
      <packaging>jar</packaging>
  
 -    <name>Paper-API</name>
@@ -37,24 +37,25 @@ index ae5cfd10..cb021f9f 100644
      <description>An enhanced plugin API for Minecraft servers.</description>
  
      <properties>
-@@ -27,12 +29,12 @@
+@@ -25,6 +27,17 @@
+         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+     </properties>
  
-     <distributionManagement>
-         <repository>
--            <id>destroystokyo-releases</id>
--            <url>https://destroystokyo.com/repo/repository/maven-releases/</url>
++    <distributionManagement>
++        <repository>
 +            <id>glowstone-releases</id>
 +            <url>https://repo.glowstone.net/content/repositories/releases/</url>
-         </repository>
-         <snapshotRepository>
--            <id>destroystokyo-snapshots</id>
--            <url>https://destroystokyo.com/repo/repository/maven-snapshots/</url>
++        </repository>
++        <snapshotRepository>
 +            <id>glowstone-snapshots</id>
 +            <url>https://repo.glowstone.net/content/repositories/snapshots/</url>
-         </snapshotRepository>
-     </distributionManagement>
- 
-@@ -45,8 +47,8 @@
++        </snapshotRepository>
++    </distributionManagement>
++
+     <pluginRepositories>
+         <pluginRepository>
+             <id>spigotmc-public</id>
+@@ -34,8 +47,8 @@
  
      <repositories>
          <repository>
@@ -65,7 +66,7 @@ index ae5cfd10..cb021f9f 100644
          </repository>
          <repository>
              <id>sonatype</id>
-@@ -59,8 +61,6 @@
+@@ -48,8 +61,6 @@
              <groupId>net.sf.trove4j</groupId>
              <artifactId>trove4j</artifactId>
              <version>3.0.3</version>
@@ -74,7 +75,7 @@ index ae5cfd10..cb021f9f 100644
          </dependency>
          <!-- Paper - Add Authlib for Profile API -->
          <dependency>
-@@ -163,14 +163,6 @@
+@@ -152,14 +163,6 @@
                  <groupId>org.apache.maven.plugins</groupId>
                  <artifactId>maven-compiler-plugin</artifactId>
                  <version>3.7.0</version>
@@ -90,5 +91,5 @@ index ae5cfd10..cb021f9f 100644
              <plugin>
                  <groupId>org.apache.maven.plugins</groupId>
 -- 
-2.18.0.windows.1
+2.20.1
 

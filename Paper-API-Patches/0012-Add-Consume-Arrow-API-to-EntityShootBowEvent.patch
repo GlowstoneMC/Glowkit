@@ -1,4 +1,4 @@
-From 283794f081287902672b5df346259d94a5b82cb2 Mon Sep 17 00:00:00 2001
+From bc29c75f9d6596b63ffc888b7459dc6241b4cc32 Mon Sep 17 00:00:00 2001
 From: Mystiflow <mystiflow@gmail.com>
 Date: Tue, 5 Jun 2018 00:03:09 +0100
 Subject: [PATCH] Add Consume Arrow API to EntityShootBowEvent
@@ -67,5 +67,5 @@ index c9eb75aa..9480f5cc 100644
          return cancelled;
      }
 -- 
-2.18.0.windows.1
+2.20.1
 
