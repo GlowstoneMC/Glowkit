@@ -1,21 +1,22 @@
 version: 2
-jobs:
-    build:
-        docker:
-            - image: circleci/openjdk:8-jdk
+defaults: &defaults
+    docker:
+        - image: circleci/openjdk:8-jdk
 
         working_directory: ~/glowkit
 
         environment:
-            MAVEN_OPTS: -Xmx3200m
-
+            MAVEN_OPTS: -Xmx1024m
+jobs:
+    build:
+        <<: *defaults
         steps:
             - run: mvn --version
             - run: java -version
 
             - checkout
 
-            - run: git config --global user.email "mastercoms@tutanota.de"
+            - run: git config --global user.email "mastercoms@tuta.io"
             - run: git config --global user.name "mastercoms"
 
             - run: ./glowkit p
@@ -44,18 +45,11 @@ jobs:
                 destination: glowkit.jar
 
     build-deploy:
-        docker:
-            - image: circleci/openjdk:8-jdk
-
-        working_directory: ~/glowkit
-
-        environment:
-            MAVEN_OPTS: -Xmx3200m
-
+        <<: *defaults
         steps:
             - checkout
 
-            - run: git config --global user.email "mastercoms@tutanota.de"
+            - run: git config --global user.email "mastercoms@tuta.io
             - run: git config --global user.name "mastercoms"
 
             - run: ./glowkit p
