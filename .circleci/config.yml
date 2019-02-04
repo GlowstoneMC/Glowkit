@@ -49,7 +49,7 @@ jobs:
         steps:
             - checkout
 
-            - run: git config --global user.email "mastercoms@tuta.io
+            - run: git config --global user.email "mastercoms@tuta.io"
             - run: git config --global user.name "mastercoms"
 
             - run: ./glowkit p
