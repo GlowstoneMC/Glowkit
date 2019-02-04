@@ -6,7 +6,7 @@ defaults: &defaults
         working_directory: ~/glowkit
 
         environment:
-            MAVEN_OPTS: -Xmx1024m
+            MAVEN_OPTS: -Xmx3200m
 jobs:
     build:
         <<: *defaults
