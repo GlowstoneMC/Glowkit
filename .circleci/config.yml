@@ -3,10 +3,10 @@ defaults: &defaults
     docker:
         - image: circleci/openjdk:8-jdk
 
-        working_directory: ~/glowkit
+    working_directory: ~/glowkit
 
-        environment:
-            MAVEN_OPTS: -Xmx3200m
+    environment:
+        MAVEN_OPTS: -Xmx3200m
 jobs:
     build:
         <<: *defaults
