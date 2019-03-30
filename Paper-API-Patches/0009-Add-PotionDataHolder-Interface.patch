@@ -1,11 +1,11 @@
-From 07344ca9e9f49e9168a5a5feb502cdc52c9a26d2 Mon Sep 17 00:00:00 2001
+From 5779c47f4c4a47f25e483076fe0068aaf0e7a96f Mon Sep 17 00:00:00 2001
 From: Chris Hennick <4961925+Pr0methean@users.noreply.github.com>
 Date: Mon, 29 Jan 2018 10:14:07 -0500
 Subject: [PATCH] Add PotionDataHolder Interface
 
 
 diff --git a/src/main/java/org/bukkit/entity/AreaEffectCloud.java b/src/main/java/org/bukkit/entity/AreaEffectCloud.java
-index 8c5efd17..a3ac517f 100644
+index 123d8795..af71ebd4 100644
 --- a/src/main/java/org/bukkit/entity/AreaEffectCloud.java
 +++ b/src/main/java/org/bukkit/entity/AreaEffectCloud.java
 @@ -4,6 +4,7 @@ import java.util.List;
@@ -16,7 +16,7 @@ index 8c5efd17..a3ac517f 100644
  import org.bukkit.potion.PotionEffect;
  import org.bukkit.potion.PotionEffectType;
  import org.bukkit.projectiles.ProjectileSource;
-@@ -12,7 +13,7 @@ import org.bukkit.projectiles.ProjectileSource;
+@@ -14,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
   * Represents an area effect cloud which will imbue a potion effect onto
   * entities which enter it.
   */
@@ -25,7 +25,7 @@ index 8c5efd17..a3ac517f 100644
  
      /**
       * Gets the duration which this cloud will exist for (in ticks).
-@@ -205,6 +206,11 @@ public interface AreaEffectCloud extends Entity {
+@@ -210,6 +211,11 @@ public interface AreaEffectCloud extends Entity {
       */
      void clearCustomEffects();
  
@@ -38,97 +38,26 @@ index 8c5efd17..a3ac517f 100644
       * Gets the color of this cloud. Will be applied as a tint to its particles.
       *
 diff --git a/src/main/java/org/bukkit/entity/TippedArrow.java b/src/main/java/org/bukkit/entity/TippedArrow.java
-index 09b5dd43..003aa7d9 100644
+index d53b40d3..3b039379 100644
 --- a/src/main/java/org/bukkit/entity/TippedArrow.java
 +++ b/src/main/java/org/bukkit/entity/TippedArrow.java
-@@ -4,84 +4,11 @@ import java.util.List;
+@@ -4,12 +4,14 @@ import java.util.List;
  
  import org.bukkit.Color;
  import org.bukkit.potion.PotionData;
 +import org.bukkit.potion.PotionDataHolder;
  import org.bukkit.potion.PotionEffect;
  import org.bukkit.potion.PotionEffectType;
+ import org.jetbrains.annotations.NotNull;
+ import org.jetbrains.annotations.Nullable;
  
 -public interface TippedArrow extends Arrow {
--
--    /**
--     * Sets the underlying potion data
--     *
--     * @param data PotionData to set the base potion state to
--     */
--    void setBasePotionData(PotionData data);
--
--    /**
--     * Returns the potion data about the base potion
--     *
--     * @return a PotionData object
--     */
--    PotionData getBasePotionData();
--
--    /**
--     * Gets the color of this arrow.
--     *
--     * @return arrow color
--     */
--    Color getColor();
--
--    /**
--     * Sets the color of this arrow. Will be applied as a tint to its particles.
--     *
--     * @param color arrow color
--     */
--    void setColor(Color color);
--
--    /**
--     * Checks for the presence of custom potion effects.
--     *
--     * @return true if custom potion effects are applied
--     */
--    boolean hasCustomEffects();
--
--    /**
--     * Gets an immutable list containing all custom potion effects applied to
--     * this arrow.
--     * <p>
--     * Plugins should check that hasCustomEffects() returns true before calling
--     * this method.
--     *
--     * @return the immutable list of custom potion effects
--     */
--    List<PotionEffect> getCustomEffects();
--
--    /**
--     * Adds a custom potion effect to this arrow.
--     *
--     * @param effect the potion effect to add
--     * @param overwrite true if any existing effect of the same type should be
--     * overwritten
--     * @return true if the effect was added as a result of this call
--     */
--    boolean addCustomEffect(PotionEffect effect, boolean overwrite);
--
--    /**
--     * Removes a custom potion effect from this arrow.
--     *
--     * @param type the potion effect type to remove
--     * @return true if the an effect was removed as a result of this call
--     * @throws IllegalArgumentException if this operation would leave the Arrow
--     * in a state with no Custom Effects and PotionType.UNCRAFTABLE
--     */
--    boolean removeCustomEffect(PotionEffectType type);
--
--    /**
--     * Checks for a specific custom potion effect type on this arrow.
--     *
--     * @param type the potion effect type to check for
--     * @return true if the potion has this effect
--     */
--    boolean hasCustomEffect(PotionEffectType type);
++<<<<<<< HEAD
 +public interface TippedArrow extends Arrow, PotionDataHolder {
  
      /**
-      * Removes all custom potion effects from this arrow.
-@@ -90,4 +17,9 @@ public interface TippedArrow extends Arrow {
+      * Sets the underlying potion data
+@@ -95,4 +97,9 @@ public interface TippedArrow extends Arrow {
       * in a state with no Custom Effects and PotionType.UNCRAFTABLE
       */
      void clearCustomEffects();
@@ -139,7 +68,7 @@ index 09b5dd43..003aa7d9 100644
 +    }
  }
 diff --git a/src/main/java/org/bukkit/inventory/meta/PotionMeta.java b/src/main/java/org/bukkit/inventory/meta/PotionMeta.java
-index d9151259..dcf545a2 100644
+index f26ec165..ebd6bf9c 100644
 --- a/src/main/java/org/bukkit/inventory/meta/PotionMeta.java
 +++ b/src/main/java/org/bukkit/inventory/meta/PotionMeta.java
 @@ -1,6 +1,7 @@
@@ -150,7 +79,7 @@ index d9151259..dcf545a2 100644
  import org.bukkit.potion.PotionEffect;
  import org.bukkit.potion.PotionEffectType;
  import org.bukkit.potion.PotionData;
-@@ -11,7 +12,7 @@ import java.util.List;
+@@ -12,7 +13,7 @@ import java.util.List;
  /**
   * Represents a potion or item that can have custom effects.
   */
@@ -284,5 +213,5 @@ index 00000000..6ef07179
 +    }
 +}
 -- 
-2.19.1
+2.21.0
 

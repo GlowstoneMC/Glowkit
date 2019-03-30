@@ -1,11 +1,11 @@
-From 2aebbe0a48bb59460a3a80e69c0df2a90d69954c Mon Sep 17 00:00:00 2001
+From 175f040ae7c72d6d25a08244a4cb5aaa67b085a4 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Tue, 16 May 2017 22:07:47 -0400
 Subject: [PATCH] POM Changes
 
 
 diff --git a/pom.xml b/pom.xml
-index e6293023..f1c0f389 100644
+index 13cdc25f..c1deb5ee 100644
 --- a/pom.xml
 +++ b/pom.xml
 @@ -3,18 +3,13 @@
@@ -21,7 +21,7 @@ index e6293023..f1c0f389 100644
 -    <artifactId>paper-api</artifactId>
 +    <groupId>net.glowstone</groupId>
 +    <artifactId>glowkit</artifactId>
-     <version>1.13.1-R0.1-SNAPSHOT</version>
+     <version>1.13.2-R0.1-SNAPSHOT</version>
      <packaging>jar</packaging>
  
 -    <name>Paper-API</name>
@@ -31,7 +31,7 @@ index e6293023..f1c0f389 100644
      <description>An enhanced plugin API for Minecraft servers.</description>
  
      <properties>
-@@ -24,10 +19,21 @@
+@@ -25,16 +20,25 @@
          <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
      </properties>
  
@@ -47,6 +47,14 @@ index e6293023..f1c0f389 100644
 +    </distributionManagement>
 +
      <repositories>
+         <!--
+-            If you are a plugin developer, please use https://hub.spigotmc.org/nexus/content/repositories/snapshots/
+-            as your repository URL. This will ensure only Bukkit / Spigot-API are pulled from our Maven repository.
+-
+-            Please see https://www.spigotmc.org/go/maven for more information.
++            If you are a plugin developer, please use https://repo.glowstone.net/nexus/content/repositories/snapshots/
++            as your repository URL. This will ensure only Glowstone related artifacts are pulled from our Maven repository.
+         -->
          <repository>
 -            <id>spigotmc-public</id>
 -            <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
@@ -55,7 +63,7 @@ index e6293023..f1c0f389 100644
          </repository>
          <repository>
              <id>sonatype</id>
-@@ -35,13 +41,6 @@
+@@ -42,13 +46,6 @@
          </repository>
      </repositories>
  
@@ -69,21 +77,21 @@ index e6293023..f1c0f389 100644
      <dependencies>
          <dependency>
              <groupId>it.unimi.dsi</groupId>
-@@ -137,14 +136,6 @@
+@@ -155,14 +152,6 @@
                  <groupId>org.apache.maven.plugins</groupId>
                  <artifactId>maven-compiler-plugin</artifactId>
-                 <version>3.7.0</version>
+                 <version>3.8.0</version>
 -                <dependencies>
 -                    <!-- we need our custom version as it fixes some bugs on case sensitive file systems -->
 -                    <dependency>
 -                        <groupId>org.codehaus.plexus</groupId>
 -                        <artifactId>plexus-compiler-eclipse</artifactId>
--                        <version>2.8.2-spigotmc</version>
+-                        <version>2.8.5-spigotmc</version>
 -                    </dependency>
 -                </dependencies>
              </plugin>
              <plugin>
                  <groupId>org.apache.maven.plugins</groupId>
 -- 
-2.19.1
+2.21.0
 

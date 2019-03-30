@@ -1,16 +1,16 @@
-From 5ebbd088ec6c690399bfe17bc75c4ff1bbc76445 Mon Sep 17 00:00:00 2001
+From b4fcb135d0ae207e4241acbcb20711acd9def14d Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
 Date: Fri, 9 Jun 2017 11:00:46 -0400
 Subject: [PATCH] Revert VanillaCommand removal
 
 
 diff --git a/src/main/java/org/bukkit/command/SimpleCommandMap.java b/src/main/java/org/bukkit/command/SimpleCommandMap.java
-index 63d27392..c0060c45 100644
+index b78f3d69..d42fb01c 100644
 --- a/src/main/java/org/bukkit/command/SimpleCommandMap.java
 +++ b/src/main/java/org/bukkit/command/SimpleCommandMap.java
 @@ -99,7 +99,7 @@ public class SimpleCommandMap implements CommandMap {
       */
-     private synchronized boolean register(String label, Command command, boolean isAlias, String fallbackPrefix) {
+     private synchronized boolean register(@NotNull String label, @NotNull Command command, boolean isAlias, @NotNull String fallbackPrefix) {
          knownCommands.put(fallbackPrefix + ":" + label, command);
 -        if ((command instanceof BukkitCommand || isAlias) && knownCommands.containsKey(label)) {
 +        if ((command instanceof VanillaCommand || isAlias) && knownCommands.containsKey(label)) {
@@ -135,5 +135,5 @@ index 00000000..9105712b
 +    }
 +}
 -- 
-2.18.0.windows.1
+2.21.0
 

@@ -1,11 +1,11 @@
-From 7d6b9952730653244ae4985662aedf9152786854 Mon Sep 17 00:00:00 2001
+From b4e41ee58441f0b9b48c9729d98537338d627603 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Wed, 24 May 2017 09:16:55 -0400
 Subject: [PATCH] Enhance plugin manager
 
 
 diff --git a/src/main/java/org/bukkit/plugin/PluginManager.java b/src/main/java/org/bukkit/plugin/PluginManager.java
-index b72d5a9b..305901d8 100644
+index ba4ed7ed..d4402c2c 100644
 --- a/src/main/java/org/bukkit/plugin/PluginManager.java
 +++ b/src/main/java/org/bukkit/plugin/PluginManager.java
 @@ -1,6 +1,8 @@
@@ -17,9 +17,9 @@ index b72d5a9b..305901d8 100644
  import java.util.Set;
  
  import org.bukkit.event.Event;
-@@ -82,6 +84,19 @@ public interface PluginManager {
-      */
-     public Plugin[] loadPlugins(File directory);
+@@ -90,6 +92,19 @@ public interface PluginManager {
+     @NotNull
+     public Plugin[] loadPlugins(@NotNull File directory);
  
 +    /**
 +     * Loads multiple plugins from a folder
@@ -38,39 +38,30 @@ index b72d5a9b..305901d8 100644
       * Disables all the loaded plugins
       */
 diff --git a/src/main/java/org/bukkit/plugin/SimplePluginManager.java b/src/main/java/org/bukkit/plugin/SimplePluginManager.java
-index cb2b0b9c..8d0577dc 100644
+index 9ec042fd..a77b9df4 100644
 --- a/src/main/java/org/bukkit/plugin/SimplePluginManager.java
 +++ b/src/main/java/org/bukkit/plugin/SimplePluginManager.java
-@@ -3,17 +3,9 @@ package org.bukkit.plugin;
+@@ -3,8 +3,11 @@ package org.bukkit.plugin;
  import java.io.File;
  import java.lang.reflect.Constructor;
  import java.lang.reflect.Method;
--import java.util.ArrayList;
--import java.util.Collection;
--import java.util.HashMap;
--import java.util.HashSet;
--import java.util.Iterator;
--import java.util.LinkedHashMap;
--import java.util.LinkedList;
--import java.util.List;
--import java.util.Map;
--import java.util.Set;
--import java.util.WeakHashMap;
 +import java.net.MalformedURLException;
 +import java.net.URL;
-+import java.util.*;
- import java.util.logging.Level;
- import java.util.regex.Matcher;
- import java.util.regex.Pattern;
-@@ -52,6 +44,7 @@ public final class SimplePluginManager implements PluginManager {
+ import java.util.ArrayList;
+ import java.util.Collection;
++import java.util.Collections;
+ import java.util.HashMap;
+ import java.util.HashSet;
+ import java.util.Iterator;
+@@ -55,6 +58,7 @@ public final class SimplePluginManager implements PluginManager {
      private final Map<String, Map<Permissible, Boolean>> permSubs = new HashMap<String, Map<Permissible, Boolean>>();
      private final Map<Boolean, Map<Permissible, Boolean>> defSubs = new HashMap<Boolean, Map<Permissible, Boolean>>();
      private boolean useTimings = false;
 +    private Collection<URL> ignored = new ArrayList<>();
  
-     public SimplePluginManager(Server instance, SimpleCommandMap commandMap) {
+     public SimplePluginManager(@NotNull Server instance, @NotNull SimpleCommandMap commandMap) {
          server = instance;
-@@ -107,20 +100,32 @@ public final class SimplePluginManager implements PluginManager {
+@@ -111,20 +115,32 @@ public final class SimplePluginManager implements PluginManager {
          Validate.notNull(directory, "Directory cannot be null");
          Validate.isTrue(directory.isDirectory(), "Directory must be a directory");
  
@@ -111,7 +102,7 @@ index cb2b0b9c..8d0577dc 100644
              PluginLoader loader = null;
              for (Pattern filter : filters) {
                  Matcher match = filter.matcher(file.getName());
-@@ -131,30 +136,30 @@ public final class SimplePluginManager implements PluginManager {
+@@ -135,30 +151,30 @@ public final class SimplePluginManager implements PluginManager {
  
              if (loader == null) continue;
  
@@ -151,7 +142,7 @@ index cb2b0b9c..8d0577dc 100644
                  ));
              }
  
-@@ -164,13 +169,13 @@ public final class SimplePluginManager implements PluginManager {
+@@ -168,13 +184,13 @@ public final class SimplePluginManager implements PluginManager {
                      // Duplicates do not matter, they will be removed together if applicable
                      softDependencies.get(description.getName()).addAll(softDependencySet);
                  } else {
@@ -167,7 +158,7 @@ index cb2b0b9c..8d0577dc 100644
              }
  
              Collection<String> loadBeforeSet = description.getLoadBefore();
-@@ -180,7 +185,7 @@ public final class SimplePluginManager implements PluginManager {
+@@ -184,7 +200,7 @@ public final class SimplePluginManager implements PluginManager {
                          softDependencies.get(loadBeforeTarget).add(description.getName());
                      } else {
                          // softDependencies is never iterated, so 'ghost' plugins aren't an issue
@@ -176,7 +167,7 @@ index cb2b0b9c..8d0577dc 100644
                          shortSoftDependency.add(description.getName());
                          softDependencies.put(loadBeforeTarget, shortSoftDependency);
                      }
-@@ -206,7 +211,7 @@ public final class SimplePluginManager implements PluginManager {
+@@ -210,7 +226,7 @@ public final class SimplePluginManager implements PluginManager {
                          if (loadedPlugins.contains(dependency)) {
                              dependencyIterator.remove();
  
@@ -185,7 +176,7 @@ index cb2b0b9c..8d0577dc 100644
                          } else if (!plugins.containsKey(dependency)) {
                              missingDependency = false;
                              pluginIterator.remove();
-@@ -215,7 +220,7 @@ public final class SimplePluginManager implements PluginManager {
+@@ -219,7 +235,7 @@ public final class SimplePluginManager implements PluginManager {
  
                              server.getLogger().log(
                                  Level.SEVERE,
@@ -194,7 +185,7 @@ index cb2b0b9c..8d0577dc 100644
                                  new UnknownDependencyException(dependency));
                              break;
                          }
-@@ -226,16 +231,9 @@ public final class SimplePluginManager implements PluginManager {
+@@ -230,16 +246,9 @@ public final class SimplePluginManager implements PluginManager {
                      }
                  }
                  if (softDependencies.containsKey(plugin)) {
@@ -213,7 +204,7 @@ index cb2b0b9c..8d0577dc 100644
  
                      if (softDependencies.get(plugin).isEmpty()) {
                          softDependencies.remove(plugin);
-@@ -250,9 +248,8 @@ public final class SimplePluginManager implements PluginManager {
+@@ -254,9 +263,8 @@ public final class SimplePluginManager implements PluginManager {
                      try {
                          result.add(loadPlugin(file));
                          loadedPlugins.add(plugin);
@@ -224,7 +215,7 @@ index cb2b0b9c..8d0577dc 100644
                      }
                  }
              }
-@@ -277,7 +274,7 @@ public final class SimplePluginManager implements PluginManager {
+@@ -281,7 +289,7 @@ public final class SimplePluginManager implements PluginManager {
                              loadedPlugins.add(plugin);
                              break;
                          } catch (InvalidPluginException ex) {
@@ -233,7 +224,7 @@ index cb2b0b9c..8d0577dc 100644
                          }
                      }
                  }
-@@ -290,7 +287,7 @@ public final class SimplePluginManager implements PluginManager {
+@@ -294,7 +302,7 @@ public final class SimplePluginManager implements PluginManager {
                      while (failedPluginIterator.hasNext()) {
                          File file = failedPluginIterator.next();
                          failedPluginIterator.remove();
@@ -242,7 +233,7 @@ index cb2b0b9c..8d0577dc 100644
                      }
                  }
              }
-@@ -299,6 +296,16 @@ public final class SimplePluginManager implements PluginManager {
+@@ -303,6 +311,16 @@ public final class SimplePluginManager implements PluginManager {
          return result.toArray(new Plugin[result.size()]);
      }
  
@@ -260,5 +251,5 @@ index cb2b0b9c..8d0577dc 100644
       * Loads the plugin in the specified file
       * <p>
 -- 
-2.18.0.windows.1
+2.21.0
 

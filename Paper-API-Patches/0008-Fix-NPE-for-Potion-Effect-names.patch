@@ -1,15 +1,15 @@
-From bd8dbb036d872fdbf9dac53ac3b7f488c48cb79e Mon Sep 17 00:00:00 2001
+From 519821094896eefe8cc63be624add874798437e7 Mon Sep 17 00:00:00 2001
 From: Chris Hennick <4961925+Pr0methean@users.noreply.github.com>
 Date: Mon, 29 Jan 2018 10:07:03 -0500
 Subject: [PATCH] Fix NPE for Potion Effect names
 
 
 diff --git a/src/main/java/org/bukkit/potion/PotionEffectTypeWrapper.java b/src/main/java/org/bukkit/potion/PotionEffectTypeWrapper.java
-index 356a866f..27e7d1d1 100644
+index 47d46edc..664bfce8 100644
 --- a/src/main/java/org/bukkit/potion/PotionEffectTypeWrapper.java
 +++ b/src/main/java/org/bukkit/potion/PotionEffectTypeWrapper.java
-@@ -14,7 +14,8 @@ public class PotionEffectTypeWrapper extends PotionEffectType {
- 
+@@ -16,7 +16,8 @@ public class PotionEffectTypeWrapper extends PotionEffectType {
+     @NotNull
      @Override
      public String getName() {
 -        return getType().getName();
@@ -19,5 +19,5 @@ index 356a866f..27e7d1d1 100644
  
      /**
 -- 
-2.19.1
+2.21.0
 
