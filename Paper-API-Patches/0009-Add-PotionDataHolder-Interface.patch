@@ -1,4 +1,4 @@
-From 5779c47f4c4a47f25e483076fe0068aaf0e7a96f Mon Sep 17 00:00:00 2001
+From c6b8477f56759e72411f6ee8cae2ccbe477daeb5 Mon Sep 17 00:00:00 2001
 From: Chris Hennick <4961925+Pr0methean@users.noreply.github.com>
 Date: Mon, 29 Jan 2018 10:14:07 -0500
 Subject: [PATCH] Add PotionDataHolder Interface
@@ -38,10 +38,10 @@ index 123d8795..af71ebd4 100644
       * Gets the color of this cloud. Will be applied as a tint to its particles.
       *
 diff --git a/src/main/java/org/bukkit/entity/TippedArrow.java b/src/main/java/org/bukkit/entity/TippedArrow.java
-index d53b40d3..3b039379 100644
+index d53b40d3..4290bc6c 100644
 --- a/src/main/java/org/bukkit/entity/TippedArrow.java
 +++ b/src/main/java/org/bukkit/entity/TippedArrow.java
-@@ -4,12 +4,14 @@ import java.util.List;
+@@ -4,12 +4,13 @@ import java.util.List;
  
  import org.bukkit.Color;
  import org.bukkit.potion.PotionData;
@@ -52,12 +52,11 @@ index d53b40d3..3b039379 100644
  import org.jetbrains.annotations.Nullable;
  
 -public interface TippedArrow extends Arrow {
-+<<<<<<< HEAD
 +public interface TippedArrow extends Arrow, PotionDataHolder {
  
      /**
       * Sets the underlying potion data
-@@ -95,4 +97,9 @@ public interface TippedArrow extends Arrow {
+@@ -95,4 +96,9 @@ public interface TippedArrow extends Arrow {
       * in a state with no Custom Effects and PotionType.UNCRAFTABLE
       */
      void clearCustomEffects();
