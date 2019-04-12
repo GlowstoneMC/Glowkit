@@ -1,11 +1,11 @@
-From 02162fad58b5405a3fd5d22bf544f074aed3bfee Mon Sep 17 00:00:00 2001
+From b6935a3db601f5592e1ff0ae4b12539e92c30027 Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
 Date: Wed, 8 Aug 2018 00:24:11 -0400
 Subject: [PATCH] Add NamespacedKey->Material lookup
 
 
 diff --git a/src/main/java/org/bukkit/Material.java b/src/main/java/org/bukkit/Material.java
-index c628a934..4282c456 100644
+index c628a934..836dc7c1 100644
 --- a/src/main/java/org/bukkit/Material.java
 +++ b/src/main/java/org/bukkit/Material.java
 @@ -2940,6 +2940,7 @@ public enum Material implements Keyed {
@@ -16,7 +16,7 @@ index c628a934..4282c456 100644
      private final int maxStack;
      private final short durability;
      public final Class<?> data;
-@@ -3858,6 +3859,16 @@ public enum Material implements Keyed {
+@@ -3858,6 +3859,17 @@ public enum Material implements Keyed {
          return BY_NAME.get(name);
      }
  
@@ -26,14 +26,15 @@ index c628a934..4282c456 100644
 +     * @param key Namespaced key of the material to get
 +     * @return Material if found, or null
 +     */
-+    public static Material getMaterial(NamespacedKey key) {
++    @Nullable
++    public static Material getMaterial(@NotNull final NamespacedKey key) {
 +        return BY_KEY.get(key);
 +    }
 +
      /**
       * Attempts to match the Material with the given name.
       * <p>
-@@ -3902,6 +3913,9 @@ public enum Material implements Keyed {
+@@ -3902,6 +3914,9 @@ public enum Material implements Keyed {
      static {
          for (Material material : values()) {
              BY_NAME.put(material.name(), material);

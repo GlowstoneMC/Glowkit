@@ -1,11 +1,11 @@
-From 37c014ffc05207888cb4da884743351c7b69fb40 Mon Sep 17 00:00:00 2001
+From de36f6045df7f27120b7c2a1ed42ba057d323d31 Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
 Date: Wed, 15 Aug 2018 11:00:21 -0400
 Subject: [PATCH] Add Material#getEquipmentSlot()
 
 
 diff --git a/src/main/java/org/bukkit/Material.java b/src/main/java/org/bukkit/Material.java
-index 4282c456..f297343c 100644
+index 836dc7c1..adb7df1e 100644
 --- a/src/main/java/org/bukkit/Material.java
 +++ b/src/main/java/org/bukkit/Material.java
 @@ -67,6 +67,7 @@ import org.bukkit.block.data.type.Tripwire;
@@ -16,11 +16,12 @@ index 4282c456..f297343c 100644
  import org.bukkit.material.MaterialData;
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
-@@ -7229,4 +7230,48 @@ public enum Material implements Keyed {
+@@ -7230,4 +7231,49 @@ public enum Material implements Keyed {
              // </editor-fold>
          }
      }
 +
++    @NotNull
 +    public EquipmentSlot getEquipmentSlot() {
 +        switch (this) {
 +            // <editor-fold defaultstate="collapsed" desc="getEquipmentSlot">

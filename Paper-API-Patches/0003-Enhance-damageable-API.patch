@@ -1,22 +1,24 @@
-From 5f4017a505de96490f76ff5fdff47d437a69876d Mon Sep 17 00:00:00 2001
+From 98f31dcb616d500a08301f5a97e82843393421fe Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Wed, 24 May 2017 09:00:31 -0400
 Subject: [PATCH] Enhance damageable API
 
 
 diff --git a/src/main/java/org/bukkit/entity/Damageable.java b/src/main/java/org/bukkit/entity/Damageable.java
-index b0fe0442..4c29fb67 100644
+index b0fe0442..cb3399ca 100644
 --- a/src/main/java/org/bukkit/entity/Damageable.java
 +++ b/src/main/java/org/bukkit/entity/Damageable.java
-@@ -2,6 +2,7 @@ package org.bukkit.entity;
+@@ -1,7 +1,9 @@
+ package org.bukkit.entity;
  
  import org.bukkit.attribute.Attribute;
++import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
 +import org.bukkit.event.entity.EntityDamageEvent;
  
  /**
   * Represents an {@link Entity} that has health and can take damage.
-@@ -23,6 +24,24 @@ public interface Damageable extends Entity {
+@@ -23,6 +25,24 @@ public interface Damageable extends Entity {
       */
      void damage(double amount, @Nullable Entity source);
  
@@ -26,7 +28,7 @@ index b0fe0442..4c29fb67 100644
 +     * @param amount Amount of damage to deal
 +     * @param cause Cause of the damage
 +     */
-+    void damage(double amount, EntityDamageEvent.DamageCause cause);
++    void damage(double amount, @NotNull EntityDamageEvent.DamageCause cause);
 +
 +    /**
 +     * Deals the given amount of damage to this entity, from a specified entity,
@@ -36,7 +38,7 @@ index b0fe0442..4c29fb67 100644
 +     * @param source Entity which to attribute this damage from
 +     * @param cause Cause of the damage
 +     */
-+    void damage(double amount, Entity source, EntityDamageEvent.DamageCause cause);
++    void damage(double amount, @Nullable Entity source, @NotNull EntityDamageEvent.DamageCause cause);
 +
      /**
       * Gets the entity's health from 0 to {@link #getMaxHealth()}, where 0 is dead.

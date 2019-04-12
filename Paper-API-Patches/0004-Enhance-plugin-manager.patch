@@ -1,11 +1,11 @@
-From b4e41ee58441f0b9b48c9729d98537338d627603 Mon Sep 17 00:00:00 2001
+From b4cbb5f02c0d4e7845c8e0375923c7d5835659d3 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Wed, 24 May 2017 09:16:55 -0400
 Subject: [PATCH] Enhance plugin manager
 
 
 diff --git a/src/main/java/org/bukkit/plugin/PluginManager.java b/src/main/java/org/bukkit/plugin/PluginManager.java
-index ba4ed7ed..d4402c2c 100644
+index ba4ed7ed..4b64b258 100644
 --- a/src/main/java/org/bukkit/plugin/PluginManager.java
 +++ b/src/main/java/org/bukkit/plugin/PluginManager.java
 @@ -1,6 +1,8 @@
@@ -17,7 +17,7 @@ index ba4ed7ed..d4402c2c 100644
  import java.util.Set;
  
  import org.bukkit.event.Event;
-@@ -90,6 +92,19 @@ public interface PluginManager {
+@@ -90,6 +92,20 @@ public interface PluginManager {
      @NotNull
      public Plugin[] loadPlugins(@NotNull File directory);
  
@@ -28,17 +28,18 @@ index ba4ed7ed..d4402c2c 100644
 +     * @param files Plugin files to load
 +     * @return A list of all plugins loaded
 +     */
-+    Plugin[] loadPlugins(String directory, File... files);
++    @NotNull
++    Plugin[] loadPlugins(@NotNull String directory, @NotNull File... files);
 +
-+    void ignore(URL url);
++    void ignore(@NotNull URL url);
 +
-+    void ignore(URL... urls);
++    void ignore(@NotNull URL... urls);
 +
      /**
       * Disables all the loaded plugins
       */
 diff --git a/src/main/java/org/bukkit/plugin/SimplePluginManager.java b/src/main/java/org/bukkit/plugin/SimplePluginManager.java
-index 9ec042fd..a77b9df4 100644
+index 9ec042fd..ef5148c4 100644
 --- a/src/main/java/org/bukkit/plugin/SimplePluginManager.java
 +++ b/src/main/java/org/bukkit/plugin/SimplePluginManager.java
 @@ -3,8 +3,11 @@ package org.bukkit.plugin;
@@ -61,7 +62,7 @@ index 9ec042fd..a77b9df4 100644
  
      public SimplePluginManager(@NotNull Server instance, @NotNull SimpleCommandMap commandMap) {
          server = instance;
-@@ -111,20 +115,32 @@ public final class SimplePluginManager implements PluginManager {
+@@ -111,20 +115,33 @@ public final class SimplePluginManager implements PluginManager {
          Validate.notNull(directory, "Directory cannot be null");
          Validate.isTrue(directory.isDirectory(), "Directory must be a directory");
  
@@ -80,7 +81,8 @@ index 9ec042fd..a77b9df4 100644
 +    }
 +
 +    @Override
-+    public Plugin[] loadPlugins(String directory, File... files) {
++    @NotNull
++    public Plugin[] loadPlugins(@NotNull String directory, @NotNull File... files) {
 +        List<Plugin> result = new ArrayList<>();
 +        Set<Pattern> filters = fileAssociations.keySet();
 +
@@ -102,7 +104,7 @@ index 9ec042fd..a77b9df4 100644
              PluginLoader loader = null;
              for (Pattern filter : filters) {
                  Matcher match = filter.matcher(file.getName());
-@@ -135,30 +151,30 @@ public final class SimplePluginManager implements PluginManager {
+@@ -135,30 +152,30 @@ public final class SimplePluginManager implements PluginManager {
  
              if (loader == null) continue;
  
@@ -142,7 +144,7 @@ index 9ec042fd..a77b9df4 100644
                  ));
              }
  
-@@ -168,13 +184,13 @@ public final class SimplePluginManager implements PluginManager {
+@@ -168,13 +185,13 @@ public final class SimplePluginManager implements PluginManager {
                      // Duplicates do not matter, they will be removed together if applicable
                      softDependencies.get(description.getName()).addAll(softDependencySet);
                  } else {
@@ -158,7 +160,7 @@ index 9ec042fd..a77b9df4 100644
              }
  
              Collection<String> loadBeforeSet = description.getLoadBefore();
-@@ -184,7 +200,7 @@ public final class SimplePluginManager implements PluginManager {
+@@ -184,7 +201,7 @@ public final class SimplePluginManager implements PluginManager {
                          softDependencies.get(loadBeforeTarget).add(description.getName());
                      } else {
                          // softDependencies is never iterated, so 'ghost' plugins aren't an issue
@@ -167,7 +169,7 @@ index 9ec042fd..a77b9df4 100644
                          shortSoftDependency.add(description.getName());
                          softDependencies.put(loadBeforeTarget, shortSoftDependency);
                      }
-@@ -210,7 +226,7 @@ public final class SimplePluginManager implements PluginManager {
+@@ -210,7 +227,7 @@ public final class SimplePluginManager implements PluginManager {
                          if (loadedPlugins.contains(dependency)) {
                              dependencyIterator.remove();
  
@@ -176,7 +178,7 @@ index 9ec042fd..a77b9df4 100644
                          } else if (!plugins.containsKey(dependency)) {
                              missingDependency = false;
                              pluginIterator.remove();
-@@ -219,7 +235,7 @@ public final class SimplePluginManager implements PluginManager {
+@@ -219,7 +236,7 @@ public final class SimplePluginManager implements PluginManager {
  
                              server.getLogger().log(
                                  Level.SEVERE,
@@ -185,7 +187,7 @@ index 9ec042fd..a77b9df4 100644
                                  new UnknownDependencyException(dependency));
                              break;
                          }
-@@ -230,16 +246,9 @@ public final class SimplePluginManager implements PluginManager {
+@@ -230,16 +247,9 @@ public final class SimplePluginManager implements PluginManager {
                      }
                  }
                  if (softDependencies.containsKey(plugin)) {
@@ -204,7 +206,7 @@ index 9ec042fd..a77b9df4 100644
  
                      if (softDependencies.get(plugin).isEmpty()) {
                          softDependencies.remove(plugin);
-@@ -254,9 +263,8 @@ public final class SimplePluginManager implements PluginManager {
+@@ -254,9 +264,8 @@ public final class SimplePluginManager implements PluginManager {
                      try {
                          result.add(loadPlugin(file));
                          loadedPlugins.add(plugin);
@@ -215,7 +217,7 @@ index 9ec042fd..a77b9df4 100644
                      }
                  }
              }
-@@ -281,7 +289,7 @@ public final class SimplePluginManager implements PluginManager {
+@@ -281,7 +290,7 @@ public final class SimplePluginManager implements PluginManager {
                              loadedPlugins.add(plugin);
                              break;
                          } catch (InvalidPluginException ex) {
@@ -224,7 +226,7 @@ index 9ec042fd..a77b9df4 100644
                          }
                      }
                  }
-@@ -294,7 +302,7 @@ public final class SimplePluginManager implements PluginManager {
+@@ -294,7 +303,7 @@ public final class SimplePluginManager implements PluginManager {
                      while (failedPluginIterator.hasNext()) {
                          File file = failedPluginIterator.next();
                          failedPluginIterator.remove();
@@ -233,17 +235,17 @@ index 9ec042fd..a77b9df4 100644
                      }
                  }
              }
-@@ -303,6 +311,16 @@ public final class SimplePluginManager implements PluginManager {
+@@ -303,6 +312,16 @@ public final class SimplePluginManager implements PluginManager {
          return result.toArray(new Plugin[result.size()]);
      }
  
 +    @Override
-+    public void ignore(URL url) {
++    public void ignore(@NotNull URL url) {
 +        ignored.add(url);
 +    }
 +
 +    @Override
-+    public void ignore(URL... urls) {
++    public void ignore(@NotNull URL... urls) {
 +        Collections.addAll(ignored, urls);
 +    }
 +
