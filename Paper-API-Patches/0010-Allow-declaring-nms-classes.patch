@@ -1,4 +1,4 @@
-From e6b9b6018c1c7ccb1c36b00e8719d7d9024c14f8 Mon Sep 17 00:00:00 2001
+From b31d98f2eb11030139673f757470a8e09a910556 Mon Sep 17 00:00:00 2001
 From: aki_ks <aki@kaysubs.de>
 Date: Wed, 4 Jul 2018 15:59:22 +0200
 Subject: [PATCH] Allow declaring nms classes

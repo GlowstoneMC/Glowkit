@@ -1,4 +1,4 @@
-From a218dfe4acddae3a7a9376d6d87b813ae495f814 Mon Sep 17 00:00:00 2001
+From 37c014ffc05207888cb4da884743351c7b69fb40 Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
 Date: Wed, 15 Aug 2018 11:00:21 -0400
 Subject: [PATCH] Add Material#getEquipmentSlot()

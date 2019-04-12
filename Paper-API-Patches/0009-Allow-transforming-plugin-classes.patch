@@ -1,4 +1,4 @@
-From 2e2bc5b41e5f7ebe918afeeb90956e4ead5b9c26 Mon Sep 17 00:00:00 2001
+From 58c9dc8dcf0ae5d64356b6033e9470074f41fa47 Mon Sep 17 00:00:00 2001
 From: aki_ks <aki@kaysubs.de>
 Date: Tue, 3 Jul 2018 18:09:25 +0200
 Subject: [PATCH] Allow transforming plugin classes

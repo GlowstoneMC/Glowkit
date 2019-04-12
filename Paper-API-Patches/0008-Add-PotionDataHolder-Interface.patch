@@ -1,4 +1,4 @@
-From c6b8477f56759e72411f6ee8cae2ccbe477daeb5 Mon Sep 17 00:00:00 2001
+From 507a8942113e74037856ebad44e69c8357e6b971 Mon Sep 17 00:00:00 2001
 From: Chris Hennick <4961925+Pr0methean@users.noreply.github.com>
 Date: Mon, 29 Jan 2018 10:14:07 -0500
 Subject: [PATCH] Add PotionDataHolder Interface
