@@ -69,11 +69,11 @@ case "$1" in
         cd "$basedir"
     ;;
     "a" | "api")
-        cd "$basedir/Glowkit"
+        cd "$basedir/Glowkit-Patched"
     ;;
     "c" | "clean")
-        rm -rf Glowkit
-        rm -rf work
+        rm -rf "$basedir/Glowkit-Patched"
+        rm -rf "$basedir/work"
         echo "Cleaned build files"
     ;;
     "e" | "edit")
@@ -93,8 +93,8 @@ case "$1" in
             )
             ;;
             *)
-            export GLOWKIT_LAST_EDIT="$basedir/Glowkit"
-            cd "$basedir/Glowkit"
+            export GLOWKIT_LAST_EDIT="$basedir/Glowkit-Patched"
+            cd "$basedir/Glowkit-Patched"
             (
                 set -e
 

@@ -102,7 +102,7 @@ cd "$basedir"
 # Apply glowkit
 cd "$basedir"
 (
-    applyPatch "work/Paper/Paper-API" Glowkit HEAD
+    applyPatch "work/Paper/Paper-API" Glowkit-Patched HEAD
 ) || (
     echo "Failed to apply Glowkit Patches"
     exit 1

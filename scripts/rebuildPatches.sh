@@ -65,5 +65,5 @@ function savePatches {
     echo "  Patches saved for $what to $what_name-Patches/"
 }
 
-savePatches "$workdir/Paper/Paper-API" "Glowkit"
+savePatches "$workdir/Paper/Paper-API" "Glowkit-Patched"
 ) || exit 1
