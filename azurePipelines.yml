@@ -1,0 +1,38 @@
+variables:
+- name: zuluLinuxLatest
+  value: '/usr/lib/jvm/zulu-11-azure-amd64' 
+trigger:
+  batch: true
+  branches:
+    include:
+      - '*'
+pr:
+  branches:
+    include:
+      - '*'
+jobs:
+  - job: Build
+    pool:
+      vmImage: 'ubuntu-16.04'    
+    steps:
+      - bash: |
+          git config --global user.email "mastercoms@tutanota.de"
+          git config --global user.name "mastercoms"  
+        displayName: Configure Git
+      - bash: ./glowkit p
+        displayName: Apply Patches
+      - bash: (cd Glowkit && mvn -T 1C -B dependency:go-offline)
+        displayName: Download Maven Dependencies
+        env:
+          JAVA_HOME: $(zuluLinuxLatest)
+        # TODO - Use caching once Azure implements it
+      - (cd Glowkit && mvn -T 1C -B package)
+        displayName: Build & Test
+        env:
+          JAVA_HOME: $(zuluLinuxLatest)
+      - task: PublishBuildArtifacts@1
+        displayName: Publish Jar
+        pathtoPublish: Glowkit/target/glowkit.jar
+      - task: PublishTestResults@1
+        displayName: Publish Test Results
+        pathtoPublish: Glowkit/target/surefire-reports
