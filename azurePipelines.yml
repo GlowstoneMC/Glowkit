@@ -37,6 +37,12 @@ jobs:
         inputs:
           pathtoPublish: Glowkit-Patched/target/glowkit.jar
           artifactName: Glowkit
+      - bash: |
+          cd Glowkit-Patched &&\
+          mvn -T 1C -B -s ../.circleci/maven.xml source:jar javadoc:jar &&\
+          find . -regextype grep -regex '.*/glowkit.*\([0-9]\|SNAPSHOT\)-sources\.jar' | xargs -i cp {} glowkit-sources.jar &&\
+          find . -regextype grep -regex '.*/glowkit.*\([0-9]\|SNAPSHOT\)-javadoc\.jar' | xargs -i cp {} glowkit-javadoc.jar
+        displayName: Source & Javadoc Jars
       - task: PublishBuildArtifacts@1
         displayName: Publish Source Jar
         inputs:
