@@ -40,6 +40,7 @@ jobs:
       - bash: |
           cd Glowkit-Patched &&\
           mvn -T 1C -B -s ../.circleci/maven.xml source:jar javadoc:jar &&\
+          cd target &&\
           find . -regextype grep -regex '.*/glowkit.*\([0-9]\|SNAPSHOT\)-sources\.jar' | xargs -i cp {} glowkit-sources.jar &&\
           find . -regextype grep -regex '.*/glowkit.*\([0-9]\|SNAPSHOT\)-javadoc\.jar' | xargs -i cp {} glowkit-javadoc.jar
         displayName: Source & Javadoc Jars
