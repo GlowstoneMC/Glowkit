@@ -28,7 +28,7 @@ jobs:
         env:
           JAVA_HOME: $(zuluLinuxLatest)
         # TODO - Use caching once Azure implements it
-      - bash: (cd Glowkit-Patched && mvn -T 1C -B package install)
+      - bash: (cd Glowkit-Patched && mvn -T 1C -B package)
         displayName: Build & Test
         env:
           JAVA_HOME: $(zuluLinuxLatest)
