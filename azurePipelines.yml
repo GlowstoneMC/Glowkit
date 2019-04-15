@@ -33,30 +33,10 @@ jobs:
         env:
           JAVA_HOME: $(zuluLinuxLatest)
       - task: PublishBuildArtifacts@1
-        displayName: Publish Main Jar
+        displayName: Publish Jar
         inputs:
           pathtoPublish: Glowkit-Patched/target/glowkit.jar
           artifactName: Glowkit
-      - bash: |
-          cd Glowkit-Patched &&\
-          mvn -T 1C -B -s ../.circleci/maven.xml source:jar javadoc:jar
-        displayName: Create Source & Javadoc Jars
-      - task: PublishBuildArtifacts@1
-        displayName: Publish Source Jar
-        inputs:
-          pathtoPublish: Glowkit-Patched/target/glowkit-sources.jar
-          artifactName: Glowkit Sources
-      - task: PublishBuildArtifacts@1
-        displayName: Publish Javadoc Jar
-        inputs:
-          pathtoPublish: Glowkit-Patched/target/glowkit-javadoc.jar
-          artifactName: Glowkit Javadoc
-      - task: PublishBuildArtifacts@1
-        displayName: Publish Full Build Output if Failed
-        inputs:
-          pathtoPublish: Glowkit-Patched/target
-          artifactName: Build Target Folder        
-        condition: failed()
       - task: PublishTestResults@1
         displayName: Publish Test Results
         inputs:
