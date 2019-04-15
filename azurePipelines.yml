@@ -26,13 +26,22 @@ jobs:
         env:
           JAVA_HOME: $(zuluLinuxLatest)
         # TODO - Use caching once Azure implements it
-      - (cd Glowkit && mvn -T 1C -B package)
+      - bash: (cd Glowkit && mvn -T 1C -B package install)
         displayName: Build & Test
         env:
           JAVA_HOME: $(zuluLinuxLatest)
       - task: PublishBuildArtifacts@1
         displayName: Publish Jar
         pathtoPublish: Glowkit/target/glowkit.jar
+        artifactName: Glowkit
+      - task: PublishBuildArtifacts@1
+        displayName: Publish Source Jar
+        pathtoPublish: Glowkit/target/glowkit-sources.jar
+        artifactName: Glowkit Sources
+      - task: PublishBuildArtifacts@1
+        displayName: Publish Javadoc Jar
+        pathtoPublish: Glowkit/target/glowkit-javadoc.jar
+        artifactName: Glowkit Javadoc
       - task: PublishTestResults@1
         displayName: Publish Test Results
         pathtoPublish: Glowkit/target/surefire-reports
