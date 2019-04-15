@@ -23,31 +23,31 @@ jobs:
         displayName: Configure Git
       - bash: ./glowkit p
         displayName: Apply Patches
-      - bash: (cd Glowkit && mvn -T 1C -B dependency:go-offline)
+      - bash: (cd Glowkit-Patched && mvn -T 1C -B dependency:go-offline)
         displayName: Download Maven Dependencies
         env:
           JAVA_HOME: $(zuluLinuxLatest)
         # TODO - Use caching once Azure implements it
-      - bash: (cd Glowkit && mvn -T 1C -B package install)
+      - bash: (cd Glowkit-Patched && mvn -T 1C -B package install)
         displayName: Build & Test
         env:
           JAVA_HOME: $(zuluLinuxLatest)
       - task: PublishBuildArtifacts@1
         displayName: Publish Jar
         inputs:
-          pathtoPublish: Glowkit/target/glowkit.jar
+          pathtoPublish: Glowkit-Patched/target/glowkit.jar
           artifactName: Glowkit
       - task: PublishBuildArtifacts@1
         displayName: Publish Source Jar
         inputs:
-          pathtoPublish: Glowkit/target/glowkit-sources.jar
+          pathtoPublish: Glowkit-Patched/target/glowkit-sources.jar
           artifactName: Glowkit Sources
       - task: PublishBuildArtifacts@1
         displayName: Publish Javadoc Jar
         inputs:
-          pathtoPublish: Glowkit/target/glowkit-javadoc.jar
+          pathtoPublish: Glowkit-Patched/target/glowkit-javadoc.jar
           artifactName: Glowkit Javadoc
       - task: PublishTestResults@1
         displayName: Publish Test Results
         inputs:
-          pathtoPublish: Glowkit/target/surefire-reports
+          pathtoPublish: Glowkit-Patched/target/surefire-reports
