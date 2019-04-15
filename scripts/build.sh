@@ -10,9 +10,6 @@ gitcmd="git -c commit.gpgsign=false"
     exit 1
 ) || exit 1
 if [ "$2" == "--jar" ]; then
-(
-  cd "$basedir/Glowkit-Patched" &&\
-  mvn -T 1C -B clean package install
-)    
+    (cd "$basedir/Glowkit-Patched" && mvn clean package install)
 fi
 ) || exit 1

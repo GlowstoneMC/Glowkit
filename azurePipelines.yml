@@ -35,7 +35,7 @@ jobs:
       - task: PublishBuildArtifacts@1
         displayName: Publish Main Jar
         inputs:
-          pathtoPublish: Glowkit-Patched/target/glowkit-shaded.jar
+          pathtoPublish: Glowkit-Patched/target/glowkit.jar
           artifactName: Glowkit
       - bash: |
           cd Glowkit-Patched &&\
