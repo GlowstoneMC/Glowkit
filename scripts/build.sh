@@ -12,8 +12,7 @@ gitcmd="git -c commit.gpgsign=false"
 if [ "$2" == "--jar" ]; then
 (
   cd "$basedir/Glowkit-Patched" &&\
-  mvn -T 1C -B clean package install &&\
-  find . -regextype grep -regex '.*/glowkit.*-shaded\.jar' | xargs -i cp {} glowkit.jar
+  mvn -T 1C -B clean package install
 )    
 fi
 ) || exit 1
