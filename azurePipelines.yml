@@ -55,7 +55,7 @@ jobs:
           pathtoPublish: Glowkit-Patched/target/glowkit-javadoc.jar
           artifactName: Glowkit Javadoc
       - task: PublishBuildArtifacts@1
-        displayName: Publish All Build Output (for Pipeline Debugging)
+        displayName: Publish Full Build Output if Failed
         inputs:
           pathtoPublish: Glowkit-Patched/target
           artifactName: Build Target Folder        
