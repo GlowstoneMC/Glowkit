@@ -15,6 +15,8 @@ jobs:
     pool:
       vmImage: 'ubuntu-16.04'    
     steps:
+      - checkout: self
+        clean: true
       - bash: |
           git config --global user.email "mastercoms@tutanota.de"
           git config --global user.name "mastercoms"  
@@ -32,16 +34,20 @@ jobs:
           JAVA_HOME: $(zuluLinuxLatest)
       - task: PublishBuildArtifacts@1
         displayName: Publish Jar
-        pathtoPublish: Glowkit/target/glowkit.jar
-        artifactName: Glowkit
+        inputs:
+          pathtoPublish: Glowkit/target/glowkit.jar
+          artifactName: Glowkit
       - task: PublishBuildArtifacts@1
         displayName: Publish Source Jar
-        pathtoPublish: Glowkit/target/glowkit-sources.jar
-        artifactName: Glowkit Sources
+        inputs:
+          pathtoPublish: Glowkit/target/glowkit-sources.jar
+          artifactName: Glowkit Sources
       - task: PublishBuildArtifacts@1
         displayName: Publish Javadoc Jar
-        pathtoPublish: Glowkit/target/glowkit-javadoc.jar
-        artifactName: Glowkit Javadoc
+        inputs:
+          pathtoPublish: Glowkit/target/glowkit-javadoc.jar
+          artifactName: Glowkit Javadoc
       - task: PublishTestResults@1
         displayName: Publish Test Results
-        pathtoPublish: Glowkit/target/surefire-reports
+        inputs:
+          pathtoPublish: Glowkit/target/surefire-reports
