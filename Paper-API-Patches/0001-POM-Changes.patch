@@ -1,11 +1,11 @@
-From 175f040ae7c72d6d25a08244a4cb5aaa67b085a4 Mon Sep 17 00:00:00 2001
+From cdb29920afd470ef28bbdd462ff4ff2b36c2f622 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Tue, 16 May 2017 22:07:47 -0400
 Subject: [PATCH] POM Changes
 
 
 diff --git a/pom.xml b/pom.xml
-index 13cdc25f..c1deb5ee 100644
+index 13cdc25f..2c76bf20 100644
 --- a/pom.xml
 +++ b/pom.xml
 @@ -3,18 +3,13 @@
@@ -77,7 +77,13 @@ index 13cdc25f..c1deb5ee 100644
      <dependencies>
          <dependency>
              <groupId>it.unimi.dsi</groupId>
-@@ -155,14 +152,6 @@
+@@ -150,19 +147,12 @@
+ 
+     <build>
+         <defaultGoal>clean install</defaultGoal>
++        <finalName>glowkit</finalName>
+         <plugins>
+             <plugin>
                  <groupId>org.apache.maven.plugins</groupId>
                  <artifactId>maven-compiler-plugin</artifactId>
                  <version>3.8.0</version>
@@ -93,5 +99,5 @@ index 13cdc25f..c1deb5ee 100644
              <plugin>
                  <groupId>org.apache.maven.plugins</groupId>
 -- 
-2.21.0
+2.19.1
 

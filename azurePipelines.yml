@@ -1,0 +1,43 @@
+variables:
+- name: zuluLinuxLatest
+  value: '/usr/lib/jvm/zulu-11-azure-amd64' 
+trigger:
+  batch: true
+  branches:
+    include:
+      - '*'
+pr:
+  branches:
+    include:
+      - '*'
+jobs:
+  - job: Build
+    pool:
+      vmImage: 'ubuntu-16.04'    
+    steps:
+      - checkout: self
+        clean: true
+      - bash: |
+          git config --global user.email "mastercoms@tutanota.de"
+          git config --global user.name "mastercoms"  
+        displayName: Configure Git
+      - bash: ./glowkit p
+        displayName: Apply Patches
+        # TODO once Azure Pipelines adds caching: create/update a Maven cache with:
+        # - bash: (cd Glowkit-Patched && mvn -T 1C -B dependency:go-offline)
+        #   displayName: Download Maven Dependencies
+        #   env:
+        #     JAVA_HOME: $(zuluLinuxLatest)
+      - bash: ./glowkit j
+        displayName: Build & Test
+        env:
+          JAVA_HOME: $(zuluLinuxLatest)
+      - task: PublishBuildArtifacts@1
+        displayName: Publish Jar
+        inputs:
+          pathtoPublish: Glowkit-Patched/target/glowkit.jar
+          artifactName: Glowkit
+      - task: PublishTestResults@1
+        displayName: Publish Test Results
+        inputs:
+          pathtoPublish: Glowkit-Patched/target/surefire-reports
