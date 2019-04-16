@@ -23,11 +23,11 @@ jobs:
         displayName: Configure Git
       - bash: ./glowkit p
         displayName: Apply Patches
-      - bash: (cd Glowkit-Patched && mvn -T 1C -B dependency:go-offline)
-        displayName: Download Maven Dependencies
-        env:
-          JAVA_HOME: $(zuluLinuxLatest)
-        # TODO - Use caching once Azure implements it
+        # TODO once Azure Pipelines adds caching: create/update a Maven cache with:
+        # - bash: (cd Glowkit-Patched && mvn -T 1C -B dependency:go-offline)
+        #   displayName: Download Maven Dependencies
+        #   env:
+        #     JAVA_HOME: $(zuluLinuxLatest)
       - bash: ./glowkit j
         displayName: Build & Test
         env:
