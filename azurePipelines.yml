@@ -37,6 +37,11 @@ jobs:
         inputs:
           pathtoPublish: Glowkit-Patched/target/glowkit.jar
           artifactName: Glowkit
+      - task: PublishBuildArtifacts@1
+        displayName: Publish POM
+        inputs:
+          pathtoPublish: Glowkit-Patched/pom.xml
+          artifactName: Glowkit POM
       - task: PublishTestResults@1
         displayName: Publish Test Results
         inputs:
