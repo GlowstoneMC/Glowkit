@@ -32,8 +32,8 @@ jobs:
         displayName: Build & Test
         env:
           JAVA_HOME: $(zuluLinuxLatest)
-       - bash: ls Glowkit-Patched/target
-         displayName: Output target dir
+      - bash: ls Glowkit-Patched/target
+        displayName: Output target dir
       - task: PublishBuildArtifacts@1
         displayName: Publish Jar
         inputs:
