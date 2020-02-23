@@ -1,11 +1,11 @@
-From 3a011a19ed49020ea53b22479947113f1b8c1329 Mon Sep 17 00:00:00 2001
+From 83256e5020d2af3cdbe0b80598132cdf4a1240fb Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Tue, 16 May 2017 22:07:47 -0400
 Subject: [PATCH] POM Changes
 
 
 diff --git a/pom.xml b/pom.xml
-index 2fa2dd7c..b775cc2b 100644
+index 2fa2dd7c..24c18869 100644
 --- a/pom.xml
 +++ b/pom.xml
 @@ -4,18 +4,20 @@
@@ -62,7 +62,7 @@ index 2fa2dd7c..b775cc2b 100644
 -            <id>spigotmc-public</id>
 -            <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
 +            <id>glowstone</id>
-+            <url>https://repo.glowstone.net/repository/internal/</url>
++            <url>https://repo.glowstone.net/repository/maven-public/</url>
          </repository>
          <repository>
              <id>sonatype</id>
@@ -75,7 +75,13 @@ index 2fa2dd7c..b775cc2b 100644
          </dependency>
          <!-- Paper - Add Authlib for Profile API -->
          <dependency>
-@@ -152,14 +163,6 @@
+@@ -147,19 +158,12 @@
+ 
+     <build>
+         <defaultGoal>clean install</defaultGoal>
++        <finalName>glowkit</finalName>
+         <plugins>
+             <plugin>
                  <groupId>org.apache.maven.plugins</groupId>
                  <artifactId>maven-compiler-plugin</artifactId>
                  <version>3.7.0</version>

@@ -32,8 +32,6 @@ jobs:
         displayName: Build & Test
         env:
           JAVA_HOME: $(zuluLinuxLatest)
-      - bash: mv Glowkit-Patched/target/glowkit-1.12.2-R6.0-SNAPSHOT.jar Glowkit-Patched/target/glowkit.jar
-        displayName: Rename JAR
       - task: PublishBuildArtifacts@1
         displayName: Publish Jar
         inputs:
