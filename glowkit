@@ -91,6 +91,7 @@ case "$1" in
                 cd "$basedir"
                 scripts/rebuildPatches.sh "$basedir"
             )
+            cd "$basedir"
             ;;
             *)
             export GLOWKIT_LAST_EDIT="$basedir/Glowkit-Patched"
