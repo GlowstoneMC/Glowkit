@@ -1,27 +1,22 @@
-From 586b2c58b8ec7ae27ff207a6986a3263f655e255 Mon Sep 17 00:00:00 2001
+From 7eb35e22c100c4db87fc3799357c09c61a516132 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Tue, 16 May 2017 22:07:47 -0400
 Subject: [PATCH] POM Changes
 
 
 diff --git a/pom.xml b/pom.xml
-index 13cdc25f..2c76bf20 100644
+index 2cb97140..e6526bc1 100644
 --- a/pom.xml
 +++ b/pom.xml
-@@ -3,18 +3,13 @@
-          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-     <modelVersion>4.0.0</modelVersion>
+@@ -8,13 +8,13 @@
+         <version>dev-SNAPSHOT</version>
+     </parent>
  
--    <parent>
--        <groupId>com.destroystokyo.paper</groupId>
--        <artifactId>paper-parent</artifactId>
--        <version>dev-SNAPSHOT</version>
--    </parent>
--
+-    <groupId>com.destroystokyo.paper</groupId>
 -    <artifactId>paper-api</artifactId>
 +    <groupId>net.glowstone</groupId>
 +    <artifactId>glowkit</artifactId>
-     <version>1.13.2-R0.1-SNAPSHOT</version>
+     <version>1.15.2-R0.1-SNAPSHOT</version>
      <packaging>jar</packaging>
  
 -    <name>Paper-API</name>
@@ -31,7 +26,7 @@ index 13cdc25f..2c76bf20 100644
      <description>An enhanced plugin API for Minecraft servers.</description>
  
      <properties>
-@@ -25,16 +20,25 @@
+@@ -24,16 +24,25 @@
          <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
      </properties>
  
@@ -63,7 +58,7 @@ index 13cdc25f..2c76bf20 100644
          </repository>
          <repository>
              <id>sonatype</id>
-@@ -42,13 +46,6 @@
+@@ -41,13 +50,6 @@
          </repository>
      </repositories>
  
@@ -77,7 +72,7 @@ index 13cdc25f..2c76bf20 100644
      <dependencies>
          <dependency>
              <groupId>it.unimi.dsi</groupId>
-@@ -150,19 +147,12 @@
+@@ -150,6 +152,7 @@
  
      <build>
          <defaultGoal>clean install</defaultGoal>
@@ -85,19 +80,6 @@ index 13cdc25f..2c76bf20 100644
          <plugins>
              <plugin>
                  <groupId>org.apache.maven.plugins</groupId>
-                 <artifactId>maven-compiler-plugin</artifactId>
-                 <version>3.8.0</version>
--                <dependencies>
--                    <!-- we need our custom version as it fixes some bugs on case sensitive file systems -->
--                    <dependency>
--                        <groupId>org.codehaus.plexus</groupId>
--                        <artifactId>plexus-compiler-eclipse</artifactId>
--                        <version>2.8.5-spigotmc</version>
--                    </dependency>
--                </dependencies>
-             </plugin>
-             <plugin>
-                 <groupId>org.apache.maven.plugins</groupId>
 -- 
-2.23.0
+2.24.1
 
