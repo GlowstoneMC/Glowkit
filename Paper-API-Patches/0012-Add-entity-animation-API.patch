@@ -1,4 +1,4 @@
-From d4201faf006707a13aa5c622cabc5a1999e4ea5f Mon Sep 17 00:00:00 2001
+From 3016df48ca11e53a0343da80cedfff5ce938a7ba Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
 Date: Fri, 28 Feb 2020 15:28:01 -0500
 Subject: [PATCH] Add entity animation API
@@ -24,7 +24,7 @@ index 00000000..8f04ebb9
 +    MAGIC_CRITICAL_HIT
 +}
 diff --git a/src/main/java/org/bukkit/entity/LivingEntity.java b/src/main/java/org/bukkit/entity/LivingEntity.java
-index 7f73e4b9..29176770 100644
+index 7f73e4b9..f44572a0 100644
 --- a/src/main/java/org/bukkit/entity/LivingEntity.java
 +++ b/src/main/java/org/bukkit/entity/LivingEntity.java
 @@ -3,6 +3,7 @@ package org.bukkit.entity;
@@ -44,13 +44,13 @@ index 7f73e4b9..29176770 100644
 +     *
 +     * @param animation the animation to play
 +     */
-+    void playAnimation(EntityAnimation animation);
++    void playAnimation(@NotNull EntityAnimation animation);
 +
      /**
       * Get entity jump state.
       * <p>
 diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
-index 877ea4f3..95c7be05 100644
+index 877ea4f3..0d24736e 100644
 --- a/src/main/java/org/bukkit/entity/Player.java
 +++ b/src/main/java/org/bukkit/entity/Player.java
 @@ -9,6 +9,7 @@ import org.bukkit.BanList; // Paper
@@ -70,7 +70,7 @@ index 877ea4f3..95c7be05 100644
 +     *
 +     * @param animation the animation
 +     */
-+    void playAnimationToSelf(EntityAnimation animation);
++    void playAnimationToSelf(@NotNull EntityAnimation animation);
 +
      /**
       * Returns the amount of ticks the current cooldown lasts
