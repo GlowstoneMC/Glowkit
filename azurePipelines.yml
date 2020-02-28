@@ -18,7 +18,7 @@ jobs:
       - checkout: self
         clean: true
       - bash: |
-          git config --global user.email "mastercoms@tutanota.de"
+          git config --global user.email "mastercoms@tuta.io"
           git config --global user.name "mastercoms"  
         displayName: Configure Git
       - bash: ./glowkit p
