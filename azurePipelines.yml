@@ -1,6 +1,6 @@
 variables:
 - name: zuluLinuxLatest
-  value: '/usr/lib/jvm/zulu-11-azure-amd64' 
+  value: '/usr/lib/jvm/zulu-8-azure-amd64'
 trigger:
   batch: true
   branches:

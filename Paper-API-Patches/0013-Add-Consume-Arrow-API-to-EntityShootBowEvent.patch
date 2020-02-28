@@ -1,0 +1,71 @@
+From bc29c75f9d6596b63ffc888b7459dc6241b4cc32 Mon Sep 17 00:00:00 2001
+From: Mystiflow <mystiflow@gmail.com>
+Date: Tue, 5 Jun 2018 00:03:09 +0100
+Subject: [PATCH] Add Consume Arrow API to EntityShootBowEvent
+
+
+diff --git a/src/main/java/org/bukkit/event/entity/EntityShootBowEvent.java b/src/main/java/org/bukkit/event/entity/EntityShootBowEvent.java
+index c9eb75aa..9480f5cc 100644
+--- a/src/main/java/org/bukkit/event/entity/EntityShootBowEvent.java
++++ b/src/main/java/org/bukkit/event/entity/EntityShootBowEvent.java
+@@ -19,12 +19,6 @@ public class EntityShootBowEvent extends EntityEvent implements Cancellable {
+     // Paper start
+     private boolean consumeArrow = true;
+     private final ItemStack arrowItem;
+-    public boolean getConsumeArrow() {
+-        return consumeArrow;
+-    }
+-    public void setConsumeArrow(boolean consumeArrow) {
+-        this.consumeArrow = consumeArrow;
+-    }
+ 
+     public ItemStack getArrowItem() {
+         return arrowItem;
+@@ -34,13 +28,19 @@ public class EntityShootBowEvent extends EntityEvent implements Cancellable {
+     public EntityShootBowEvent(final LivingEntity shooter, final ItemStack bow, final Projectile projectile, final float force) {
+         this(shooter, bow, new ItemStack(org.bukkit.Material.AIR), projectile, force);
+     }
++
+     public EntityShootBowEvent(final LivingEntity shooter, final ItemStack bow, ItemStack arrowItem, final Projectile projectile, final float force) {
++        this(shooter, bow, arrowItem, projectile, force, true);
++    }
++
++    public EntityShootBowEvent(final LivingEntity shooter, final ItemStack bow, ItemStack arrowItem, final Projectile projectile, final float force, final boolean consumeArrow) {
+         super(shooter);
+         this.arrowItem = arrowItem;
+         // Paper end
+         this.bow = bow;
+         this.projectile = projectile;
+         this.force = force;
++        this.consumeArrow = consumeArrow;
+     }
+ 
+     @Override
+@@ -84,6 +84,24 @@ public class EntityShootBowEvent extends EntityEvent implements Cancellable {
+         return force;
+     }
+ 
++    /**
++     * Gets if an arrow will be consumed if arrow is fired
++     *
++     * @return state of arrow consumption
++     */
++    public boolean getConsumeArrow() {
++         return consumeArrow;
++    }
++
++    /**
++     * Sets if an arrow will be consumed if arrow is fired
++     *
++     * @param consumeArrow state of arrow consumption to set
++     */
++    public void setConsumeArrow(boolean consumeArrow) {
++        this.consumeArrow = consumeArrow;
++    }
++
+     public boolean isCancelled() {
+         return cancelled;
+     }
+-- 
+2.20.1
+
