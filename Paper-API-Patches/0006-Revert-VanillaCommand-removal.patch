@@ -1,14 +1,22 @@
-From 91594baaebc6257cb236ae63c26e21f792304c9e Mon Sep 17 00:00:00 2001
+From a9c0bdcb8f203c07c03466c6b7e0da79ef9a02e2 Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
 Date: Fri, 9 Jun 2017 11:00:46 -0400
 Subject: [PATCH] Revert VanillaCommand removal
 
 
 diff --git a/src/main/java/org/bukkit/command/SimpleCommandMap.java b/src/main/java/org/bukkit/command/SimpleCommandMap.java
-index 460fda05..de928dca 100644
+index 460fda05..6499f4cf 100644
 --- a/src/main/java/org/bukkit/command/SimpleCommandMap.java
 +++ b/src/main/java/org/bukkit/command/SimpleCommandMap.java
-@@ -106,7 +106,7 @@ public class SimpleCommandMap implements CommandMap {
+@@ -19,6 +19,7 @@ import org.bukkit.command.defaults.BukkitCommand;
+ import org.bukkit.command.defaults.HelpCommand;
+ import org.bukkit.command.defaults.PluginsCommand;
+ import org.bukkit.command.defaults.ReloadCommand;
++import org.bukkit.command.defaults.VanillaCommand;
+ import org.bukkit.command.defaults.VersionCommand;
+ import org.bukkit.entity.Player;
+ import org.bukkit.util.StringUtil;
+@@ -106,7 +107,7 @@ public class SimpleCommandMap implements CommandMap {
       */
      private synchronized boolean register(@NotNull String label, @NotNull Command command, boolean isAlias, @NotNull String fallbackPrefix) {
          knownCommands.put(fallbackPrefix + ":" + label, command);
