@@ -1,4 +1,4 @@
-From cdb29920afd470ef28bbdd462ff4ff2b36c2f622 Mon Sep 17 00:00:00 2001
+From 586b2c58b8ec7ae27ff207a6986a3263f655e255 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Tue, 16 May 2017 22:07:47 -0400
 Subject: [PATCH] POM Changes
@@ -99,5 +99,5 @@ index 13cdc25f..2c76bf20 100644
              <plugin>
                  <groupId>org.apache.maven.plugins</groupId>
 -- 
-2.19.1
+2.23.0
 

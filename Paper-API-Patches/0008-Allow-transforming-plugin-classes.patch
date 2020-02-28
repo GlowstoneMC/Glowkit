@@ -1,4 +1,4 @@
-From b6c64877fbbc9fd3acabb9ee7ec389d4b58370f0 Mon Sep 17 00:00:00 2001
+From 67b01194ace465372a50e3c19f5cdf414134bd29 Mon Sep 17 00:00:00 2001
 From: aki_ks <aki@kaysubs.de>
 Date: Tue, 3 Jul 2018 18:09:25 +0200
 Subject: [PATCH] Allow transforming plugin classes
@@ -88,5 +88,5 @@ index 0df1926f..205f8da1 100644
      public void close() throws IOException {
          try {
 -- 
-2.21.0
+2.23.0
 

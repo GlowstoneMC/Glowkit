@@ -1,4 +1,4 @@
-From b6935a3db601f5592e1ff0ae4b12539e92c30027 Mon Sep 17 00:00:00 2001
+From c8197f2ba6583f70201c5b073fee88f711cce501 Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
 Date: Wed, 8 Aug 2018 00:24:11 -0400
 Subject: [PATCH] Add NamespacedKey->Material lookup
@@ -67,5 +67,5 @@ index 66f4603a..30c93102 100644
  
      @Test
 -- 
-2.21.0
+2.23.0
 

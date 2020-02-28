@@ -1,4 +1,4 @@
-From cc5142dbe38dcf7ba762bd6720e7ee5c1ece0ba1 Mon Sep 17 00:00:00 2001
+From 72f94d4c275653f7e293c3af800e44bd96febbe6 Mon Sep 17 00:00:00 2001
 From: satoshinm <snmatsutake@yahoo.co.jp>
 Date: Thu, 1 Jun 2017 15:13:10 -0400
 Subject: [PATCH] Check for null in Sign#getFacing()
@@ -23,5 +23,5 @@ index d33b8ed2..87ad8718 100644
      }
  
 -- 
-2.21.0
+2.23.0
 
