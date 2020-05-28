@@ -9,3 +9,7 @@ The Glowkit Javadocs are available [here](https://glowstone.net/jd/glowkit/).
 
 If you'd like to take advantage of APIs not available in Bukkit, [check out](https://glowstone.net/jd/glowstone/)
 the APIs built into Glowstone itself.
+
+## Building Glowkit
+
+Instructions on how to build Glowkit can be found [on the wiki](https://github.com/GlowstoneMC/Glowkit/wiki).
