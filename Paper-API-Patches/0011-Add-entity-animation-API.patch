@@ -1,4 +1,4 @@
-From 83f3525b244d67109ff163312e1628390724d4bc Mon Sep 17 00:00:00 2001
+From 0547ead52e0a4e89992583aa6bf2d39a6a7a185c Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
 Date: Fri, 28 Feb 2020 15:28:01 -0500
 Subject: [PATCH] Add entity animation API
@@ -24,18 +24,18 @@ index 00000000..8f04ebb9
 +    MAGIC_CRITICAL_HIT
 +}
 diff --git a/src/main/java/org/bukkit/entity/LivingEntity.java b/src/main/java/org/bukkit/entity/LivingEntity.java
-index 7f73e4b9..f44572a0 100644
+index a60523cc..0c3a6208 100644
 --- a/src/main/java/org/bukkit/entity/LivingEntity.java
 +++ b/src/main/java/org/bukkit/entity/LivingEntity.java
-@@ -3,6 +3,7 @@ package org.bukkit.entity;
- import java.util.Collection;
+@@ -4,6 +4,7 @@ import java.util.Collection;
  import java.util.List;
  import java.util.Set;
+ import java.util.UUID;
 +import org.bukkit.EntityAnimation;
  import org.bukkit.FluidCollisionMode;
  import org.bukkit.Location;
  import org.bukkit.Material;
-@@ -712,6 +713,13 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
+@@ -733,6 +734,13 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
       */
      boolean isHandRaised();
  
@@ -50,10 +50,10 @@ index 7f73e4b9..f44572a0 100644
       * Get entity jump state.
       * <p>
 diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
-index 877ea4f3..0d24736e 100644
+index b584f8b1..c165eeeb 100644
 --- a/src/main/java/org/bukkit/entity/Player.java
 +++ b/src/main/java/org/bukkit/entity/Player.java
-@@ -9,6 +9,7 @@ import org.bukkit.BanList; // Paper
+@@ -10,6 +10,7 @@ import org.bukkit.BanList; // Paper
  import org.bukkit.Bukkit; // Paper
  import org.bukkit.DyeColor;
  import org.bukkit.Effect;
@@ -61,7 +61,7 @@ index 877ea4f3..0d24736e 100644
  import org.bukkit.GameMode;
  import org.bukkit.Instrument;
  import org.bukkit.Location;
-@@ -1948,6 +1949,13 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -1752,6 +1753,13 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
       */
      void setPlayerProfile(@NotNull PlayerProfile profile);
  
@@ -76,5 +76,5 @@ index 877ea4f3..0d24736e 100644
       * Returns the amount of ticks the current cooldown lasts
       *
 -- 
-2.24.1
+2.26.2
 

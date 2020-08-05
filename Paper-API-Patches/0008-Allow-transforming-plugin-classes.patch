@@ -1,11 +1,11 @@
-From 533a0ad820369c6e14b1ac5c7e98d4d3b74fbc7d Mon Sep 17 00:00:00 2001
+From b4d530f78a026b37f5379cf3ca81c980a7ee6323 Mon Sep 17 00:00:00 2001
 From: aki_ks <aki@kaysubs.de>
 Date: Tue, 3 Jul 2018 18:09:25 +0200
 Subject: [PATCH] Allow transforming plugin classes
 
 
 diff --git a/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java b/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java
-index 8ff228ce..0c171d4d 100644
+index 384edf98..3cc34224 100644
 --- a/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java
 +++ b/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java
 @@ -48,7 +48,7 @@ import org.yaml.snakeyaml.error.YAMLException;
@@ -15,9 +15,9 @@ index 8ff228ce..0c171d4d 100644
 -public final class JavaPluginLoader implements PluginLoader {
 +public class JavaPluginLoader implements PluginLoader {
      final Server server;
+     private static final boolean DISABLE_CLASS_PRIORITIZATION = Boolean.getBoolean("Paper.DisableClassPrioritization"); // Paper
      private final Pattern[] fileFilters = new Pattern[]{Pattern.compile("\\.jar$")};
-     private final Map<String, Class<?>> classes = new ConcurrentHashMap<String, Class<?>>();
-@@ -131,7 +131,7 @@ public final class JavaPluginLoader implements PluginLoader {
+@@ -134,7 +134,7 @@ public final class JavaPluginLoader implements PluginLoader {
  
          final PluginClassLoader loader;
          try {
@@ -26,7 +26,7 @@ index 8ff228ce..0c171d4d 100644
          } catch (InvalidPluginException ex) {
              throw ex;
          } catch (Throwable ex) {
-@@ -143,6 +143,10 @@ public final class JavaPluginLoader implements PluginLoader {
+@@ -146,6 +146,10 @@ public final class JavaPluginLoader implements PluginLoader {
          return loader.plugin;
      }
  
@@ -37,17 +37,22 @@ index 8ff228ce..0c171d4d 100644
      @Override
      @NotNull
      public PluginDescriptionFile getPluginDescription(@NotNull File file) throws InvalidDescriptionException {
-@@ -190,7 +194,7 @@ public final class JavaPluginLoader implements PluginLoader {
+@@ -193,11 +197,11 @@ public final class JavaPluginLoader implements PluginLoader {
      }
  
      @Nullable
 -    Class<?> getClassByName(final String name) {
 +    protected Class<?> getClassByName(final String name) {
+         // Paper start - prioritize self
+         return getClassByName(name, null);
+     }
+-    Class<?> getClassByName(final String name, PluginClassLoader requester) {
++    protected Class<?> getClassByName(final String name, PluginClassLoader requester) {
+         // Paper end
+         // Paper start - make MT safe
          Class<?> cachedClass = classes.get(name);
- 
-         if (cachedClass != null) {
 diff --git a/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java b/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java
-index 3a02dbe9..cab82089 100644
+index 62f7a681..b4a6f061 100644
 --- a/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java
 +++ b/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java
 @@ -28,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
@@ -88,5 +93,5 @@ index 3a02dbe9..cab82089 100644
      public void close() throws IOException {
          try {
 -- 
-2.24.1
+2.26.2
 
