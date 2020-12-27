@@ -1,8 +1,4 @@
-variables:
-- name: zuluLinuxLatest
-  value: '/usr/lib/jvm/zulu-8-azure-amd64'
 trigger:
-  batch: true
   branches:
     include:
       - '*'
@@ -14,6 +10,8 @@ jobs:
   - job: Build
     pool:
       vmImage: 'ubuntu-16.04'    
+    variables:
+      jdk_version: 1.8
     steps:
       - checkout: self
         clean: true
@@ -28,10 +26,18 @@ jobs:
         #   displayName: Download Maven Dependencies
         #   env:
         #     JAVA_HOME: $(zuluLinuxLatest)
-      - bash: ./glowkit j
-        displayName: Build & Test
-        env:
-          JAVA_HOME: $(zuluLinuxLatest)
+      - task: Maven@3
+        displayName: "Maven: Build"
+        inputs:
+          mavenOptions: '-Xmx2048m'
+          mavenPOMFile: Glowkit-Patched/pom.xml
+          javaHomeOption: "JDKVersion"
+          jdkVersionOption: "$(jdk_version)"
+          jdkArchitectureOption: "x64"
+          publishJUnitResults: true
+          testResultsFiles: '**/surefire-reports/TEST-*.xml'
+          goals: "package -Pbuild-extras"
+          options: "--batch-mode"
       - task: PublishBuildArtifacts@1
         displayName: Publish Jar
         inputs:
@@ -42,7 +48,3 @@ jobs:
         inputs:
           pathtoPublish: Glowkit-Patched/pom.xml
           artifactName: Glowkit POM
-      - task: PublishTestResults@1
-        displayName: Publish Test Results
-        inputs:
-          pathtoPublish: Glowkit-Patched/target/surefire-reports
