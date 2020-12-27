@@ -1,14 +1,14 @@
-From e747f8dbc6daf7f1f2edec602bc2d600451808f3 Mon Sep 17 00:00:00 2001
+From 83ce2b0943b11f123d920a91b4c8f0652b8ad137 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Tue, 16 May 2017 22:07:47 -0400
 Subject: [PATCH] POM Changes
 
 
 diff --git a/pom.xml b/pom.xml
-index 1c33b1f4..5b2e059f 100644
+index 1c33b1f4..7a77dc5f 100644
 --- a/pom.xml
 +++ b/pom.xml
-@@ -2,19 +2,20 @@
+@@ -2,19 +2,14 @@
  <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
      <modelVersion>4.0.0</modelVersion>
@@ -18,15 +18,11 @@ index 1c33b1f4..5b2e059f 100644
 -        <version>dev-SNAPSHOT</version>
 -    </parent>
  
-     <groupId>com.destroystokyo.paper</groupId>
-     <artifactId>paper-api</artifactId>
-     <version>1.16.4-R0.1-SNAPSHOT</version>
-+    <groupId>com.destroystokyo.paper</groupId>
-+    <artifactId>paper-api</artifactId>
-+    <version>1.16.1-R0.1-SNAPSHOT</version>
+-    <groupId>com.destroystokyo.paper</groupId>
+-    <artifactId>paper-api</artifactId>
 +    <groupId>net.glowstone</groupId>
 +    <artifactId>glowkit</artifactId>
-+    <version>1.16.4-R0.1-SNAPSHOT</version>
+     <version>1.16.4-R0.1-SNAPSHOT</version>
      <packaging>jar</packaging>
  
 -    <name>Paper-API</name>
@@ -36,7 +32,7 @@ index 1c33b1f4..5b2e059f 100644
      <description>An enhanced plugin API for Minecraft servers.</description>
  
      <properties>
-@@ -24,16 +25,25 @@
+@@ -24,16 +19,25 @@
          <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
      </properties>
  
@@ -68,7 +64,7 @@ index 1c33b1f4..5b2e059f 100644
          </repository>
          <repository>
              <id>sonatype</id>
-@@ -41,13 +51,6 @@
+@@ -41,13 +45,6 @@
          </repository>
      </repositories>
  
@@ -82,7 +78,7 @@ index 1c33b1f4..5b2e059f 100644
      <dependencies>
          <dependency>
              <groupId>it.unimi.dsi</groupId>
-@@ -150,6 +153,7 @@
+@@ -150,6 +147,7 @@
  
      <build>
          <defaultGoal>clean install</defaultGoal>
@@ -90,7 +86,7 @@ index 1c33b1f4..5b2e059f 100644
          <plugins>
              <plugin>
                  <groupId>net.md-5</groupId>
-@@ -169,11 +173,10 @@
+@@ -169,11 +167,10 @@
                  <artifactId>maven-compiler-plugin</artifactId>
                  <version>3.8.1</version>
                  <dependencies>
