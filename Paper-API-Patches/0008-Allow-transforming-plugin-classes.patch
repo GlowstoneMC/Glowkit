@@ -1,4 +1,4 @@
-From b4d530f78a026b37f5379cf3ca81c980a7ee6323 Mon Sep 17 00:00:00 2001
+From a7012b742327f733317c1623ad67fd28d5b72a98 Mon Sep 17 00:00:00 2001
 From: aki_ks <aki@kaysubs.de>
 Date: Tue, 3 Jul 2018 18:09:25 +0200
 Subject: [PATCH] Allow transforming plugin classes
@@ -52,7 +52,7 @@ index 384edf98..3cc34224 100644
          // Paper start - make MT safe
          Class<?> cachedClass = classes.get(name);
 diff --git a/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java b/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java
-index 62f7a681..b4a6f061 100644
+index 7760be3e..5aa1c505 100644
 --- a/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java
 +++ b/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java
 @@ -28,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
@@ -73,7 +73,7 @@ index 62f7a681..b4a6f061 100644
          super(new URL[] {file.toURI().toURL()}, parent);
          Validate.notNull(loader, "Loader cannot be null");
  
-@@ -164,6 +164,7 @@ public final class PluginClassLoader extends URLClassLoader { // Spigot
+@@ -175,6 +175,7 @@ public final class PluginClassLoader extends URLClassLoader { // Spigot
                      CodeSigner[] signers = entry.getCodeSigners();
                      CodeSource source = new CodeSource(url, signers);
  
@@ -81,7 +81,7 @@ index 62f7a681..b4a6f061 100644
                      result = defineClass(name, classBytes, 0, classBytes.length, source);
                  }
  
-@@ -182,6 +183,10 @@ public final class PluginClassLoader extends URLClassLoader { // Spigot
+@@ -193,6 +194,10 @@ public final class PluginClassLoader extends URLClassLoader { // Spigot
          return result;
      }
  
@@ -93,5 +93,5 @@ index 62f7a681..b4a6f061 100644
      public void close() throws IOException {
          try {
 -- 
-2.26.2
+2.29.2
 

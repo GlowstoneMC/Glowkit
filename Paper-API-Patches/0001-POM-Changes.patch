@@ -1,14 +1,14 @@
-From 41fb12ee217ee9476aee763f8a27aba267b641d2 Mon Sep 17 00:00:00 2001
+From e747f8dbc6daf7f1f2edec602bc2d600451808f3 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Tue, 16 May 2017 22:07:47 -0400
 Subject: [PATCH] POM Changes
 
 
 diff --git a/pom.xml b/pom.xml
-index cb37aea9..f37f1bfd 100644
+index 1c33b1f4..5b2e059f 100644
 --- a/pom.xml
 +++ b/pom.xml
-@@ -2,19 +2,14 @@
+@@ -2,19 +2,20 @@
  <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
      <modelVersion>4.0.0</modelVersion>
@@ -18,11 +18,15 @@ index cb37aea9..f37f1bfd 100644
 -        <version>dev-SNAPSHOT</version>
 -    </parent>
  
--    <groupId>com.destroystokyo.paper</groupId>
--    <artifactId>paper-api</artifactId>
+     <groupId>com.destroystokyo.paper</groupId>
+     <artifactId>paper-api</artifactId>
+     <version>1.16.4-R0.1-SNAPSHOT</version>
++    <groupId>com.destroystokyo.paper</groupId>
++    <artifactId>paper-api</artifactId>
++    <version>1.16.1-R0.1-SNAPSHOT</version>
 +    <groupId>net.glowstone</groupId>
 +    <artifactId>glowkit</artifactId>
-     <version>1.16.1-R0.1-SNAPSHOT</version>
++    <version>1.16.4-R0.1-SNAPSHOT</version>
      <packaging>jar</packaging>
  
 -    <name>Paper-API</name>
@@ -32,7 +36,7 @@ index cb37aea9..f37f1bfd 100644
      <description>An enhanced plugin API for Minecraft servers.</description>
  
      <properties>
-@@ -24,16 +19,25 @@
+@@ -24,16 +25,25 @@
          <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
      </properties>
  
@@ -64,7 +68,7 @@ index cb37aea9..f37f1bfd 100644
          </repository>
          <repository>
              <id>sonatype</id>
-@@ -41,13 +45,6 @@
+@@ -41,13 +51,6 @@
          </repository>
      </repositories>
  
@@ -78,7 +82,7 @@ index cb37aea9..f37f1bfd 100644
      <dependencies>
          <dependency>
              <groupId>it.unimi.dsi</groupId>
-@@ -150,6 +147,7 @@
+@@ -150,6 +153,7 @@
  
      <build>
          <defaultGoal>clean install</defaultGoal>
@@ -86,7 +90,7 @@ index cb37aea9..f37f1bfd 100644
          <plugins>
              <plugin>
                  <groupId>net.md-5</groupId>
-@@ -169,11 +167,10 @@
+@@ -169,11 +173,10 @@
                  <artifactId>maven-compiler-plugin</artifactId>
                  <version>3.8.1</version>
                  <dependencies>
@@ -100,5 +104,5 @@ index cb37aea9..f37f1bfd 100644
                      <dependency>
                          <groupId>org.eclipse.jdt</groupId>
 -- 
-2.26.2
+2.29.2
 
