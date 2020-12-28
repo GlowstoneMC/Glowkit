@@ -1,11 +1,10 @@
-name: Build
+name: Build and Deploy
 
 on:
   push:
-    branches-ignore:
+    branches:
       - master
       - "1.16"
-  pull_request:
 
 jobs:
   build:
@@ -27,6 +26,6 @@ jobs:
       - name: Apply Patches
         run: ./glowkit p
 
-      - name: Maven Build
-        run: mvn --batch-mode package -Pbuild-extras
+      - name: Maven Build and Deploy
+        run: mvn --batch-mode deploy -Pbuild-extras
         working-directory: ./Glowkit-Patched
