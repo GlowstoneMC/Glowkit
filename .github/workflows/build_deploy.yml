@@ -43,9 +43,10 @@ jobs:
 
       - name: Cache Maven
         run: mvn -T 1C -B dependency:go-offline
+        working-directory: ./Glowkit-Patched
 
       - name: Maven Build and Deploy
-        run: mvn -T 1C -B deploy -Pbuild-extras
+        run: mvn -T 1C -B source:jar javadoc:jar deploy -Pbuild-extras
         working-directory: ./Glowkit-Patched
         env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
