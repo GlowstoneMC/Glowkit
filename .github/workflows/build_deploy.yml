@@ -41,8 +41,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
+      - name: Cache Maven
+        run: mvn -T 1C -B dependency:go-offline
+
       - name: Maven Build and Deploy
-        run: mvn --batch-mode deploy -Pbuild-extras
+        run: mvn -T 1C -B deploy -Pbuild-extras
         working-directory: ./Glowkit-Patched
         env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
