@@ -5,6 +5,10 @@ on:
     branches:
       - master
       - "1.16"
+    paths-ignore:
+      - README.md
+      - .gitignore
+      - LICENSE
 
 jobs:
   build_deploy:
@@ -28,6 +32,14 @@ jobs:
 
       - name: Apply Patches
         run: ./glowkit p
+    
+      - name: Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
 
       - name: Maven Build and Deploy
         run: mvn --batch-mode deploy -Pbuild-extras
