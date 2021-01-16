@@ -27,6 +27,18 @@ jobs:
       - name: Apply Patches
         run: ./glowkit p
 
+      - name: Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Cache Maven
+        run: mvn -T 1C -B dependency:go-offline
+        working-directory: ./Glowkit-Patched
+
       - name: Maven Build
-        run: mvn --batch-mode package -Pbuild-extras
+        run: mvn -T 1C -B package -Pbuild-extras
         working-directory: ./Glowkit-Patched
