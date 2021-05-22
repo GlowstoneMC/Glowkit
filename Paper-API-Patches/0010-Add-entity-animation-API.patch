@@ -1,4 +1,4 @@
-From 956e92f82acf9adee45f1d204510719b9dc132c3 Mon Sep 17 00:00:00 2001
+From 451e6a14cf25ab894397d792601a7389a3be6132 Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
 Date: Fri, 28 Feb 2020 15:28:01 -0500
 Subject: [PATCH] Add entity animation API
@@ -50,10 +50,10 @@ index 9f0645dc..9a39bb88 100644
       * Get entity jump state.
       * <p>
 diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
-index f7fd13dc..a672731b 100644
+index 34b51466..b5da9a44 100644
 --- a/src/main/java/org/bukkit/entity/Player.java
 +++ b/src/main/java/org/bukkit/entity/Player.java
-@@ -11,6 +11,7 @@ import org.bukkit.BanList; // Paper
+@@ -13,6 +13,7 @@ import org.bukkit.BanList; // Paper
  import org.bukkit.Bukkit; // Paper
  import org.bukkit.DyeColor;
  import org.bukkit.Effect;
@@ -61,7 +61,7 @@ index f7fd13dc..a672731b 100644
  import org.bukkit.GameMode;
  import org.bukkit.Instrument;
  import org.bukkit.Location;
-@@ -1761,6 +1762,13 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -1892,6 +1893,13 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
       */
      void setPlayerProfile(@NotNull PlayerProfile profile);
  
@@ -76,5 +76,5 @@ index f7fd13dc..a672731b 100644
       * Returns the amount of ticks the current cooldown lasts
       *
 -- 
-2.29.2
+2.27.0
 
