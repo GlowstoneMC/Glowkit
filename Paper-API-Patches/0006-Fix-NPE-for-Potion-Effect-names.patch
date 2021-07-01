@@ -1,4 +1,4 @@
-From 2945ea19c3fb63f81ec2dacc81d1d1567980c267 Mon Sep 17 00:00:00 2001
+From d929ec10f4ad2d2a9722e86ef395a64f76b4235a Mon Sep 17 00:00:00 2001
 From: Chris Hennick <4961925+Pr0methean@users.noreply.github.com>
 Date: Mon, 29 Jan 2018 10:07:03 -0500
 Subject: [PATCH] Fix NPE for Potion Effect names

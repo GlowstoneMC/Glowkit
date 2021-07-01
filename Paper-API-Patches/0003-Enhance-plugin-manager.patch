@@ -1,4 +1,4 @@
-From 4e7bba4092849753e431d40c87425724099d2cfd Mon Sep 17 00:00:00 2001
+From 3f5dcf6381971da4829f79602ffc881d8ec93c5b Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Wed, 24 May 2017 09:16:55 -0400
 Subject: [PATCH] Enhance plugin manager
@@ -40,7 +40,7 @@ index 86cc5025..44e58bba 100644
       * Disables all the loaded plugins
       */
 diff --git a/src/main/java/org/bukkit/plugin/SimplePluginManager.java b/src/main/java/org/bukkit/plugin/SimplePluginManager.java
-index d1c35e4c..0ea5f7c8 100644
+index 0e251195..cf47ae1c 100644
 --- a/src/main/java/org/bukkit/plugin/SimplePluginManager.java
 +++ b/src/main/java/org/bukkit/plugin/SimplePluginManager.java
 @@ -8,8 +8,11 @@ import com.google.common.graph.MutableGraph;

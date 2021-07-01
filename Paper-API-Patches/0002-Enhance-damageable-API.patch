@@ -1,4 +1,4 @@
-From 33da86e8a8729177a50b4a21279a106e82f192d6 Mon Sep 17 00:00:00 2001
+From 93c95fc8bccc517e9d4d05ba7c61ee0d4fc55df3 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Wed, 24 May 2017 09:00:31 -0400
 Subject: [PATCH] Enhance damageable API
