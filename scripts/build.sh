@@ -3,12 +3,13 @@
 (
 set -e
 basedir="$(cd "$1" && pwd -P)"
+gitcmd="git -c commit.gpgsign=false"
 
-(git submodule update --init && ./scripts/applyPatches.sh "$basedir") || (
-	echo "Failed to build Glowkit"
-	exit 1
+($gitcmd submodule update --init && ./scripts/applyPatches.sh "$basedir") || (
+    echo "Failed to build Glowkit"
+    exit 1
 ) || exit 1
 if [ "$2" == "--jar" ]; then
-	(cd Glowkit-Patched && mvn clean install)
+    (cd "$basedir/Glowkit-Patched" && mvn clean package install)
 fi
-)
+) || exit 1

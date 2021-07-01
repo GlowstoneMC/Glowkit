@@ -1,15 +1,15 @@
-From 66f7b48e9019b1d036dff923c9d26ab238dde852 Mon Sep 17 00:00:00 2001
+From 451e6a14cf25ab894397d792601a7389a3be6132 Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
-Date: Sun, 10 Sep 2017 02:07:28 -0400
+Date: Fri, 28 Feb 2020 15:28:01 -0500
 Subject: [PATCH] Add entity animation API
 
 
 diff --git a/src/main/java/org/bukkit/EntityAnimation.java b/src/main/java/org/bukkit/EntityAnimation.java
 new file mode 100644
-index 00000000..427128bb
+index 00000000..8f04ebb9
 --- /dev/null
 +++ b/src/main/java/org/bukkit/EntityAnimation.java
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,13 @@
 +package org.bukkit;
 +
 +/**
@@ -17,72 +17,64 @@ index 00000000..427128bb
 + */
 +public enum EntityAnimation {
 +    SWING_MAIN_HAND,
-+
 +    TAKE_DAMAGE,
-+
 +    LEAVE_BED,
-+
 +    SWING_OFF_HAND,
-+
 +    CRITICAL_HIT,
-+
 +    MAGIC_CRITICAL_HIT
 +}
 diff --git a/src/main/java/org/bukkit/entity/LivingEntity.java b/src/main/java/org/bukkit/entity/LivingEntity.java
-index 9c542951..72792b86 100644
+index 9f0645dc..9a39bb88 100644
 --- a/src/main/java/org/bukkit/entity/LivingEntity.java
 +++ b/src/main/java/org/bukkit/entity/LivingEntity.java
-@@ -5,6 +5,7 @@ import java.util.HashSet;
+@@ -4,6 +4,7 @@ import java.util.Collection;
  import java.util.List;
  import java.util.Set;
- 
+ import java.util.UUID;
 +import org.bukkit.EntityAnimation;
+ import org.bukkit.FluidCollisionMode;
  import org.bukkit.Location;
  import org.bukkit.Material;
- import org.bukkit.attribute.Attributable;
-@@ -427,4 +428,11 @@ public interface LivingEntity extends Attributable, Entity, Damageable, Projecti
+@@ -793,6 +794,13 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
       */
      boolean isHandRaised();
-     // Paper end
-+
+ 
 +    /**
 +     * Plays an animation for this entity to nearby clients.
 +     *
 +     * @param animation the animation to play
 +     */
-+    void playAnimation(EntityAnimation animation);
- }
++    void playAnimation(@NotNull EntityAnimation animation);
++
+     /**
+      * Get entity jump state.
+      * <p>
 diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
-index fac5ded7..54c754cd 100644
+index 34b51466..b5da9a44 100644
 --- a/src/main/java/org/bukkit/entity/Player.java
 +++ b/src/main/java/org/bukkit/entity/Player.java
-@@ -11,6 +11,7 @@ import org.bukkit.BanList;
- import org.bukkit.Bukkit;
- import org.bukkit.ChatColor;
+@@ -13,6 +13,7 @@ import org.bukkit.BanList; // Paper
+ import org.bukkit.Bukkit; // Paper
+ import org.bukkit.DyeColor;
  import org.bukkit.Effect;
 +import org.bukkit.EntityAnimation;
  import org.bukkit.GameMode;
  import org.bukkit.Instrument;
  import org.bukkit.Location;
-@@ -1866,10 +1867,18 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
-     void setPlayerProfile(PlayerProfile profile);
-     // Paper end
+@@ -1892,6 +1893,13 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+      */
+     void setPlayerProfile(@NotNull PlayerProfile profile);
  
 +    /**
 +     * Plays an animation to the player itself.
 +     *
 +     * @param animation the animation
 +     */
-+    void playAnimationToSelf(EntityAnimation animation);
++    void playAnimationToSelf(@NotNull EntityAnimation animation);
 +
-     // Spigot start
-     public class Spigot extends Entity.Spigot
-     {
- 
-+
-         /**
-          * Gets the connection address of this player, regardless of whether it
-          * has been spoofed or not.
+     /**
+      * Returns the amount of ticks the current cooldown lasts
+      *
 -- 
-2.20.1
+2.27.0
 

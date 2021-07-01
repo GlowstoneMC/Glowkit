@@ -1,0 +1,43 @@
+name: Build
+
+on:
+  push:
+    branches-ignore:
+      - master
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 8
+
+      - name: Configure Git
+        run: |
+          git config --global user.email "mastercoms@tuta.io"
+          git config --global user.name "mastercoms"
+
+      - name: Apply Patches
+        run: ./glowkit p
+
+      - name: Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Cache Maven
+        run: mvn -T 1C -B dependency:go-offline
+        working-directory: ./Glowkit-Patched
+
+      - name: Maven Build
+        run: mvn -T 1C -B package -Pbuild-extras
+        working-directory: ./Glowkit-Patched

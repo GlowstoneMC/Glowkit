@@ -1,33 +1,28 @@
-From 83256e5020d2af3cdbe0b80598132cdf4a1240fb Mon Sep 17 00:00:00 2001
+From 0bac612c21c8eef2eeb1e02e7f4ba87767d355e2 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Tue, 16 May 2017 22:07:47 -0400
 Subject: [PATCH] POM Changes
 
 
 diff --git a/pom.xml b/pom.xml
-index 2fa2dd7c..24c18869 100644
+index 73fbd5d5..9fc165e9 100644
 --- a/pom.xml
 +++ b/pom.xml
-@@ -4,18 +4,20 @@
+@@ -2,19 +2,14 @@
+ <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
      <modelVersion>4.0.0</modelVersion>
- 
-     <parent>
+-    <parent>
 -        <groupId>com.destroystokyo.paper</groupId>
 -        <artifactId>paper-parent</artifactId>
 -        <version>dev-SNAPSHOT</version>
-+        <groupId>org.sonatype.oss</groupId>
-+        <artifactId>oss-parent</artifactId>
-+        <version>9</version>
-+        <!-- Fix for maven warning -->
-+        <relativePath></relativePath>
-     </parent>
+-    </parent>
  
 -    <groupId>com.destroystokyo.paper</groupId>
 -    <artifactId>paper-api</artifactId>
--    <version>1.12.2-R0.1-SNAPSHOT</version>
 +    <groupId>net.glowstone</groupId>
 +    <artifactId>glowkit</artifactId>
-+    <version>1.12.2-R6.0-SNAPSHOT</version>
+     <version>1.16.5-R0.1-SNAPSHOT</version>
      <packaging>jar</packaging>
  
 -    <name>Paper-API</name>
@@ -37,8 +32,8 @@ index 2fa2dd7c..24c18869 100644
      <description>An enhanced plugin API for Minecraft servers.</description>
  
      <properties>
-@@ -25,6 +27,17 @@
-         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+@@ -25,7 +20,26 @@
+         <adventure.version>4.7.0</adventure.version> <!-- Paper - When updating this make sure to update the linked JavaDocs on the homepage as well! -->
      </properties>
  
 +    <distributionManagement>
@@ -52,50 +47,26 @@ index 2fa2dd7c..24c18869 100644
 +        </snapshotRepository>
 +    </distributionManagement>
 +
-     <pluginRepositories>
-         <pluginRepository>
-             <id>spigotmc-public</id>
-@@ -34,8 +47,8 @@
- 
      <repositories>
-         <repository>
--            <id>spigotmc-public</id>
--            <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
++        <!--
++            If you are a plugin developer, please use https://repo.glowstone.net/nexus/content/repositories/snapshots/
++            as your repository URL. This will ensure only Glowstone related artifacts are pulled from our Maven repository.
++        -->
++        <repository>
 +            <id>glowstone</id>
-+            <url>https://repo.glowstone.net/repository/maven-public/</url>
-         </repository>
++            <url>https://repo.glowstone.net/repository/internal/</url>
++        </repository>
          <repository>
              <id>sonatype</id>
-@@ -48,8 +61,6 @@
-             <groupId>net.sf.trove4j</groupId>
-             <artifactId>trove4j</artifactId>
-             <version>3.0.3</version>
--            <!-- Trove Provided by CraftBukkit -->
--            <scope>provided</scope>
-         </dependency>
-         <!-- Paper - Add Authlib for Profile API -->
-         <dependency>
-@@ -147,19 +158,12 @@
+             <url>https://oss.sonatype.org/content/groups/public/</url>
+@@ -185,6 +199,7 @@
  
      <build>
          <defaultGoal>clean install</defaultGoal>
 +        <finalName>glowkit</finalName>
          <plugins>
              <plugin>
-                 <groupId>org.apache.maven.plugins</groupId>
-                 <artifactId>maven-compiler-plugin</artifactId>
-                 <version>3.7.0</version>
--                <dependencies>
--                    <!-- we need our custom version as it fixes some bugs on case sensitive file systems -->
--                    <dependency>
--                        <groupId>org.codehaus.plexus</groupId>
--                        <artifactId>plexus-compiler-eclipse</artifactId>
--                        <version>2.8.2-spigotmc</version>
--                    </dependency>
--                </dependencies>
-             </plugin>
-             <plugin>
-                 <groupId>org.apache.maven.plugins</groupId>
+                 <groupId>net.md-5</groupId>
 -- 
-2.20.1
+2.27.0
 

@@ -1,4 +1,4 @@
-# Glowkit
+# Glowkit ![Build and Deploy](https://github.com/GlowstoneMC/Glowkit/workflows/Build%20and%20Deploy/badge.svg)
 Glowkit is a fork of the legendary [Bukkit API](https://bukkit.org), 
 as continued by [Spigot](https://spigotmc.org) and [Paper](https://github.com/PaperMC/Paper),
 intended for use with Glowstone.

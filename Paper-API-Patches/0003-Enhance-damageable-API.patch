@@ -1,24 +1,26 @@
-From 9c146e745343094e8e54a6c04e39e4bf6521eb4d Mon Sep 17 00:00:00 2001
+From 43eadc6c0e37228bbd2834029aa33f6d7421f794 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Wed, 24 May 2017 09:00:31 -0400
 Subject: [PATCH] Enhance damageable API
 
 
 diff --git a/src/main/java/org/bukkit/entity/Damageable.java b/src/main/java/org/bukkit/entity/Damageable.java
-index e173cf01..358ad5ee 100644
+index b0fe0442..cb3399ca 100644
 --- a/src/main/java/org/bukkit/entity/Damageable.java
 +++ b/src/main/java/org/bukkit/entity/Damageable.java
-@@ -1,6 +1,7 @@
+@@ -1,7 +1,9 @@
  package org.bukkit.entity;
  
  import org.bukkit.attribute.Attribute;
++import org.jetbrains.annotations.NotNull;
+ import org.jetbrains.annotations.Nullable;
 +import org.bukkit.event.entity.EntityDamageEvent;
  
  /**
   * Represents an {@link Entity} that has health and can take damage.
-@@ -22,6 +23,24 @@ public interface Damageable extends Entity {
+@@ -23,6 +25,24 @@ public interface Damageable extends Entity {
       */
-     void damage(double amount, Entity source);
+     void damage(double amount, @Nullable Entity source);
  
 +    /**
 +     * Deals the given amount of damage to this entity, with a specified cause.
@@ -26,7 +28,7 @@ index e173cf01..358ad5ee 100644
 +     * @param amount Amount of damage to deal
 +     * @param cause Cause of the damage
 +     */
-+    void damage(double amount, EntityDamageEvent.DamageCause cause);
++    void damage(double amount, @NotNull EntityDamageEvent.DamageCause cause);
 +
 +    /**
 +     * Deals the given amount of damage to this entity, from a specified entity,
@@ -36,11 +38,11 @@ index e173cf01..358ad5ee 100644
 +     * @param source Entity which to attribute this damage from
 +     * @param cause Cause of the damage
 +     */
-+    void damage(double amount, Entity source, EntityDamageEvent.DamageCause cause);
++    void damage(double amount, @Nullable Entity source, @NotNull EntityDamageEvent.DamageCause cause);
 +
      /**
       * Gets the entity's health from 0 to {@link #getMaxHealth()}, where 0 is dead.
       *
 -- 
-2.14.1
+2.23.0
 

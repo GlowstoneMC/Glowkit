@@ -1,29 +1,27 @@
-From e5347837534d45219bc99e832888bd00bcf087e8 Mon Sep 17 00:00:00 2001
+From f906a7455de8f4148137430ebc4e4cecd73caeab Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Tue, 16 May 2017 22:26:39 -0400
 Subject: [PATCH] Timings changes
 
 
-diff --git a/src/main/java/co/aikar/timings/TimingsExport.java b/src/main/java/co/aikar/timings/TimingsExport.java
-index df7f4259..42913270 100644
---- a/src/main/java/co/aikar/timings/TimingsExport.java
-+++ b/src/main/java/co/aikar/timings/TimingsExport.java
-@@ -191,9 +191,7 @@ class TimingsExport extends Thread {
-         // Information on the users Config
- 
-         parent.put("config", createObject(
--            pair("spigot", mapAsJSON(Bukkit.spigot().getSpigotConfig(), null)),
--            pair("bukkit", mapAsJSON(Bukkit.spigot().getBukkitConfig(), null)),
--            pair("paper", mapAsJSON(Bukkit.spigot().getPaperConfig(), null))
-+            pair("bukkit", mapAsJSON(Bukkit.spigot().getBukkitConfig(), null))
-         ));
- 
-         new TimingsExport(listeners, parent, history).start();
+diff --git a/src/main/java/co/aikar/timings/TimingHandler.java b/src/main/java/co/aikar/timings/TimingHandler.java
+index 199789d5..c21271b3 100644
+--- a/src/main/java/co/aikar/timings/TimingHandler.java
++++ b/src/main/java/co/aikar/timings/TimingHandler.java
+@@ -127,7 +127,7 @@ class TimingHandler implements Timing {
+         while ((last = TIMING_STACK.removeLast()) != this) {
+             last.timingDepth = 0;
+             if ("Minecraft".equalsIgnoreCase(last.identifier.group)) {
+-                Logger.getGlobal().log(Level.SEVERE, "TIMING_STACK_CORRUPTION - Look above this for any errors and report this to Paper unless it has a plugin in the stack trace (" + last.identifier + " did not stopTiming)");
++                Logger.getGlobal().log(Level.SEVERE, "TIMING_STACK_CORRUPTION - Look above this for any errors and report this to Glowstone unless it has a plugin in the stack trace (" + last.identifier + " did not stopTiming)");
+             } else {
+                 Logger.getGlobal().log(Level.SEVERE, "TIMING_STACK_CORRUPTION - Report this to the plugin " + last.identifier.group + " (Look for errors above this in the logs) (" + last.identifier + " did not stopTiming)", new Throwable());
+             }
 diff --git a/src/main/java/co/aikar/timings/TimingsManager.java b/src/main/java/co/aikar/timings/TimingsManager.java
-index 3b440190..af535512 100644
+index ef824d70..7b8f5fb7 100644
 --- a/src/main/java/co/aikar/timings/TimingsManager.java
 +++ b/src/main/java/co/aikar/timings/TimingsManager.java
-@@ -151,6 +151,7 @@ public final class TimingsManager {
+@@ -152,6 +152,7 @@ public final class TimingsManager {
          if (!(  server == null || pluginName == null ||
                  "minecraft".equals(pluginName) || "bukkit".equals(pluginName) ||
                  "spigot".equalsIgnoreCase(pluginName) || "paper".equals(pluginName)
@@ -32,5 +30,5 @@ index 3b440190..af535512 100644
              plugin = server.getPluginManager().getPlugin(pluginName);
          }
 -- 
-2.20.1
+2.26.2
 

@@ -4,24 +4,29 @@
 PS1="$"
 basedir="$(cd "$1" && pwd -P)"
 workdir="$basedir/work"
-echo "Rebuilding patch files from current fork state..."
-git config core.safecrlf false
+source "$basedir/scripts/functions.sh"
+gitcmd="git -c commit.gpgsign=false -c core.safecrlf=false"
 
+echo "Rebuilding patch files from current fork state..."
+nofilter="0"
+if [ "$2" = "nofilter" ]; then
+    nofilter="1"
+fi
 function cleanupPatches {
     cd "$1"
     for patch in *.patch; do
         echo "$patch"
         gitver=$(tail -n 2 "$patch" | grep -ve "^$" | tail -n 1)
-        diffs=$(git diff --staged "$patch" | grep -E "^(\+|\-)" | grep -Ev "(From [a-z0-9]{32,}|\-\-\- a|\+\+\+ b|.index)")
+        diffs=$($gitcmd diff --staged "$patch" | grep --color=none -E "^(\+|\-)" | grep --color=none -Ev "(From [a-f0-9]{32,}|\-\-\- a|\+\+\+ b|^.index)")
 
-        testver=$(echo "$diffs" | tail -n 2 | grep -ve "^$" | tail -n 1 | grep "$gitver")
+        testver=$(echo "$diffs" | tail -n 2 | grep --color=none -ve "^$" | tail -n 1 | grep --color=none "$gitver")
         if [ "x$testver" != "x" ]; then
             diffs=$(echo "$diffs" | sed 'N;$!P;$!D;$d')
         fi
 
         if [ "x$diffs" == "x" ] ; then
-            git reset HEAD "$patch" >/dev/null
-            git checkout -- "$patch" >/dev/null
+            $gitcmd reset HEAD "$patch" >/dev/null
+            $gitcmd checkout -- "$patch" >/dev/null
         fi
     done
 }
@@ -38,10 +43,11 @@ function savePatches {
         echo "REBASE DETECTED - PARTIAL SAVE"
         last=$(cat "$basedir/$target/.git/rebase-apply/last")
         next=$(cat "$basedir/$target/.git/rebase-apply/next")
+        orderedfiles=$(find . -name "*.patch" | sort)
         for i in $(seq -f "%04g" 1 1 $last)
         do
             if [ $i -lt $next ]; then
-                rm ${i}-*.patch
+                rm $(echo "$orderedfiles{@}" | sed -n "${i}p")
             fi
         done
     else
@@ -50,12 +56,14 @@ function savePatches {
 
     cd "$basedir/$target"
 
-    git format-patch --no-stat -N -o "$basedir/${what_name}-Patches/" upstream/upstream >/dev/null
+    $gitcmd format-patch --no-stat -N -o "$basedir/${what_name}-Patches/" upstream/upstream >/dev/null
     cd "$basedir"
-    git add -A "$basedir/${what_name}-Patches"
-    cleanupPatches "$basedir/${what_name}-Patches"
+    $gitcmd add -A "$basedir/${what_name}-Patches"
+    if [ "$nofilter" == "0" ]; then
+        cleanupPatches "$basedir/${what_name}-Patches"
+    fi
     echo "  Patches saved for $what to $what_name-Patches/"
 }
 
 savePatches "$workdir/Paper/Paper-API" "Glowkit-Patched"
-)
+) || exit 1
