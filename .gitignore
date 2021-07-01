@@ -1,4 +1,6 @@
 # From Paper
+.gradle/
+build/
 
 # Eclipse stuff
 .classpath

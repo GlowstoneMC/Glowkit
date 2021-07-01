@@ -41,13 +41,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Cache Maven
-        run: mvn -T 1C -B dependency:go-offline
-        working-directory: ./Glowkit-Patched
-
-      - name: Maven Build and Deploy
-        run: mvn -T 1C -B source:jar javadoc:jar deploy -Pbuild-extras
-        working-directory: ./Glowkit-Patched
+      - name: Gradle Build and Deploy
+        run: ./gradlew build
         env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
