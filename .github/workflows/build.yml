@@ -17,7 +17,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v1
         with:
-          java-version: 8
+          java-version: 16
 
       - name: Configure Git
         run: |
@@ -27,5 +27,16 @@ jobs:
       - name: Apply Patches
         run: ./glowkit p
 
-      - name: Maven Build
-        run: ./gradlew build
+      - name: Cache gradle
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/jdks
+            ~/.gradle/native
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-glowkit-${{ hashFiles('**/*.gradle*', 'gradle/**', 'gradle.properties') }}
+          restore-keys: ${{ runner.os }}-glowkit
+
+      - name: Gradle Build
+        run: ./gradlew build --stacktrace
