@@ -4,7 +4,7 @@ on:
   push:
     branches-ignore:
       - master
-      - "1.16"
+      - "1.17"
   pull_request:
 
 jobs:
