@@ -7,4 +7,4 @@ pluginManagement {
 
 rootProject.name = "Glowkit"
 
-include("Glowkit-Patched")
+include("Glowkit")
