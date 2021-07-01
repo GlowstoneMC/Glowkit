@@ -1,11 +1,11 @@
-From 43eadc6c0e37228bbd2834029aa33f6d7421f794 Mon Sep 17 00:00:00 2001
+From 33da86e8a8729177a50b4a21279a106e82f192d6 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Wed, 24 May 2017 09:00:31 -0400
 Subject: [PATCH] Enhance damageable API
 
 
 diff --git a/src/main/java/org/bukkit/entity/Damageable.java b/src/main/java/org/bukkit/entity/Damageable.java
-index b0fe0442..cb3399ca 100644
+index fc4d3bcd..f916d6b1 100644
 --- a/src/main/java/org/bukkit/entity/Damageable.java
 +++ b/src/main/java/org/bukkit/entity/Damageable.java
 @@ -1,7 +1,9 @@
@@ -44,5 +44,5 @@ index b0fe0442..cb3399ca 100644
       * Gets the entity's health from 0 to {@link #getMaxHealth()}, where 0 is dead.
       *
 -- 
-2.23.0
+2.30.2
 

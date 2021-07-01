@@ -1,4 +1,4 @@
-From 6001c21efd9d651fa96b1252b95340b211e2173b Mon Sep 17 00:00:00 2001
+From 4e7bba4092849753e431d40c87425724099d2cfd Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Wed, 24 May 2017 09:16:55 -0400
 Subject: [PATCH] Enhance plugin manager
@@ -233,5 +233,5 @@ index d1c35e4c..0ea5f7c8 100644
       * Loads the plugin in the specified file
       * <p>
 -- 
-2.27.0
+2.30.2
 

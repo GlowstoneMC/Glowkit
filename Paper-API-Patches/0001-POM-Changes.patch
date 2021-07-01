@@ -1,4 +1,4 @@
-From 0bac612c21c8eef2eeb1e02e7f4ba87767d355e2 Mon Sep 17 00:00:00 2001
+From c583b25da4d92ad241edc78c1721963cbd28cb50 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Tue, 16 May 2017 22:07:47 -0400
 Subject: [PATCH] POM Changes
@@ -68,5 +68,5 @@ index 73fbd5d5..9fc165e9 100644
              <plugin>
                  <groupId>net.md-5</groupId>
 -- 
-2.27.0
+2.30.2
 

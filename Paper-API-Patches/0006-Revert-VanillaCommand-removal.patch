@@ -1,4 +1,4 @@
-From a9c0bdcb8f203c07c03466c6b7e0da79ef9a02e2 Mon Sep 17 00:00:00 2001
+From 1212ff2fea32897143330bb6b14c95b2698f7876 Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
 Date: Fri, 9 Jun 2017 11:00:46 -0400
 Subject: [PATCH] Revert VanillaCommand removal
@@ -143,5 +143,5 @@ index 00000000..9105712b
 +    }
 +}
 -- 
-2.24.1
+2.30.2
 
