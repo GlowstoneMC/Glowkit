@@ -138,11 +138,11 @@ case "$1" in
         echo "                      | to finish and rebuild patches. Can be called from anywhere."
         echo ""
         echo "  * setup             | Add an alias to $RCPATH to allow full functionality of this script. Run as:"
-        echo "                      |     . ./glowkit setup"
+        echo "                      |     . ./glowkit.sh setup"
         echo "                      | After you run this command you'll be able to just run 'glowkit' from anywhere."
         echo "                      | The default name for the resulting alias is 'glowkit', you can give an argument to override"
         echo "                      | this default, such as:"
-        echo "                      |     . ./glowkit setup example"
+        echo "                      |     . ./glowkit.sh setup example"
         echo "                      | Which will allow you to run 'example' instead."
     ;;
 esac

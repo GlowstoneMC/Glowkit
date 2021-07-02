@@ -25,7 +25,7 @@ jobs:
           git config --global user.name "mastercoms"
 
       - name: Apply Patches
-        run: ./glowkit p
+        run: ./glowkit.sh p
 
       - name: Cache gradle
         uses: actions/cache@v2
