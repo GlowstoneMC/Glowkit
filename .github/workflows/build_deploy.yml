@@ -49,3 +49,15 @@ jobs:
         env:
           ORG_GRADLE_PROJECT_glowstoneSnapshotsUsername: ${{ secrets.MAVEN_USERNAME }}
           ORG_GRADLE_PROJECT_glowstoneSnapshotsPassword: ${{ secrets.MAVEN_PASSWORD }}
+          
+      - name: Push Javadocs to Pages
+        uses: dmnemec/copy_file_to_another_repo_action@v1.1.1
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.GH_TOKEN }}
+        with:
+          source_file: 'Glowkit/target/apidocs/.'
+          destination_repo: 'GlowstoneMC/glowstonemc.github.io'
+          destination_folder: 'content/jd/glowkit/1.17/' # TODO: detect version?
+          user_email: 'mastercoms@tuta.io'
+          user_name: 'mastercoms'
+          commit_message: Update Javadocs for Glowkit commit ${{ github.sha }}
