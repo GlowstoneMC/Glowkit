@@ -1,0 +1,24 @@
+name: Update Upstream
+
+on:
+  schedule:
+    - cron:  '30 18 * * *'
+  workflow_dispatch:
+  
+jobs:
+  upstream:
+    runs-on: ubuntu-latest
+
+    - uses: actions/checkout@v2
+
+    - name: Configure Git
+      run: |
+        git config --global user.email "mastercoms@tuta.io"
+        git config --global user.name "mastercoms"
+        
+    - name: Update Upstream
+      run: ./glowkit cu
+        
+    - name:
+      run: git push
+       
