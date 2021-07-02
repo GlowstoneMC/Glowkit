@@ -56,7 +56,7 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.GH_TOKEN }}
         with:
-          source_file: 'Glowkit/target/apidocs/.'
+          source_file: 'Glowkit-Patched/target/apidocs/.'
           destination_repo: 'GlowstoneMC/glowstonemc.github.io'
           destination_folder: 'content/jd/glowkit/1.16/' # TODO: detect version?
           user_email: 'mastercoms@tuta.io'
