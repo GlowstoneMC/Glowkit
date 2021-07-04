@@ -1,10 +1,6 @@
 name: Build
 
 on:
-  push:
-    branches-ignore:
-      - main
-      - '1.17'
   pull_request:
 
 jobs:
