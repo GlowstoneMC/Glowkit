@@ -1,4 +1,6 @@
 # From Paper
+.gradle/
+build/
 
 # Eclipse stuff
 .classpath
@@ -47,4 +49,5 @@ out/
 # other stuff
 run/
 
-Glowkit-Patched
+/Glowkit/
+/Glowkit-Patched/

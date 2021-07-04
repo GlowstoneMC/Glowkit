@@ -4,6 +4,7 @@ on:
   push:
     branches-ignore:
       - main
+      - '1.17'
   pull_request:
 
 jobs:
@@ -16,7 +17,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v1
         with:
-          java-version: 8
+          java-version: 16
 
       - name: Configure Git
         run: |
@@ -24,20 +25,18 @@ jobs:
           git config --global user.name "mastercoms"
 
       - name: Apply Patches
-        run: ./glowkit p
+        run: ./glowkit.sh p
 
-      - name: Cache
+      - name: Cache gradle
         uses: actions/cache@v2
         with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/jdks
+            ~/.gradle/native
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-glowkit-${{ hashFiles('**/*.gradle*', 'gradle/**', 'gradle.properties') }}
+          restore-keys: ${{ runner.os }}-glowkit
 
-      - name: Cache Maven
-        run: mvn -T 1C -B dependency:go-offline
-        working-directory: ./Glowkit-Patched
-
-      - name: Maven Build
-        run: mvn -T 1C -B package -Pbuild-extras
-        working-directory: ./Glowkit-Patched
+      - name: Gradle Build
+        run: ./gradlew build --stacktrace

@@ -10,6 +10,6 @@ gitcmd="git -c commit.gpgsign=false"
     exit 1
 ) || exit 1
 if [ "$2" == "--jar" ]; then
-    (cd "$basedir/Glowkit-Patched" && mvn clean package install)
+    (cd "$basedir" && ./gradlew clean build publishToMavenLocal)
 fi
 ) || exit 1

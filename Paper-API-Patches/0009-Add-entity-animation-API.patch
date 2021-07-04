@@ -1,4 +1,4 @@
-From 451e6a14cf25ab894397d792601a7389a3be6132 Mon Sep 17 00:00:00 2001
+From e2d8323aeb61557b5ff8862f23891cfcc8cb2540 Mon Sep 17 00:00:00 2001
 From: momothereal <momothereal.mc@gmail.com>
 Date: Fri, 28 Feb 2020 15:28:01 -0500
 Subject: [PATCH] Add entity animation API
@@ -24,7 +24,7 @@ index 00000000..8f04ebb9
 +    MAGIC_CRITICAL_HIT
 +}
 diff --git a/src/main/java/org/bukkit/entity/LivingEntity.java b/src/main/java/org/bukkit/entity/LivingEntity.java
-index 9f0645dc..9a39bb88 100644
+index cda05df6..c66161a4 100644
 --- a/src/main/java/org/bukkit/entity/LivingEntity.java
 +++ b/src/main/java/org/bukkit/entity/LivingEntity.java
 @@ -4,6 +4,7 @@ import java.util.Collection;
@@ -35,7 +35,7 @@ index 9f0645dc..9a39bb88 100644
  import org.bukkit.FluidCollisionMode;
  import org.bukkit.Location;
  import org.bukkit.Material;
-@@ -793,6 +794,13 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
+@@ -813,6 +814,13 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
       */
      boolean isHandRaised();
  
@@ -47,10 +47,10 @@ index 9f0645dc..9a39bb88 100644
 +    void playAnimation(@NotNull EntityAnimation animation);
 +
      /**
-      * Get entity jump state.
-      * <p>
+      * Gets the hand raised by this living entity. Will be either
+      * {@link org.bukkit.inventory.EquipmentSlot#HAND} or
 diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
-index 34b51466..b5da9a44 100644
+index da83b4cb..1a6f795b 100644
 --- a/src/main/java/org/bukkit/entity/Player.java
 +++ b/src/main/java/org/bukkit/entity/Player.java
 @@ -13,6 +13,7 @@ import org.bukkit.BanList; // Paper
@@ -61,7 +61,7 @@ index 34b51466..b5da9a44 100644
  import org.bukkit.GameMode;
  import org.bukkit.Instrument;
  import org.bukkit.Location;
-@@ -1892,6 +1893,13 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -1927,6 +1928,13 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
       */
      void setPlayerProfile(@NotNull PlayerProfile profile);
  
@@ -76,5 +76,5 @@ index 34b51466..b5da9a44 100644
       * Returns the amount of ticks the current cooldown lasts
       *
 -- 
-2.27.0
+2.30.2
 

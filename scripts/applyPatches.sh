@@ -41,11 +41,18 @@ function applyPatch {
     $gitcmd am --abort >/dev/null 2>&1
 
     # Special case Windows handling because of ARG_MAX constraint
+
+    if [[ $target == "Paper-API" ]]; then
+        patches="$basedir/patches/api/"*.patch
+    else
+        patches="$basedir/${what_name}-Patches/"*.patch
+    fi
+
     if [[ $windows == "true" ]]; then
         echo "  Using workaround for Windows ARG_MAX constraint"
-        find "$basedir/${what_name}-Patches/"*.patch -print0 | xargs -0 $applycmd
+        find $patches -print0 | xargs -0 $applycmd
     else
-        $applycmd "$basedir/${what_name}-Patches/"*.patch
+        $applycmd $patches
     fi
 
     if [ "$?" != "0" ]; then
@@ -102,7 +109,7 @@ cd "$basedir"
 # Apply glowkit
 cd "$basedir"
 (
-    applyPatch "work/Paper/Paper-API" Glowkit-Patched HEAD
+    applyPatch "work/Paper/Paper-API" Glowkit HEAD
 ) || (
     echo "Failed to apply Glowkit Patches"
     exit 1
