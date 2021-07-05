@@ -18,7 +18,7 @@ jobs:
           git config --global user.name "mastercoms"
 
       - name: Update Upstream
-        run: ./glowkit cu
+        run: ./glowkit.sh cu
 
       - name: Push
         run: git push
