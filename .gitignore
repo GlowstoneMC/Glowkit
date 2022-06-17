@@ -46,5 +46,6 @@ out/
 # other stuff
 run/
 
+/glowkit/
 /Glowkit/
 /Glowkit-Patched/

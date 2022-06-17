@@ -83,7 +83,7 @@ paperweight {
                 register("api") {
                     upstreamDir.set(paperDir.dir("Paper-API"))
                     patchDir.set(layout.projectDirectory.dir("Paper-API-Patches"))
-                    outputDir.set(layout.projectDirectory.dir("Glowkit"))
+                    outputDir.set(layout.projectDirectory.dir("glowkit"))
                     importMcDev.set(false)
                 }
             }

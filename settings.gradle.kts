@@ -5,6 +5,6 @@ pluginManagement {
     }
 }
 
-rootProject.name = "Glowkit"
+rootProject.name = "glowkit"
 
-include("Glowkit")
+include("glowkit")

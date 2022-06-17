@@ -50,17 +50,17 @@ case "$1" in
         cd "$basedir"
     ;;
     "a" | "api")
-        cd "$basedir/Glowkit"
+        cd "$basedir/glowkit"
     ;;
     "c" | "clean")
-        rm -rf "$basedir/Glowkit"
+        rm -rf "$basedir/glowkit"
         rm -rf "$basedir/work"
         ./gradlew clean
         ./gradlew cleanCache
         echo "Cleaned build files"
     ;;
     "con" | "continue")
-        cd "$basedir/Glowkit"
+        cd "$basedir/glowkit"
         (
             set -e
 
@@ -74,7 +74,7 @@ case "$1" in
         cd "$basedir"
     ;;
     "e" | "edit")
-        cd "$basedir/Glowkit"
+        cd "$basedir/glowkit"
         (
             set -e
 
@@ -108,7 +108,7 @@ case "$1" in
         echo ""
         echo " These commands require the setup command before use:"
         echo "  * r, root           | Change directory to the root of the project."
-        echo "  * a. api            | Move to the Glowkit directory."
+        echo "  * a. api            | Move to the glowkit directory."
         echo "  * e, edit           | Use to edit a specific patch."
         echo "  * con, continue     | After the changes have been made with \"edit\", finish and rebuild patches."
         echo ""
