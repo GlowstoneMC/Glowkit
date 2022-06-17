@@ -1,14 +1,14 @@
-From 88547d1782b457fc67f9aa811cce95721a8e5091 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: aki_ks <aki@kaysubs.de>
 Date: Wed, 4 Jul 2018 15:59:22 +0200
 Subject: [PATCH] Allow declaring nms classes
 
 
 diff --git a/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java b/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java
-index 9818b3df..03ba5bab 100644
+index 243bcb4d2715b8dc117871c4303e2868145338de..9b7cbbca68b4613733430fa852bfa4ac93996547 100644
 --- a/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java
 +++ b/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java
-@@ -148,9 +148,6 @@ public class PluginClassLoader extends URLClassLoader { // Spigot
+@@ -153,9 +153,6 @@ public class PluginClassLoader extends URLClassLoader { // Spigot
  
      @Override
      protected Class<?> findClass(String name) throws ClassNotFoundException {
@@ -18,6 +18,3 @@ index 9818b3df..03ba5bab 100644
          Class<?> result = classes.get(name);
  
          if (result == null) {
--- 
-2.30.2
-

@@ -1,11 +1,11 @@
-From 08a8e6fd1c05071a34fb8441f7531e1caf39ae36 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: mastercoms <circuitsoft@tuta.io>
 Date: Tue, 16 May 2017 22:26:39 -0400
 Subject: [PATCH] Timings changes
 
 
 diff --git a/src/main/java/co/aikar/timings/TimingHandler.java b/src/main/java/co/aikar/timings/TimingHandler.java
-index 199789d5..c21271b3 100644
+index 199789d56d22fcb1b77ebd56805cc28aa5a5ab0a..c21271b38e14ed711f29544acc8f1a897dd7838b 100644
 --- a/src/main/java/co/aikar/timings/TimingHandler.java
 +++ b/src/main/java/co/aikar/timings/TimingHandler.java
 @@ -127,7 +127,7 @@ class TimingHandler implements Timing {
@@ -18,7 +18,7 @@ index 199789d5..c21271b3 100644
                  Logger.getGlobal().log(Level.SEVERE, "TIMING_STACK_CORRUPTION - Report this to the plugin " + last.identifier.group + " (Look for errors above this in the logs) (" + last.identifier + " did not stopTiming)", new Throwable());
              }
 diff --git a/src/main/java/co/aikar/timings/TimingsManager.java b/src/main/java/co/aikar/timings/TimingsManager.java
-index ef824d70..7b8f5fb7 100644
+index a92925d41110226f7fda055b71ce7be60eedd038..7e259fb36721e3c0893f7ca3211c3a5d6037b02e 100644
 --- a/src/main/java/co/aikar/timings/TimingsManager.java
 +++ b/src/main/java/co/aikar/timings/TimingsManager.java
 @@ -152,6 +152,7 @@ public final class TimingsManager {
@@ -29,6 +29,3 @@ index ef824d70..7b8f5fb7 100644
          )) {
              plugin = server.getPluginManager().getPlugin(pluginName);
          }
--- 
-2.30.2
-

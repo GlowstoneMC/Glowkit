@@ -1,11 +1,11 @@
-From c10a41f194c393ea79552f6b2be177ec3084f2e6 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: aki_ks <aki@kaysubs.de>
 Date: Tue, 3 Jul 2018 18:09:25 +0200
 Subject: [PATCH] Allow transforming plugin classes
 
 
 diff --git a/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java b/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java
-index b622cede..27141abc 100644
+index 8ff78fad47f6086aa289e32590f4fbec24b3d500..496c800c3fb79f49e4b30966b0a393fa44ebb01a 100644
 --- a/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java
 +++ b/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java
 @@ -49,7 +49,7 @@ import org.yaml.snakeyaml.error.YAMLException;
@@ -52,7 +52,7 @@ index b622cede..27141abc 100644
          // Paper start - make MT safe
          java.util.concurrent.locks.ReentrantReadWriteLock lock;
 diff --git a/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java b/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java
-index 81292899..9818b3df 100644
+index 345394132df70593800127d34a38f8f8a4dafe00..243bcb4d2715b8dc117871c4303e2868145338de 100644
 --- a/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java
 +++ b/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java
 @@ -29,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
@@ -70,10 +70,10 @@ index 81292899..9818b3df 100644
  
 -    PluginClassLoader(@NotNull final JavaPluginLoader loader, @Nullable final ClassLoader parent, @NotNull final PluginDescriptionFile description, @NotNull final File dataFolder, @NotNull final File file, @Nullable ClassLoader libraryLoader) throws IOException, InvalidPluginException, MalformedURLException {
 +    public PluginClassLoader(@NotNull final JavaPluginLoader loader, @Nullable final ClassLoader parent, @NotNull final PluginDescriptionFile description, @NotNull final File dataFolder, @NotNull final File file, @Nullable ClassLoader libraryLoader) throws IOException, InvalidPluginException, MalformedURLException {
-         super(new URL[] {file.toURI().toURL()}, parent);
-         Validate.notNull(loader, "Loader cannot be null");
+         super(file.getName(), new URL[] {file.toURI().toURL()}, parent); // Paper - rewrite LogEvents to contain source jar info
+         Preconditions.checkArgument(loader != null, "Loader cannot be null");
  
-@@ -189,6 +189,7 @@ public final class PluginClassLoader extends URLClassLoader { // Spigot
+@@ -194,6 +194,7 @@ public final class PluginClassLoader extends URLClassLoader { // Spigot
                  CodeSigner[] signers = entry.getCodeSigners();
                  CodeSource source = new CodeSource(url, signers);
  
@@ -81,7 +81,7 @@ index 81292899..9818b3df 100644
                  result = defineClass(name, classBytes, 0, classBytes.length, source);
              }
  
-@@ -203,6 +204,10 @@ public final class PluginClassLoader extends URLClassLoader { // Spigot
+@@ -208,6 +209,10 @@ public final class PluginClassLoader extends URLClassLoader { // Spigot
          return result;
      }
  
@@ -92,6 +92,3 @@ index 81292899..9818b3df 100644
      @Override
      public void close() throws IOException {
          try {
--- 
-2.30.2
-

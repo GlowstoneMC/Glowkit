@@ -79,7 +79,7 @@ case "$1" in
             set -e
 
             glowkitstash
-            $gitcmd rebase -i upstream/upstream
+            $gitcmd rebase -i upstream/master
             glowkitunstash
         )
     ;;
