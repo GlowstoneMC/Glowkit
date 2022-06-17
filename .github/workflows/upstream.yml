@@ -1,8 +1,6 @@
 name: Update Upstream
 
 on:
-  schedule:
-    - cron:  '30 18 * * *'
   workflow_dispatch:
   
 jobs:
@@ -10,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Configure Git
         run: |
@@ -18,8 +16,10 @@ jobs:
           git config --global user.name "mastercoms"
 
       - name: Update Upstream
-        run: ./glowkit.sh cu
+        run: ./scripts/upstreamMerge.sh
+
+      - name: Commit Upstream
+        run: ./scripts/upstreamCommit.sh
 
       - name: Push
         run: git push
-       
