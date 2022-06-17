@@ -27,7 +27,6 @@ function update {
 update Paper master
 
 if [ "$updated" == "1" ]; then
-    echo "Rebuilding patches without filtering to improve apply ability"
     cd "$basedir"
     ./gradlew cleanCache || exit 1 # todo: Figure out why this is necessary
     ./gradlew applyApiPatches -Dpaperweight.debug=true || exit 1
