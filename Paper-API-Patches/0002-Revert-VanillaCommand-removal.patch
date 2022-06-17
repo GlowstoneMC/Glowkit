@@ -5,7 +5,7 @@ Subject: [PATCH] Revert VanillaCommand removal
 
 
 diff --git a/src/main/java/org/bukkit/command/SimpleCommandMap.java b/src/main/java/org/bukkit/command/SimpleCommandMap.java
-index b8623575b1c1b565560c2dd6438190716845a652..fce3f5d060ccfeb30fd7739a2378415954186109 100644
+index b8623575b1c1b565560c2dd6438190716845a652..6bd5eb8ad74556459054e6d61ae2697ba2205405 100644
 --- a/src/main/java/org/bukkit/command/SimpleCommandMap.java
 +++ b/src/main/java/org/bukkit/command/SimpleCommandMap.java
 @@ -15,6 +15,7 @@ import org.bukkit.command.defaults.BukkitCommand;
@@ -21,7 +21,7 @@ index b8623575b1c1b565560c2dd6438190716845a652..fce3f5d060ccfeb30fd7739a23784159
      private synchronized boolean register(@NotNull String label, @NotNull Command command, boolean isAlias, @NotNull String fallbackPrefix) {
          knownCommands.put(fallbackPrefix + ":" + label, command);
 -        if ((command instanceof BukkitCommand || isAlias) && knownCommands.containsKey(label)) {
-+        if ((command instanceof VanillaCommand || isAlias) && knownCommands.containsKey(label)) {
++        if ((command instanceof BukkitCommand || command instanceof VanillaCommand || isAlias) && knownCommands.containsKey(label)) {
              // Request is for an alias/fallback command and it conflicts with
              // a existing command or previous alias ignore it
              // Note: This will mean it gets removed from the commands list of active aliases
