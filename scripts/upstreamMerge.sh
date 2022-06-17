@@ -24,8 +24,6 @@ function update {
     fi
 }
 
-update Bukkit master
-update Spigot master
 update Paper master
 
 if [ "$updated" == "1" ]; then
