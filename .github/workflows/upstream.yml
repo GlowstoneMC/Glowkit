@@ -1,6 +1,8 @@
 name: Update Upstream
 
 on:
+  schedule:
+    - cron:  '30 18 * * *'
   workflow_dispatch:
   
 jobs:
@@ -9,14 +11,39 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - uses: gradle/wrapper-validation-action@v1
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          distribution: 'temurin'
+          java-version: 17
 
       - name: Configure Git
         run: |
           git config --global user.email "mastercoms@tuta.io"
           git config --global user.name "mastercoms"
 
+      - name: Cache gradle
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/jdks
+            ~/.gradle/native
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', 'gradle.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
       - name: Update Upstream
         run: ./scripts/upstreamMerge.sh
+
+      - name: Cleanup Gradle Cache
+        # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
+        # Restoring these files from a GitHub Actions cache might cause problems for future builds.
+        run: |
+          rm -f ~/.gradle/caches/modules-2/modules-2.lock
+          rm -f ~/.gradle/caches/modules-2/gc.properties
 
       - name: Commit Upstream
         run: ./scripts/upstreamCommit.sh

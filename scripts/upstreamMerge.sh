@@ -29,10 +29,8 @@ update Paper master
 if [ "$updated" == "1" ]; then
     echo "Rebuilding patches without filtering to improve apply ability"
     cd "$basedir"
-    if [ -z "$CI" ]; then
-      ./gradlew cleanCache || exit 1 # todo: Figure out why this is necessary
-      ./gradlew applyApiPatches -Dpaperweight.debug=true || exit 1
-      ./gradlew rebuildApiPatches || exit 1
-    fi
+    ./gradlew cleanCache || exit 1 # todo: Figure out why this is necessary
+    ./gradlew applyApiPatches -Dpaperweight.debug=true || exit 1
+    ./gradlew rebuildApiPatches || exit 1
 fi
 )
