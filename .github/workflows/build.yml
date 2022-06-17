@@ -33,8 +33,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
+      - name: Apply Patches
+        run: ./gradlew applyApiPatches --no-daemon --stacktrace
+
       - name: Gradle Build
-        run: ./gradlew applyApiPatches build --no-daemon --stacktrace
+        run: ./gradlew build --no-daemon --stacktrace
 
       - name: Cleanup Gradle Cache
         # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
