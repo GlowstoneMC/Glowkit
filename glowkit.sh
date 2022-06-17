@@ -29,29 +29,10 @@ gitcmd="git -c commit.gpgsign=false"
 
 source "$basedir/scripts/functions.sh"
 
+"$basedir"/scripts/requireDeps.sh || exit 1
+
 failed=0
 case "$1" in
-    "rb" | "rbp" | "rebuild")
-    (
-        set -e
-        cd "$basedir"
-        scripts/rebuildPatches.sh "$basedir" || exit 1
-    ) || failed=1
-    ;;
-    "p" | "patch")
-    (
-        set -e
-        cd "$basedir"
-        scripts/build.sh "$basedir" || exit 1
-    ) || failed=1
-    ;;
-    "j" | "jar")
-    (
-        set -e
-        cd "$basedir"
-        scripts/build.sh "$basedir" "--jar" || exit 1
-    ) || failed=1
-    ;;
     "u" | "up" | "upstream")
     (
         cd "$basedir"
@@ -74,37 +55,33 @@ case "$1" in
     "c" | "clean")
         rm -rf "$basedir/Glowkit"
         rm -rf "$basedir/work"
+        ./gradlew clean
+        ./gradlew cleanCache
         echo "Cleaned build files"
     ;;
-    "e" | "edit")
-        case "$2" in
-            "c" | "continue")
-            cd "$GLOWKIT_LAST_EDIT"
-            unset GLOWKIT_LAST_EDIT
-            (
-                set -e
+    "con" | "continue")
+        cd "$basedir/Glowkit"
+        (
+            set -e
 
-                $gitcmd add .
-                $gitcmd commit --amend
-                $gitcmd rebase --continue
+            $gitcmd add .
+            $gitcmd commit --amend
+            $gitcmd rebase --continue
 
-                cd "$basedir"
-                scripts/rebuildPatches.sh "$basedir"
-            )
             cd "$basedir"
-            ;;
-            *)
-            export GLOWKIT_LAST_EDIT="$basedir/Glowkit"
-            cd "$basedir/Glowkit"
-            (
-                set -e
+            ./gradlew rebuildApiPatches
+        )
+        cd "$basedir"
+    ;;
+    "e" | "edit")
+        cd "$basedir/Glowkit"
+        (
+            set -e
 
-                glowkitstash
-                $gitcmd rebase -i upstream/upstream
-                glowkitunstash
-            )
-            ;;
-        esac
+            glowkitstash
+            $gitcmd rebase -i upstream/upstream
+            glowkitunstash
+        )
     ;;
     "setup")
         if [[ -f "$RCPATH" ]] ; then
@@ -125,17 +102,15 @@ case "$1" in
         echo "'setup' command. View below for details. For essential building and patching, you do not need to do the setup."
         echo ""
         echo " Normal commands:"
-        echo "  * rb, rebuild       | Rebuild patches, can be called from anywhere."
-        echo "  * p, patch          | Apply all patches to the project without building it. Can be run from anywhere."
-        echo "  * j, jar            | Apply all patches and build the project. Can be run from anywhere."
-        echo "  * u, up, upstream   | Updates the submodules used by Glowkit to their latest upstream versions."
+        echo "  * u, up, upstream     | Updates the submodules used by Glowkit to their latest upstream versions."
+        echo "  * upc, upstreamcommit | Creates the correctly-formatted upstream commit after updating upstream."
+        echo "  * c, clean            | Removes all generated files."
         echo ""
         echo " These commands require the setup command before use:"
         echo "  * r, root           | Change directory to the root of the project."
         echo "  * a. api            | Move to the Glowkit directory."
         echo "  * e, edit           | Use to edit a specific patch."
-        echo "                      | Use the argument \"continue\" after the changes have been made"
-        echo "                      | to finish and rebuild patches. Can be called from anywhere."
+        echo "  * con, continue     | After the changes have been made with \"edit\", finish and rebuild patches."
         echo ""
         echo "  * setup             | Add an alias to $RCPATH to allow full functionality of this script. Run as:"
         echo "                      |     . ./glowkit.sh setup"

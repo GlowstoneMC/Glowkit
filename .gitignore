@@ -7,6 +7,9 @@ build/
 .project
 .settings/
 
+# VSCode stuff
+.vscode/
+
 # netbeans
 nbproject/
 nbactions.xml
@@ -22,15 +25,9 @@ dependency-reduced-pom.xml
 .*.sw[a-p]
 
 # various other potential build files
-build/
 bin/
 dist/
 manifest.mf
-
-work/1.*
-work/Bukkit
-work/Spigot
-work/Spigot-API
 
 # Mac filesystem dust
 .DS_Store/
