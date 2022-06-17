@@ -25,13 +25,8 @@ if [ ! -z "$paper" ]; then
     logsuffix="$logsuffix\n\nPaper Changes:\n$spigot"
     if [ -z "$updated" ]; then updated="Paper"; else updated="$updated/Paper"; fi
 fi
-disclaimer="Upstream has released updates that appears to apply and compile correctly.\nThis update has not been tested by Glowstone and as with ANY update, please do your own testing"
 
-if [ ! -z "$1" ]; then
-    disclaimer="$@"
-fi
-
-log="${UP_LOG_PREFIX}Updated Upstream ($updated)\n\n${disclaimer}${logsuffix}"
+log="${UP_LOG_PREFIX}Updated Upstream ($updated)\n\n${logsuffix}"
 
 echo -e "$log" | git commit -F -
 
