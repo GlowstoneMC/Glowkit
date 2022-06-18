@@ -31,5 +31,6 @@ if [ "$updated" == "1" ]; then
     ./gradlew cleanCache || exit 1 # todo: Figure out why this is necessary
     ./gradlew applyApiPatches -Dpaperweight.debug=true || exit 1
     ./gradlew rebuildApiPatches || exit 1
+    $gitcmd add --force "Paper-API-Patches"
 fi
 )
