@@ -5,12 +5,13 @@ on:
     branches:
       - main
     paths:
-      - Paper-API/Patches/*
+      - Paper-API-Patches/*
       - '*.gradle.kts'
       - gradle/**
       - gradle*
       - .gitmodules
       - work/**
+      - .github/workflows/build_deploy.yml
 
 jobs:
   build_deploy:
