@@ -1,0 +1,24 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: mastercoms <mastercoms@tuta.io>
+Date: Sun, 19 Jun 2022 00:26:09 -0400
+Subject: [PATCH] Define repositories for standalone builds
+
+
+diff --git a/build.gradle.kts b/build.gradle.kts
+index 435db1ffe47476bcb7067802faad7aee7e4c3f54..10d65b2080493a3dc72c5a77e60c8fc2ff9bf068 100644
+--- a/build.gradle.kts
++++ b/build.gradle.kts
+@@ -8,6 +8,13 @@ java {
+     withJavadocJar()
+ }
+ 
++repositories {
++    mavenLocal()
++
++    maven("https://repo.glowstone.net/repository/maven-public/")
++    maven("https://repo.glowstone.net/repository/snapshots/")
++}
++
+ val adventureVersion = "4.11.0"
+ val apiAndDocs: Configuration by configurations.creating {
+     attributes {
