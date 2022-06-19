@@ -48,6 +48,7 @@ subprojects {
     }
 
     repositories {
+        mavenLocal()
         maven("https://repo.glowstone.net/repository/maven-public/")
         maven("https://repo.glowstone.net/repository/snapshots/")
         maven("https://repo.glowstone.net/repository/internal/")
