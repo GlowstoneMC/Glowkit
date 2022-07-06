@@ -6,7 +6,7 @@ import io.papermc.paperweight.patcher.tasks.PaperweightPatcherPrepareForDownstre
 plugins {
     java
     `maven-publish`
-    id("io.papermc.paperweight.patcher") version "1.3.7"
+    id("io.papermc.paperweight.patcher") version "1.3.8"
 }
 
 val javaVersion = 17
