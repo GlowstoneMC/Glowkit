@@ -52,7 +52,7 @@ index 8ff78fad47f6086aa289e32590f4fbec24b3d500..496c800c3fb79f49e4b30966b0a393fa
          // Paper start - make MT safe
          java.util.concurrent.locks.ReentrantReadWriteLock lock;
 diff --git a/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java b/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java
-index 345394132df70593800127d34a38f8f8a4dafe00..243bcb4d2715b8dc117871c4303e2868145338de 100644
+index f7cfe6c0d9d52ed72d0d45baaaf856c15769c668..16544b3eead3ecade868f97d2bcaa0b2a8ed0b8c 100644
 --- a/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java
 +++ b/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java
 @@ -29,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
@@ -73,7 +73,7 @@ index 345394132df70593800127d34a38f8f8a4dafe00..243bcb4d2715b8dc117871c4303e2868
          super(file.getName(), new URL[] {file.toURI().toURL()}, parent); // Paper - rewrite LogEvents to contain source jar info
          Preconditions.checkArgument(loader != null, "Loader cannot be null");
  
-@@ -194,6 +194,7 @@ public final class PluginClassLoader extends URLClassLoader { // Spigot
+@@ -215,6 +215,7 @@ public final class PluginClassLoader extends URLClassLoader { // Spigot
                  CodeSigner[] signers = entry.getCodeSigners();
                  CodeSource source = new CodeSource(url, signers);
  
@@ -81,7 +81,7 @@ index 345394132df70593800127d34a38f8f8a4dafe00..243bcb4d2715b8dc117871c4303e2868
                  result = defineClass(name, classBytes, 0, classBytes.length, source);
              }
  
-@@ -208,6 +209,10 @@ public final class PluginClassLoader extends URLClassLoader { // Spigot
+@@ -229,6 +230,10 @@ public final class PluginClassLoader extends URLClassLoader { // Spigot
          return result;
      }
  
