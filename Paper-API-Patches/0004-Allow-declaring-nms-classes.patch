@@ -5,10 +5,10 @@ Subject: [PATCH] Allow declaring nms classes
 
 
 diff --git a/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java b/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java
-index 16544b3eead3ecade868f97d2bcaa0b2a8ed0b8c..75308c5287e686a21259c374f12c50ff3f43680d 100644
+index fed0f7a7ce7bfc41a94cba8f5844341b8d50f708..b54948f0823148622f8ddf7ba6620271a4939e82 100644
 --- a/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java
 +++ b/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java
-@@ -174,9 +174,6 @@ public class PluginClassLoader extends URLClassLoader { // Spigot
+@@ -179,9 +179,6 @@ public class PluginClassLoader extends URLClassLoader { // Spigot
  
      @Override
      protected Class<?> findClass(String name) throws ClassNotFoundException {
