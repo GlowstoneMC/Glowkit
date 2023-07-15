@@ -24,4 +24,4 @@ log="${UP_LOG_PREFIX}Updated Upstream ($updated)\n\n${logsuffix}"
 
 echo -e "$log" | git commit -F -
 
-) || exit 1
+) || exit $?

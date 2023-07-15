@@ -21,7 +21,7 @@ echo
 if [[ "$REPLY" =~ ^[Mm]$ ]]; then
 	git merge origin/$prevbranch
 elif [[ "$REPLY" =~ ^[Rr]$ ]]; then
-	git rebase master
+	git rebase main
 fi
 echo "Dropping to new shell, exit to delete the refs"
 "${SHELL:-bash}" -i

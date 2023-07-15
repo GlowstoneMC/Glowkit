@@ -29,7 +29,7 @@ gitcmd="git -c commit.gpgsign=false"
 
 source "$basedir/scripts/functions.sh"
 
-"$basedir"/scripts/requireDeps.sh || exit 1
+"$basedir"/scripts/requireDeps.sh || exit $?
 
 failed=0
 case "$1" in
@@ -37,14 +37,14 @@ case "$1" in
     (
         cd "$basedir"
         scripts/upstreamMerge.sh "$basedir" "$2"
-    )
+    ) || exit $?
     ;;
     "cu" | "commitup" | "commitupstream" | "upc" | "upcommit" | "upstreamcommit")
     (
         cd "$basedir"
         shift
         scripts/upstreamCommit.sh "$@"
-    )
+    ) || exit $?
     ;;
     "r" | "root")
         cd "$basedir"
