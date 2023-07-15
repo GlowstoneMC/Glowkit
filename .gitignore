@@ -40,11 +40,18 @@ manifest.mf
 .idea/
 out/
 
+# JetBrains Fleet
+.fleet/
+
 # Linux temp files
 *~
 
 # other stuff
 run/
+
+!gradle/wrapper/gradle-wrapper.jar
+
+test-plugin.settings.gradle.kts
 
 /glowkit/
 /Glowkit/

@@ -6,7 +6,7 @@ import io.papermc.paperweight.patcher.tasks.PaperweightPatcherPrepareForDownstre
 plugins {
     java
     `maven-publish`
-    id("io.papermc.paperweight.patcher") version "1.3.8"
+    id("io.papermc.paperweight.patcher") version "1.5.5"
 }
 
 val javaVersion = 17
@@ -66,7 +66,7 @@ val initSubmodules by tasks.registering {
     }
 }
 
-val paperMavenPublicUrl = "https://papermc.io/repo/repository/maven-public/"
+val paperMavenPublicUrl = "https://repo.papermc.io/repository/maven-public/"
 
 paperweight {
     mcDevSourceDir.set(layout.buildDirectory.dir("ignore"))
