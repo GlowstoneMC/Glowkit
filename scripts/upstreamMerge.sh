@@ -15,7 +15,7 @@ function update {
     cd "$workdir/$1"
     ($gitcmd fetch && $gitcmd clean -fd) || exit $?
     if [ $3 == "1" ]; then
-        git switch --detach $2 || exit $?
+        $gitcmd switch --detach $2 || exit $?
     else
         $gitcmd reset --hard $2 -- || exit $?
     fi
