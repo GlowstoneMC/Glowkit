@@ -5,7 +5,9 @@ PS1="$"
 
 function changelog() {
     base=$(git ls-tree HEAD $1  | cut -d' ' -f3 | cut -f1)
-    cd $1 && git log --oneline ${base}..HEAD -- patches/api
+    current=$(cd $1 && git rev-parse HEAD)
+    msg=$(cd $1 && git --no-pager log --oneline ${base}..${current})
+    echo ${msg:-"Reverting from ${base} to ${current}"}
 }
 paper=$(changelog work/Paper)
 
