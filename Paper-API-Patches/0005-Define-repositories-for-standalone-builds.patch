@@ -5,7 +5,7 @@ Subject: [PATCH] Define repositories for standalone builds
 
 
 diff --git a/build.gradle.kts b/build.gradle.kts
-index 435db1ffe47476bcb7067802faad7aee7e4c3f54..10d65b2080493a3dc72c5a77e60c8fc2ff9bf068 100644
+index 3c4dd6eb..bc8d0fb1 100644
 --- a/build.gradle.kts
 +++ b/build.gradle.kts
 @@ -8,6 +8,13 @@ java {
@@ -19,6 +19,6 @@ index 435db1ffe47476bcb7067802faad7aee7e4c3f54..10d65b2080493a3dc72c5a77e60c8fc2
 +    maven("https://repo.glowstone.net/repository/snapshots/")
 +}
 +
- val adventureVersion = "4.11.0"
+ val adventureVersion = "4.12.0"
  val apiAndDocs: Configuration by configurations.creating {
      attributes {
