@@ -34,4 +34,4 @@ if [ "$updated" == "1" ]; then
     ./gradlew rebuildApiPatches || exit 1
     $gitcmd add --force "Paper-API-Patches"
 fi
-)
+) || exit 1

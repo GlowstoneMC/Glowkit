@@ -56,7 +56,7 @@ jobs:
         id: version
         run: |
           minecraft_version=$(./gradlew -q printMinecraftVersion)
-          echo "::set-output name=minecraft_version::$minecraft_version"
+          echo "minecraft_version=$minecraft_version" >> $GITHUB_OUTPUT
 
       - name: Cleanup Gradle Cache
         # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
