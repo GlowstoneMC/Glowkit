@@ -36,14 +36,14 @@ case "$1" in
     "u" | "up" | "upstream")
     (
         cd "$basedir"
-        scripts/upstreamMerge.sh "$basedir" "$2"
+        scripts/upstreamMerge.sh "$basedir" "$2" || exit 1
     )
     ;;
     "cu" | "commitup" | "commitupstream" | "upc" | "upcommit" | "upstreamcommit")
     (
         cd "$basedir"
         shift
-        scripts/upstreamCommit.sh "$@"
+        scripts/upstreamCommit.sh "$@" || exit 1
     )
     ;;
     "r" | "root")
