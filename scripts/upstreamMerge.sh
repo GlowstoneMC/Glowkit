@@ -25,7 +25,7 @@ function update {
 }
 
 #update Paper origin/master
-update Paper "1.19.4"
+update Paper "1.19.3"
 
 if [ "$updated" == "1" ]; then
     cd "$basedir"
