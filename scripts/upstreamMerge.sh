@@ -13,7 +13,12 @@ function getRef {
 }
 function update {
     cd "$workdir/$1"
-    ($gitcmd fetch && $gitcmd clean -fd && ($3 && git switch $2 || $gitcmd reset --hard $2 --)) || exit $?
+    ($gitcmd fetch && $gitcmd clean -fd) || exit $?
+    if [ $3 == "1" ]; then
+        git switch --detach $2 || exit $?
+    else
+        $gitcmd reset --hard $2 -- || exit $?
+    fi
     refRemote=$(git rev-parse HEAD)
     cd ../
     $gitcmd add --force $1
@@ -26,7 +31,7 @@ function update {
 
 #update Paper origin/master
 #update Paper origin/ver/1.19.4
-update Paper f9dc371fd8c56f1ad1359fc3bf1f7a40921ec66f true
+update Paper f9dc371fd8c56f1ad1359fc3bf1f7a40921ec66f 1
 
 if [ "$updated" == "1" ]; then
     cd "$basedir"
