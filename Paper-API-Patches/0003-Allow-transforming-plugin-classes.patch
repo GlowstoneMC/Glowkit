@@ -3,8 +3,9 @@ From: aki_ks <aki@kaysubs.de>
 Date: Tue, 3 Jul 2018 18:09:25 +0200
 Subject: [PATCH] Allow transforming plugin classes
 
+
 diff --git a/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java b/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java
-index 7e5149a2..b4f1c54e 100644
+index 7e5149a21b6747f64425a277c142e69f0ef43b3f..b4f1c54ea58ac2382d5fc9132e2844069ede5ade 100644
 --- a/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java
 +++ b/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java
 @@ -50,7 +50,7 @@ import org.yaml.snakeyaml.error.YAMLException;
@@ -51,7 +52,7 @@ index 7e5149a2..b4f1c54e 100644
          // Paper start - make MT safe
          java.util.concurrent.locks.ReentrantReadWriteLock lock;
 diff --git a/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java b/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java
-index cb3c25ef..ca4e171f 100644
+index cb3c25ef46b279ffdde87f47f729eb8aa7549c1c..ca4e171fd5fe03cdb2888110369743ba54e5937e 100644
 --- a/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java
 +++ b/src/main/java/org/bukkit/plugin/java/PluginClassLoader.java
 @@ -29,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
